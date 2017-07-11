@@ -377,7 +377,7 @@ An Ordered map is used as root container of the application/yang-ids-values+cbor
 
   * Duplicate keys are allowed
 
-This schematic is constructed using a CBOR array comprising pairs of data items, each pair consisting of a key that is immediately followed by a value. Unlike a CBOR map for which the length denotes the number of pairs, the length of the Ordered map denotes the number of items.
+This schematic is constructed using a CBOR array comprising pairs of data items, each pair consisting of a key that is immediately followed by a value. Unlike a CBOR map for which the length denotes the number of pairs, the length of the Ordered map denotes the number of items (i.e. number of keys plus number of values).
 
 The use of this schematic can be inferred from its context or by the presence of a preceding tag. The tag assigned to the Ordered map is defined in {{tags-registry}}.
 
@@ -1013,14 +1013,14 @@ FORMAT:
   GET /c
    
   2.05 Content (Content-Format: application/yang-map+cbor)
-  ordered map of instance-identifier, data-node-value
+  ordered map of single-instance-identifier, data-node-value
 ~~~~
 {: artwork-align="left"}
 
 ~~~~
 FORMAT:
   PUT /c (Content-Format: application/yang-map+cbor)
-  ordered map of instance-identifier, data-node-value
+  ordered map of single-instance-identifier, data-node-value
    
   2.04 Changed
 ~~~~
@@ -1029,7 +1029,7 @@ FORMAT:
 ~~~~
 FORMAT:
   POST /c (Content-Format: application/yang-map+cbor)
-  ordered map of instance-identifier, data-node-value
+  ordered map of single-instance-identifier, data-node-value
     
   2.01 Created
 ~~~~
@@ -1045,6 +1045,9 @@ FORMAT:
 
 The content of the ordered map represents the complete datastore of the server
 at the GET indication of after a successful processing of a PUT or POST request.
+When an Ordered map is used to carry a whole datastore, all data nodes MUST
+be identified using single instance identifiers (i.e. a SID), list instance
+identifiers are not allowed.
 
 ### Full datastore examples {#datastore-example}
 
