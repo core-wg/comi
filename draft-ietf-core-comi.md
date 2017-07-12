@@ -479,7 +479,7 @@ The different usage of Content-formats is
 | FETCH request  | datastore   | /application/yang-identifiers+cbor |
 | FETCH response | datastore   | /application/yang-values+cbor      |
 | iPATCH request | datastore   | /application/yang-patch+cbor       |
-| GET response   | even stream | /application/yang-tree+cbor        |
+| GET response   | event stream| /application/yang-tree+cbor        |
 | POST request   | rpc, action | /application/yang-value+cbor       |
 | POST response  | rpc, action | /application/yang-value+cbor       |
 
@@ -527,7 +527,7 @@ Three CoMI resources are accessible with the following three example paths:
  the set of YANG modules in use by the server changes.
 
 /s:
-: Even stream resource to which YANG notification instances are reported.
+: Event stream resource to which YANG notification instances are reported.
   Notification support is optional, so this resource will not exist if the
 
   server does not support any notifications.
