@@ -371,7 +371,7 @@ When part of a payload, instance identifiers are encoded in CBOR based on the ru
 
 ## CBOR Ordered map schematic {#ordered-map}
 
-An Ordered map is used as root container of the application/yang-ids-values+cbor Content-Format. This datatype share the same functionalities as a CBOR map without the following limitations:
+An Ordered map is used as root container of the application/yang-tree+cbor Content-Format. This datatype share the same functionalities as a CBOR map without the following limitations:
 
   * The ordering of the pairs of data items are preserved from serialization to deserialization.
 
@@ -381,7 +381,7 @@ This schematic is constructed using a CBOR array comprising pairs of data items,
 
 The use of this schematic can be inferred from its context or by the presence of a preceding tag. The tag assigned to the Ordered map is defined in {{tags-registry}}.
 
-In the case of CoMI, the used of the Ordered map as root container of the application/yang-ids-values+cbor Content-Format is inferred, the Ordered map tag is not used.
+In the case of CoMI, the used of the Ordered map as root container of the application/yang-tree+cbor Content-Format is inferred, the Ordered map tag is not used.
 
 
 ## Content-Formats {#content-format}
@@ -425,7 +425,7 @@ equal to the SID of the current schema node minus the SID of the parent. The par
 data node are defined by the coresponding instance-identifier carried in the FETCH request.
   
   
-application/yang-map+cbor:
+application/yang-tree+cbor:
 
 : represents a CBOR YANG document containing a YANG data tree.
 
@@ -437,7 +437,7 @@ application/yang-map+cbor:
   minus the SID of the previous instance-identifier.
 
 
-application/yang-ids+cbor:
+application/yang-identifiers+cbor:
 
 : represents a CBOR YANG document containing a list of data node selectors (i.e. instance identifier).
 
@@ -462,26 +462,26 @@ application/yang-patch+cbor:
 
 : FORMAT: CBOR array of instance-identifier, data-node-value
   
-: DELTA ENCODING: Same as Content-Format application/yang-map+cbor 
+: DELTA ENCODING: Same as Content-Format application/yang-tree+cbor 
 
 
 The different usage of Content-formats is
  summarized in the table below:
 
-| Method | Resource    |          | Content-Format                |
-| GET    | data node   | response | /application/yang-value+cbor  |
-| PUT    | data node   | request  | /application/yang-value+cbor  |
-| POST   | data node   | request  | /application/yang-value+cbor  |
-| DELETE | data node   | n/a      |                               |
-| GET    | datastore   | response | /application/yang-map+cbor    |
-| PUT    | datastore   | request  | /application/yang-map+cbor    |
-| POST   | datastore   | request  | /application/yang-map+cbor    |
-| FETCH  | datastore   | request  | /application/yang-ids+cbor    |
-| FETCH  | datastore   | response | /application/yang-values+cbor |
-| iPATCH | datastore   | request  | /application/yang-patch+cbor  |
-| GET    | even stream | response | /application/yang-map+cbor    |
-| POST   | rpc, action | request  | /application/yang-value+cbor  |
-| POST   | rpc, action | response | /application/yang-value+cbor  |
+| Method | Resource    |          | Content-Format                    |
+| GET    | data node   | response | /application/yang-value+cbor      |
+| PUT    | data node   | request  | /application/yang-value+cbor      |
+| POST   | data node   | request  | /application/yang-value+cbor      |
+| DELETE | data node   | n/a      |                                   |
+| GET    | datastore   | response | /application/yang-tree+cbor       |
+| PUT    | datastore   | request  | /application/yang-tree+cbor       |
+| POST   | datastore   | request  | /application/yang-tree+cbor       |
+| FETCH  | datastore   | request  | /application/yang-identifiers+cbor|
+| FETCH  | datastore   | response | /application/yang-values+cbor     |
+| iPATCH | datastore   | request  | /application/yang-patch+cbor      |
+| GET    | even stream | response | /application/yang-tree+cbor       |
+| POST   | rpc, action | request  | /application/yang-value+cbor      |
+| POST   | rpc, action | response | /application/yang-value+cbor      |
 
 
 # Example syntax {#example-syntax}
@@ -776,7 +776,7 @@ RES: 2.05 Content (Content-Format: application/yang-value+cbor)
 
 The FETCH is used to retrieve multiple data node values. The FETCH request
 payload contains a list of instance-identifier encoded based on the rules
-defined by Content-Format application/yang-ids+cbor in {{content-format}}.
+defined by Content-Format application/yang-identifiers+cbor in {{content-format}}.
 The return response payload contains a list of values  encoded based on the rules
 defined by Content-Format application/yang-values+cbor in {{content-format}}.
 A value MUST be returned for each instance-identifier specified in the request.
@@ -785,7 +785,7 @@ the server but not currently instantiated.
 
 ~~~~
 FORMAT:
-  FETCH /c (Content-Format :application/yang-ids+cbor)
+  FETCH /c (Content-Format :application/yang-identifiers+cbor)
   CBOR array of instance-identifier
 
   2.05 Content (Content-Format: application/yang-values+cbor)
@@ -802,7 +802,7 @@ list (SID 1533) instance identified with name="eth0" are queried.
 
 
 ~~~~
-REQ:  FETCH /c (Content-Format :application/yang-ids+cbor)
+REQ:  FETCH /c (Content-Format :application/yang-identifiers+cbor)
 [
   1719,            / SID 1719 /
   [-186, "eth0"]   / SID 1533 with name = "eth0" /
@@ -1016,14 +1016,14 @@ and delete a whole datastore respectively.
 FORMAT:
   GET /c
    
-  2.05 Content (Content-Format: application/yang-map+cbor)
+  2.05 Content (Content-Format: application/yang-tree+cbor)
   ordered map of single-instance-identifier, data-node-value
 ~~~~
 {: artwork-align="left"}
 
 ~~~~
 FORMAT:
-  PUT /c (Content-Format: application/yang-map+cbor)
+  PUT /c (Content-Format: application/yang-tree+cbor)
   ordered map of single-instance-identifier, data-node-value
    
   2.04 Changed
@@ -1032,7 +1032,7 @@ FORMAT:
 
 ~~~~
 FORMAT:
-  POST /c (Content-Format: application/yang-map+cbor)
+  POST /c (Content-Format: application/yang-tree+cbor)
   ordered map of single-instance-identifier, data-node-value
     
   2.01 Created
@@ -1065,7 +1065,7 @@ map with these two modules is returned:
 ~~~~
 REQ:  GET /c
 
-RES: 2.05 Content (Content-Format :application/yang-map+cbor)
+RES: 2.05 Content (Content-Format :application/yang-tree+cbor)
 [
   1717,                           / Clock (SID 1717) /
     {
@@ -1120,7 +1120,7 @@ An example implementation is:
 FORMAT:
   Get /<stream-resource> Observe(0)
 
-  2.05 Content (Content-Format :application/yang-map+cbor)
+  2.05 Content (Content-Format :application/yang-tree+cbor)
   ordered map of instance-identifier, data-node-value
 ~~~~
 {: artwork-align="left"}
@@ -1137,7 +1137,7 @@ By executing a GET on the /s resource the client receives the following response
 ~~~~
 REQ:  GET /s Observe(0) Token(0x93)
 
-RES:  2.05 Content (Content-Format :application/yang-map+cbor)
+RES:  2.05 Content (Content-Format :application/yang-tree+cbor)
                         Observe(12) Token(0x93)
 [
   60010,                  / example-port-fault (SID 60010) /
@@ -1506,12 +1506,12 @@ This document adds the following resource type to the "Resource Type (rt=) Link 
 
 This document adds the following Content-Format to the "CoAP Content-Formats", within the "Constrained RESTful Environments (CoRE) Parameters" registry.
 
-| Media Type                       | Excoding ID  | Reference |
-| application/yang-value+cbor      | XXX          | RFC XXXX  |
-| application/yang-values+cbor     | XXX          | RFC XXXX  |
-| application/yang-ids+cbor        | XXX          | RFC XXXX  |
-| application/yang-ids-values+cbor | XXX          | RFC XXXX  |
-| application/yang-ipatch+cbor     | XXX          | RFC XXXX  |
+| Media Type                        | Excoding ID  | Reference |
+| application/yang-value+cbor       | XXX          | RFC XXXX  |
+| application/yang-values+cbor      | XXX          | RFC XXXX  |
+| application/yang-identifiers+cbor | XXX          | RFC XXXX  |
+| application/yang-tree+cbor        | XXX          | RFC XXXX  |
+| application/yang-ipatch+cbor      | XXX          | RFC XXXX  |
 
 // RFC Ed.: replace XXX with assigned IDs and remove this note.
 // RFC Ed.: replace RFC XXXX with this RFC number and remove this note.
@@ -1523,8 +1523,8 @@ This document adds the following media types to the "Media Types" registry.
 | Name                 | Template                         | Reference |
 | yang-value+cbor      | application/yang-value+cbor      | RFC XXXX  |
 | yang-values+cbor     | application/yang-values+cbor     | RFC XXXX  |
-| yang-ids+cbor        | application/yang-ids+cbor        | RFC XXXX  |
-| yang-ids-values+cbor | application/yang-ids-values+cbor | RFC XXXX  |
+| yang-identifiers+cbor| application/yang-identifiers+cbor| RFC XXXX  |
+| yang-tree+cbor       | application/yang-tree+cbor       | RFC XXXX  |
 | yang-ipatch+cbor     | application/yang-ipatch+cbor     | RFC XXXX  |
 
 
