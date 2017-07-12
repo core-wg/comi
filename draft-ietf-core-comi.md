@@ -437,7 +437,7 @@ application/yang-tree+cbor:
   minus the SID of the previous instance-identifier.
 
 
-application/yang-identifiers+cbor:
+application/yang-selectors+cbor:
 
 : represents a CBOR YANG document containing a list of data node selectors (i.e. instance identifier).
 
@@ -468,20 +468,20 @@ application/yang-patch+cbor:
 The different usage of Content-formats is
  summarized in the table below:
 
-| Method         | Resource    | Content-Format                     |
-| GET response   | data node   | /application/yang-value+cbor       |
-| PUT request    | data node   | /application/yang-value+cbor       |
-| POST request   | data node   | /application/yang-value+cbor       |
-| DELETE         | data node   | n/a                                |
-| GET response   | datastore   | /application/yang-tree+cbor        |
-| PUT request    | datastore   | /application/yang-tree+cbor        |
-| POST request   | datastore   | /application/yang-tree+cbor        |
-| FETCH request  | datastore   | /application/yang-identifiers+cbor |
-| FETCH response | datastore   | /application/yang-values+cbor      |
-| iPATCH request | datastore   | /application/yang-patch+cbor       |
-| GET response   | event stream| /application/yang-tree+cbor        |
-| POST request   | rpc, action | /application/yang-value+cbor       |
-| POST response  | rpc, action | /application/yang-value+cbor       |
+| Method         | Resource     | Content-Format                   |
+| GET response   | data node    | /application/yang-value+cbor     |
+| PUT request    | data node    | /application/yang-value+cbor     |
+| POST request   | data node    | /application/yang-value+cbor     |
+| DELETE         | data node    | n/a                              |
+| GET response   | datastore    | /application/yang-tree+cbor      |
+| PUT request    | datastore    | /application/yang-tree+cbor      |
+| POST request   | datastore    | /application/yang-tree+cbor      |
+| FETCH request  | datastore    | /application/yang-selectors+cbor |
+| FETCH response | datastore    | /application/yang-values+cbor    |
+| iPATCH request | datastore    | /application/yang-patch+cbor     |
+| GET response   | event stream | /application/yang-tree+cbor      |
+| POST request   | rpc, action  | /application/yang-value+cbor     |
+| POST response  | rpc, action  | /application/yang-value+cbor     |
 
 
 # Example syntax {#example-syntax}
@@ -776,7 +776,7 @@ RES: 2.05 Content (Content-Format: application/yang-value+cbor)
 
 The FETCH is used to retrieve multiple data node values. The FETCH request
 payload contains a list of instance-identifier encoded based on the rules
-defined by Content-Format application/yang-identifiers+cbor in {{content-format}}.
+defined by Content-Format application/yang-selectors+cbor in {{content-format}}.
 The return response payload contains a list of values  encoded based on the rules
 defined by Content-Format application/yang-values+cbor in {{content-format}}.
 A value MUST be returned for each instance-identifier specified in the request.
@@ -785,7 +785,7 @@ the server but not currently instantiated.
 
 ~~~~
 FORMAT:
-  FETCH /c (Content-Format :application/yang-identifiers+cbor)
+  FETCH /c (Content-Format :application/yang-selectors+cbor)
   CBOR array of instance-identifier
 
   2.05 Content (Content-Format: application/yang-values+cbor)
@@ -802,7 +802,7 @@ list (SID 1533) instance identified with name="eth0" are queried.
 
 
 ~~~~
-REQ:  FETCH /c (Content-Format :application/yang-identifiers+cbor)
+REQ:  FETCH /c (Content-Format :application/yang-selectors+cbor)
 [
   1719,            / SID 1719 /
   [-186, "eth0"]   / SID 1533 with name = "eth0" /
@@ -1509,7 +1509,7 @@ This document adds the following Content-Format to the "CoAP Content-Formats", w
 | Media Type                        | Excoding ID  | Reference |
 | application/yang-value+cbor       | XXX          | RFC XXXX  |
 | application/yang-values+cbor      | XXX          | RFC XXXX  |
-| application/yang-identifiers+cbor | XXX          | RFC XXXX  |
+| application/yang-selectors+cbor   | XXX          | RFC XXXX  |
 | application/yang-tree+cbor        | XXX          | RFC XXXX  |
 | application/yang-ipatch+cbor      | XXX          | RFC XXXX  |
 
@@ -1523,7 +1523,7 @@ This document adds the following media types to the "Media Types" registry.
 | Name                 | Template                         | Reference |
 | yang-value+cbor      | application/yang-value+cbor      | RFC XXXX  |
 | yang-values+cbor     | application/yang-values+cbor     | RFC XXXX  |
-| yang-identifiers+cbor| application/yang-identifiers+cbor| RFC XXXX  |
+| yang-selectors+cbor  | application/yang-selectors+cbor  | RFC XXXX  |
 | yang-tree+cbor       | application/yang-tree+cbor       | RFC XXXX  |
 | yang-ipatch+cbor     | application/yang-ipatch+cbor     | RFC XXXX  |
 
