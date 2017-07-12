@@ -468,20 +468,20 @@ application/yang-patch+cbor:
 The different usage of Content-formats is
  summarized in the table below:
 
-| Method | Resource    |          | Content-Format                    |
-| GET    | data node   | response | /application/yang-value+cbor      |
-| PUT    | data node   | request  | /application/yang-value+cbor      |
-| POST   | data node   | request  | /application/yang-value+cbor      |
-| DELETE | data node   | n/a      |                                   |
-| GET    | datastore   | response | /application/yang-tree+cbor       |
-| PUT    | datastore   | request  | /application/yang-tree+cbor       |
-| POST   | datastore   | request  | /application/yang-tree+cbor       |
-| FETCH  | datastore   | request  | /application/yang-identifiers+cbor|
-| FETCH  | datastore   | response | /application/yang-values+cbor     |
-| iPATCH | datastore   | request  | /application/yang-patch+cbor      |
-| GET    | even stream | response | /application/yang-tree+cbor       |
-| POST   | rpc, action | request  | /application/yang-value+cbor      |
-| POST   | rpc, action | response | /application/yang-value+cbor      |
+| Method         | Resource    | Content-Format                     |
+| GET response   | data node   | /application/yang-value+cbor       |
+| PUT request    | data node   | /application/yang-value+cbor       |
+| POST request   | data node   | /application/yang-value+cbor       |
+| DELETE         | data node   | n/a                                |
+| GET response   | datastore   | /application/yang-tree+cbor        |
+| PUT request    | datastore   | /application/yang-tree+cbor        |
+| POST request   | datastore   | /application/yang-tree+cbor        |
+| FETCH request  | datastore   | /application/yang-identifiers+cbor |
+| FETCH response | datastore   | /application/yang-values+cbor      |
+| iPATCH request | datastore   | /application/yang-patch+cbor       |
+| GET response   | even stream | /application/yang-tree+cbor        |
+| POST request   | rpc, action | /application/yang-value+cbor       |
+| POST response  | rpc, action | /application/yang-value+cbor       |
 
 
 # Example syntax {#example-syntax}
