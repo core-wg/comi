@@ -414,7 +414,7 @@ application/yang-value+cbor:
   
 application/yang-values+cbor:
 
-: represents a YANG document containing a CBOR array of data node value.
+: represents a YANG document containing a list of data node value.
 
 : FORMAT: CBOR array of data-node-value
 
@@ -427,10 +427,9 @@ data node are defined by the coresponding instance-identifier carried in the FET
   
 application/yang-map+cbor:
 
-: represents a CBOR YANG document containing a one or multiple instance-identifier
-  and associated data node value.
+: represents a CBOR YANG document containing a YANG data tree.
 
-: FORMAT: ordered map of instance-identifier, data-node-value
+: FORMAT: ordered map of single-instance-identifier, data-node-value
 
 : DELTA ENCODING: The SID part of the first instance-identifier within the ordered map is
   encoded using its absolute value. Subsequent instance-identifiers are
@@ -440,7 +439,7 @@ application/yang-map+cbor:
 
 application/yang-ids+cbor:
 
-: represents a CBOR YANG document containing an array of instance identifiers.
+: represents a CBOR YANG document containing a list of data node selectors (i.e. instance identifier).
 
 : FORMAT: CBOR array of instance-identifier
   
@@ -451,9 +450,8 @@ application/yang-ids+cbor:
   
 
 application/yang-patch+cbor:
-: this CBOR YANG document share the same content, format and delta encoding rules as
-  Content-Format application/yang-map+cbor but have a specific semantics.
-  
+: represents a CBOR YANG document containing a list of data nodes to be replace, create, or delete.
+
 : For each data node instance, D, for which the
   instance identifier is the same as for a data node instance, I, in the targeted
   resource: the data node value of D replaces the data node value of I. When
@@ -461,6 +459,11 @@ application/yang-patch+cbor:
   the targeted resource does not contain a data node instance with the same
   instance identifier as D, a new data node instance is created in the targeted
   resource with the same instance identifier and data node value as D.
+
+: FORMAT: CBOR array of instance-identifier, data-node-value
+  
+: DELTA ENCODING: Same as Content-Format application/yang-map+cbor 
+
 
 The different usage of Content-formats is
  summarized in the table below:
@@ -840,7 +843,8 @@ invocation of "ACTION" and "RPC" resources.
 Refer to {{rpc}} for details on "ACTION" and "RPC" resources.
 
 A request to create data node resource is sent with a confirmable CoAP POST message.
-The URI specify the data node to be instantiated.
+The URI specify the data node to be instantiated. In the case of a YANG list, the
+URI point on the list, not the list instance to be created.
 
 ~~~~
 FORMAT:
@@ -858,7 +862,7 @@ a "4.09 Conflict" response code MUST be returned
 #### Post example {#post-example}
 
 The example uses the interface list from {{ietf-system}}.
-Example is creating a new list instance of the container interface (SID = 1533):
+Example is creating a new list instance within the interface list (SID = 1533):
 
 
 ~~~~
