@@ -20,7 +20,7 @@ author:
   region: Quebec
   code: J2J 2V2
   country: Canada
-  phone: "+14503750556"
+  email: michel.veillette@trilliantinc.com
 - ins: P. van der Stok
   role: editor
   name: Peter van der Stok
@@ -50,7 +50,6 @@ author:
   code: '93065'
   country: USA
   email: andy@yumaworks.com
-  email: michel.veillette@trilliantinc.com
 normative:
   RFC2119:
   RFC4648:
@@ -68,9 +67,7 @@ normative:
   I-D.veillette-core-yang-library:
 informative:
   RFC4293:
-  RFC6241:
   RFC6347:
-  RFC6643:
   RFC6690:
   RFC7159:
   RFC7223:
@@ -83,20 +80,6 @@ informative:
     date: false
     seriesinfo:
       Web: http://www.w3.org/xml
-  OMA:
-    title: OMA-TS-LightweightM2M-V1_0-20131210-C
-    author:
-    - org: Open Mobile Alliance (OMA)
-    date: false
-    seriesinfo:
-      Web: http://technical.openmobilealliance.org/Technical/current_releases.aspx
-  OMNA:
-    title: Open Mobile Naming Authority (OMNA)
-    author:
-    - org: Open Mobile Alliance (OMA)
-    date: false
-    seriesinfo:
-      Web: http://http://technical.openmobilealliance.org/Technical/technical-information/omna
   netconfcentral:
     title: 'NETCONF Central: library of YANG modules'
     author:
@@ -104,13 +87,6 @@ informative:
     date: false
     seriesinfo:
       Web: http://www.netconfcentral.org/modulelist
-  mibreg:
-    title: Structure of Management Information (SMI) Numbers (MIB Module Registrations)
-    author:
-    - org: IANA
-    date: false
-    seriesinfo:
-      Web: http://www.iana.org/assignments/smi-numbers/smi-numbers.xhtml/
   yang-cbor:
     title: yang-cbor Registry
     author:
@@ -143,7 +119,7 @@ The Constrained Application Protocol (CoAP) {{RFC7252}} is designed for
 Machine to Machine (M2M) applications such as smart energy, smart city and building control.
 Constrained devices need to be managed in an automatic fashion to handle
 the large quantities of devices that are expected in
-future installations. The messages between devices need to be as small and
+future installations. Messages between devices need to be as small and
 infrequent as possible. The implementation
 complexity and runtime resources need to be as small as possible.
 
@@ -153,7 +129,7 @@ complementary to {{RFC8040}} which describes a REST-like interface
 called RESTCONF, which uses HTTP methods to access structured data
 defined in YANG.
 
-The use of standardized data sets, specified in a standardized language such
+The use of standardized data models specified in a standardized language, such
 as YANG, promotes interoperability between devices and applications from
 different manufacturers.
 
@@ -161,7 +137,7 @@ CoMI and RESTCONF are intended to work in a stateless client-server fashion.
 They use a single round-trip to complete a single editing transaction, where
 NETCONF needs up to 10 round trips.
 
-To promote small packets, CoMI uses a YANG to CBOR mapping
+To promote small messges, CoMI uses a YANG to CBOR mapping
 {{I-D.ietf-core-yang-cbor}} and numeric identifiers
 {{I-D.ietf-core-sid}} to minimize CBOR payloads and URI length.
 
@@ -215,14 +191,14 @@ instance identifier:
 : List instance identifier or single instance identifier.
 
 data node value:
-: Value assigned to a data node instance. Data node values are serialized into
+: The value assigned to a data node instance. Data node values are serialized into
   the payload according to the rules defined in section 4 of {{I-D.ietf-core-yang-cbor}}.
 
 
 # CoMI Architecture {#comi-architecture}
 
-This section describes the CoMI architecture to use CoAP for the reading
-and modifying the content of a datastore used for the management of the instrumented
+This section describes the CoMI architecture to use CoAP for reading and
+modifying the content of datastore(s) used for the management of the instrumented
 node.
 
 
@@ -270,15 +246,15 @@ architecture. The different numbered components of {{archit}} are discussed acco
 
 
 (4) Request, Indication, Response, Confirm:
-: Processes performed by the CoMI clients and servers.
+: The processes performed by the CoMI clients and servers.
 
 
 (5) Datastore:
-: Resource used to access configuration data, state data, RPCs and actions. A CoMI server may support multiple datastores to support more complex operations such as configuration rollback, scheduled update.
+: A resource used to access configuration data, state data, RPCs and actions. A CoMI server may support multiple datastores to support more complex operations such as configuration rollback, scheduled update.
 
 
 (6) Event stream:
-: Observable resource used to get real time notifications. A CoMI server may support multiple Event streams serving different purposes such as normal monitoring, diagnostic, syslog, security monitoring.
+: An observable resource used to get real time notifications. A CoMI server may support multiple Event streams serving different purposes such as normal monitoring, diagnostic, syslog, security monitoring.
 
 
 (7) Security:
@@ -316,17 +292,17 @@ cited below:
   * default values.
 
 
-## Compression of YANG identifiers {#object-id-compression}
+## Compression of YANG identifiers {#id-compression}
 
 In the YANG specification, items are identified with a name string. In order
 to significantly reduce the size of identifiers used in CoMI, numeric
-object identifiers, SIDs, are used instead of these strings.
+ identifiers are used instead of these strings.
 YANG Schema Item iDentifier (SID) is defined in {{I-D.ietf-core-yang-cbor}} section 2.1.
 
 When used in a URI, SIDs are encoded in based64 using the URL and Filename safe
 alphabet as defined by [RFC4648] section 5. The last 6 bits encoded is always aligned
 with the least significant 6 bits of the SID represented using an unsigned integer.
-'A' characters (value 0) at the start of the resulting stirng are removed.
+'A' characters (value 0) at the start of the resulting string are removed.
 
 ~~~~
 SID in basae64 = URLsafeChar[SID >> 60 & 0x3F] |
@@ -364,24 +340,24 @@ The resulting base64 representation of SID 1717 is "a1"
 
 ## Instance identifier {#instance-identifier}
 
-A instance identifier is used to uniquely identify a particular data node instance within a datastore. This YANG built-in type is defined in {{RFC7950}} section 9.13. An instance identifier is composed of the data node identifier (i.e. a SID) and for data nodes within list(s) the keys used to index within these list(s). 
+Instance identifiers are used to uniquely identify data node instances within a datastore. This YANG built-in type is defined in {{RFC7950}} section 9.13. An instance identifier is composed of the data node identifier (i.e. a SID) and for data nodes within list(s) the keys used to index within these list(s). 
 
 When part of a payload, instance identifiers are encoded in CBOR based on the rules defined in {{I-D.ietf-core-yang-cbor}} section 5.13.1. When part of a URI, the SID is appended to the URI of the targeted datastore, the keys are specified using the 'k' URI-Query as defined in {{query}}.
 
 
-## CBOR Ordered map schematic {#ordered-map}
+## CBOR ordered map schematic {#ordered-map}
 
-An Ordered map is used as root container of the application/yang-tree+cbor Content-Format. This datatype share the same functionalities as a CBOR map without the following limitations:
+An ordered map is used as a root container of the application/yang-tree+cbor Content-Format. This datatype share the same functionalities as a CBOR map without the following limitations:
 
-  * The ordering of the pairs of data items are preserved from serialization to deserialization.
+  * The ordering of the pairs of data items is preserved from serialization to deserialization.
 
   * Duplicate keys are allowed
 
-This schematic is constructed using a CBOR array comprising pairs of data items, each pair consisting of a key that is immediately followed by a value. Unlike a CBOR map for which the length denotes the number of pairs, the length of the Ordered map denotes the number of items (i.e. number of keys plus number of values).
+This schematic is constructed using a CBOR array comprising pairs of data items, each pair consisting of a key that is immediately followed by a value. Unlike a CBOR map for which the length denotes the number of pairs, the length of the ordered map denotes the number of items (i.e. number of keys plus number of values).
 
 The use of this schematic can be inferred from its context or by the presence of a preceding tag. The tag assigned to the Ordered map is defined in {{tags-registry}}.
 
-In the case of CoMI, the used of the Ordered map as root container of the application/yang-tree+cbor Content-Format is inferred, the Ordered map tag is not used.
+In the case of CoMI, the use of the ordered map as the root container of the application/yang-tree+cbor Content-Format is inferred, the Ordered map tag is not used.
 
 
 ## Content-Formats {#content-format}
@@ -399,32 +375,31 @@ The following Content-formats are defined:
 application/yang-value+cbor:
 
 : represents a CBOR YANG document containing one YANG data node value.
-  A YANG data node instance can be a leaf, a container, a list, a list instance,
+  The YANG data node instance can be a leaf, a container, a list, a list instance,
   a RPC input, a RPC output, an action input, an action output, a leaf-list, an anydata
   or an anyxml. The CBOR encoding for each of these YANG data node instances are defined in
   {{I-D.ietf-core-yang-cbor}} section 4.
 
 : FORMAT: data-node-value
   
-: DELTA ENCODING: SIDs included in YANG containers, list instances, RPC inputs, RPC outputs,
-  action inputs, actions output and anydata are encoding using a delta value equal to the SID
-  of the current schema node minus the SID of the parent. The parent SID of root data
+: DELTA ENCODING: SIDs included in a YANG container, a list instance, a RPC input, a RPC output,
+  an action input, an actions output and an anydata are encoded using a delta value equal to the
+  SID of the current schema node minus the SID of the parent. The parent SID of root data
   nodes is defined by the URI carried in the associated request (i.e. GET, PUT, POST).
 
   
 application/yang-values+cbor:
 
-: represents a YANG document containing a list of data node value.
+: represents a YANG document containing a list of data node values.
 
 : FORMAT: CBOR array of data-node-value
 
-: DELTA ENCODING: SIDs included in YANG containers and list instances
+: DELTA ENCODING: SIDs included in a YANG container, a list instance and an anydata are encoded
+  using a delta value equal to the SID of the current schema node minus the SID of the parent.
+  The parent SID of root data nodes is defined by the corresponding instance-identifier carried
+  in the FETCH request.
 
-The parent SID used by root data nodes of each data node value are encoding using a delta value
-equal to the SID of the current schema node minus the SID of the parent. The parent SID of root
-data node are defined by the coresponding instance-identifier carried in the FETCH request.
-  
-  
+
 application/yang-tree+cbor:
 
 : represents a CBOR YANG document containing a YANG data tree.
@@ -450,7 +425,7 @@ application/yang-selectors+cbor:
   
 
 application/yang-patch+cbor:
-: represents a CBOR YANG document containing a list of data nodes to be replace, create, or delete.
+: represents a CBOR YANG document containing a list of data nodes to be replaced, created, or deleted.
 
 : For each data node instance, D, for which the
   instance identifier is the same as for a data node instance, I, in the targeted
@@ -465,8 +440,7 @@ application/yang-patch+cbor:
 : DELTA ENCODING: Same as Content-Format application/yang-tree+cbor 
 
 
-The different usage of Content-formats is
- summarized in the table below:
+The different Content-formats usage is  summarized in the table below:
 
 | Method         | Resource     | Content-Format                   |
 | GET response   | data node    | /application/yang-value+cbor     |
@@ -482,7 +456,7 @@ The different usage of Content-formats is
 | GET response   | event stream | /application/yang-tree+cbor      |
 | POST request   | rpc, action  | /application/yang-value+cbor     |
 | POST response  | rpc, action  | /application/yang-value+cbor     |
-
+{: align="left"}
 
 # Example syntax {#example-syntax}
 
@@ -511,46 +485,37 @@ but not compulsory (see {{discovery}}).
 Three CoMI resources are accessible with the following three example paths:
 
 /c:
-: Datastore resource with path "/c" and using CBOR content encoding
- format.
-  Sub-resouces of format /c/instance-identifier may be available
- to access
+: Datastore resource with path "/c" and using CBOR content encoding format.
+  Sub-resouces of format /c/instance-identifier may be available to access
   directly each data node resource for this datastore.
 
 /mod.uri:
-: URI identifying the location of the YANG module library
- uses by this server,
+: URI identifying the location of the YANG module library used by this server,
   with path "/mod.uri" and Content-Format "text/plain; charset=utf-8". An ETag
-  MUST be maintained for this
- resource by the server, which MUST be changed to
-  a new value when
- the set of YANG modules in use by the server changes.
+  MUST be maintained for this resource by the server, which MUST be changed to
+  a new value when the set of YANG modules in use by the server changes.
 
 /s:
 : Event stream resource to which YANG notification instances are reported.
   Notification support is optional, so this resource will not exist if the
-
   server does not support any notifications.
 
-The mapping of YANG data node instances to CoMI resources is as
- follows.
-Every data node of the YANG modules loaded in the CoMI server
- represents
-a sub-resource of the datastore resource (e.g. /c/instance-
-identifier)
-.
+The mapping of YANG data node instances to CoMI resources is as follows.
+Every data node of the YANG modules loaded in the CoMI server represents
+a sub-resource of the datastore resource (e.g. /c/instance-identifier).
 
-When multiple instances of a list node exist, instance selection is possible
+When multiple instances of a list exist, instance selection is possible
 as described in {{query}}, {{fetch}}, and {{get-example}}.
 
 The description of the management collection interface, with if=core.c, is
 shown in the table below, following the guidelines of {{I-D.ietf-core-interfaces}}:
 
-| Function            | Default path             | rt                    |
+| Function            | Recommended path         | rt                    |
 | Datastore           | /c                       | core.c.datastore      |
 | Data node           | /c/instance-identifier   | core.c.datanode       |
 | YANG module library | /mod.uri                 | core.c.moduri         |
 | Event steam         | /s                       | core.c.eventstream    |
+{: align="left"}
 
 The path values are example values. On discovery, the server makes the actual
 path values known for these four resources.
@@ -565,15 +530,17 @@ The methods used by CoMI are:
 | Operation | Description |
 | GET       | Retrieve the datastore resource or a data node resource |
 | FETCH     | Retrieve specific data nodes within a datastore resource |
-| POST      | Create a datastore resource or a data node resource, invoke a RPC or action |
+| POST      | Create a datastore resource or a data node resource, invoke an RPC or action |
 | PUT       | Create or replace a datastore resource or a data node resource |
 | iPATCH    | Idem-potently create, replace, and delete data node resource(s) within a datastore resource |
 | DELETE    | Delete a datastore resource or a data node resource |
+{: align="left"}
 
 There is one Uri-Query option for the GET, PUT, POST, and DELETE methods.
 
 | Uri-Query option | Description  |
 | k                | Select an instance within YANG list(s) |
+{: align="left"}
 
 This parameter is not used for FETCH and iPATCH, because their request payloads
 support list instance selection.
@@ -584,7 +551,7 @@ support list instance selection.
 The "k" (key) parameter specifies a specific instance of a data node.
 The SID in the URI is followed by the (?k=key1, key2,..). Where SID identifies
 a data node, and key1, key2 are the values of the key leaves that specify
-an instance. List can have multiple keys, and lists can be part
+an instance. Lists can have multiple keys, and lists can be part
 of lists. The order of key value generation is given recursively by:
 
 * For a given list, if a parent data node is a list, generate the keys for the parent list first.
@@ -605,16 +572,17 @@ Key values are encoded using the rules defined in the following table.
 | identityref                 | int2str(key)                    |
 | union                       | urlSafeBase64(CBORencode(key))  |
 | instance-identifier         | urlSafeBase64(CBORencode(key))  |
+{: align="left"}
 
 In this table:
 
-  * The method int2str() is used to convert a integer value to a string. For example, int2str(0x0123) return  the string "291". 
+  * The method int2str() is used to convert an integer value to a string. For example, int2str(0x0123) return  the string "291". 
 
-  * The method urlSafeBase64() is used to convert a binary string to base64 using the URL and Filename safe alphabet as defined by [RFC4648] section 5. For example, urlSafeBase64(\xF9\x56\xA1\x3C) retrun the string "-VahPA".
+  * The method urlSafeBase64() is used to convert a binary string to base64 using the URL and Filename safe alphabet as defined by [RFC4648] section 5. For example, urlSafeBase64(\xF9\x56\xA1\x3C) return the string "-VahPA".
 
   * The method CBORencode() is used to convert a YANG value to CBOR as specified in {{I-D.ietf-core-yang-cbor}} section 5, item 8.
 
-The resulting key string is encoded in a Uri-Query as specify in {{RFC7252}} section 6.5.
+The resulting key string is encoded in a Uri-Query as specified in {{RFC7252}} section 6.5.
 
   
 ## Data Retrieval {#data-retrieval}
@@ -632,6 +600,7 @@ There are two additional Uri-Query options for the GET and FETCH methods.
 | Uri-Query option | Description |
 |  c  |  Control selection of configuration and non-configuration data nodes (GET and FETCH)  |
 |  d  |  Control retrieval of default values. |
+{: align="left"}
 
 ### Using the 'c' Uri-Query option {#content}
 
@@ -641,9 +610,10 @@ requested data nodes will be processed in the reply.
 The allowed values are:
 
 | Value | Description |
-|  c  |  Return only configuration descendant data nodes |
-|  n  |  Return only non-configuration descendant data nodes  |
-|  a  |  Return all descendant data nodes  |
+|  c    |  Return only configuration descendant data nodes |
+|  n    |  Return only non-configuration descendant data nodes  |
+|  a    |  Return all descendant data nodes  |
+{: align="left"}
 
 This parameter is only allowed for GET and FETCH methods on datastore and
 data node resources.  A 4.02 (Bad Option) error is returned if used for other
@@ -659,9 +629,10 @@ descendant nodes of the requested data nodes will be processed.
 
 The allowed values are:
 
-| Value | Description                                                                                           |
-| a     | All data nodes are reported. Defined as 'report-all' in section 3.1 of {{RFC6243}}.                   |
+| Value | Description |
+| a     | All data nodes are reported. Defined as 'report-all' in section 3.1 of {{RFC6243}}. |
 | t     | Data nodes set to the YANG default are not reported. Defined as 'trim' in section 3.2 of {{RFC6243}}. |
+{: align="left"}
 
 If the target of a GET or FETCH method is a data node that represents a leaf
 that has a default value, and the leaf has not been given a value by any
@@ -681,7 +652,7 @@ If this Uri-Query option is not present, the default value is 't'.
 ### GET {#get-operation}
 
 A request to read the values of a data node instance is sent with a confirmable
-CoAP GET message. A instance identifier is specified in the URI path
+CoAP GET message. An instance identifier is specified in the URI path
 prefixed with the example path /c.
 
 
@@ -714,7 +685,7 @@ RES: 2.05 Content (Content-Format: application/yang-value+cbor)
 {: artwork-align="left"}
 
 The next example represents the retrieval of a YANG container. In this
-case, the CoMI client perform a GET request on the clock container
+case, the CoMI client performs a GET request on the clock container
 (SID = 1717; base64: a1). The container returned is encoded using a
 CBOR map as specified by {{I-D.ietf-core-yang-cbor}} section 4.2.
 
@@ -729,7 +700,7 @@ RES: 2.05 Content (Content-Format: application/yang-value+cbor)
 ~~~~
 {: artwork-align="left"}
 
-This example show the retrieval of the /interfaces/interface YANG list
+This example shows the retrieval of the /interfaces/interface YANG list
 accessed using SID 1533 (base64: X9). The return payload is encoded using
 a CBOR array as specified by {{I-D.ietf-core-yang-cbor}} section 4.4.1
 containing 2 instances.
@@ -777,11 +748,11 @@ RES: 2.05 Content (Content-Format: application/yang-value+cbor)
 The FETCH is used to retrieve multiple data node values. The FETCH request
 payload contains a list of instance-identifier encoded based on the rules
 defined by Content-Format application/yang-selectors+cbor in {{content-format}}.
-The return response payload contains a list of values  encoded based on the rules
+The return response payload contains a list of values encoded based on the rules
 defined by Content-Format application/yang-values+cbor in {{content-format}}.
 A value MUST be returned for each instance-identifier specified in the request.
-A CBOR null is returned for each data node requested by the client, supported by
-the server but not currently instantiated.
+A CBOR null is returned for each data node requested by the client, not supported
+by the server or not currently instantiated.
 
 ~~~~
 FORMAT:
@@ -842,9 +813,9 @@ The CoAP POST operation is used in CoMI for creation of data node resources and 
 invocation of "ACTION" and "RPC" resources.
 Refer to {{rpc}} for details on "ACTION" and "RPC" resources.
 
-A request to create data node resource is sent with a confirmable CoAP POST message.
-The URI specify the data node to be instantiated. In the case of a YANG list, the
-URI point on the list, not the list instance to be created.
+A request to create a data node resource is sent with a confirmable CoAP POST message.
+The URI specifies the data node to be instantiated at the exception of list intances.
+In this case, for compactness, the URI specifies the list for which an instance is created.
 
 ~~~~
 FORMAT:
@@ -924,18 +895,16 @@ RES:  2.04 Changed
 
 ### iPATCH {#ipatch-operation}
 
-One or multiple data node instances are replaced with the idem-potent
+One or multiple data node instances are replaced with the idempotent
 iPATCH method {{RFC8132}}. A request is sent with a confirmable CoAP iPATCH message.
 
 There are no Uri-Query options for the iPATCH method.
 
 The processing of the iPATCH command is specified by Content-Format application/yang-patch+cbor.
-The CBOR patch payload describes the changes to be made to the targeted YANG data nodes.
-The payload is an array of instance identifier, data node value pairs. 
-If the CBOR patch payload contains data node instances that are not present
-in the target, these instances are added. If the target contains the specified instance,
-the contents of the instances are replaced with the values of the payload.
-Null values indicate the removal of existing values.
+In summary, if the CBOR patch payload contains a data node instance that is not present
+in the target, this instance is added. If the target contains the specified instance,
+the content of this instance is replaced with the value of the payload.
+A null value indicates the removal of an existing data node instance.
 
 
 ~~~~
@@ -1094,24 +1063,24 @@ of clients. The recommended path of the default event stream is /s.
 The server MAY support additional event stream resources to address different 
 notification needs.
 
-Reception of generated notification instances is enabled with the CoAP Observe
+Reception of notification instances is enabled with the CoAP Observe
 {{RFC7641}} function. Clients subscribe to the notifications by sending a
 GET request with an "Observe" option, specifying the /s resource when the
 default stream is selected.
 
-Each response payload carry one or multiple notifications. The number of
+Each response payload carries one or multiple notifications. The number of
 notification reported and the conditions used to remove notifications
-from the reported list is left to the implementation of the CoMI server.
+from the reported list is left to the implementers.
 When multiple notifications are reported, they MUST be ordered starting from
-the newest at index zero.
+the newest notification at index zero.
 
 An example implementation is:
 
 > Every time an event is generated, the generated notification instance is
-> appended to the chosen stream(s). After appending the instance, the contents
+> appended to the chosen stream(s). After appending the instance, the content
 > of the instance is sent to all clients observing the modified stream.
 
-> Dependent on the storage space allocated to the notification stream, the
+> Dependending on the storage space allocated to the notification stream, the
 > oldest notifications that do not fit inside the notification stream storage
 > space are removed.
 
@@ -1293,12 +1262,12 @@ of multiple blocks may be required to process the complete data field.
 
 Beware of race conditions. Blocks are filled one at a time and care should
 be taken that the whole data representation is sent in multiple blocks sequentially
-without interruption. In the server, values are changed, lists are re-ordered,
+without interruption. On the server, values are changed, lists are re-ordered,
 extended or reduced. When these actions happen during the serialization of
 the contents of the resource, the transported results do not correspond with
 a state having occurred in the server; or worse the returned values are inconsistent.
-For example: array length does not correspond with actual number of items.
-It may be advisable to use CBOR maps or CBOR arrays of undefined length which
+For example: array length does not correspond with the actual number of items.
+It may be advisable to use CBOR maps or CBOR arrays of undefined length, which
 are foreseen for data streaming purposes.
 
 
@@ -1309,7 +1278,7 @@ by sending a GET request to "/.well-known/core" including a resource type
 (RT) parameter with the value "core.c.datastore" {{RFC6690}}.
 Upon success, the return payload will contain the root resource of the
 management data. It is up to the implementation to choose its root resource,
-the value "/c" is used as example. The example below shows the discovery
+the value "/c" is used as an example. The example below shows the discovery
 of the presence and location of management data.
 
 
@@ -1321,16 +1290,14 @@ RES: 2.05 Content
 ~~~~
 {: artwork-align="left"}
 
-Management objects MAY be discovered with the standard CoAP resource discovery.
-The implementation can add the encoded values of the object identifiers to
-/.well-known/core with rt="core.c.datanode". The available objects identified
-by the encoded values can be discovered by sending a GET request to "/.well-known/core"
-including a resource type (rt) parameter with the value "core.c.datanode". Upon
-success, the return payload will contain the registered encoded values and
-their location.
+Implemented data nodes MAY be discovered using the standard CoAP resource discovery.
+The implementation can add the data node identifiers (SID) supported to
+/.well-known/core with rt="core.c.datanode". The available SIDs can be discovered
+by sending a GET request to "/.well-known/core" including a resource type (rt)
+parameter with the value "core.c.datanode". Upon success, the return payload will
+contain the registered SIDs and their location.
 
-The example below shows the discovery of the presence and location of management
-objects.
+The example below shows the discovery of the presence and location of data nodes.
 
 ~~~~
 REQ: GET /.well-known/core?rt=core.c.datanode
@@ -1342,17 +1309,15 @@ RES: 2.05 Content
 ~~~~
 {: artwork-align="left"}
 
-Lists of encoded values may become prohibitively long. It is discouraged
-to provide long lists of objects on discovery. Therefore, it is recommended
-that details about management objects are discovered by reading the YANG
-module information stored in for example the "ietf-comi-yang-library" module
-{{I-D.veillette-core-yang-library}}. The resource "/mod.uri" is used to retrieve
-the location of the YANG module library.
+The list of data nodes may become prohibitively long. Therefore, it is recommended
+to discover the details about the YANG modules implemented by reading
+a YANG module library (e.g. "ietf-comi-yang-library" ad defined by {{I-D.veillette-core-yang-library}}).
 
-The module list can be stored locally on each server, or remotely on a different
+The resource "/mod.uri" is used to retrieve the location of the YANG module library.
+This library can be stored locally on each server, or remotely on a different
 server. The latter is advised when the deployment of many servers are identical.
 
-The following example show the URI of a local instance of container modules-state
+The following example shows the URI of a local instance of container modules-state
 (SID=1802) as defined in {{I-D.veillette-core-yang-library}}.
 
 ~~~~
@@ -1363,7 +1328,7 @@ example.com/c/cK
 ~~~~
 {: artwork-align="left"}
 
-The following example show the URI of a remote instance of same container.
+The following example shows the URI of a remote instance of same container.
 
 ~~~~
 REQ: GET example.com/mod.uri
@@ -1382,7 +1347,7 @@ revision numbers.
 
 In case a request is received which cannot be processed properly, the CoMI server MUST return an error message. This error message MUST contain a CoAP 4.xx or 5.xx response code.
 
-Errors returned by a CoMI server can be broken in two categories, those associated to the CoAP protocol itself and those generated during the validation of the YANG data model constrains as described in [RFC7950] section 8.
+Errors returned by a CoMI server can be broken into two categories, those associated to the CoAP protocol itself and those generated during the validation of the YANG data model constrains as described in [RFC7950] section 8.
 
 The following list of common CoAP errors should be implemented by CoMI servers. This list is not exhaustive, other errors defined by CoAP and associated RFCs may be applicable. 
 
@@ -1392,7 +1357,7 @@ The following list of common CoAP errors should be implemented by CoMI servers. 
 
 * Error 4.04 (Not Found) is returned by the CoMI server when the CoMI client is requesting a non-instantiated resource (i.e. data node, datastore, rpc, action or event stream).
 
-* Error 4.05 (Method Not Allowed) is returned by the CoMI server when the CoMI client is requesting a method not supported on the targeted resource. (e.g. GET on a rpc, PUT or POST on a data node with "config" set to false).
+* Error 4.05 (Method Not Allowed) is returned by the CoMI server when the CoMI client is requesting a method not supported on the targeted resource. (e.g. GET on an rpc, PUT or POST on a data node with "config" set to false).
 
 * Error 4.08 (Request Entity Incomplete) is returned by the CoMI server if one or multiple blocks of a block transfer request is missing, see [RFC7959] for more details.
 
@@ -1401,67 +1366,69 @@ The following list of common CoAP errors should be implemented by CoMI servers. 
 * Error 4.15 (Unsupported Content-Format) is returned by the CoMI server when the Content-Format used in the request don't match those specified in section 2.3.
 
 
-CoMI server MUST also enforce the different constrains associated to the YANG data models implemented. These constrains are describe in [RFC7950] section 8. These errors are reported using the CoAP error code 4.00 (Bad Request) and may have the following error container as payload. The YANG definition and associated .sid file are available in {{ietf-comi-yang}} and {{ietf-comi-sid}}. The error container is encoded using delta value equal to the SID of the current schema node minus the SID of the parent container (i.e 1001).
+CoMI server MUST also enforce the different constraints associated to the YANG data models implemented. These constraints are described in [RFC7950] section 8. These errors are reported using the CoAP error code 4.00 (Bad Request) and may have the following error container as payload. The YANG definition and associated .sid file are available in {{ietf-comi-yang}} and {{ietf-comi-sid}}. The error container is encoded using delta value equal to the SID of the current schema node minus the SID of the parent container (i.e 1024).
 
 ~~~~
 +--rw error!
-   +--rw error-tag             union
-   +--rw error-app-tag?        union
+   +--rw error-tag             identityref
+   +--rw error-app-tag?        identityref
    +--rw data-node-in-error?   instance-identifier
    +--rw error-message?        string
 ~~~~
 {: artwork-align="left"}
 
-The following error-tag and error-app-tag are supported as compact binary value. Other tags must be reported as text.
+The following error-tag and error-app-tag are defined by the ietf-comi YANG module, these tags are implemented as YANG identity and can be extended as needed.
 
-* error-tag 0 (operation-failed) is returned by the CoMI server when the operation request can't be processed succesfully.
+* error-tag operation-failed is returned by the CoMI server when the operation request cannot be processed successfully.
 
-  * error-app-tag 0 (malformed-message) is returned by the CoMI server when the payload received from the CoMI client don't contain a well-formed CBOR content as defined in [RFC7049] section 3.3 or don't comply with the CBOR structure defined within this document.
+  * error-app-tag malformed-message is returned by the CoMI server when the payload received from the CoMI client don't contain a well-formed CBOR content as defined in [RFC7049] section 3.3 or don't comply with the CBOR structure defined within this document.
 
-  * error-app-tag 1 (data-not-unique) is returned by the CoMI server when the validation of the 'unique' constraint of a list or leaf-list fail.
+  * error-app-tag data-not-unique is returned by the CoMI server when the validation of the 'unique' constraint of a list or leaf-list fails.
 
-  * error-app-tag 2 (too-many-elements) is returned by the CoMI server when the validation of the 'max-elements' constraint of a list or leaf-list fail.
+  * error-app-tag too-many-elements is returned by the CoMI server when the validation of the 'max-elements' constraint of a list or leaf-list fails.
 
-  * error-app-tag 3 (too-few-elements) is returned by the CoMI server when the validation of the 'min-elements' constraint of a list or leaf-list fail.
+  * error-app-tag too-few-elements is returned by the CoMI server when the validation of the 'min-elements' constraint of a list or leaf-list fails.
 
-  * error-app-tag 4 (must-violation) is returned by the CoMI server when the restrictions imposed by a 'must' statement are violated.
+  * error-app-tag must-violation is returned by the CoMI server when the restrictions imposed by a 'must' statement are violated.
 
-  * error-app-tag 5 (duplicate) is returned by the CoMI server when a client try to create a duplicate list or leaf-list entry.
+  * error-app-tag duplicate is returned by the CoMI server when a client tries to create a duplicate list or leaf-list entry.
 
-* error-tag 1 (invalid-value) is returned by the CoMI server when the CoMI client try to update or create a leaf with a value encoded using an invalid CBOR datatype or if the 'range', 'length', 'pattern' or 'require-instance' constrain is not fulfilled.
+* error-tag invalid-value is returned by the CoMI server when the CoMI client tries to update or create a leaf with a value encoded using an invalid CBOR datatype or if the 'range', 'length', 'pattern' or 'require-instance' constrain is not fulfilled.
 
-  * error-app-tag 10 (invalid-datatype) is returned by the CoMI server when CBOR encoding don't follow the rules set by or when the value is incompatible with the YANG Built-In type. (e.g. value greater than 127 for a int8, undefined enumeration)
+  * error-app-tag invalid-datatype is returned by the CoMI server when CBOR encoding don't follow the rules set by or when the value is incompatible with the YANG Built-In type. (e.g. a value greater than 127 for an int8, undefined enumeration)
 
-  * error-app-tag 11 (not-in-range) is returned by the CoMI server when the validation of the 'range' property fail.
+  * error-app-tag not-in-range is returned by the CoMI server when the validation of the 'range' property fails.
 
-  * error-app-tag 12 (invalid-length) is returned by the CoMI server when the validation of the 'length' property fail.
+  * error-app-tag invalid-length is returned by the CoMI server when the validation of the 'length' property fails.
 
-  * error-app-tag 13 (pattern-test-failed) is returned by the CoMI server when the validation of the 'pattern' property fail.
+  * error-app-tag pattern-test-failed is returned by the CoMI server when the validation of the 'pattern' property fails.
 
-* error-tag 2 (missing-element) is returned by the CoMI server when the operation requested by a CoMI client fail to comply with the 'mandatory' constraint defined. The 'mandatory' constraint is enforced for leafs and choices, unless the node or any of its ancestors has a 'when' condition or 'if-feature' expression that evaluates to 'false'.
+* error-tag missing-element is returned by the CoMI server when the operation requested by a CoMI client fail to comply with the 'mandatory' constraint defined. The 'mandatory' constraint is enforced for leafs and choices, unless the node or any of its ancestors have a 'when' condition or 'if-feature' expression that evaluates to 'false'.
 
-  * error-app-tag 20 (missing-key) is returned by the CoMI server to further qualify an missing-element error. This error is returned when the CoMI client try to create or list instance without all the 'key' specified or when the CoMI client try to delete a leaf listed as a 'key'.
+  * error-app-tag missing-key is returned by the CoMI server to further qualify an missing-element error. This error is returned when the CoMI client  tries to create or list instance, without all the 'key' specified or when the CoMI client  tries to delete a leaf listed as a 'key'.
 
-  * error-app-tag 21 (missing-input-parameter) is returned by the CoMI server when the input parameters of a RPC or action are incomplete.
+  * error-app-tag missing-input-parameter is returned by the CoMI server when the input parameters of an RPC or action are incomplete.
 
-* error-tag 3 (unknown-element) is returned by the CoMI server when the CoMI client try to access a data node of a YANG module not supported, of a data node associated to a 'if-feature' expression evaluated to 'false' or to a 'when' condition evaluated to 'false'.
+* error-tag unknown-element is returned by the CoMI server when the CoMI client  tries to access a data node of a YANG module not supported, of a data node associated to an 'if-feature' expression evaluated to 'false' or to a 'when' condition evaluated to 'false'.
 
-* error-tag 4 (bad-element) is returned by the CoMI server when the CoMI client try to create data nodes for more than one case in a choice.
+* error-tag bad-element is returned by the CoMI server when the CoMI client  tries to create data nodes for more than one case in a choice.
 
-* error-tag 5 (data-missing) is returned by the CoMI server when a data node required to accept the request is not present.
+* error-tag data-missing is returned by the CoMI server when a data node required to accept the request is not present.
 
-  * error-app-tag 50 (instance-required) is returned by the CoMI server when a leaf of type 'instance-identifier' or 'leafref' marked with require-instance set to 'true' refers to an instance that does not exist.
+  * error-app-tag instance-required is returned by the CoMI server when a leaf of type 'instance-identifier' or 'leafref' marked with require-instance set to 'true' refers to an instance that does not exist.
 
-  * error-app-tag 51 (missing-choice) is returned by the CoMI server when no nodes exist in a mandatory choice.
+  * error-app-tag missing-choice is returned by the CoMI server when no nodes exist in a mandatory choice.
+
+* error-tag error is returned by the CoMI server when an unspecified error has occurred.
 
 For example, the CoMI server might return the following error.
 
 ~~~~
 RES:  4.00 Bad Request (Content-Format :application/yang-value+cbor)
 {
- +0 : 1,        / error-tag = invalid-value /
- +1 : 1,        / error-app-tag = not-in-range /
- +2 : 1736,     / data-node-in-error = timezone-utc-offset /
+ +4 : 1020,        / error-tag = invalid-value /
+ +2 : 1012,        / error-app-tag = not-in-range /
+ +1 : 1736,        / data-node-in-error = timezone-utc-offset /
  +3 : "maximum value exceeded" / error-message /
 }
 ~~~~
@@ -1471,12 +1438,9 @@ RES:  4.00 Bad Request (Content-Format :application/yang-value+cbor)
 # Security Considerations
 
 For secure network management, it is important to restrict access to configuration variables
-only to authorized parties. This requires integrity protection of both requests and responses,
-and depending on the application encryption.
-
-CoMI re-uses the security mechanisms already available to CoAP as much as possible.
-This includes DTLS {{RFC6347}} for protected access to resources,
-as well suitable authentication and authorization mechanisms.
+only to authorized parties. CoMI re-uses the security mechanisms already available to CoAP,
+this includes DTLS {{RFC6347}} for protected access to resources, as well suitable
+authentication and authorization mechanisms.
 
 Among the security decisions that need to be made are selecting security modes and encryption
 mechanisms (see {{RFC7252}}). This requires a trade-off, as the NoKey mode gives no protection at all,
@@ -1485,7 +1449,7 @@ but is easy to implement, whereas the X.509 mode is quite secure, but may be too
 In addition, mechanisms for authentication and authorization may need to be selected.
 
 CoMI avoids defining new security mechanisms as much as possible.
-However some adaptations may still be required, to cater for CoMI's specific requirements.
+However, some adaptations may still be required, to cater for CoMI's specific requirements.
 
 
 # IANA Considerations
@@ -1499,6 +1463,7 @@ This document adds the following resource type to the "Resource Type (rt=) Link 
 | core.c.datanode     | YANG data node       | RFC XXXX  |
 | core.c.liburi       | YANG module library  | RFC XXXX  |
 | core.c.eventstream  | YANG event stream    | RFC XXXX  |
+{: align="left"}
 
 // RFC Ed.: replace RFC XXXX with this RFC number and remove this note.
 
@@ -1512,6 +1477,7 @@ This document adds the following Content-Format to the "CoAP Content-Formats", w
 | application/yang-selectors+cbor   | XXX          | RFC XXXX  |
 | application/yang-tree+cbor        | XXX          | RFC XXXX  |
 | application/yang-ipatch+cbor      | XXX          | RFC XXXX  |
+{: align="left"}
 
 // RFC Ed.: replace XXX with assigned IDs and remove this note.
 // RFC Ed.: replace RFC XXXX with this RFC number and remove this note.
@@ -1526,9 +1492,9 @@ This document adds the following media types to the "Media Types" registry.
 | yang-selectors+cbor  | application/yang-selectors+cbor  | RFC XXXX  |
 | yang-tree+cbor       | application/yang-tree+cbor       | RFC XXXX  |
 | yang-ipatch+cbor     | application/yang-ipatch+cbor     | RFC XXXX  |
+{: align="left"}
 
-
-Each of these media types are  with the following information
+Each of these media types share the following information:
 
   *  Subtype name: \<as listed in table>
 
@@ -1578,6 +1544,7 @@ This document adds the following tags to the "Concise Binary Object Representati
 
 | Tag | Data Item | Semantics   | Reference |
 | xxx | array     | Oedered map | RFC XXXX  |
+{: align="left"}
 
 // RFC Ed.: replace xxx by the assigned Tag and remove this note.
 // RFC Ed.: replace RFC XXXX with this RFC number and remove this note.
@@ -1637,7 +1604,184 @@ module ietf-comi {
       "draft-ietf-core-comi";
   }
 
+  identity error-tag {
+    description
+      "Base identity for error-tag.";
+  }
 
+  identity operation-failed {
+    base error-tag;
+    description
+      "Returned by the CoMI server when the operation request
+       can't be processed successfully.";
+  }
+
+  identity invalid-value {
+    base error-tag;
+    description
+      "Returned by the CoMI server when the CoMI client tries to
+       update or create a leaf with a value encoded using an
+       invalid CBOR datatype or if the 'range', 'length',
+       'pattern' or 'require-instance' constrain is not
+       fulfilled.";
+  }
+  
+  identity missing-element {
+    base error-tag;
+    description
+      "Returned by the CoMI server when the operation requested
+       by a CoMI client fails to comply with the 'mandatory'
+       constraint defined. The 'mandatory' constraint is
+       enforced for leafs and choices, unless the node or any of
+       its ancestors have a 'when' condition or 'if-feature'
+       expression that evaluates to 'false'.";
+  }
+  
+  identity unknown-element {
+    base error-tag;
+    description
+      "Returned by the CoMI server when the CoMI client tries to
+       access a data node of a YANG module not supported, of a
+       data node associated with an 'if-feature' expression
+       evaluated to 'false' or to a 'when' condition evaluated
+       to 'false'.";
+  }
+  
+  identity bad-element {
+    base error-tag;
+    description
+      "Returned by the CoMI server when the CoMI client tries to
+       create data nodes for more than one case in a choice.";
+  }
+
+  identity data-missing {
+    base error-tag;
+    description
+      "Returned by the CoMI server when a data node required to
+       accept the request is not present.";
+  }
+  
+  identity error {
+    base error-tag;
+    description
+      "Returned by the CoMI server when an unspecified error has
+      occurred.";
+  }
+  
+  identity error-app-tag {
+    description
+      "Base identity for error-app-tag.";
+  }
+
+
+  identity malformed-message {
+    base error-app-tag;
+    description
+      "Returned by the CoMI server when the payload received
+       from the CoMI client don't contain a well-formed CBOR
+       content as defined in [RFC7049] section 3.3 or don't
+       comply with the CBOR structure defined within this
+       document.";
+  }
+
+  identity data-not-unique {
+    base error-app-tag;
+    description
+      "Returned by the CoMI server when the validation of the
+       'unique' constraint of a list or leaf-list fails.";
+  }
+
+  identity too-many-elements {
+    base error-app-tag;
+    description
+      "Returned by the CoMI server when the validation of the
+       'max-elements' constraint of a list or leaf-list fails.";
+  }
+
+  identity too-few-elements {
+    base error-app-tag;
+    description
+      "Returned by the CoMI server when the validation of the
+       'min-elements' constraint of a list or leaf-list fails.";
+  }
+
+  identity must-violation {
+    base error-app-tag;
+    description
+      "Returned by the CoMI server when the restrictions
+       imposed by a 'must' statement are violated.";
+  }
+
+  identity duplicate {
+    base error-app-tag;
+    description
+      "Returned by the CoMI server when a client tries to create
+       a duplicate list or leaf-list entry.";
+  }
+
+  identity invalid-datatype {
+    base error-app-tag;
+    description
+      "Returned by the CoMI server when CBOR encoding is
+       incorect or when the value encoded is incompatible with
+       the YANG Built-In type. (e.g. value greater than 127
+       for an int8, undefined enumeration).";
+  }
+
+  identity not-in-range {
+    base error-app-tag;
+    description
+      "Returned by the CoMI server when the validation of the
+       'range' property fails.";
+  }
+
+  identity invalid-length {
+    base error-app-tag;
+    description
+      "Returned by the CoMI server when the validation of the
+       'length' property fails.";
+  }
+
+  identity pattern-test-failed {
+    base error-app-tag;
+    description
+      "Returned by the CoMI server when the validation of the
+       'pattern' property fails.";
+  }
+
+  identity missing-key {
+    base error-app-tag;
+    description
+      "Returned by the CoMI server to further qualify a
+       missing-element error. This error is returned when the
+       CoMI client tries to create or list instance, without all
+       the 'key' specified or when the CoMI client tries to
+       delete a leaf listed as a 'key'.";
+  }
+
+  identity missing-input-parameter {
+    base error-app-tag;
+    description
+      "Returned by the CoMI server when the input parameters
+       of a RPC or action are incomplete.";
+  }
+
+  identity instance-required {
+    base error-app-tag;
+    description
+      "Returned by the CoMI server when a leaf of type
+       'instance-identifier' or 'leafref' marked with
+       require-instance set to 'true' refers to an instance
+       that does not exist.";
+  }
+
+  identity missing-choice {
+    base error-app-tag;
+    description
+      "Returned by the CoMI server when no nodes exist in a
+       mandatory choice.";
+  }
+        
   container error {
     presence "Error paylaod";
     
@@ -1645,61 +1789,8 @@ module ietf-comi {
       "Optional payload of a 4.00 Bad Request CoAP error.";
 
     leaf error-tag {
-      type union {
-        type string;
-        type enumeration {
-          enum operation-failed {
-            value 0;
-            description
-              "Returned by the CoMI server when the operation request
-               can't be processed succesfully.";
-          }
-        
-          enum invalid-value {
-            value 1;
-            description
-              "Returned by the CoMI server when the CoMI client try to
-              update or create a leaf with a value encoded using an
-              invalid CBOR datatype or if the 'range', 'length',
-              'pattern' or 'require-instance' constrain is not
-              fulfilled.";
-          }
-
-          enum missing-element {
-            value 2;
-            description
-              "Returned by the CoMI server when the operation requested
-              by a CoMI client fail to comply with the 'mandatory'
-              constraint defined. The 'mandatory' constraint is
-              enforced for leafs and choices, unless the node or any of
-              its ancestors has a 'when' condition or 'if-feature'
-              expression that evaluates to 'false'";
-          }
-
-          enum unknown-element {
-            value 3;
-            description
-              "Returned by the CoMI server when the CoMI client try to
-              access a data node of a YANG module not supported, of a
-              data node associated to a 'if-feature' expression
-              evaluated to 'false' or to a 'when' condition evaluated
-              to 'false'.";
-          }
-
-          enum bad-element {
-            value 4;
-            description
-              "Returned by the CoMI server when the CoMI client try to
-               create data nodes for more than one case in a choice.";
-          }
-
-          enum data-missing {
-            value 5;
-            description
-              "Returned by the CoMI server when a data node required to
-              accept the request is not present.";
-          }
-        }
+      type identityref {
+        base error-tag;
       }
       mandatory true;
       description
@@ -1707,134 +1798,22 @@ module ietf-comi {
     }
 
     leaf error-app-tag {
-      type union {
-        type string;
-        type enumeration {
-          enum malformed-message {
-            value 0;
-            description
-              "Returned by the CoMI server when the payload received
-              from the CoMI client don't contain a well-formed CBOR
-              content as defined in [RFC7049] section 3.3 or don't
-              comply with the CBOR structure defined within this
-              document.";
-          }
-        
-          enum data-not-unique {
-            value 1;
-            description
-              "Returned by the CoMI server when the validation of the
-              'unique' constraint of a list or leaf-list fail.";
-          }
-
-          enum too-many-elements {
-            value 2;
-            description
-              "Returned by the CoMI server when the validation of the
-              'max-elements' constraint of a list or leaf-list fail.";
-          }
-
-          enum too-few-elements {
-            value 3;
-            description
-              "Returned by the CoMI server when the validation of the
-              'min-elements' constraint of a list or leaf-list fail.";
-          }
-
-          enum must-violation {
-            value 4;
-            description
-              "Returned by the CoMI server when the restrictions
-              imposed by a 'must' statement are violated.";
-          }
-
-          enum duplicate {
-            value 5;
-            description
-              "Returned by the CoMI server when a client try to create
-              a duplicate list or leaf-list entry.";
-          }
-
-          enum invalid-datatype {
-            value 10;
-            description
-              "Returned by the CoMI server when CBOR encoding is
-              incorect or when the value encoded is incompatible with
-              the YANG Built-In type. (e.g. value greater than 127
-              for a int8, undefined enumeration)";
-          }
-
-          enum not-in-range {
-            value 11;
-            description
-              "Returned by the CoMI server when the validation of the
-              'range' property fail.";
-          }
-
-          enum invalid-length {
-            value 12;
-            description
-              "Returned by the CoMI server when the validation of the
-              'length' property fail.";
-          }
-
-          enum pattern-test-failed {
-            value 13;
-            description
-              "Returned by the CoMI server when the validation of the
-              'pattern' property fail.";
-          }
-
-          enum missing-key {
-            value 20;
-            description
-              "Returned by the CoMI server to further qualify an
-              missing-element error. This error is returned when the
-              CoMI client try to create or list instance without all
-              the 'key' specified or when the CoMI client try to
-              delete a leaf listed as a 'key'.";
-          }
-
-          enum missing-input-parameter {
-            value 21;
-            description
-              "Returned by the CoMI server when the input parameters
-              of a RPC or action are incomplete.";
-          }
-
-          enum instance-required {
-            value 50;
-            description
-              "Returned by the CoMI server when a leaf of type
-              'instance-identifier' or 'leafref' marked with
-              require-instance set to 'true' refers to an instance
-              that does not exist.";
-          }
-
-          enum missing-choice {
-            value 51;
-            description
-              "Returned by the CoMI server when no nodes exist in a
-              mandatory choice.";
-          }
-        }
+      type identityref {
+        base error-app-tag;
       }
-      mandatory false;
       description
         "The application-specific error-tag.";
-    }    
+    }   
 
     leaf data-node-in-error {
       type instance-identifier;
-      mandatory false;
       description
-        "when the error reported is caused by a specific data node,
-         this leaf identify the data node in error.";
+        "When the error reported is caused by a specific data node,
+         this leaf identifies the data node in error.";
     }
 
     leaf error-message {
       type string;
-      mandatory false;
       description
         "A message describing the error.";
     }
@@ -1863,29 +1842,144 @@ module ietf-comi {
       "sid": 1000
     },
     {
-      "type": "node",
-      "label": "/error",
+      "type": "identity",
+      "label": "/error-app-tag",
       "sid": 1001
     },
     {
-      "type": "node",
-      "label": "/error/error-tag",
+      "type": "identity",
+      "label": "/error-app-tag/data-not-unique",
       "sid": 1002
     },
     {
-      "type": "node",
-      "label": "/error/error-app-tag",
+      "type": "identity",
+      "label": "/error-app-tag/duplicate",
       "sid": 1003
+    },
+    {
+      "type": "identity",
+      "label": "/error-app-tag/instance-required",
+      "sid": 1004
+    },
+    {
+      "type": "identity",
+      "label": "/error-app-tag/invalid-datatype",
+      "sid": 1005
+    },
+    {
+      "type": "identity",
+      "label": "/error-app-tag/invalid-length",
+      "sid": 1006
+    },
+    {
+      "type": "identity",
+      "label": "/error-app-tag/malformed-message",
+      "sid": 1007
+    },
+    {
+      "type": "identity",
+      "label": "/error-app-tag/missing-choice",
+      "sid": 1008
+    },
+    {
+      "type": "identity",
+      "label": "/error-app-tag/missing-input-parameter",
+      "sid": 1009
+    },
+    {
+      "type": "identity",
+      "label": "/error-app-tag/missing-key",
+      "sid": 1010
+    },
+    {
+      "type": "identity",
+      "label": "/error-app-tag/must-violation",
+      "sid": 1011
+    },
+    {
+      "type": "identity",
+      "label": "/error-app-tag/not-in-range",
+      "sid": 1012
+    },
+    {
+      "type": "identity",
+      "label": "/error-app-tag/pattern-test-failed",
+      "sid": 1013
+    },
+    {
+      "type": "identity",
+      "label": "/error-app-tag/too-few-elements",
+      "sid": 1014
+    },
+    {
+      "type": "identity",
+      "label": "/error-app-tag/too-many-elements",
+      "sid": 1015
+    },
+    {
+      "type": "identity",
+      "label": "/error-tag",
+      "sid": 1016
+    },
+    {
+      "type": "identity",
+      "label": "/error-tag/bad-element",
+      "sid": 1017
+    },
+    {
+      "type": "identity",
+      "label": "/error-tag/data-missing",
+      "sid": 1018
+    },
+    {
+      "type": "identity",
+      "label": "/error-tag/error",
+      "sid": 1019
+    },
+    {
+      "type": "identity",
+      "label": "/error-tag/invalid-value",
+      "sid": 1020
+    },
+    {
+      "type": "identity",
+      "label": "/error-tag/missing-element",
+      "sid": 1021
+    },
+    {
+      "type": "identity",
+      "label": "/error-tag/operation-failed",
+      "sid": 1022
+    },
+    {
+      "type": "identity",
+      "label": "/error-tag/unknown-element",
+      "sid": 1023
+    },
+    {
+      "type": "node",
+      "label": "/error",
+      "sid": 1024
     },
     {
       "type": "node",
       "label": "/error/data-node-in-error",
-      "sid": 1004
+      "sid": 1025
+    },
+    {
+      "type": "node",
+      "label": "/error/error-app-tag",
+      "sid": 1026
     },
     {
       "type": "node",
       "label": "/error/error-message",
-      "sid": 1005
+      "sid": 1027
+    },
+    {
+      "type": "node",
+      "label": "/error/error-tag",
+      "sid": 1028
     }
   ]
 }
