@@ -435,7 +435,7 @@ application/yang-patch+cbor:
   instance identifier as D, a new data node instance is created in the targeted
   resource with the same instance identifier and data node value as D.
 
-: FORMAT: CBOR array of instance-identifier, data-node-value
+: FORMAT: ordered map of instance-identifier, data-node-value
   
 : DELTA ENCODING: Same as Content-Format application/yang-tree+cbor 
 
