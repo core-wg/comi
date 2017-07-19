@@ -1372,7 +1372,7 @@ CoMI server MUST also enforce the different constraints associated to the YANG d
 +--rw error!
    +--rw error-tag             identityref
    +--rw error-app-tag?        identityref
-   +--rw data-node-in-error?   instance-identifier
+   +--rw error-data-node?      instance-identifier
    +--rw error-message?        string
 ~~~~
 {: artwork-align="left"}
@@ -1427,8 +1427,8 @@ For example, the CoMI server might return the following error.
 RES:  4.00 Bad Request (Content-Format :application/yang-value+cbor)
 {
  +4 : 1020,        / error-tag = invalid-value /
- +2 : 1012,        / error-app-tag = not-in-range /
- +1 : 1736,        / data-node-in-error = timezone-utc-offset /
+ +1 : 1012,        / error-app-tag = not-in-range /
+ +2 : 1736,        / error-data-node = timezone-utc-offset /
  +3 : "maximum value exceeded" / error-message /
 }
 ~~~~
@@ -1805,7 +1805,7 @@ module ietf-comi {
         "The application-specific error-tag.";
     }   
 
-    leaf data-node-in-error {
+    leaf error-data-node {
       type instance-identifier;
       description
         "When the error reported is caused by a specific data node,
@@ -1963,12 +1963,12 @@ module ietf-comi {
     },
     {
       "type": "node",
-      "label": "/error/data-node-in-error",
+      "label": "/error/error-app-tag",
       "sid": 1025
     },
     {
       "type": "node",
-      "label": "/error/error-app-tag",
+      "label": "/error/error-data-node",
       "sid": 1026
     },
     {
