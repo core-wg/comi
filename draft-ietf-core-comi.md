@@ -1,7 +1,7 @@
 ---
 stand_alone: true
 ipr: trust200902
-docname: draft-ietf-core-comi-01
+docname: draft-ietf-core-comi-02
 cat: std
 pi:
   toc: 'yes'
@@ -319,24 +319,24 @@ SID in basae64 = URLsafeChar[SID >> 60 & 0x3F] |
 ~~~~
 {: artwork-align="left"}
 
-For example, SID 1717 is encoded as follow.
+For example, SID 1721 is encoded as follow.
 
 ~~~~
-URLsafeChar[1717 >> 60 & 0x3F] = URLsafeChar[0] = 'A'
-URLsafeChar[1717 >> 54 & 0x3F] = URLsafeChar[0] = 'A'
-URLsafeChar[1717 >> 48 & 0x3F] = URLsafeChar[0] = 'A'
-URLsafeChar[1717 >> 42 & 0x3F] = URLsafeChar[0] = 'A'
-URLsafeChar[1717 >> 36 & 0x3F] = URLsafeChar[0] = 'A'
-URLsafeChar[1717 >> 30 & 0x3F] = URLsafeChar[0] = 'A'
-URLsafeChar[1717 >> 24 & 0x3F] = URLsafeChar[0] = 'A'
-URLsafeChar[1717 >> 18 & 0x3F] = URLsafeChar[0] = 'A'
-URLsafeChar[1717 >> 12 & 0x3F] = URLsafeChar[0] = 'A'
-URLsafeChar[1717 >> 6 & 0x3F]  = URLsafeChar[26] = 'a' 
-URLsafeChar[1717 & 0x3F]       = URLsafeChar[53] = '1'
+URLsafeChar[1721 >> 60 & 0x3F] = URLsafeChar[0] = 'A'
+URLsafeChar[1721 >> 54 & 0x3F] = URLsafeChar[0] = 'A'
+URLsafeChar[1721 >> 48 & 0x3F] = URLsafeChar[0] = 'A'
+URLsafeChar[1721 >> 42 & 0x3F] = URLsafeChar[0] = 'A'
+URLsafeChar[1721 >> 36 & 0x3F] = URLsafeChar[0] = 'A'
+URLsafeChar[1721 >> 30 & 0x3F] = URLsafeChar[0] = 'A'
+URLsafeChar[1721 >> 24 & 0x3F] = URLsafeChar[0] = 'A'
+URLsafeChar[1721 >> 18 & 0x3F] = URLsafeChar[0] = 'A'
+URLsafeChar[1721 >> 12 & 0x3F] = URLsafeChar[0] = 'A'
+URLsafeChar[1721 >> 6 & 0x3F]  = URLsafeChar[26] = 'a' 
+URLsafeChar[1721 & 0x3F]       = URLsafeChar[57] = '5'
 ~~~~
 {: artwork-align="left"}
 
-The resulting base64 representation of SID 1717 is "a1"
+The resulting base64 representation of SID 1721 is "a5"
 
 ## Instance identifier {#instance-identifier}
 
@@ -671,9 +671,9 @@ The returned payload contains the CBOR encoding of the specified data node insta
 
 Using for example the current-datetime leaf from {{ietf-system}}, a request is sent to
 retrieve the value of system-state/clock/current-datetime specified in container system-state.
-The SID of system-state/clock/current-datetime is 1719, encoded in octal 3267,
-yields two 6 bit decimal numbers 26 and 55, encoded in base64, (according to table 2 of {{RFC4648}})
-yields a3. The response to the request returns the CBOR encoding of this leaf of type 'string'
+The SID of system-state/clock/current-datetime is 1723, encoded in octal 3273,
+yields two 6 bit decimal numbers 32 and 73, encoded in base64, (according to table 2 of {{RFC4648}})
+yields a7. The response to the request returns the CBOR encoding of this leaf of type 'string'
 as defined in {{I-D.ietf-core-yang-cbor}} section 5.4.
 
 ~~~~
@@ -686,16 +686,16 @@ RES: 2.05 Content (Content-Format: application/yang-value+cbor)
 
 The next example represents the retrieval of a YANG container. In this
 case, the CoMI client performs a GET request on the clock container
-(SID = 1717; base64: a1). The container returned is encoded using a
+(SID = 1721; base64: a5). The container returned is encoded using a
 CBOR map as specified by {{I-D.ietf-core-yang-cbor}} section 4.2.
 
 ~~~~
-REQ: GET example.com/c/a1
+REQ: GET example.com/c/a5
 
 RES: 2.05 Content (Content-Format: application/yang-value+cbor)
 {
-  +2 : "2014-10-26T12:16:51Z",   / SID 1719 /
-  +1 : "2014-10-21T03:00:00Z"    / SID 1718 /
+  +2 : "2014-10-26T12:16:51Z",   / current-datetime SID 1723 /
+  +1 : "2014-10-21T03:00:00Z"    / boot-datetime SID 1722 /
 }
 ~~~~
 {: artwork-align="left"}
@@ -713,15 +713,15 @@ RES: 2.05 Content (Content-Format: application/yang-value+cbor)
   {
     +4 : "eth0",                / name  (SID 1537) /
     +1 : "Ethernet adaptor",    / description (SID 1534) /
-    +5 : 1179,                  / type, (SID 1538) identity /
-                                / ethernetCsmacd (SID 1179) /
+    +5 : 1880,                  / type, (SID 1538) identity /
+                                / ethernetCsmacd (SID 1880) /
     +2 : true                   / enabled ( SID 1535) /
   },
   {
     +4 : "eth1",                / name (SID 1537) /
     +1 : "Ethernet adaptor",    / description (SID 1534) /
-    +5 : 1179,                  / type, (SID 1538) identity /
-                                / ethernetCsmacd (SID 1179) /
+    +5 : 1880,                  / type, (SID 1538) identity /
+                                / ethernetCsmacd (SID 1880) /
     +2 : false                  / enabled /
   }
 ]
@@ -768,25 +768,25 @@ FORMAT:
 #### FETCH examples {#fetch-example}
 
 The example uses the current-datetime leaf and the interface list from {{ietf-system}}.
-In the following example the value of current-datetime (SID 1719 and the interface
+In the following example the value of current-datetime (SID 1723 and the interface
 list (SID 1533) instance identified with name="eth0" are queried.
 
 
 ~~~~
 REQ:  FETCH /c (Content-Format :application/yang-selectors+cbor)
 [
-  1719,            / SID 1719 /
-  [-186, "eth0"]   / SID 1533 with name = "eth0" /
+  1723,            / current-datetime SID 1723 /
+  [-190, "eth0"]   / interface SID 1533 with name = "eth0" /
 ]
 
 RES:  2.05 Content (Content-Format :application/yang-value+cbor)
 [
-  "2014-10-26T12:16:31Z",
+  "2014-10-26T12:16:31Z",       / current-datetime (SID 1723) /
   {
     +4 : "eth0",                / name (SID 1537) /
     +1 : "Ethernet adaptor",    / description (SID 1534) /
-    +5 : 1179,                  / type (SID 1538), identity /
-                                / ethernetCsmacd (SID 1179) /
+    +5 : 1880,                  / type (SID 1538), identity /
+                                / ethernetCsmacd (SID 1880) /
     +2 : true                   / enabled (SID 1535) /
   }
 ]
@@ -835,14 +835,13 @@ a "4.09 Conflict" response code MUST be returned
 The example uses the interface list from {{ietf-system}}.
 Example is creating a new list instance within the interface list (SID = 1533):
 
-
 ~~~~
 REQ: POST /c/X9 (Content-Format :application/yang-value+cbor)
 {
   +4 : "eth5",              / name (SID 1537) /
   +1 : "Ethernet adaptor",  / description (SID 1534) /
-  +5 : 1179,                / type (SID 1538), identity /
-                            / ethernetCsmacd (SID 1179) /
+  +5 : 1880,                / type (SID 1538), identity /
+                            / ethernetCsmacd (SID 1880) /
   +2 : true                 / enabled (SID 1535) /
 }
 
@@ -882,8 +881,8 @@ REQ: PUT /c/X9?k="eth0"
 {
   +4 : "eth0",             / name (SID 1537) /
   +1 : "Ethernet adaptor", / description (SID 1534) /
-  +5 : 1179,               / type (SID 1538), identity /
-                           / ethernetCsmacd ( SID 1179) /
+  +5 : 1880,               / type (SID 1538), identity /
+                           / ethernetCsmacd (SID 1880) /
   +2 : true                / enabled (SID 1535) /
 }
 
@@ -920,23 +919,23 @@ FORMAT:
 
 In this example, a CoMI client requests the following operations:
 
-  * Set "/system/ntp/enabled" (SID 1751) to true.
+  * Set "/system/ntp/enabled" (SID 1755) to true.
 
-  * Remove the server "tac.nrc.ca" from the"/system/ntp/server" (SID 1752) list.
+  * Remove the server "tac.nrc.ca" from the"/system/ntp/server" (SID 1756) list.
 
-  * Add the server "NTP Pool server 2" to the list "/system/ntp/server" (SID 1752).
+  * Add the server "NTP Pool server 2" to the list "/system/ntp/server" (SID 1756).
 
 ~~~~
 REQ: iPATCH /c (Content-Format :application/yang-patch+cbor)
 [
-  1751 , true,                          / enabled (1751) /
-  [+1, "tac.nrc.ca"], null,             / server (SID 1752) /
-  +0,                                   / server (SID 1752) /
+  1751 , true,                          / enabled (1755) /
+  [+1, "tac.nrc.ca"], null,             / server (SID 1756) /
+  +0,                                   / server (SID 1756) /
     {
-      +3 : "tic.nrc.ca",                / name (SID 1755) /
-      +4 : true,                        / prefer (SID 1756) /
-      +5 : {                            / udp (SID 1757) /
-        +1 : "132.246.11.231"           / address (SID 1758) /
+      +3 : "tic.nrc.ca",                / name (SID 1759) /
+      +4 : true,                        / prefer (SID 1760) /
+      +5 : {                            / udp (SID 1761) /
+        +1 : "132.246.11.231"           / address (SID 1762) /
       }
     }
 ]
@@ -1027,7 +1026,7 @@ identifiers are not allowed.
 The example uses the interface list and the clock container from {{interfaces}}.
 Assume that the datastore contains two modules ietf-system (SID 1700) and
 ietf-interfaces (SID 1500); they contain the list interface (SID 1533) with
-one instance and the container Clock (SID 1717). After invocation of GET, a
+one instance and the container Clock (SID 1721). After invocation of GET, a
 map with these two modules is returned:
 
 
@@ -1036,17 +1035,17 @@ REQ:  GET /c
 
 RES: 2.05 Content (Content-Format :application/yang-tree+cbor)
 [
-  1717,                           / Clock (SID 1717) /
+  1721,                           / Clock (SID 1721) /
     {
-      +2: "2016-10-26T12:16:31Z", / current-datetime (SID 1719) /
-      +1: "2014-10-05T09:00:00Z"  / boot-datetime (SID 1718) /
+      +2: "2016-10-26T12:16:31Z", / current-datetime (SID 1723) /
+      +1: "2014-10-05T09:00:00Z"  / boot-datetime (SID 1722) /
     },
-  -186,                            / clock (SID 1533) /
+  -188,                            / clock (SID 1533) /
     {
       +4 : "eth0",                / name (SID 1537) /
       +1 : "Ethernet adaptor",    / description (SID 1534) /
-      +5 : 1179,                  / type (SID 1538), identity: /
-                                  / ethernetCsmacd (SID 1179) /
+      +5 : 1880,                  / type (SID 1538), identity: /
+                                  / ethernetCsmacd (SID 1880) /
       +2 : true                   / enabled (SID 1535) /
     }
 ]
@@ -1426,10 +1425,13 @@ For example, the CoMI server might return the following error.
 ~~~~
 RES:  4.00 Bad Request (Content-Format :application/yang-value+cbor)
 {
- +4 : 1020,        / error-tag = invalid-value /
- +1 : 1012,        / error-app-tag = not-in-range /
- +2 : 1736,        / error-data-node = timezone-utc-offset /
- +3 : "maximum value exceeded" / error-message /
+  +4 : 1011,       / error-tag (SID 1028) /
+                   /   = invalid-value (SID 1011) /
+  +1 : 1018,       / error-app-tag (SID 1025) /
+                   /   = not-in-range (SID 1018) /
+  +2 : 1740,       / error-data-node (SID 1026) /
+                   /   = timezone-utc-offset (SID 1740) /
+  +3 : "maximum value exceeded" / error-message (SID 1027) /
 }
 ~~~~
 {: artwork-align="left"}
@@ -1601,7 +1603,31 @@ module ietf-comi {
      description
       "Initial revision.";
     reference
-      "draft-ietf-core-comi";
+      "[I-D.ietf-core-comi] CoAP Management Interface";
+  }
+  
+  typedef sid {
+    type uint64;
+    description
+      "YANG Schema Item iDentifier";
+    reference
+      "[I-D.ietf-core-sid] YANG Schema Item iDentifier (SID)";
+  }
+  
+  typedef date_and_time_b {
+    type int64;
+    description
+      "Binary representation of a date and time. This value is
+       encoded using a positive or negative value representing
+       a number of seconds relative to 1970-01-01T00:00Z in UTC
+       time (i.e. the epoch). Negative values represent a date
+       and time before the epoch, positive values represent a
+       date and time after the epoch.
+       This representation is defined in [RFC 7049] section
+       2.4.1. When implemented using CoMI, tag 0 is assumed
+       and not encoded.";
+    reference
+      "[RFC 7049] Concise Binary Object Representation (CBOR)";
   }
 
   identity error-tag {
@@ -1837,148 +1863,148 @@ module ietf-comi {
   "module-revision": "2017-07-01",
   "items": [
     {
-      "type": "Module",
-      "label": "ietf-comi",
+      "namespace": "module",
+      "identifier": "ietf-comi",
       "sid": 1000
     },
     {
-      "type": "identity",
-      "label": "/error-app-tag",
+      "namespace": "identity",
+      "identifier": "bad-element",
       "sid": 1001
     },
     {
-      "type": "identity",
-      "label": "/error-app-tag/data-not-unique",
+      "namespace": "identity",
+      "identifier": "data-missing",
       "sid": 1002
     },
     {
-      "type": "identity",
-      "label": "/error-app-tag/duplicate",
+      "namespace": "identity",
+      "identifier": "data-not-unique",
       "sid": 1003
     },
     {
-      "type": "identity",
-      "label": "/error-app-tag/instance-required",
+      "namespace": "identity",
+      "identifier": "duplicate",
       "sid": 1004
     },
     {
-      "type": "identity",
-      "label": "/error-app-tag/invalid-datatype",
+      "namespace": "identity",
+      "identifier": "error",
       "sid": 1005
     },
     {
-      "type": "identity",
-      "label": "/error-app-tag/invalid-length",
+      "namespace": "identity",
+      "identifier": "error-app-tag",
       "sid": 1006
     },
     {
-      "type": "identity",
-      "label": "/error-app-tag/malformed-message",
+      "namespace": "identity",
+      "identifier": "error-tag",
       "sid": 1007
     },
     {
-      "type": "identity",
-      "label": "/error-app-tag/missing-choice",
+      "namespace": "identity",
+      "identifier": "instance-required",
       "sid": 1008
     },
     {
-      "type": "identity",
-      "label": "/error-app-tag/missing-input-parameter",
+      "namespace": "identity",
+      "identifier": "invalid-datatype",
       "sid": 1009
     },
     {
-      "type": "identity",
-      "label": "/error-app-tag/missing-key",
+      "namespace": "identity",
+      "identifier": "invalid-length",
       "sid": 1010
     },
     {
-      "type": "identity",
-      "label": "/error-app-tag/must-violation",
+      "namespace": "identity",
+      "identifier": "invalid-value",
       "sid": 1011
     },
     {
-      "type": "identity",
-      "label": "/error-app-tag/not-in-range",
+      "namespace": "identity",
+      "identifier": "malformed-message",
       "sid": 1012
     },
     {
-      "type": "identity",
-      "label": "/error-app-tag/pattern-test-failed",
+      "namespace": "identity",
+      "identifier": "missing-choice",
       "sid": 1013
     },
     {
-      "type": "identity",
-      "label": "/error-app-tag/too-few-elements",
+      "namespace": "identity",
+      "identifier": "missing-element",
       "sid": 1014
     },
     {
-      "type": "identity",
-      "label": "/error-app-tag/too-many-elements",
+      "namespace": "identity",
+      "identifier": "missing-input-parameter",
       "sid": 1015
     },
     {
-      "type": "identity",
-      "label": "/error-tag",
+      "namespace": "identity",
+      "identifier": "missing-key",
       "sid": 1016
     },
     {
-      "type": "identity",
-      "label": "/error-tag/bad-element",
+      "namespace": "identity",
+      "identifier": "must-violation",
       "sid": 1017
     },
     {
-      "type": "identity",
-      "label": "/error-tag/data-missing",
+      "namespace": "identity",
+      "identifier": "not-in-range",
       "sid": 1018
     },
     {
-      "type": "identity",
-      "label": "/error-tag/error",
+      "namespace": "identity",
+      "identifier": "operation-failed",
       "sid": 1019
     },
     {
-      "type": "identity",
-      "label": "/error-tag/invalid-value",
+      "namespace": "identity",
+      "identifier": "pattern-test-failed",
       "sid": 1020
     },
     {
-      "type": "identity",
-      "label": "/error-tag/missing-element",
+      "namespace": "identity",
+      "identifier": "too-few-elements",
       "sid": 1021
     },
     {
-      "type": "identity",
-      "label": "/error-tag/operation-failed",
+      "namespace": "identity",
+      "identifier": "too-many-elements",
       "sid": 1022
     },
     {
-      "type": "identity",
-      "label": "/error-tag/unknown-element",
+      "namespace": "identity",
+      "identifier": "unknown-element",
       "sid": 1023
     },
     {
-      "type": "node",
-      "label": "/error",
+      "namespace": "data",
+      "identifier": "/ietf-comi:error",
       "sid": 1024
     },
     {
-      "type": "node",
-      "label": "/error/error-app-tag",
+      "namespace": "data",
+      "identifier": "/ietf-comi:error/error-app-tag",
       "sid": 1025
     },
     {
-      "type": "node",
-      "label": "/error/error-data-node",
+      "namespace": "data",
+      "identifier": "/ietf-comi:error/error-data-node",
       "sid": 1026
     },
     {
-      "type": "node",
-      "label": "/error/error-message",
+      "namespace": "data",
+      "identifier": "/ietf-comi:error/error-message",
       "sid": 1027
     },
     {
-      "type": "node",
-      "label": "/error/error-tag",
+      "namespace": "data",
+      "identifier": "/ietf-comi:error/error-tag",
       "sid": 1028
     }
   ]
@@ -1997,48 +2023,47 @@ comment sign.
 
 Excerpt of the YANG module ietf-system {{RFC7317}}.
 
-
 ~~~~
 module ietf-system {                   // SID 1700
-  container system {                   // SID 1715
-    container clock {                  // SID 1734
+  container system {                   // SID 1717
+    container clock {                  // SID 1738
       choice timezone {
         case timezone-name {
-          leaf timezone-name {         // SID 1735
+          leaf timezone-name {         // SID 1739
             type timezone-name;
           }
         }
         case timezone-utc-offset {
-          leaf timezone-utc-offset {   // SID 1736
+          leaf timezone-utc-offset {   // SID 1740
             type int16 {
             }
           }
         }
       }
     }
-    container ntp {                    // SID 1750
-      leaf enabled {                   // SID 1751
+    container ntp {                    // SID 1754
+      leaf enabled {                   // SID 1755
         type boolean;
         default true;
       }
-      list server {                    // SID 1752
+      list server {                    // SID 1756
         key name;
-        leaf name {                    // SID 1755
+        leaf name {                    // SID 1759
           type string;
         }
         choice transport {
           case udp {
-            container udp {            // SID 1757
-              leaf address {           // SID 1758
+            container udp {            // SID 1761
+              leaf address {           // SID 1762
                 type inet:host;
               }
-              leaf port {              // SID 1759
+              leaf port {              // SID 1763
                 type inet:port-number;
               }
             }
           }
         }
-        leaf association-type {        // SID 1753
+        leaf association-type {        // SID 1757
           type enumeration {
             enum server {
             }
@@ -2048,35 +2073,32 @@ module ietf-system {                   // SID 1700
             }
           }
         }
-        leaf iburst {                  // SID 1754
+        leaf iburst {                  // SID 1758
           type boolean;
         }
-        leaf prefer {                  // SID 1756
+        leaf prefer {                  // SID 1760
           type boolean;
           default false;
         }
       }
     }
-  container system-state {             // SID 1716
-    container clock {                  // SID 1717
-      leaf current-datetime {          // SID 1719
+  container system-state {             // SID 1720
+    container clock {                  // SID 1721
+      leaf current-datetime {          // SID 1723
         type yang:date-and-time;
       }
-      leaf boot-datetime {             // SID 1718
+      leaf boot-datetime {             // SID 1722
         type yang:date-and-time;
       }
     }
   }
 }
-
 ~~~~
 {: artwork-align="left"}
-
 
 ## server list {#server}
 
 Taken over from {{RFC7950}} section 7.15.3.
-
 
 ~~~~
 module example-server-farm {
@@ -2113,11 +2135,9 @@ module example-server-farm {
 ~~~~
 {: artwork-align="left"}
 
-
 ## interfaces {#interfaces}
 
 Excerpt of the YANG module ietf-interfaces {{RFC7223}}.
-
 
 ~~~~
 module ietf-interfaces {               // SID 1500
@@ -2156,7 +2176,6 @@ module ietf-interfaces {               // SID 1500
     }
   }
 }
-
 ~~~~
 {: artwork-align="left"}
 
@@ -2164,7 +2183,6 @@ module ietf-interfaces {               // SID 1500
 ## Example-port {#notify-ex}
 
 Notification example defined within this document.
-
 
 ~~~~
 module example-port {
@@ -2190,7 +2208,6 @@ module example-port {
 ## IP-MIB {#smi}
 
 The YANG translation of the SMI specifying the IP-MIB {{RFC4293}}, extended with example SID numbers, yields:
-
 
 ~~~~
 module IP-MIB {
@@ -2284,13 +2301,7 @@ module IP-MIB {
     }  // list ipNetToPhysicalEntry
   }  // container ip
 }  // module IP-MIB
-
 ~~~~
 {: artwork-align="left"}
 
-
-# Comparison with LWM2M {#lwm2m}
-
-TO DO Need updated text based on the current version of CoMI.
-Multiple assumptions used in the original text are no more valid.
 
