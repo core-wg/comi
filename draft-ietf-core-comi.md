@@ -1559,8 +1559,6 @@ of the CoMI specification and specified CBOR encoding and use of hashes.
 Mehmet Ersue and Bert Wijnen explained the encoding aspects of PDUs transported
 under SNMP. Carsten Bormann has given feedback on the use of CBOR.
 
-Timothy Carey has provided the text for {{lwm2m}}.
-
 The draft has benefited from comments (alphabetical order) by Rodney Cummings,
 Dee Denteneer, Esko Dijk, Michael van Hartskamp, Tanguy Ropitault, Juergen
 Schoenwaelder, Anuj Sehgal, Zach Shelby, Hannes Tschofenig, Michael Verschoor,
