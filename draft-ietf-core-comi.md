@@ -928,7 +928,7 @@ In this example, a CoMI client requests the following operations:
 ~~~~
 REQ: iPATCH /c (Content-Format :application/yang-patch+cbor)
 [
-  1751 , true,                          / enabled (1755) /
+  1755 , true,                          / enabled (1755) /
   [+1, "tac.nrc.ca"], null,             / server (SID 1756) /
   +0,                                   / server (SID 1756) /
     {
