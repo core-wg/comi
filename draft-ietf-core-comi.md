@@ -1582,6 +1582,14 @@ module ietf-comi {
   namespace "urn:ietf:params:xml:ns:yang:ietf-comi";
   prefix comi;
 
+  import ietf-restconf {
+    prefix rc;
+    description
+      "This import statement is only present to access
+       the yang-data extension defined in RFC 8040.";
+    reference "RFC 8040: RESTCONF Protocol";
+  }
+
   organization
     "IETF Core Working Group";
 
@@ -1602,7 +1610,7 @@ module ietf-comi {
     "This module contains the different definitions required
      by the CoMI protocol.";
 
-  revision 2017-07-01 {
+  revision 2018-06-01 {
      description
       "Initial revision.";
     reference
@@ -1811,40 +1819,43 @@ module ietf-comi {
        mandatory choice.";
   }
         
-  container error {
-    presence "Error paylaod";
-    
-    description
-      "Optional payload of a 4.00 Bad Request CoAP error.";
+  rc:yang-data yang-errors {
+    container error {
+      description
+        "Optional payload of a 4.00 Bad Request CoAP error.";
 
-    leaf error-tag {
-      type identityref {
-        base error-tag;
+      leaf error-tag {
+        type identityref {
+          base error-tag;
+        }
+        mandatory true;
+        description
+          "The enumerated error-tag.";
       }
-      mandatory true;
-      description
-        "The enumerated error-tag.";
-    }
 
-    leaf error-app-tag {
-      type identityref {
-        base error-app-tag;
+      leaf error-app-tag {
+        type identityref {
+          base error-app-tag;
+        }
+        mandatory false;
+        description
+          "The application-specific error-tag.";
+      }   
+
+      leaf error-data-node {
+        type instance-identifier;
+        mandatory false;
+        description
+          "When the error reported is caused by a specific data node,
+           this leaf identifies the data node in error.";
       }
-      description
-        "The application-specific error-tag.";
-    }   
 
-    leaf error-data-node {
-      type instance-identifier;
-      description
-        "When the error reported is caused by a specific data node,
-         this leaf identifies the data node in error.";
-    }
-
-    leaf error-message {
-      type string;
-      description
-        "A message describing the error.";
+      leaf error-message {
+        type string;
+        mandatory false;
+        description
+          "A message describing the error.";
+      }
     }
   }
 }
@@ -1863,7 +1874,7 @@ module ietf-comi {
     }
   ],
   "module-name": "ietf-comi",
-  "module-revision": "2017-07-01",
+  "module-revision": "2018-06-01",
   "items": [
     {
       "namespace": "module",
