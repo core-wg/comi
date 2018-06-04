@@ -1,7 +1,7 @@
 ---
 stand_alone: true
 ipr: trust200902
-docname: draft-ietf-core-comi-02
+docname: draft-ietf-core-comi-03
 cat: std
 pi:
   toc: 'yes'
@@ -20,7 +20,7 @@ author:
   region: Quebec
   code: J2J 2V2
   country: Canada
-  email: michel.veillette@trilliantinc.com
+  email: michel.veillette@trilliant.com
 - ins: P. van der Stok
   role: editor
   name: Peter van der Stok
@@ -72,7 +72,9 @@ informative:
   RFC7159:
   RFC7223:
   RFC7317:
+  RFC8342:
   I-D.ietf-core-interfaces:
+  I-D.ietf-netmod-schema-mount:
   XML:
     title: Extensible Markup Language (XML)
     author:
@@ -140,6 +142,9 @@ NETCONF needs up to 10 round trips.
 To promote small messges, CoMI uses a YANG to CBOR mapping
 {{I-D.ietf-core-yang-cbor}} and numeric identifiers
 {{I-D.ietf-core-sid}} to minimize CBOR payloads and URI length.
+
+| WARNING: |
+| Mapping between data nodes and CoAP resources should be extended in order to support the "Network Management Datastore Architecture" (NMDA) {{RFC8342}} and {{RFC8342}} and the YANG Schema Mount {{I-D.ietf-netmod-schema-mount}}. |
 
 ## Terminology {#terminology}
 
@@ -1582,7 +1587,7 @@ module ietf-comi {
 
   contact
     "Michel Veillette
-     <mailto:michel.veillette@trilliantinc.com>
+     <mailto:michel.veillette@trilliant.com>
 
      Alexander Pelov
      <mailto:alexander@ackl.io>
