@@ -933,16 +933,15 @@ In this example, a CoMI client requests the following operations:
 ~~~~
 REQ: iPATCH /c (Content-Format :application/yang-patch+cbor)
 [
-  1755 , true,                          / enabled (1755) /
-  [+1, "tac.nrc.ca"], null,             / server (SID 1756) /
-  +0,                                   / server (SID 1756) /
-    {
-      +3 : "tic.nrc.ca",                / name (SID 1759) /
-      +4 : true,                        / prefer (SID 1760) /
-      +5 : {                            / udp (SID 1761) /
-        +1 : "132.246.11.231"           / address (SID 1762) /
-      }
-    }
+  1755 , true,                                   / enabled (1755) /
+  [+1, "tac.nrc.ca"], null,                      / server (SID 1756) /
+  [+0, "tic.nrc.ca"], {                          / server (SID 1756) /
+                        +3 : "tic.nrc.ca",       / name (SID 1759) /
+                        +4 : true,               / prefer (SID 1760) /
+                        +5 : {                   / udp (SID 1761) /
+                          +1 : "132.246.11.231"  / address (SID 1762) /
+                        }
+                      }
 ]
 
 RES: 2.04 Changed
