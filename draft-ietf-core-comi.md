@@ -329,7 +329,7 @@ The following Content-formats are defined:
 application/yang-data+cbor:
 
 : This Content-Format represents a CBOR YANG document containing one or multiple data node values.
-  Each data node is identified by is associated SID.
+  Each data node is identified by its associated SID.
   
 
 : FORMAT: CBOR map of SID, instance-value
@@ -352,12 +352,12 @@ application/yang-identifiers+cbor:
 application/yang-instances+cbor:
 
 : This Content-Format represents a CBOR YANG document containing a list of data node instances.
-  Each data node instance is identified by is associated instance identifier.
+  Each data node instance is identified by its associated instance identifier.
 
 : FORMAT: CBOR array of CBOR map of instance-identifier, instance-value
 
 : The message payload of Content-Format 'application/yang-instances+cbor' is encoded using a CBOR array.
-  Each entry within this CBOR array contain a CBOR map carrying a single instance identifier and associated value.
+  Each entry within this CBOR array contains a CBOR map carrying a single instance identifier and associated value.
   Instance identifiers are encoded using the rules defined in {{I-D.ietf-core-yang-cbor}} section 6.13.1, values are encoded using the rules defined in {{I-D.ietf-core-yang-cbor}} section 4.
 
 : When present in an iPATCH request payload, this Content-Format carry a list of data node instances to be replaced, created, or deleted.
@@ -384,7 +384,7 @@ The different Content-formats usage are summarized in the table below:
 
 ## Unified datastore {#unified-datastore}
 
-CoMI supports a simple datastore model consisting of on a single unified datastore. This datasore provides access to both configuration and operational states. Configuration updates performed on this datastore are reflected immediately or with a minimal delay as operational states.
+CoMI supports a simple datastore model consisting of on a single unified datastore. This datasore provides access to both configuration and operational data. Configuration updates performed on this datastore are reflected immediately or with a minimal delay as operational data.
 
 Alternatively, CoMI servers MAY implement a more complex datastore model such as the Network Management Datastore Architecture (NMDA) as defined by [RFC8342]. Each datastore supported is implemented as a datastore resource.
 
@@ -420,7 +420,7 @@ represented as decimal numbers.
 This note specifies a Management Interface. CoAP endpoints that
 implement the CoMI management protocol, support
 at least one discoverable management resource of resource type (rt): core.c.ds,
-with example path: /c, where c is short-hand for CoMI. The path /c is recommended
+with example path: /c, where c is short-hand for CoMI. The path /c is recommended,
 but not compulsory (see {{discovery}}).
 
 The mapping of YANG data node instances to CoMI resources is as follows.
@@ -652,7 +652,7 @@ RES: 2.05 Content (Content-Format: application/yang-data+cbor)
 {: artwork-align="left"}
 
 To retrieve a specific instance within the /interfaces/interface YANG list,
-the CoMI client add the key of the targeted instance in its CoAP request
+the CoMI client adds the key of the targeted instance in its CoAP request
 using the 'k' URI-Query. The return payload containing the instance requested
 is encoded using a CBOR array as specified by {{I-D.ietf-core-yang-cbor}} section 4.4.1.
 
@@ -700,7 +700,7 @@ The return response payload contains a list of data node instance values in the 
 A CBOR null is returned for each data node requested by the client, not supported by the server or not currently instantiated.
 
 For compactness, indexes of the list instance identifiers returned by the FETCH response MUST be elided.
-This imply that format of each entry within the CBOR array of the FETCH response is identical to the format as a GET response.
+This implies that the format of each entry within the CBOR array of the FETCH response is identical to the format as a GET response.
 
 ~~~~
 FORMAT:
@@ -1040,8 +1040,8 @@ section 4.2.1. For notification without any content, a null value is returned.
 An example implementation is:
 
 > Every time an event is generated, the generated notification instance is
-> appended to the chosen stream(s). After an aggregation period which may be
-> adjusted an an exclusion delay and the number of notifications already aggregated,
+> appended to the chosen stream(s). After an aggregation period, which may be
+> adjusted using an exclusion delay and limited by the maximum number of notifications supported,
 > the content of the instance is sent to all clients observing the modified stream.
 
 ~~~~
@@ -1223,14 +1223,14 @@ Implementers may choose to implement one or the other or both.
 The YANG library data model {{I-D.veillette-core-yang-library}} provides a high
 level description of the resources available. The YANG library contains the
 list of modules, features and deviations supported by the CoMI server.
-Form the information, CoMI clients can infer the list of data nodes supported
+From this information, CoMI clients can infer the list of data nodes supported
 and the interaction model to be used to access them. This module also contains
 the list of datastores implemented.
 
 The location of the YANG library can be found by sending a GET request to
 "/.well-known/core" including a resource type (RT) parameter with the value
 "core.c.yl". Upon success, the return payload will contain the root resource
-of YANG library module.
+of the YANG library module.
 
 ~~~~
 REQ: GET /.well-known/core?rt=core.c.yl
@@ -1256,9 +1256,8 @@ Upon success, the return payload contains the list of datastore resources.
 
 Each datastore returned is further qualified using the "ds" Link-Format attribute.
 This attribute is set to the SID assigned to the datastore identity.
-When a unified datastore is implement, as defined by the ietf-comi YANG module,
-the ds attribute is set to 1029. For other examples of datastores,
-see the Network Management Datastore Architecture (NMDA) {{RFC7950}}.
+When a unified datastore is implemented, the ds attribute is set to 1029.
+For other examples of datastores, see the Network Management Datastore Architecture (NMDA) {{RFC7950}}.
 
 ~~~~
 link-extension    = ( "ds" "=" sid ) )
