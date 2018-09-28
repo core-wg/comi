@@ -696,11 +696,11 @@ RES: 2.05 Content (Content-Format: application/yang-data+cbor)
 The FETCH is used to retrieve multiple data node instance values.
 The FETCH request payload contains the list of instance identifier of the data node instances requested.
 
-The return response payload contains a list of data node instance values in the order requested.
+The return response payload contains a list of data node instance values in the same order as requested.
 A CBOR null is returned for each data node requested by the client, not supported by the server or not currently instantiated.
 
-For compactness, indexes of the list instance identifiers returned by the FETCH response MUST be elided.
-This implies that the format of each entry within the CBOR array of the FETCH response is identical to the format as a GET response.
+For compactness, indexes of the list instance identifiers returned by the FETCH response SHOULD be elided, only the SID is provided.
+In this case, the format of each entry within the CBOR array of the FETCH response is identical to the format as a GET response.
 
 ~~~~
 FORMAT:
