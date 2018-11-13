@@ -1582,6 +1582,8 @@ module ietf-comi {
     description
       "Use of YANG data template for the error payload.
        Definition of the unified datastore.";
+    reference
+      "[I-D.ietf-core-comi] CoAP Management Interface";
   }
   revision 2017-07-01 {
      description
@@ -1799,14 +1801,12 @@ module ietf-comi {
         type identityref {
           base error-app-tag;
         }
-        mandatory false;
         description
           "The application-specific error-tag.";
       }   
 
       leaf error-data-node {
         type instance-identifier;
-        mandatory false;
         description
           "When the error reported is caused by a specific data node,
            this leaf identifies the data node in error.";
@@ -1814,7 +1814,6 @@ module ietf-comi {
 
       leaf error-message {
         type string;
-        mandatory false;
         description
           "A message describing the error.";
       }
