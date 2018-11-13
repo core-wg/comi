@@ -1140,8 +1140,8 @@ REQ:  POST /c/Opq?k="myserver"
 
 RES:  2.05 Content (Content-Format :application/yang-data+cbor)
 {
-   60002 : {
-     +2 : "2016-02-08T14:10:08Z09:18" / reset-finished-at (SID 60004)/
+  60002 : {
+    +2 : "2016-02-08T14:10:08Z09:18" / reset-finished-at (SID 60004)/
   }
 }
 ~~~~
@@ -1158,26 +1158,26 @@ REQ: GET example.com/c/Oz1
 
 RES: 2.05 Content (Content-Format: application/yang-data+cbor)
 {
-  60021 : [                 / ipNetToPhysicalEntry /
+  60021 : [             / ipNetToPhysicalEntry /
     {
-      +1 : 1,               / ipNetToPhysicalIfIndex (SID 60022) /
-      +2 : 1,               / ipNetToPhysicalNetAddressType (SID 60023) /
-      +3 : h'0A000033',     / ipNetToPhysicalNetAddress (SID 60024) /
-      +4 : h'00000A01172D', / ipNetToPhysicalPhysAddress (SID 60025) /
-      +5 : 2333943,         / ipNetToPhysicalLastUpdated (SID 60026) /
-      +6 : 4,               / ipNetToPhysicalType (SID 60027) /
-      +7 : 1,               / ipNetToPhysicalState (SID 60028) /
-      +8 : 1                / ipNetToPhysicalRowStatus (SID 60029) /
+      +1 : 1,           / ipNetToPhysicalIfIndex (SID 60022) /
+      +2 : 1,           / ipNetToPhysicalNetAddressType (SID 60023) /
+      +3 : h'0A000033', / ipNetToPhysicalNetAddress (SID 60024) /
+      +4 : h'00000A01172D',/ ipNetToPhysicalPhysAddress (SID 60025) /
+      +5 : 2333943,     / ipNetToPhysicalLastUpdated (SID 60026) /
+      +6 : 4,           / ipNetToPhysicalType (SID 60027) /
+      +7 : 1,           / ipNetToPhysicalState (SID 60028) /
+      +8 : 1            / ipNetToPhysicalRowStatus (SID 60029) /
     },
     {
-      +1 : 1,               / ipNetToPhysicalIfIndex (SID 60022) /
-      +2 : 1,               / ipNetToPhysicalNetAddressType (SID 60023) /
-      +3 : h'09020304',     / ipNetToPhysicalNetAddress  (SID 60024) /
-      +4 : h'00000A36200A', / ipNetToPhysicalPhysAddress (SID 60025) /
-      +5 : 2329836,         / ipNetToPhysicalLastUpdated (SID 60026) /
-      +6 : 3,               / ipNetToPhysicalType (SID 60027) /
-      +7 : 6,               / ipNetToPhysicalState (SID 60028) /
-      +8 : 1                / ipNetToPhysicalRowStatus (SID 60029) /
+      +1 : 1,           / ipNetToPhysicalIfIndex (SID 60022) /
+      +2 : 1,           / ipNetToPhysicalNetAddressType (SID 60023) /
+      +3 : h'09020304', / ipNetToPhysicalNetAddress  (SID 60024) /
+      +4 : h'00000A36200A',/ ipNetToPhysicalPhysAddress (SID 60025) /
+      +5 : 2329836,     / ipNetToPhysicalLastUpdated (SID 60026) /
+      +6 : 3,           / ipNetToPhysicalType (SID 60027) /
+      +7 : 6,           / ipNetToPhysicalState (SID 60028) /
+      +8 : 1            / ipNetToPhysicalRowStatus (SID 60029) /
     }
   ]
 }
@@ -1454,7 +1454,7 @@ This document adds the following resource type to the "Resource Type (rt=) Link 
 
 This document adds the following Content-Format to the "CoAP Content-Formats", within the "Constrained RESTful Environments (CoRE) Parameters" registry.
 
-| Media Type                        | Excoding ID  | Reference |
+| Media Type                        | Encoding ID  | Reference |
 | application/yang-data+cbor        | XXX          | RFC XXXX  |
 | application/yang-identifiers+cbor | XXX          | RFC XXXX  |
 | application/yang-instances+cbor   | XXX          | RFC XXXX  |
@@ -1467,10 +1467,12 @@ This document adds the following Content-Format to the "CoAP Content-Formats", w
 
 This document adds the following media types to the "Media Types" registry.
 
-| Name                  | Template                          | Reference |
-| yang-data+cbor        | application/yang-data+cbor        | RFC XXXX  |
-| yang-identifiers+cbor | application/yang-identifiers+cbor | RFC XXXX  |
-| yang-instances+cbor   | application/yang-instances+cbor   | RFC XXXX  |
+| Name                  | Template                    | Reference |
+| yang-data+cbor        | application/yang-data+cbor  | RFC XXXX  |
+| yang-identifiers+cbor | application/                | RFC XXXX  |
+|                       | yang-identifiers+cbor       |           |
+| yang-instances+cbor   | application/                | RFC XXXX  |
+|                       | yang-instances+cbor         |           |
 {: align="left"}
 
 Each of these media types share the following information:
