@@ -1539,7 +1539,7 @@ and Thomas Watteyne.
 # ietf-comi YANG module {#ietf-comi-yang}
 
 ~~~~
-<CODE BEGINS> file "ietf-comi@2018-09-26.yang"
+<CODE BEGINS> file "ietf-comi@2019-03-28.yang"
 module ietf-comi {
   yang-version 1.1;
   
@@ -1578,6 +1578,13 @@ module ietf-comi {
     "This module contains the different definitions required
      by the CoMI protocol.";
 
+  revision 2019-03-28 {
+    description
+      "typedef sid moved to ietf-sid-file.yang.";
+    reference
+      "[I-D.ietf-core-comi] CoAP Management Interface";
+  }
+  
   revision 2018-09-26 {
     description
       "Use of YANG data template for the error payload.
@@ -1590,14 +1597,6 @@ module ietf-comi {
       "Initial revision.";
     reference
       "[I-D.ietf-core-comi] CoAP Management Interface";
-  }
-  
-  typedef sid {
-    type uint64;
-    description
-      "YANG Schema Item iDentifier";
-    reference
-      "[I-D.ietf-core-sid] YANG Schema Item iDentifier (SID)";
   }
   
   identity unified {
