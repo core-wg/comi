@@ -1,7 +1,7 @@
 ---
 stand_alone: true
 ipr: trust200902
-docname: draft-ietf-core-comi-04
+docname: draft-ietf-core-comi-05
 cat: std
 pi:
   toc: 'yes'
@@ -67,7 +67,6 @@ normative:
   I-D.ietf-core-sid:
   I-D.veillette-core-yang-library:
 informative:
-  RFC4293:
   RFC6347:
   RFC6690:
   RFC7223:
@@ -81,8 +80,10 @@ and networks, called CoAP Management Interface (CoMI). The Constrained Applicati
 Protocol (CoAP) is used to access datastore and data node resources specified
 in YANG, or SMIv2 converted to YANG. CoMI uses the YANG to CBOR mapping and converts
 YANG identifier strings to numeric identifiers for payload size reduction.
-CoMI extends the set of YANG based protocols, NETCONF and RESTCONF, with
-the capability to manage constrained devices and networks.
+The complete solution composed of CoMI, {{I-D.ietf-core-yang-cbor}} and
+{{I-D.ietf-core-sid}} is called CORECONF. CORECONF extends the set of YANG based
+protocols, NETCONF and RESTCONF, with the capability to manage constrained devices
+and networks.
 
 --- note_Note
 
@@ -130,7 +131,7 @@ The following terms are defined in the YANG data modelling language {{RFC7950}}:
 
 The following terms are defined in [RFC6241]: configuration data, datastore, state data
  
-The following term is defined in {{I-D.ietf-core-yang-cbor}}: YANG schema item identifier (SID).
+The following term is defined in {{I-D.ietf-core-sid}}: YANG schema item identifier (SID).
 
 The following terms are defined in the CoAP protocol {{RFC7252}}: Confirmable Message, Content-Format, Endpoint.
 
@@ -233,7 +234,7 @@ architecture. The different numbered components of {{archit}} are discussed acco
 
 (7) Security:
 : The server MUST prevent unauthorized users from reading or writing any CoMI
-  resources. CoMI relies on security protocols such as DTLS {{RFC6347}} to secure CoAP communication.
+  resources. CoMI relies on security protocols such as DTLS {{RFC6347}} to secure CoAP communications.
 
 
 ## Major differences between RESTCONF and CoMI {#major-differences}
@@ -253,7 +254,7 @@ cited below:
 * CoMI uses the methods FETCH and iPATCH to access multiple data nodes.
   RESTCONF uses instead the HTTP method PATCH and the HTTP method GET with the "fields" Query parameter.
 
-* RESTCONF uses the HTTP methods HEAD, and OPTIONS, which are not used by CoAP.
+* RESTCONF uses the HTTP methods HEAD, and OPTIONS, which are not supported by CoAP.
 
 * CoMI does not support "insert" query parameter (first, last, before, after)
   and the "point" query parameter which are supported by RESTCONF.
@@ -357,14 +358,14 @@ application/yang-instances+cbor:
 : FORMAT: CBOR array of CBOR map of instance-identifier, instance-value
 
 : The message payload of Content-Format 'application/yang-instances+cbor' is encoded using a CBOR array.
-  Each entry within this CBOR array contains a CBOR map carrying a single instance identifier and associated value.
+  Each entry within this CBOR array contains a CBOR map carrying an instance identifier and associated instance value.
   Instance identifiers are encoded using the rules defined in {{I-D.ietf-core-yang-cbor}} section 6.13.1, values are encoded using the rules defined in {{I-D.ietf-core-yang-cbor}} section 4.
 
 : When present in an iPATCH request payload, this Content-Format carry a list of data node instances to be replaced, created, or deleted.
   For each data node instance D, for which the instance identifier is the same as a data node instance I, in the targeted datastore resource: the value of D replaces the value of I.  When the value of D is null, the data node instance I is removed.  When the targeted datastore resource does not contain a data node instance with the same instance identifier as D, a new instance is created with the same instance identifier and value as D.
 
 
-The different Content-formats usage are summarized in the table below:
+The different Content-format usages are summarized in the table below:
 
 | Method         | Resource     | Content-Format                     |
 | GET response   | data node    | /application/yang-data+cbor        |
@@ -384,7 +385,7 @@ The different Content-formats usage are summarized in the table below:
 
 ## Unified datastore {#unified-datastore}
 
-CoMI supports a simple datastore model consisting of on a single unified datastore. This datasore provides access to both configuration and operational data. Configuration updates performed on this datastore are reflected immediately or with a minimal delay as operational data.
+CoMI supports a simple datastore model consisting of a single unified datastore. This datasore provides access to both configuration and operational data. Configuration updates performed on this datastore are reflected immediately or with a minimal delay as operational data.
 
 Alternatively, CoMI servers MAY implement a more complex datastore model such as the Network Management Datastore Architecture (NMDA) as defined by [RFC8342]. Each datastore supported is implemented as a datastore resource.
 
@@ -396,16 +397,11 @@ Characteristics of the unified datastore are summarized in the table below:
 | YANG nodes    | all data nodes ("config true" and "config false") |
 | Access        | read-write                                        |
 | How applied   | changes applied in place immediately or with a  minimal delay |
-| Protocols     | CoMI                                              |
+| Protocols     | CORECONF                                          |
 | Defined in    | "ietf-comi"                                       |
 {: align="left"}
 
 # Example syntax {#example-syntax}
-
-This section presents the notation used for the examples. The YANG modules
-that are used throughout this document are shown in {{example-specifications}}.
-The example modules are copied from existing modules and annotated with
-SIDs.
 
 CBOR is used to encode CoMI request and response payloads. The CBOR syntax
 of the YANG payloads is specified in {{RFC7049}}. The payload examples are
@@ -467,7 +463,7 @@ support list instance selection.
 ## Using the 'k' Uri-Query option {#query}
 
 The "k" (key) parameter specifies a specific instance of a data node.
-The SID in the URI is followed by the (?k=key1, key2,..). Where SID identifies
+The SID in the URI is followed by the (?k=key1,key2,...). Where SID identifies
 a data node, and key1, key2 are the values of the key leaves that specify
 an instance. Lists can have multiple keys, and lists can be part
 of lists. The order of key value generation is given recursively by:
@@ -509,10 +505,6 @@ One or more data nodes can be retrieved by the client.
 The operation is mapped to the GET method defined in
 section 5.8.1 of {{RFC7252}} and to the FETCH method defined in section 2 of {{RFC8132}}.
 
-It is possible that the size of the payload is too large to fit in a single
-message. In the case that management data is bigger than the maximum supported payload
-size, the Block mechanism from {{RFC7959}} may be used, as explained in more detail in {{block}}.
-
 There are two additional Uri-Query options for the GET and FETCH methods.
 
 | Uri-Query option | Description |
@@ -522,7 +514,7 @@ There are two additional Uri-Query options for the GET and FETCH methods.
 
 ### Using the 'c' Uri-Query option {#content}
 
-The 'c' (content) parameter controls how descendant nodes of the
+The 'c' (content) option controls how descendant nodes of the
 requested data nodes will be processed in the reply.
 
 The allowed values are:
@@ -533,7 +525,7 @@ The allowed values are:
 |  a    |  Return all descendant data nodes  |
 {: align="left"}
 
-This parameter is only allowed for GET and FETCH methods on datastore and
+This option is only allowed for GET and FETCH methods on datastore and
 data node resources.  A 4.02 (Bad Option) error is returned if used for other
 methods or resource types.
 
@@ -542,7 +534,7 @@ If this Uri-Query option is not present, the default value is "a".
 
 ### Using the 'd' Uri-Query option {#dquery}
 
-The "d" (with-defaults) parameter controls how the default values of the
+The "d" (with-defaults) option controls how the default values of the
 descendant nodes of the requested data nodes will be processed.
 
 The allowed values are:
@@ -587,7 +579,7 @@ The returned payload contains the CBOR encoding of the specified data node insta
 
 #### GET Examples {#get-example}
 
-Using for example the current-datetime leaf from {{ietf-system}}, a request is sent to
+Using for example the current-datetime leaf from module ietf-system [RFC7317], a request is sent to
 retrieve the value of 'system-state/clock/current-datetime' specified in container system-state.
 The SID of 'system-state/clock/current-datetime' is 1723, encoded in base64 according to {{id-compression}},
 yields a7. The response to the request returns the CBOR map with the key set to the SID of the requested
@@ -678,7 +670,7 @@ It is equally possible to select a leaf of a specific instance of a list.
 The example below requests the description leaf (SID=1534, base64: X-) 
 within the interface list corresponding to the interface name "eth0".
 The returned value is encoded in CBOR based on the rules
-specified by {{I-D.ietf-core-yang-cbor}} section 5.4.
+specified by {{I-D.ietf-core-yang-cbor}} section 6.4.
 
 ~~~~
 REQ: GET example.com/c/X-?k="eth0"
@@ -715,7 +707,8 @@ FORMAT:
 
 #### FETCH examples {#fetch-example}
 
-This example uses the current-datetime leaf and the interface list from {{ietf-system}}.
+This example uses the current-datetime leaf from module ietf-system [RFC7317]
+and the interface list from module ietf-interfaces [RFC7223].
 In this example the value of current-datetime (SID 1723) and the interface
 list (SID 1533) instance identified with name="eth0" are queried.
 
@@ -784,8 +777,8 @@ a "4.09 Conflict" response code MUST be returned
 
 #### Post example {#post-example}
 
-The example uses the interface list from {{ietf-system}}.
-Example is creating a new list instance within the interface list (SID = 1533):
+The example uses the interface list from  module ietf-interfaces [RFC7223].
+This example creates a new list instance within the interface list (SID = 1533):
 
 ~~~~
 REQ: POST /c/X9 (Content-Format: application/yang-data+cbor)
@@ -825,8 +818,8 @@ FORMAT:
 
 #### PUT example {#put-example}
 
-The example uses the interface list from {{ietf-system}}.
-Example is renewing an instance of the list interface (SID = 1533) with key
+The example uses the interface list from module ietf-interfaces [RFC7223].
+Example updates the instance of the list interface (SID = 1533) with key
 name="eth0":
 
 
@@ -853,7 +846,7 @@ RES:  2.04 Changed
 ### iPATCH {#ipatch-operation}
 
 One or multiple data node instances are replaced with the idempotent
-iPATCH method {{RFC8132}}. A request is sent with a CoAP iPATCH message.
+CoAP iPATCH method {{RFC8132}}.
 
 There are no Uri-Query options for the iPATCH method.
 
@@ -925,8 +918,8 @@ FORMAT:
 
 #### DELETE example {#delete-example}
 
-This example uses the interface list from {{interfaces}}.
-This example is deleting an instance of the interface list (SID = 1533):
+This example uses the interface list from module ietf-interfaces [RFC7223].
+This example deletes an instance of the interface list (SID = 1533):
 
 
 ~~~~
@@ -984,8 +977,9 @@ at the GET indication of after a successful processing of a PUT or POST request.
 
 ### Full datastore examples {#datastore-example}
 
-The example uses the interface list and the clock container from {{interfaces}}.
-Assume that the datastore contains two modules ietf-system (SID 1700) and
+The example uses the interface list from module ietf-interfaces [RFC7223] and
+the clock container from module ietf-system [RFC7317].  
+We assume that the datastore contains two modules ietf-system (SID 1700) and
 ietf-interfaces (SID 1500); they contain the 'interface' list (SID 1533) with
 one instance and the 'clock' container (SID 1721). After invocation of GET, a
 CBOR map with data nodes from these two modules is returned:
@@ -1029,7 +1023,7 @@ GET request with an "Observe" option, specifying the /s resource when the
 default stream is selected.
 
 Each response payload carries one or multiple notifications. The number of
-notification reported and the conditions used to remove notifications
+notifications reported, and the conditions used to remove notifications
 from the reported list is left to implementers.
 When multiple notifications are reported, they MUST be ordered starting from
 the newest notification at index zero.
@@ -1058,9 +1052,26 @@ been generated at different times.
 
 ### Notify Examples {#event-stream-example}
 
-Suppose the server generates the event specified in {{notify-ex}}.
-By executing a GET on the /s resource the client receives the following response:
+Let suppose the server generates the example-port-fault event as defined below.
 
+~~~~
+module example-port {
+  ...
+  notification example-port-fault {   // SID 60010
+    description
+      "Event generated if a hardware fault is detected";
+    leaf port-name {                  // SID 60011
+      type string;
+    }
+    leaf port-fault {                 // SID 60012
+      type string;
+    }
+  }
+}
+~~~~
+{: artwork-align="left"}
+
+By executing a GET on the /s resource the client receives the following response:
 
 ~~~~
 REQ:  GET /s Observe(0) Token(0x93)
@@ -1093,7 +1104,18 @@ periodically. When the client does not confirm the notification
 from the server, the server will remove the client from the list of observers
 {{RFC7641}}.
 
+### The 'f' Uri-Query option
 
+The 'f' (filter) option is used to indicate which subset of all possible notifications is of interest.  If not present, all events notifications supported by the event stream are reported.
+
+When not supported by a CoMI server, this option shall be ignored, all events notifications are reported independently of the presence and content of the 'f' (filter) option.
+
+When present, this option contains a comma separated list of notification SIDs. For example, the following request returns notifications 60010 and 60020.
+
+~~~~
+REQ:  GET /s?f=60010,60020 Observe(0) Token(0x241)
+~~~~
+{: artwork-align="left"}
 
 ## RPC statements {#rpc}
 
@@ -1124,9 +1146,45 @@ FORMAT:
 
 ### RPC Example {#rpc-example}
 
-The example is based on the YANG action specification of {{server}}.
-A server list is specified and the action "reset" (SID 60002, base64: Opq),
-that is part of a "server instance" with key value "myserver", is invoked.
+The example is based on the YANG action reset as defined in [RFC7950] section 7.15.3
+and annotated below with SIDs.
+
+~~~~
+module example-server-farm {
+  yang-version 1.1;
+  namespace "urn:example:server-farm";
+  prefix "sfarm";
+
+  import ietf-yang-types {
+    prefix "yang";
+  }
+
+  list server {                        // SID 60000
+    key name;
+    leaf name {                        // SID 60001
+      type string;
+    }
+    action reset {                     // SID 60002
+      input {
+        leaf reset-at {                // SID 60003
+          type yang:date-and-time;
+          mandatory true;
+         }
+       }
+       output {
+         leaf reset-finished-at {      // SID 60004
+           type yang:date-and-time;
+           mandatory true;
+         }
+       }
+     }
+   }
+ }
+~~~~
+{: artwork-align="left"}
+
+This example invokes the 'reset' action  (SID 60002, base64: Opq),
+of the server instance with name equal to "myserver".
 
 
 ~~~~
@@ -1146,44 +1204,6 @@ RES:  2.05 Content (Content-Format :application/yang-data+cbor)
 }
 ~~~~
 {: artwork-align="left"}
-
-
-# Access to MIB Data {#mib}
-
-{{smi}} shows a YANG module mapped from the SMI specification "IP-MIB" {{RFC4293}}.
-The following example shows the "ipNetToPhysicalEntry" list with 2 instances.
-
-~~~~
-REQ: GET example.com/c/Oz1
-
-RES: 2.05 Content (Content-Format: application/yang-data+cbor)
-{
-  60021 : [             / ipNetToPhysicalEntry /
-    {
-      +1 : 1,           / ipNetToPhysicalIfIndex (SID 60022) /
-      +2 : 1,           / ipNetToPhysicalNetAddressType (SID 60023) /
-      +3 : h'0A000033', / ipNetToPhysicalNetAddress (SID 60024) /
-      +4 : h'00000A01172D',/ ipNetToPhysicalPhysAddress (SID 60025) /
-      +5 : 2333943,     / ipNetToPhysicalLastUpdated (SID 60026) /
-      +6 : 4,           / ipNetToPhysicalType (SID 60027) /
-      +7 : 1,           / ipNetToPhysicalState (SID 60028) /
-      +8 : 1            / ipNetToPhysicalRowStatus (SID 60029) /
-    },
-    {
-      +1 : 1,           / ipNetToPhysicalIfIndex (SID 60022) /
-      +2 : 1,           / ipNetToPhysicalNetAddressType (SID 60023) /
-      +3 : h'09020304', / ipNetToPhysicalNetAddress  (SID 60024) /
-      +4 : h'00000A36200A',/ ipNetToPhysicalPhysAddress (SID 60025) /
-      +5 : 2329836,     / ipNetToPhysicalLastUpdated (SID 60026) /
-      +6 : 3,           / ipNetToPhysicalType (SID 60027) /
-      +7 : 6,           / ipNetToPhysicalState (SID 60028) /
-      +8 : 1            / ipNetToPhysicalRowStatus (SID 60029) /
-    }
-  ]
-}
-~~~~
-{: artwork-align="left"}
-
 
 # Use of Block {#block}
 
@@ -1383,7 +1403,7 @@ The following 'error-tag' and 'error-app-tag' are defined by the ietf-comi YANG 
 
 * error-tag 'missing-element' is returned by the CoMI server when the operation requested by a CoMI client fail to comply with the 'mandatory' constraint defined. The 'mandatory' constraint is enforced for leafs and choices, unless the node or any of its ancestors have a 'when' condition or 'if-feature' expression that evaluates to 'false'.
 
-  * error-app-tag 'missing-key' is returned by the CoMI server to further qualify an missing-element error. This error is returned when the CoMI client  tries to create or list instance, without all the 'key' specified or when the CoMI client  tries to delete a leaf listed as a 'key'.
+  * error-app-tag 'missing-key' is returned by the CoMI server to further qualify a missing-element error. This error is returned when the CoMI client  tries to create or list instance, without all the 'key' specified or when the CoMI client  tries to delete a leaf listed as a 'key'.
 
   * error-app-tag 'missing-input-parameter' is returned by the CoMI server when the input parameters of an RPC or action are incomplete.
 
@@ -1523,7 +1543,7 @@ Each of these media types share the following information:
 # Acknowledgements
 
 We are very grateful to Bert Greevenbosch who was one of the original authors
-of the CoMI specification and specified CBOR encoding and use of hashes.
+of the CoMI specification.
 
 Mehmet Ersue and Bert Wijnen explained the encoding aspects of PDUs transported
 under SNMP. Carsten Bormann has given feedback on the use of CBOR.
@@ -1553,7 +1573,7 @@ module ietf-comi {
   import ietf-restconf {
     prefix rc;
     description
-      "This import statement is only present to access
+      "This import statement is required to access
        the yang-data extension defined in RFC 8040.";
     reference "RFC 8040: RESTCONF Protocol";
   }
@@ -1579,20 +1599,6 @@ module ietf-comi {
      by the CoMI protocol.";
 
   revision 2019-03-28 {
-    description
-      "typedef sid moved to ietf-sid-file.yang.";
-    reference
-      "[I-D.ietf-core-comi] CoAP Management Interface";
-  }
-  
-  revision 2018-09-26 {
-    description
-      "Use of YANG data template for the error payload.
-       Definition of the unified datastore.";
-    reference
-      "[I-D.ietf-core-comi] CoAP Management Interface";
-  }
-  revision 2017-07-01 {
      description
       "Initial revision.";
     reference
@@ -1602,7 +1608,8 @@ module ietf-comi {
   identity unified {
     base ds:datastore;
     description
-      "The unified configuration and operational state datastore.";
+      "Identifier of the unified configuration and operational
+       state datastore.";
   }
 
   identity error-tag {
@@ -1834,7 +1841,7 @@ module ietf-comi {
     }
   ],
   "module-name": "ietf-comi",
-  "module-revision": "2018-09-26",
+  "module-revision": "2019-03-28",
   "items": [
     {
       "namespace": "module",
@@ -1991,294 +1998,5 @@ module ietf-comi {
 ~~~~
 {: artwork-align="left"}
 
-# YANG example specifications {#example-specifications}
-
-This appendix shows five YANG example specifications taken over from as many existing YANG modules.
-Each YANG item identifier is accompanied by its SID shown after the "//" comment sign.
-
-## ietf-system {#ietf-system}
-
-Excerpt of the YANG module ietf-system {{RFC7317}}.
-
-~~~~
-module ietf-system {                   // SID 1700
-  container system {                   // SID 1717
-    container clock {                  // SID 1738
-      choice timezone {
-        case timezone-name {
-          leaf timezone-name {         // SID 1739
-            type timezone-name;
-          }
-        }
-        case timezone-utc-offset {
-          leaf timezone-utc-offset {   // SID 1740
-            type int16 {
-            }
-          }
-        }
-      }
-    }
-    container ntp {                    // SID 1754
-      leaf enabled {                   // SID 1755
-        type boolean;
-        default true;
-      }
-      list server {                    // SID 1756
-        key name;
-        leaf name {                    // SID 1759
-          type string;
-        }
-        choice transport {
-          case udp {
-            container udp {            // SID 1761
-              leaf address {           // SID 1762
-                type inet:host;
-              }
-              leaf port {              // SID 1763
-                type inet:port-number;
-              }
-            }
-          }
-        }
-        leaf association-type {        // SID 1757
-          type enumeration {
-            enum server {
-            }
-            enum peer {
-            }
-            enum pool {
-            }
-          }
-        }
-        leaf iburst {                  // SID 1758
-          type boolean;
-        }
-        leaf prefer {                  // SID 1760
-          type boolean;
-          default false;
-        }
-      }
-    }
-  container system-state {             // SID 1720
-    container clock {                  // SID 1721
-      leaf current-datetime {          // SID 1723
-        type yang:date-and-time;
-      }
-      leaf boot-datetime {             // SID 1722
-        type yang:date-and-time;
-      }
-    }
-  }
-}
-~~~~
-{: artwork-align="left"}
-
-## server list {#server}
-
-Taken over from {{RFC7950}} section 7.15.3.
-
-~~~~
-module example-server-farm {
-  yang-version 1.1;
-  namespace "urn:example:server-farm";
-  prefix "sfarm";
-
-  import ietf-yang-types {
-    prefix "yang";
-  }
-
-  list server {                        // SID 60000
-    key name;
-    leaf name {                        // SID 60001
-      type string;
-    }
-    action reset {                     // SID 60002
-      input {
-        leaf reset-at {                // SID 60003
-          type yang:date-and-time;
-          mandatory true;
-         }
-       }
-       output {
-         leaf reset-finished-at {      // SID 60004
-           type yang:date-and-time;
-           mandatory true;
-         }
-       }
-     }
-   }
-}
-
-~~~~
-{: artwork-align="left"}
-
-## interfaces {#interfaces}
-
-Excerpt of the YANG module ietf-interfaces {{RFC7223}}.
-
-~~~~
-module ietf-interfaces {               // SID 1500
-  container interfaces {               // SID 1505
-    list interface {                   // SID 1533
-      key "name";
-      leaf name {                      // SID 1537
-        type string;
-      }
-      leaf description {               // SID 1534
-        type string;
-      }
-      leaf type {                      // SID 1538
-        type identityref {
-          base interface-type;
-        }
-        mandatory true;
-      }
-
-      leaf enabled {                   // SID 1535
-        type boolean;
-        default "true";
-      }
-
-      leaf link-up-down-trap-enable {  // SID 1536
-        if-feature if-mib;
-        type enumeration {
-          enum enabled {
-            value 1;
-          }
-          enum disabled {
-            value 2;
-          }
-        }
-      }
-    }
-  }
-}
-~~~~
-{: artwork-align="left"}
-
-
-## Example-port {#notify-ex}
-
-Notification example defined within this document.
-
-~~~~
-module example-port {
-        ...
-        notification example-port-fault {   // SID 60010
-          description
-            "Event generated if a hardware fault on a
-             line card port is detected";
-          leaf port-name {                  // SID 60011
-            type string;
-            description "Port name";
-          }
-          leaf port-fault {                 // SID 60012
-            type string;
-            description "Error condition detected";
-          }
-        }
-      }
-~~~~
-{: artwork-align="left"}
-
-
-## IP-MIB {#smi}
-
-The YANG translation of the SMI specifying the IP-MIB {{RFC4293}}, extended with example SID numbers, yields:
-
-~~~~
-module IP-MIB {
-  import IF-MIB {
-    prefix if-mib;
-  }
-  import INET-ADDRESS-MIB {
-    prefix inet-address;
-  }
-  import SNMPv2-TC {
-    prefix smiv2;
-  }
-  import ietf-inet-types {
-    prefix inet;
-  }
-  import yang-smi {
-    prefix smi;
-  }
-  import ietf-yang-types {
-    prefix yang;
-  }
-
-  container ip {                            // SID 60020
-    list ipNetToPhysicalEntry {             // SID 60021
-      key "ipNetToPhysicalIfIndex
-           ipNetToPhysicalNetAddressType
-           ipNetToPhysicalNetAddress";
-      leaf ipNetToPhysicalIfIndex {         // SID 60022
-        type if-mib:InterfaceIndex;
-      }
-      leaf ipNetToPhysicalNetAddressType {  // SID 60023
-        type inet-address:InetAddressType;
-      }
-      leaf ipNetToPhysicalNetAddress {      // SID 60024
-        type inet-address:InetAddress;
-      }
-      leaf ipNetToPhysicalPhysAddress {     // SID 60025
-        type yang:phys-address {
-          length "0..65535";
-        }
-      }
-      leaf ipNetToPhysicalLastUpdated {     // SID 60026
-        type yang:timestamp;
-      }
-      leaf ipNetToPhysicalType {            // SID 60027
-        type enumeration {
-          enum "other" {
-            value 1;
-          }
-          enum "invalid" {
-            value 2;
-          }
-          enum "dynamic" {
-            value 3;
-          }
-          enum "static" {
-            value 4;
-          }
-          enum "local" {
-            value 5;
-          }
-        }
-      }
-      leaf ipNetToPhysicalState {           // SID 60028
-        type enumeration {
-          enum "reachable" {
-            value 1;
-          }
-          enum "stale" {
-            value 2;
-          }
-          enum "delay" {
-            value 3;
-          }
-          enum "probe" {
-            value 4;
-          }
-          enum "invalid" {
-            value 5;
-          }
-          enum "unknown" {
-            value 6;
-          }
-          enum "incomplete" {
-            value 7;
-          }
-        }
-      }
-      leaf ipNetToPhysicalRowStatus {       // SID 60029
-        type smiv2:RowStatus;
-    }  // list ipNetToPhysicalEntry
-  }  // container ip
-}  // module IP-MIB
-~~~~
-{: artwork-align="left"}
 
 
