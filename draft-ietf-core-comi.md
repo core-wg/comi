@@ -1,7 +1,7 @@
 ---
 stand_alone: true
 ipr: trust200902
-docname: draft-ietf-core-comi-06
+docname: draft-ietf-core-comi-07
 cat: std
 pi:
   toc: 'yes'
@@ -288,10 +288,10 @@ to significantly reduce the size of identifiers used in CoMI, numeric
  identifiers are used instead of these strings.
 YANG Schema Item iDentifier (SID) is defined in {{I-D.ietf-core-yang-cbor}} section 2.1.
 
-When used in a URI, SIDs are encoded using base64 encoding of the SID bytes. Base64 encoding is using the URL and Filename safe
+When used in a URI, SIDs are encoded using base64 encoding of the SID bytes. The base64 encoding is using the URL and Filename safe
 alphabet as defined by {{RFC4648}} section 5, without padding. The last 6 bits encoded is always aligned
 with the least significant 6 bits of the SID represented using an unsigned integer.
-'A' characters (value 0) at the start of the resulting string are removed.
+'A' characters (value 0) at the start of the resulting string are removed. See {{Fig-sid-encoding}} for complete illustration.
 
 ~~~~
 SID in base64 = URLsafeChar[SID >> 60 & 0x3F] |
@@ -306,7 +306,7 @@ SID in base64 = URLsafeChar[SID >> 60 & 0x3F] |
                  URLsafeChar[SID >> 6 & 0x3F] |
                  URLsafeChar[SID & 0x3F]
 ~~~~
-{: artwork-align="left"}
+{: #Fig-sid-encoding artwork-align="left"}
 
 For example, SID 1721 is encoded as follow.
 
@@ -1042,8 +1042,22 @@ from the reported list is left to implementers.
 When multiple notifications are reported, they MUST be ordered starting from
 the newest notification at index zero.
 
-The format of notification contents is defined in {{I-D.ietf-core-yang-cbor}}
-section 4.2.1. For notification without any content, a null value is returned.
+The format of notification without any content is a null value. The format of
+single notification is defined in {{I-D.ietf-core-yang-cbor}} section
+4.2.1. For multiple notifications the format is an array where each element is
+a single notification as described in {{I-D.ietf-core-yang-cbor}} section 4.2.1.
+
+~~~~
+FORMAT:
+  GET /<stream-resource> Observe(0)
+
+  2.05 Content (Content-Format: application/yang-instances+cbor)
+  A CBOR map or a CBOR array of CBOR map of instance-identifier, instance-value
+~~~~
+{: artwork-align="left"}
+
+The array of data node instances may contain identical entries which have
+been generated at different times.
 
 An example implementation is:
 
@@ -1052,17 +1066,6 @@ An example implementation is:
 > adjusted using an exclusion delay and limited by the maximum number of notifications supported,
 > the content of the instance is sent to all clients observing the modified stream.
 
-~~~~
-FORMAT:
-  GET /<stream-resource> Observe(0)
-
-  2.05 Content (Content-Format: application/yang-instances+cbor)
-  CBOR array of CBOR map of instance-identifier, instance-value
-~~~~
-{: artwork-align="left"}
-
-The array of data node instances may contain identical entries which have
-been generated at different times.
 
 ### Notify Examples {#event-stream-example}
 
@@ -1261,10 +1264,14 @@ From this information, CoMI clients can infer the list of data nodes supported
 and the interaction model to be used to access them. This module also contains
 the list of datastores implemented.
 
-The location of the YANG library can be found by sending a GET request to
+As described in {{RFC6690}}, the location of the YANG library can be found by
+sending a GET request to
 "/.well-known/core" including a resource type (RT) parameter with the value
 "core.c.yl". Upon success, the return payload will contain the root resource
 of the YANG library module.
+
+The following example assumes that the SID of the YANG library is 2351 (kv
+encoded as specified in {{id-compression}}).
 
 ~~~~
 REQ: GET /.well-known/core?rt=core.c.yl
@@ -1276,10 +1283,10 @@ RES: 2.05 Content (Content-Format: application/link-format)
 
 ## Resource Discovery
 
-Even if the YANG library provides all the information needed for application
-discovery once it is itself discovered, other types of resources could be discovered using
-the implementation of Resource discovery as defined by {{RFC6690}}. This can be desirable for
-a seamless integration with other CoAP interfaces and services.
+As some CoAP interfaces and services might not support the YANG library
+interface and still be interested to discover resources that are available,
+implementations MAY choose to support discovery of all available
+resources using "/.well-known/core" as defined by {{RFC6690}}.
 
 ### Datastore Resource Discovery
 
@@ -1291,7 +1298,8 @@ Upon success, the return payload contains the list of datastore resources.
 
 Each datastore returned is further qualified using the "ds" Link-Format attribute.
 This attribute is set to the SID assigned to the datastore identity.
-When a unified datastore is implemented, the ds attribute is set to 1029.
+When a unified datastore is implemented, the ds attribute is set to 1029 as
+specified in {{ietf-comi-sid}}.
 For other examples of datastores, see the Network Management Datastore Architecture (NMDA) {{RFC7950}}.
 
 ~~~~
@@ -1314,11 +1322,13 @@ RES: 2.05 Content (Content-Format: application/link-format)
 
 ### Data node Resource Discovery
 
-The presence and location of (path to) each data node implemented by the CoMI server
-are discovered by sending a GET request to "/.well-known/core" including a
-resource type (RT) parameter with the value "core.c.dn".
+If implemented, the presence and location of (path to) each data node
+implemented by the CoMI server are discovered by sending a GET request to
+"/.well-known/core" including a resource type (RT) parameter with the value
+"core.c.dn".
 
-Upon success, the return payload contains the SID assigned to each data node and their location.
+Upon success, the return payload contains the SID assigned to each data node
+and their location.
 
 The example below shows the discovery of the presence and location of
 data nodes. Data nodes '/ietf-system:system-state/clock/boot-datetime' (SID 1722)
@@ -1335,8 +1345,9 @@ RES: 2.05 Content (Content-Format: application/link-format)
 {: artwork-align="left"}
 
 Without additional filtering, the list of data nodes may become prohibitively
-long. Implementations MAY return a subset
-of this list or can rely solely on the YANG library.
+long. If this is the case implementations SHOULD support a way to obtain all
+links using multiple GET requests (for example through some form of
+pagination).
 
 ### Event stream Resource Discovery
 
@@ -1380,7 +1391,7 @@ The following list of common CoAP errors should be implemented by CoMI servers. 
 * Error 4.15 (Unsupported Content-Format) is returned by the CoMI server when the Content-Format used in the request does not match those specified in section {{content-format}}.
 
 
-CoMI server MUST also enforce the different constraints associated to the YANG data models implemented. These constraints are described in {{RFC7950}} section 8. These errors are reported using the CoAP error code 4.00 (Bad Request) and may have the following error container as payload. The YANG definition and associated .sid file are available in {{ietf-comi-yang}} and {{ietf-comi-sid}}. The error container is encoded using the encoding rules of a YANG data template as defined in {{I-D.ietf-core-yang-cbor}} section 5.
+The CoMI server MUST also enforce the different constraints associated to the YANG data models implemented. These constraints are described in {{RFC7950}} section 8. These errors are reported using the CoAP error code 4.00 (Bad Request) and may have the following error container as payload. The YANG definition and associated .sid file are available in {{ietf-comi-yang}} and {{ietf-comi-sid}}. The error container is encoded using the encoding rules of a YANG data template as defined in {{I-D.ietf-core-yang-cbor}} section 5.
 
 ~~~~
 +--rw error!
@@ -1462,10 +1473,9 @@ this includes DTLS {{RFC6347}} for protected access to resources, as well suitab
 authentication and authorization mechanisms.
 
 Among the security decisions that need to be made are selecting security modes and encryption
-mechanisms (see {{RFC7252}}). This requires a trade-off, as the NoKey mode gives no protection at all,
-but is easy to implement, whereas the Certificate mode is quite secure, but may be too complex for constrained devices.
+mechanisms (see {{RFC7252}}).
 
-In addition, mechanisms for authentication and authorization may need to be selected in case NoKey is used.
+In addition, mechanisms for authentication and authorization may need to be selected if not provided with the security mode.
 
 # IANA Considerations
 
