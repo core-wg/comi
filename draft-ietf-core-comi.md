@@ -1074,13 +1074,13 @@ Let suppose the server generates the example-port-fault event as defined below.
 ~~~~
 module example-port {
   ...
-  notification example-port-fault {   // (SID 60010)
+  notification example-port-fault {   // SID 60010
     description
       "Event generated if a hardware fault is detected";
-    leaf port-name {                  // (SID 60011)
+    leaf port-name {                  // SID 60011
       type string;
     }
-    leaf port-fault {                 // (SID 60012)
+    leaf port-fault {                 // SID 60012
       type string;
     }
   }
@@ -1176,20 +1176,20 @@ module example-server-farm {
     prefix "yang";
   }
 
-  list server {                        // (SID 60000)
+  list server {                        // SID 60000
     key name;
-    leaf name {                        // (SID 60001)
+    leaf name {                        // SID 60001
       type string;
     }
-    action reset {                     // (SID 60002)
+    action reset {                     // SID 60002
       input {
-        leaf reset-at {                // (SID 60003)
+        leaf reset-at {                // SID 60003
           type yang:date-and-time;
           mandatory true;
          }
        }
        output {
-         leaf reset-finished-at {      // (SID 60004)
+         leaf reset-finished-at {      // SID 60004
            type yang:date-and-time;
            mandatory true;
          }
