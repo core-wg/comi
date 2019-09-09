@@ -620,8 +620,8 @@ REQ: GET example.com/c/a5
 RES: 2.05 Content (Content-Format: application/yang-data+cbor)
 {
   1721 : {
-    +2 : "2014-10-26T12:16:51Z",   / current-datetime SID 1723 /
-    +1 : "2014-10-21T03:00:00Z"    / boot-datetime SID 1722 /
+    2 : "2014-10-26T12:16:51Z",    / current-datetime (SID 1723) /
+    1 : "2014-10-21T03:00:00Z"     / boot-datetime (SID 1722) /
   }
 }
 ~~~~
@@ -639,18 +639,18 @@ RES: 2.05 Content (Content-Format: application/yang-data+cbor)
 {
   1533 : [
     {
-      +4 : "eth0",                / name  (SID 1537) /
-      +1 : "Ethernet adaptor",    / description (SID 1534) /
-      +5 : 1880,                  / type, (SID 1538) identity /
+      4 : "eth0",                 / name  (SID 1537) /
+      1 : "Ethernet adaptor",     / description (SID 1534) /
+      5 : 1880,                   / type, (SID 1538) identity /
                                   / ethernetCsmacd (SID 1880) /
-      +2 : true                   / enabled ( SID 1535) /
+      2 : true                    / enabled (SID 1535) /
     },
     {
-      +4 : "eth1",                / name (SID 1537) /
-      +1 : "Ethernet adaptor",    / description (SID 1534) /
-      +5 : 1880,                  / type, (SID 1538) identity /
+      4 : "eth1",                 / name (SID 1537) /
+      1 : "Ethernet adaptor",     / description (SID 1534) /
+      5 : 1880,                   / type, (SID 1538) identity /
                                   / ethernetCsmacd (SID 1880) /
-      +2 : false                  / enabled ( SID 1535) /
+      2 : false                   / enabled (SID 1535) /
     }
   ]
 }
@@ -669,11 +669,11 @@ RES: 2.05 Content (Content-Format: application/yang-data+cbor)
 {
   1533 : [
     {
-      +4 : "eth0",                / name  (SID 1537) /
-      +1 : "Ethernet adaptor",    / description (SID 1534) /
-      +5 : 1880,                  / type, (SID 1538) identity /
+      4 : "eth0",                 / name  (SID 1537) /
+      1 : "Ethernet adaptor",     / description (SID 1534) /
+      5 : 1880,                   / type, (SID 1538) identity /
                                   / ethernetCsmacd (SID 1880) /
-      +2 : true                   / enabled ( SID 1535) /
+      2 : true                    / enabled (SID 1535) /
     }
   ]
 }
@@ -681,7 +681,7 @@ RES: 2.05 Content (Content-Format: application/yang-data+cbor)
 {: artwork-align="left"}
 
 It is equally possible to select a leaf of a specific instance of a list.
-The example below requests the description leaf (SID=1534, base64: X-)
+The example below requests the description leaf (SID 1534, base64: X-)
 within the interface list corresponding to the interface name "eth0".
 The returned value is encoded in CBOR based on the rules
 specified by {{I-D.ietf-core-yang-cbor}} section 6.4.
@@ -741,11 +741,11 @@ RES:  2.05 Content (Content-Format: application/yang-instances+cbor)
   },
   {
     1533 : {
-      +4 : "eth0",                / name (SID 1537) /
-      +1 : "Ethernet adaptor",    / description (SID 1534) /
-      +5 : 1880,                  / type (SID 1538), identity /
+      4 : "eth0",                 / name (SID 1537) /
+      1 : "Ethernet adaptor",     / description (SID 1534) /
+      5 : 1880,                   / type (SID 1538), identity /
                                   / ethernetCsmacd (SID 1880) /
-      +2 : true                   / enabled (SID 1535) /
+      2 : true                    / enabled (SID 1535) /
     }
   }
 ]
@@ -799,11 +799,11 @@ REQ: POST /c/X9 (Content-Format: application/yang-data+cbor)
 {
   1533 : [
     {
-      +4 : "eth5",             / name (SID 1537) /
-      +1 : "Ethernet adaptor", / description (SID 1534) /
-      +5 : 1880,               / type (SID 1538), identity /
+      4 : "eth5",              / name (SID 1537) /
+      1 : "Ethernet adaptor",  / description (SID 1534) /
+      5 : 1880,                / type (SID 1538), identity /
                                / ethernetCsmacd (SID 1880) /
-      +2 : true                / enabled (SID 1535) /
+      2 : true                 / enabled (SID 1535) /
     }
   ]
 }
@@ -842,11 +842,11 @@ REQ: PUT /c/X9?k="eth0" (Content-Format: application/yang-data+cbor)
 {
   1533 : [
     {
-      +4 : "eth0",             / name (SID 1537) /
-      +1 : "Ethernet adaptor", / description (SID 1534) /
-      +5 : 1880,               / type (SID 1538), identity /
+      4 : "eth0",              / name (SID 1537) /
+      1 : "Ethernet adaptor",  / description (SID 1534) /
+      5 : 1880,                / type (SID 1538), identity /
                                / ethernetCsmacd (SID 1880) /
-      +2 : true                / enabled (SID 1535) /
+      2 : true                 / enabled (SID 1535) /
     }
   ]
 }
@@ -901,10 +901,10 @@ REQ: iPATCH /c (Content-Format: application/yang-instances+cbor)
   },
   {
     1756 : {                      / server (SID 1756) /
-      +3 : "tic.nrc.ca",          / name (SID 1759) /
-      +4 : true,                  / prefer (SID 1760) /
-      +5 : {                      / udp (SID 1761) /
-        +1 : "132.246.11.231"     / address (SID 1762) /
+      3 : "tic.nrc.ca",           / name (SID 1759) /
+      4 : true,                   / prefer (SID 1760) /
+      5 : {                       / udp (SID 1761) /
+        1 : "132.246.11.231"      / address (SID 1762) /
       }
     }
   }
@@ -1005,16 +1005,16 @@ REQ:  GET /c
 RES: 2.05 Content (Content-Format: application/yang-data+cbor)
 {
   1721 : {                       / Clock (SID 1721) /
-    +2: "2016-10-26T12:16:31Z",  / current-datetime (SID 1723) /
-    +1: "2014-10-05T09:00:00Z"   / boot-datetime (SID 1722) /
+    2: "2016-10-26T12:16:31Z",   / current-datetime (SID 1723) /
+    1: "2014-10-05T09:00:00Z"    / boot-datetime (SID 1722) /
   },
   1533 : [
-    {                       / interface (SID 1533) /
-      +4 : "eth0",                 / name (SID 1537) /
-      +1 : "Ethernet adaptor",     / description (SID 1534) /
-      +5 : 1880,                   / type (SID 1538), identity: /
+    {                              / interface (SID 1533) /
+      4 : "eth0",                  / name (SID 1537) /
+      1 : "Ethernet adaptor",      / description (SID 1534) /
+      5 : 1880,                    / type (SID 1538), identity: /
                                    / ethernetCsmacd (SID 1880) /
-      +2 : true                    / enabled (SID 1535) /
+      2 : true                     / enabled (SID 1535) /
     }
   ]
 }
@@ -1074,13 +1074,13 @@ Let suppose the server generates the example-port-fault event as defined below.
 ~~~~
 module example-port {
   ...
-  notification example-port-fault {   // SID 60010
+  notification example-port-fault {   // (SID 60010)
     description
       "Event generated if a hardware fault is detected";
-    leaf port-name {                  // SID 60011
+    leaf port-name {                  // (SID 60011)
       type string;
     }
-    leaf port-fault {                 // SID 60012
+    leaf port-fault {                 // (SID 60012)
       type string;
     }
   }
@@ -1098,14 +1098,14 @@ RES:  2.05 Content (Content-Format: application/yang-tree+cbor)
 [
   {
     60010 : {             / example-port-fault (SID 60010) /
-      +1 : "0/4/21",      / port-name (SID 60011) /
-      +2 : "Open pin 2"   / port-fault (SID 60012) /
+      1 : "0/4/21",       / port-name (SID 60011) /
+      2 : "Open pin 2"    / port-fault (SID 60012) /
     }
   },
   {
     60010 : {             / example-port-fault (SID 60010) /
-      +1 : "1/4/21",      / port-name (SID 60011) /
-      +2 : "Open pin 5"   / port-fault (SID 60012) /
+      1 : "1/4/21",       / port-name (SID 60011) /
+      2 : "Open pin 5"    / port-fault (SID 60012) /
     }
   }
 ]
@@ -1176,20 +1176,20 @@ module example-server-farm {
     prefix "yang";
   }
 
-  list server {                        // SID 60000
+  list server {                        // (SID 60000)
     key name;
-    leaf name {                        // SID 60001
+    leaf name {                        // (SID 60001)
       type string;
     }
-    action reset {                     // SID 60002
+    action reset {                     // (SID 60002)
       input {
-        leaf reset-at {                // SID 60003
+        leaf reset-at {                // (SID 60003)
           type yang:date-and-time;
           mandatory true;
          }
        }
        output {
-         leaf reset-finished-at {      // SID 60004
+         leaf reset-finished-at {      // (SID 60004)
            type yang:date-and-time;
            mandatory true;
          }
@@ -1209,14 +1209,14 @@ REQ:  POST /c/Opq?k="myserver"
               (Content-Format: application/yang-data+cbor)
 {
   60002 : {
-    +1 : "2016-02-08T14:10:08Z09:00" / reset-at (SID 60003) /
+    1 : "2016-02-08T14:10:08Z09:00" / reset-at (SID 60003) /
   }
 }
 
 RES:  2.05 Content (Content-Format: application/yang-data+cbor)
 {
   60002 : {
-    +2 : "2016-02-08T14:10:08Z09:18" / reset-finished-at (SID 60004)/
+    2 : "2016-02-08T14:10:08Z09:18" / reset-finished-at (SID 60004)/
   }
 }
 ~~~~
@@ -1452,13 +1452,13 @@ For example, the CoMI server might return the following error.
 RES:  4.00 Bad Request (Content-Format: application/yang-data+cbor)
 {
   1024 : {
-    +4 : 1011,       / error-tag (SID 1028) /
+    4 : 1011,        / error-tag (SID 1028) /
                      /   = invalid-value (SID 1011) /
-    +1 : 1018,       / error-app-tag (SID 1025) /
+    1 : 1018,        / error-app-tag (SID 1025) /
                      /   = not-in-range (SID 1018) /
-    +2 : 1740,       / error-data-node (SID 1026) /
+    2 : 1740,        / error-data-node (SID 1026) /
                      /   = timezone-utc-offset (SID 1740) /
-    +3 : "maximum value exceeded" / error-message (SID 1027) /
+    3 : "maximum value exceeded" / error-message (SID 1027) /
   }
 }
 ~~~~
