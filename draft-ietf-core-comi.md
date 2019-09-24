@@ -179,7 +179,7 @@ instance-identifier:
 : List instance identifier or single instance identifier.
 
 instance-value:
-: The value assigned to a schema node instance. Schema node instance-values are serialized into
+: The value assigned to a data node instance. Instance-values are serialized into
   the payload according to the rules defined in section 4 of {{I-D.ietf-core-yang-cbor}}.
 
 
@@ -284,7 +284,7 @@ but differs more significantly from RESTCONF.
 
 In the YANG specification, items are identified with a name string. In order
 to significantly reduce the size of identifiers used in CoMI, numeric
- identifiers called YANG Schema Item iDentifier (SID) are used instead of these strings.
+ identifiers called YANG Schema Item iDentifier (SID) are used instead.
 
 When used in a URI, SIDs are encoded using base64 encoding of the SID bytes. The base64 encoding is using the URL and Filename safe
 alphabet as defined by {{RFC4648}} section 5, without padding. The last 6 bits encoded is always aligned
@@ -348,12 +348,8 @@ application/yang-data+cbor:
 : FORMAT: CBOR map of SID, instance-value
 
 : The message payload of Content-Format 'application/yang-data+cbor' is encoded using a CBOR map.
-  Each entry within this CBOR map contains a SID and associated instance-value. Each instance-value
-  is encoded using the rules defined in {{I-D.ietf-core-yang-cbor}} section 4.
-
-  Each entry of this CBOR map is composed of a key and a value.
-  CBOR map keys are set to SIDs, CBOR map values are set to the instance-value as defined in {{I-D.ietf-core-yang-cbor}} section 4.
-
+  Each entry within the CBOR map contains the data node identifier (i.e. SID) and the associated instance-value.
+  Instance-values are encoded using the rules defined in {{I-D.ietf-core-yang-cbor}} section 4.
 
 application/yang-identifiers+cbor:
 
@@ -577,8 +573,8 @@ If this Uri-Query option is not present, the default value is 't'.
 ### GET {#get-operation}
 
 A request to read the value of a data node instance is sent with a
-CoAP GET message.
-
+CoAP GET message. The URI is set to the data node resource requested,
+the 'k' Uri-Query option is added if the data node is an instance of a list.
 
 ~~~~
 FORMAT:
