@@ -76,13 +76,14 @@ normative:
   RFC8040:
   I-D.ietf-core-yang-cbor:
   I-D.ietf-core-sid:
-  I-D.veillette-core-yang-library:
+  I-D.ietf-core-yang-library:
 informative:
   RFC6347:
   RFC6690:
   RFC7223:
   RFC7317:
   RFC8342:
+  RFC8613:
 
 --- abstract
 
@@ -124,11 +125,11 @@ The use of standardized data models specified in a standardized language, such
 as YANG, promotes interoperability between devices and applications from
 different manufacturers.
 
-CoMI and RESTCONF are intended to work in a stateless client-server fashion.
+CORECONF and RESTCONF are intended to work in a stateless client-server fashion.
 They use a single round-trip to complete a single editing transaction, where
 NETCONF needs multiple round trips.
 
-To promote small messges, CORECONF uses a YANG to CBOR mapping
+To promote small messages, CORECONF uses a YANG to CBOR mapping
 {{I-D.ietf-core-yang-cbor}} and numeric identifiers {{I-D.ietf-core-sid}}
 to minimize CBOR payloads and URI length.
 
@@ -161,7 +162,7 @@ event stream resource:
 notification instance:
 : An instance of a schema node of type notification, specified in a YANG module
   implemented by the server. The instance is generated in the server at the occurrence
-  of the corresponding event and reported by an event stream.
+  of the corresponding event and reported by an event stream resource.
 
 list instance identifier:
 : Handle used to identify a YANG data node that is an instance of a YANG "list"
@@ -178,7 +179,7 @@ instance-identifier:
 : List instance identifier or single instance identifier.
 
 instance-value:
-: The value assigned to a schema node instance. Schema node values are serialized into
+: The value assigned to a schema node instance. Schema node instance-values are serialized into
   the payload according to the rules defined in section 4 of {{I-D.ietf-core-yang-cbor}}.
 
 
@@ -201,8 +202,8 @@ node.
          |                                            |
 Client   V                               Server       V
 +----------------+                       +-----------------------+
-| Request        |--> CoAP request(3) -->| Indication            |
-| Confirm        |<-- CoAP response(3)<--| Response          (4) |
+|        Request |--> CoAP request(3) -->| Indication            |
+|        Confirm |<-- CoAP response(3)<--| Response          (4) |
 |                |                       |                       |
 |                |<==== Security (7) ===>|+---------------------+|
 +----------------+                       || Datastore(s)    (5) ||
@@ -246,47 +247,44 @@ architecture. The different numbered components of {{archit}} are discussed acco
 
 (7) Security:
 : The server MUST prevent unauthorized users from reading or writing any CoMI
-  resources. CoMI relies on security protocols such as DTLS {{RFC6347}} to secure CoAP communications.
+  resources. CoMI relies on security protocols such as DTLS {{RFC6347}} or OSCOAP {{RFC8613}} to secure CoAP communications.
 
 
-## Major differences between RESTCONF and CoMI {#major-differences}
+## Major differences between RESTCONF and CORECONF {#major-differences}
 
-CoMI is a RESTful protocol for small devices where saving bytes to transport
+CORECONF is a RESTful protocol for small devices where saving bytes to transport
 counts. Contrary to RESTCONF, many design decisions are motivated by the
-saving of bytes. Consequently, CoMI is not a RESTCONF over CoAP protocol,
+saving of bytes. Consequently, CORECONF is not a RESTCONF over CoAP protocol,
 but differs more significantly from RESTCONF.
 
 ### Differences due to CoAP and its efficient usage {#major-differences-coap}
 
-* CoMI uses CoAP/UDP as transport protocol and CBOR as payload format
+* CORECONF uses CoAP/UDP as transport protocol and CBOR as payload format
   {{I-D.ietf-core-yang-cbor}}. RESTCONF uses HTTP/TCP as transport
   protocol and JSON or XML as payload formats.
 
-* CoMI uses the methods FETCH and iPATCH to access multiple data nodes.
+* CORECONF uses the methods FETCH and iPATCH to access multiple data nodes.
   RESTCONF uses instead the HTTP method PATCH and the HTTP method GET with the "fields" Query parameter.
 
 * RESTCONF uses the HTTP methods HEAD, and OPTIONS, which are not supported by CoAP.
 
-* CoMI does not support "insert" query parameter (first, last, before, after)
+* CORECONF does not support "insert" query parameter (first, last, before, after)
   and the "point" query parameter which are supported by RESTCONF.
 
-* CoMI does not support the "start-time" and "stop-time" query parameters
+* CORECONF does not support the "start-time" and "stop-time" query parameters
   to retrieve past notifications.
-
-* CoMI does not support the "filter" query parameters to observe a specific set of notifications.
 
 ### Differences due to the use of CBOR {#major-differences-cbor}
 
-* CoMI encodes YANG identifier strings as numbers, where RESTCONF does not.
+* CORECONF encodes YANG identifier strings as numbers, where RESTCONF does not.
 
-* CoMI also differ in the handling of default values, only 'report-all' and 'trip' options are supported.
+* CORECONF also differ in the handling of default values, only 'report-all' and 'trim' options are supported.
 
 ## Compression of YANG identifiers {#id-compression}
 
 In the YANG specification, items are identified with a name string. In order
 to significantly reduce the size of identifiers used in CoMI, numeric
- identifiers are used instead of these strings.
-YANG Schema Item iDentifier (SID) is defined in {{I-D.ietf-core-yang-cbor}} section 2.1.
+ identifiers called YANG Schema Item iDentifier (SID) are used instead of these strings.
 
 When used in a URI, SIDs are encoded using base64 encoding of the SID bytes. The base64 encoding is using the URL and Filename safe
 alphabet as defined by {{RFC4648}} section 5, without padding. The last 6 bits encoded is always aligned
@@ -327,11 +325,11 @@ URLsafeChar[1721 & 0x3F]       = URLsafeChar[57] = '5'
 
 The resulting base64 representation of SID 1721 is "a5"
 
-## Instance identifier {#instance-identifier}
+## Instance-identifier {#instance-identifier}
 
-Instance identifiers are used to uniquely identify data node instances within a datastore. This YANG built-in type is defined in {{RFC7950}} section 9.13. An instance identifier is composed of the data node identifier (i.e. a SID) and for data nodes within list(s) the keys used to index within these list(s).
+Instance-identifiers are used to uniquely identify data node instances within a datastore. This YANG built-in type is defined in {{RFC7950}} section 9.13. An instance-identifier is composed of the data node identifier (i.e. a SID) and for data nodes within list(s) the keys used to index within these list(s).
 
-When part of a payload, instance identifiers are encoded in CBOR based on the rules defined in {{I-D.ietf-core-yang-cbor}} section 6.13.1. When part of a URI, the SID is appended to the URI of the targeted datastore, the keys are specified using the 'k' URI-Query as defined in {{query}}.
+When part of a payload, instance-identifiers are encoded in CBOR based on the rules defined in {{I-D.ietf-core-yang-cbor}} section 6.13.1. When part of a URI, the SID is appended to the URI of the targeted datastore, the keys are specified using the 'k' URI-Query as defined in {{query}}.
 
 
 ## Content-Formats {#content-format}
@@ -350,33 +348,36 @@ application/yang-data+cbor:
 : FORMAT: CBOR map of SID, instance-value
 
 : The message payload of Content-Format 'application/yang-data+cbor' is encoded using a CBOR map.
+  Each entry within this CBOR map contains a SID and associated instance-value. Each instance-value
+  is encoded using the rules defined in {{I-D.ietf-core-yang-cbor}} section 4.
+
   Each entry of this CBOR map is composed of a key and a value.
-  CBOR map keys are set to the SID or SID deltas associated with the data nodes as defined in {{I-D.ietf-core-yang-cbor}} section 4, CBOR map values are set to the instance value as defined in {{I-D.ietf-core-yang-cbor}} section 4.
+  CBOR map keys are set to SIDs, CBOR map values are set to the instance-value as defined in {{I-D.ietf-core-yang-cbor}} section 4.
 
 
 application/yang-identifiers+cbor:
 
-: This Content-Format represents a CBOR YANG document containing a list of instance identifier used to target specific data node instances within a datastore.
+: This Content-Format represents a CBOR YANG document containing a list of instance-identifier used to target specific data node instances within a datastore.
 
 : FORMAT: CBOR array of instance-identifier
 
 : The message payload of Content-Format 'application/yang-identifiers+cbor' is encoded using a CBOR array.
-  Each entry of this CBOR array contain an instance identifier encoded as defined in {{I-D.ietf-core-yang-cbor}} section 6.13.1.
+  Each entry of this CBOR array contain an instance-identifier encoded as defined in {{I-D.ietf-core-yang-cbor}} section 6.13.1.
 
 
 application/yang-instances+cbor:
 
 : This Content-Format represents a CBOR YANG document containing a list of data node instances.
-  Each data node instance is identified by its associated instance identifier.
+  Each data node instance is identified by its associated instance-identifier.
 
 : FORMAT: CBOR array of CBOR map of instance-identifier, instance-value
 
 : The message payload of Content-Format 'application/yang-instances+cbor' is encoded using a CBOR array.
-  Each entry within this CBOR array contains a CBOR map carrying an instance identifier and associated instance value.
-  Instance identifiers are encoded using the rules defined in {{I-D.ietf-core-yang-cbor}} section 6.13.1, values are encoded using the rules defined in {{I-D.ietf-core-yang-cbor}} section 4.
+  Each entry within this CBOR array contains a CBOR map carrying an instance-identifier and associated instance-value.
+  Instance-identifiers are encoded using the rules defined in {{I-D.ietf-core-yang-cbor}} section 6.13.1, instance-values are encoded using the rules defined in {{I-D.ietf-core-yang-cbor}} section 4.
 
 : When present in an iPATCH request payload, this Content-Format carry a list of data node instances to be replaced, created, or deleted.
-  For each data node instance D, for which the instance identifier is the same as a data node instance I, in the targeted datastore resource: the value of D replaces the value of I.  When the value of D is null, the data node instance I is removed.  When the targeted datastore resource does not contain a data node instance with the same instance identifier as D, a new instance is created with the same instance identifier and value as D.
+  For each data node instance D, for which the instance-identifier is the same as a data node instance I, in the targeted datastore resource: the value of D replaces the value of I.  When the value of D is null, the data node instance I is removed.  When the targeted datastore resource does not contain a data node instance with the same instance-identifier as D, a new instance is created with the same instance-identifier and value as D.
 
 
 The different Content-format usages are summarized in the table below:
@@ -430,7 +431,7 @@ represented as decimal numbers.
 This note specifies a Management Interface. CoAP endpoints that
 implement the CoMI management protocol, support
 at least one discoverable management resource of resource type (rt): core.c.ds,
-with example path: /c, where c is short-hand for CoMI. The path /c is recommended,
+with example path: /c, where c is short-hand for CoMI/CORECONF. The path /c is recommended,
 but not compulsory (see {{discovery}}).
 
 The mapping of YANG data node instances to CoMI resources is as follows.
@@ -444,10 +445,10 @@ Event stream resources can be discovered using resource type (rt): core.c.ev.
 
 The description of the CoMI management interface is shown in the table below:
 
-| Function       | Recommended path  | rt          |
-| Datastore      | /c                | core.c.ds   |
-| Data node      | /c/SID            | core.c.dn   |
-| Event steam    | /s                | core.c.ev   |
+| CoAP resource        | Recommended path  | rt          |
+| Datastore resource   | /c                | core.c.ds   |
+| Data node resource   | /c/SID            | core.c.dn   |
+| Event steam resource | /s                | core.c.ev   |
 {: align="left"}
 
 The path values in the table are the recommended ones. On discovery, the server makes the actual
@@ -575,26 +576,25 @@ If this Uri-Query option is not present, the default value is 't'.
 
 ### GET {#get-operation}
 
-A request to read the values of a data node instance is sent with a
-CoAP GET message. A base64-encoded instance-identifier in SID-form is specified in the URI path
-prefixed with the example path /c.
+A request to read the value of a data node instance is sent with a
+CoAP GET message.
 
 
 ~~~~
 FORMAT:
-  GET /c/instance-identifier
+  GET <data node resource> ['k' Uri-Query option]
 
   2.05 Content (Content-Format: application/yang-data+cbor)
   CBOR map of SID, instance-value
 ~~~~
 {: artwork-align="left"}
 
-The returned payload contains the CBOR encoding of the specified data node instance value.
+The returned payload contains the CBOR encoding of the requested instance-value.
 
 #### GET Examples {#get-example}
 
 Using for example the current-datetime leaf from module ietf-system {{RFC7317}}, a request is sent to
-retrieve the value of 'system-state/clock/current-datetime' specified in container system-state.
+retrieve the value of 'system-state/clock/current-datetime'.
 The SID of 'system-state/clock/current-datetime' is 1723, encoded in base64 according to {{id-compression}},
 yields a7. The response to the request returns the CBOR map with the key set to the SID of the requested
 data node (i.e. 1723) and the value encoded using a 'text string' as defined in {{I-D.ietf-core-yang-cbor}} section 6.4.
@@ -660,7 +660,8 @@ RES: 2.05 Content (Content-Format: application/yang-data+cbor)
 To retrieve a specific instance within the /interfaces/interface YANG list,
 the CoMI client adds the key of the targeted instance in its CoAP request
 using the 'k' URI-Query. The return payload containing the instance requested
-is encoded using a CBOR array as specified by {{I-D.ietf-core-yang-cbor}} section 4.4.1.
+is encoded using a CBOR array as specified by {{I-D.ietf-core-yang-cbor}}
+section 4.4.1 containing the requested instance.
 
 ~~~~
 REQ: GET example.com/c/X9?k="eth0"
@@ -699,22 +700,23 @@ RES: 2.05 Content (Content-Format: application/yang-data+cbor)
 
 ### FETCH {#fetch}
 
-The FETCH is used to retrieve multiple data node instance values.
-The FETCH request payload contains the list of instance identifier of the data node instances requested.
+The FETCH is used to retrieve multiple instance-values.
+The FETCH request payload contains the list of instance-identifier of the data node instances requested.
 
-The return response payload contains a list of data node instance values in the same order as requested.
+The return response payload contains a list of data node instance-values in the same order as requested.
 A CBOR null is returned for each data node requested by the client, not supported by the server or not currently instantiated.
 
 For compactness, indexes of the list instance identifiers returned by the FETCH response SHOULD be elided, only the SID is provided.
-In this case, the format of each entry within the CBOR array of the FETCH response is identical to the format as a GET response.
+This appraoch may also help reducing implementations complexity since the format of each entry within the CBOR array of the FETCH response is identical to the format of the corresponding GET response.
 
 ~~~~
 FORMAT:
-  FETCH /c (Content-Format: application/yang-identifiers+cbor)
+  FETCH <datastore resource>
+        (Content-Format: application/yang-identifiers+cbor)
   CBOR array of instance-identifier
 
   2.05 Content (Content-Format: application/yang-instances+cbor)
-  CBOR array of CBOR map of instance-identifier, instance-value
+  CBOR array of CBOR map of SID, instance-value
 ~~~~
 {: artwork-align="left"}
 
@@ -728,13 +730,13 @@ list (SID 1533) instance identified with name="eth0" are queried.
 
 
 ~~~~
-REQ:  FETCH /c (Content-Format: application/yang-identifiers+cbor)
+REQ: FETCH /c (Content-Format: application/yang-identifiers+cbor)
 [
   1723,            / current-datetime (SID 1723) /
   [1533, "eth0"]   / interface (SID 1533) with name = "eth0" /
 ]
 
-RES:  2.05 Content (Content-Format: application/yang-instances+cbor)
+RES: 2.05 Content (Content-Format: application/yang-instances+cbor)
 [
   {
     1723 : "2014-10-26T12:16:31Z" / current-datetime (SID 1723) /
@@ -760,7 +762,7 @@ CoAP methods.
 
 ### Data Ordering {#DataOrdering}
 
-A CoMI server SHOULD preserve the relative order of all user-ordered list
+A CoMI server MUST preserve the relative order of all user-ordered list
 and leaf-list entries that are received in a single edit request.  These YANG
 data node types are encoded as CBOR arrays so messages will preserve their
 order.
@@ -772,13 +774,13 @@ The CoAP POST operation is used in CoMI for creation of data node resources and 
 invocation of "ACTION" and "RPC" resources.
 Refer to {{rpc}} for details on "ACTION" and "RPC" resources.
 
-A request to create a data node resource is sent with a CoAP POST message.
-The URI specifies the data node to be instantiated at the exception of list instances.
-In this case, for compactness, the URI specifies the list for which an instance is created.
+A request to create a data node instance is sent with a CoAP POST message.
+The URI specifies the data node resource of the instance to be created. In the case
+of a list instance, keys MUST be present in the paylaod.
 
 ~~~~
 FORMAT:
-  POST /c/<instance identifier>
+  POST <data node resource>
   (Content-Format: application/yang-data+cbor)
   CBOR map of SID, instance-value
 
@@ -786,7 +788,7 @@ FORMAT:
 ~~~~
 {: artwork-align="left"}
 
-If the data node resource already exists, then the POST request MUST fail and
+If the data node instance already exists, then the POST request MUST fail and
 a "4.09 Conflict" response code MUST be returned
 
 #### Post example {#post-example}
@@ -821,7 +823,7 @@ CoAP PUT message.
 
 ~~~~
 FORMAT:
-  PUT /c/<instanceidentifier>
+  PUT <data node resource> ['k' Uri-Query option]
            (Content-Format: application/yang-data+cbor)
   CBOR map of SID, instance-value
 
@@ -833,7 +835,7 @@ FORMAT:
 #### PUT example {#put-example}
 
 The example uses the interface list from module ietf-interfaces {{RFC7223}}.
-Example updates the instance of the list interface (SID = 1533) with key
+This example updates the instance of the list interface (SID = 1533) with key
 name="eth0":
 
 
@@ -873,7 +875,8 @@ A null value indicates the removal of an existing data node instance.
 
 ~~~~
 FORMAT:
-  iPATCH /c (Content-Format: application/yang-instances+cbor)
+  iPATCH <datastore resource>
+         (Content-Format: application/yang-instances+cbor)
   CBOR array of CBOR map of instance-identifier, instance-value
 
   2.04 Changed
@@ -923,7 +926,7 @@ A data node resource is deleted with the DELETE method.
 
 ~~~~
 FORMAT:
-  Delete /c/<instance identifier>
+  Delete <data node resource> ['k' Uri-Query option]
 
   2.02 Deleted
 ~~~~
@@ -952,7 +955,7 @@ and delete a whole datastore respectively.
 
 ~~~~
 FORMAT:
-  GET /c
+  GET <datastore resource>
 
   2.05 Content (Content-Format: application/yang-data+cbor)
   CBOR map of SID, instance-value
@@ -961,7 +964,8 @@ FORMAT:
 
 ~~~~
 FORMAT:
-  PUT /c (Content-Format: application/yang-data+cbor)
+  PUT <datastore resource>
+      (Content-Format: application/yang-data+cbor)
   CBOR map of SID, instance-value
 
   2.04 Changed
@@ -970,7 +974,8 @@ FORMAT:
 
 ~~~~
 FORMAT:
-  POST /c (Content-Format: application/yang-data+cbor)
+  POST <datastore resource>
+       (Content-Format: application/yang-data+cbor)
   CBOR map of SID, instance-value
 
   2.01 Created
@@ -979,7 +984,7 @@ FORMAT:
 
 ~~~~
 FORMAT:
-   DELETE /c
+   DELETE <datastore resource>
 
   2.02 Deleted
 ~~~~
@@ -1049,7 +1054,7 @@ a single notification as described in {{I-D.ietf-core-yang-cbor}} section 4.2.1.
 
 ~~~~
 FORMAT:
-  GET /<stream-resource> Observe(0)
+  GET <stream-resource> Observe(0)
 
   2.05 Content (Content-Format: application/yang-instances+cbor)
   A CBOR map or a CBOR array of CBOR map of instance-identifier, instance-value
@@ -1063,7 +1068,7 @@ An example implementation is:
 
 > Every time an event is generated, the generated notification instance is
 > appended to the chosen stream(s). After an aggregation period, which may be
-> adjusted using an exclusion delay and limited by the maximum number of notifications supported,
+> limited by the maximum number of notifications supported,
 > the content of the instance is sent to all clients observing the modified stream.
 
 
@@ -1123,7 +1128,7 @@ from the server, the server will remove the client from the list of observers
 
 ### The 'f' Uri-Query option
 
-The 'f' (filter) option is used to indicate which subset of all possible notifications is of interest.  If not present, all events notifications supported by the event stream are reported.
+The 'f' (filter) option is used to indicate which subset of all possible notifications is of interest.  If not present, all notifications supported by the event stream are reported.
 
 When not supported by a CoMI server, this option shall be ignored, all events notifications are reported independently of the presence and content of the 'f' (filter) option.
 
@@ -1150,7 +1155,7 @@ The returned success response code is 2.05 Content.
 
 ~~~~
 FORMAT:
-  POST /c/<instance identifier>
+  POST <data node resource> ['k' Uri-Query option]
            (Content-Format: application/yang-data+cbor)
   CBOR map of SID, instance-value
 
@@ -1235,7 +1240,7 @@ block is individually acknowledged to guarantee reliability.
 
 Notice that the Block mechanism splits the data at fixed positions,
 such that individual data fields may become fragmented. Therefore, assembly
-of multiple blocks may be required to process the complete data field.
+of multiple blocks may be required to process complete data fields.
 
 Beware of race conditions. Blocks are filled one at a time and care should
 be taken that the whole data representation is sent in multiple blocks sequentially
@@ -1251,13 +1256,13 @@ which are foreseen for data streaming purposes.
 # Application Discovery {#discovery}
 
 Two application discovery mechanisms are supported by CoMI, the YANG library
-data model as defined by {{I-D.veillette-core-yang-library}} and
+data model as defined by {{I-D.ietf-core-yang-library}} and
 the CORE resource discovery {{RFC6690}}.
 Implementers may choose to implement one or the other or both.
 
 ## YANG library
 
-The YANG library data model {{I-D.veillette-core-yang-library}} provides a high
+The YANG library data model {{I-D.ietf-core-yang-library}} provides a high
 level description of the resources available. The YANG library contains the
 list of modules, features and deviations supported by the CoMI server.
 From this information, CoMI clients can infer the list of data nodes supported
@@ -1316,7 +1321,7 @@ For example:
 REQ: GET /.well-known/core?rt=core.c.ds
 
 RES: 2.05 Content (Content-Format: application/link-format)
-</c>; rt="core.c.ds";ds= 1029
+</c>; rt="core.c.ds";ds=1029
 ~~~~
 {: artwork-align="left"}
 
