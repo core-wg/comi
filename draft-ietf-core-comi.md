@@ -1053,7 +1053,7 @@ FORMAT:
   GET <stream-resource> Observe(0)
 
   2.05 Content (Content-Format: application/yang-instances+cbor)
-  A CBOR map or a CBOR array of CBOR map of instance-identifier, instance-value
+  CBOR array of CBOR map of instance-identifier, instance-value
 ~~~~
 {: artwork-align="left"}
 
