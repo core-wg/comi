@@ -6,7 +6,7 @@ cat: std
 pi:
   toc: 'yes'
   symrefs: 'yes'
-title: CoAP Management Interface
+title: CoAP Management Interface (CORECONF)
 abbrev: CoMI
 area: Applications
 wg: CoRE
@@ -84,6 +84,7 @@ informative:
   RFC7317:
   RFC8342:
   RFC8613:
+  I-D.ietf-ace-oauth-authz:
 
 --- abstract
 
@@ -108,7 +109,7 @@ and should be sent to yot@ietf.org.
 # Introduction {#introduction}
 
 The Constrained Application Protocol (CoAP) {{RFC7252}} is designed for
-Machine to Machine (M2M) applications such as smart energy, smart city and building control.
+Machine to Machine (M2M) applications such as smart energy, smart city, and building control.
 Constrained devices need to be managed in an automatic fashion to handle
 the large quantities of devices that are expected in
 future installations. Messages between devices need to be as small and
@@ -140,7 +141,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 document are to be interpreted as described in BCP 14 {{RFC2119}} {{RFC8174}}
 when, and only when, they appear in all capitals, as shown here.
 
-The following terms are defined in the YANG data modelling language {{RFC7950}}: action, anydata, anyxml, client, container, data model, data node, identity, instance identifier, leaf, leaf-list, list, module, RPC, schema node, server, submodule.
+The following terms are defined in the YANG data modeling language {{RFC7950}}: action, anydata, anyxml, client, container, data model, data node, identity, instance identifier, leaf, leaf-list, list, module, RPC, schema node, server, submodule.
 
 The following terms are defined in {{RFC6241}}: configuration data, datastore, state data
 
@@ -216,7 +217,7 @@ Client   V                               Server       V
 {: #archit title='Abstract CoMI architecture' artwork-align="left"}
 
  {{archit}} is a high-level representation of the main elements of the CoMI management
-architecture. The different numbered components of {{archit}} are discussed according to component number.
+architecture. The different numbered components of {{archit}} are discussed according to the component number.
 
 
 (1) YANG specification:
@@ -238,22 +239,23 @@ architecture. The different numbered components of {{archit}} are discussed acco
 
 
 (5) Datastore:
-: A resource used to access configuration data, state data, RPCs and actions. A CoMI server may support a single unified datastore or multiple datastores as those defined by Network Management Datastore Architecture (NMDA) {{RFC8342}}.
+: A resource used to access configuration data, state data, RPCs, and actions. A CoMI server may support a single unified datastore or multiple datastores as those defined by Network Management Datastore Architecture (NMDA) {{RFC8342}}.
 
 
 (6) Event stream:
-: A resource used to get real time notifications. A CoMI server may support multiple Event streams serving different purposes such as normal monitoring, diagnostic, syslog, security monitoring.
+: A resource used to get real-time notifications. A CoMI server may support multiple Event streams serving different purposes such as normal monitoring, diagnostic, syslog, security monitoring.
 
 
 (7) Security:
 : The server MUST prevent unauthorized users from reading or writing any CoMI
-  resources. CoMI relies on security protocols such as DTLS {{RFC6347}} or OSCOAP {{RFC8613}} to secure CoAP communications.
+  resources. CoMI relies on security protocols such as DTLS {{RFC6347}} or OSCORE {{RFC8613}} to secure CoAP communications.
 
 
 ## Major differences between RESTCONF and CORECONF {#major-differences}
 
-CORECONF is a RESTful protocol for small devices where saving bytes to transport
-counts. Contrary to RESTCONF, many design decisions are motivated by the
+CORECONF is a RESTful protocol for small devices where saving bytes to
+transport a message is very important. Contrary to RESTCONF, many design
+decisions are motivated by the
 saving of bytes. Consequently, CORECONF is not a RESTCONF over CoAP protocol,
 but differs more significantly from RESTCONF.
 
@@ -470,7 +472,6 @@ There is one Uri-Query option for the GET, PUT, POST, and DELETE methods.
 This parameter is not used for FETCH and iPATCH, because their request payloads
 support list instance selection.
 
-
 ## Using the 'k' Uri-Query option {#query}
 
 The "k" (key) parameter specifies a specific instance of a data node.
@@ -589,7 +590,7 @@ The returned payload contains the CBOR encoding of the requested instance-value.
 
 #### GET Examples {#get-example}
 
-Using for example the current-datetime leaf from module ietf-system {{RFC7317}}, a request is sent to
+Using, for example, the current-datetime leaf from module ietf-system {{RFC7317}}, a request is sent to
 retrieve the value of 'system-state/clock/current-datetime'.
 The SID of 'system-state/clock/current-datetime' is 1723, encoded in base64 according to {{id-compression}},
 yields a7. The response to the request returns the CBOR map with the key set to the SID of the requested
@@ -703,7 +704,7 @@ The return response payload contains a list of data node instance-values in the 
 A CBOR null is returned for each data node requested by the client, not supported by the server or not currently instantiated.
 
 For compactness, indexes of the list instance identifiers returned by the FETCH response SHOULD be elided, only the SID is provided.
-This appraoch may also help reducing implementations complexity since the format of each entry within the CBOR array of the FETCH response is identical to the format of the corresponding GET response.
+This approach may also help reducing implementations complexity since the format of each entry within the CBOR array of the FETCH response is identical to the format of the corresponding GET response.
 
 ~~~~
 FORMAT:
@@ -766,13 +767,13 @@ order.
 
 ### POST {#post-operation}
 
-The CoAP POST operation is used in CoMI for creation of data node resources and the
+The CoAP POST operation is used in CoMI for the creation of data node resources and the
 invocation of "ACTION" and "RPC" resources.
 Refer to {{rpc}} for details on "ACTION" and "RPC" resources.
 
 A request to create a data node instance is sent with a CoAP POST message.
 The URI specifies the data node resource of the instance to be created. In the case
-of a list instance, keys MUST be present in the paylaod.
+of a list instance, keys MUST be present in the payload.
 
 ~~~~
 FORMAT:
@@ -1039,7 +1040,7 @@ default stream is selected.
 
 Each response payload carries one or multiple notifications. The number of
 notifications reported, and the conditions used to remove notifications
-from the reported list is left to implementers.
+from the reported list are left to implementers.
 When multiple notifications are reported, they MUST be ordered starting from
 the newest notification at index zero.
 
@@ -1128,7 +1129,7 @@ The 'f' (filter) option is used to indicate which subset of all possible notific
 
 When not supported by a CoMI server, this option shall be ignored, all events notifications are reported independently of the presence and content of the 'f' (filter) option.
 
-When present, this option contains a comma separated list of notification SIDs. For example, the following request returns notifications 60010 and 60020.
+When present, this option contains a comma-separated list of notification SIDs. For example, the following request returns notifications 60010 and 60020.
 
 ~~~~
 REQ:  GET /s?f=60010,60020 Observe(0)
@@ -1258,9 +1259,8 @@ Implementers may choose to implement one or the other or both.
 
 ## YANG library
 
-The YANG library data model {{I-D.ietf-core-yang-library}} provides a high
-level description of the resources available. The YANG library contains the
-list of modules, features and deviations supported by the CoMI server.
+The YANG library data model {{I-D.ietf-core-yang-library}} provides a high-level description of the resources available. The YANG library contains the
+list of modules, features, and deviations supported by the CoMI server.
 From this information, CoMI clients can infer the list of data nodes supported
 and the interaction model to be used to access them. This module also contains
 the list of datastores implemented.
@@ -1373,7 +1373,7 @@ RES: 2.05 Content (Content-Format: application/link-format)
 
 In case a request is received which cannot be processed properly, the CoMI server MUST return an error response. This error response MUST contain a CoAP 4.xx or 5.xx response code.
 
-Errors returned by a CoMI server can be broken into two categories, those associated to the CoAP protocol itself and those generated during the validation of the YANG data model constrains as described in {{RFC7950}} section 8.
+Errors returned by a CoMI server can be broken into two categories, those associated with the CoAP protocol itself and those generated during the validation of the YANG data model constrains as described in {{RFC7950}} section 8.
 
 The following list of common CoAP errors should be implemented by CoMI servers. This list is not exhaustive, other errors defined by CoAP and associated RFCs may be applicable.
 
@@ -1392,7 +1392,7 @@ The following list of common CoAP errors should be implemented by CoMI servers. 
 * Error 4.15 (Unsupported Content-Format) is returned by the CoMI server when the Content-Format used in the request does not match those specified in section {{content-format}}.
 
 
-The CoMI server MUST also enforce the different constraints associated to the YANG data models implemented. These constraints are described in {{RFC7950}} section 8. These errors are reported using the CoAP error code 4.00 (Bad Request) and may have the following error container as payload. The YANG definition and associated .sid file are available in {{ietf-comi-yang}} and {{ietf-comi-sid}}. The error container is encoded using the encoding rules of a YANG data template as defined in {{I-D.ietf-core-yang-cbor}} section 5.
+The CoMI server MUST also enforce the different constraints associated with the YANG data models implemented. These constraints are described in {{RFC7950}} section 8. These errors are reported using the CoAP error code 4.00 (Bad Request) and may have the following error container as payload. The YANG definition and associated .sid file are available in {{ietf-comi-yang}} and {{ietf-comi-sid}}. The error container is encoded using the encoding rules of a YANG data template as defined in {{I-D.ietf-core-yang-cbor}} section 5.
 
 ~~~~
 +--rw error!
@@ -1435,7 +1435,7 @@ The following 'error-tag' and 'error-app-tag' are defined by the ietf-comi YANG 
 
   * error-app-tag 'missing-input-parameter' is returned by the CoMI server when the input parameters of an RPC or action are incomplete.
 
-* error-tag 'unknown-element' is returned by the CoMI server when the CoMI client  tries to access a data node of a YANG module not supported, of a data node associated to an 'if-feature' expression evaluated to 'false' or to a 'when' condition evaluated to 'false'.
+* error-tag 'unknown-element' is returned by the CoMI server when the CoMI client  tries to access a data node of a YANG module not supported, of a data node associated with an 'if-feature' expression evaluated to 'false' or to a 'when' condition evaluated to 'false'.
 
 * error-tag 'bad-element' is returned by the CoMI server when the CoMI client  tries to create data nodes for more than one case in a choice.
 
@@ -1470,13 +1470,20 @@ RES:  4.00 Bad Request (Content-Format: application/yang-data+cbor)
 
 For secure network management, it is important to restrict access to configuration variables
 only to authorized parties. CoMI re-uses the security mechanisms already available to CoAP,
-this includes DTLS {{RFC6347}} for protected access to resources, as well suitable
-authentication and authorization mechanisms.
+this includes DTLS {{RFC6347}} and OSCORE {{RFC8613}} for protected access to
+resources, as well as suitable authentication and authorization mechanisms, for
+example those defined in ACE OAuth {{I-D.ietf-ace-oauth-authz}}.
 
-Among the security decisions that need to be made are selecting security modes and encryption
-mechanisms (see {{RFC7252}}).
+All the security considerations of {{RFC7252}}, {{RFC7959}}, {{RFC8132}} and
+{{RFC7641}} apply to this document as well. The use of NoSec DTLS, when OSCORE
+is not used, is NOT RECOMMENDED.
 
-In addition, mechanisms for authentication and authorization may need to be selected if not provided with the security mode.
+In addition, mechanisms for authentication and authorization may need to be
+selected if not provided with the CoAP security mode.
+
+As {{I-D.ietf-core-yang-cbor}} and {{RFC4648}} are used for payload and SID
+encoding, the security considerations of those documents also need to be
+well-understood.
 
 # IANA Considerations
 
@@ -1563,7 +1570,7 @@ Each of these media types share the following information:
 // RFC Ed.: replace RFC XXXX with this RFC number and remove this note.
 
 
-# Acknowledgements
+# Acknowledgments
 
 We are very grateful to Bert Greevenbosch who was one of the original authors
 of the CoMI specification.
