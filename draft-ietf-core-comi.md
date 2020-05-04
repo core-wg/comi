@@ -513,8 +513,6 @@ The resulting key strings are joined using commas between two consecutive key
 values to produce the value of the 'k' parameter. The string value of the 'k'
 parameter is encoded in a Uri-Query as specified in {{RFC7252}} section 6.5.
 
-// NOTE(Ivaylo): Can we have comma in the value of string type?
-
 ## Data Retrieval {#data-retrieval}
 
 One or more data nodes can be retrieved by the client.
@@ -900,7 +898,7 @@ In this example, a CoMI client requests the following operations:
   * Add/set the server "NTP Pool server 2" to the list "/system/ntp/server" (SID 1756).
 
 ~~~~
-REQ: iPATCH <example.com/path/to/the/data/store/resource>  
+REQ: iPATCH <example.com/path/to/the/data/store/resource>
      (Content-Format: application/yang-instances+cbor)
 [
   {
@@ -1012,7 +1010,7 @@ CBOR map with data nodes from these two modules is returned:
 
 
 ~~~~
-REQ:  GET <example.com/path/to/the/data/store/resource> 
+REQ:  GET <example.com/path/to/the/data/store/resource>
 
 RES: 2.05 Content (Content-Format: application/yang-data+cbor)
 {
@@ -1132,7 +1130,7 @@ In the example, the request returns a success response with the contents
 of the last two generated events. Consecutively the server will regularly
 notify the client when a new event is generated.
 
-### The 'f' query parameter 
+### The 'f' query parameter
 
 The 'f' (filter) option is used to indicate which subset of all possible notifications is of interest.  If not present, all notifications supported by the event stream are reported.
 
