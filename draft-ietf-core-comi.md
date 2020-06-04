@@ -339,18 +339,11 @@ When part of a payload, instance-identifiers are encoded in CBOR based on the ru
 CoMI uses Content-Types based on the YANG to CBOR mapping specified
 in {{I-D.ietf-core-yang-cbor}}.
 
-The following Content-Types are defined:
+The following Content-Type is used as defined in {{I-D.ietf-core-sid}}.
 
-application/yang-data+cbor:
+* application/yang-data+cbor; id=sid:
 
-: This Content-Type represents a CBOR YANG document containing one or multiple data node values.
-  Each data node is identified by its associated SID.
-
-: FORMAT: CBOR map of SID, instance-value
-
-: The message payload of Content-Type 'application/yang-data+cbor' is encoded using a CBOR map.
-  Each entry within the CBOR map contains the data node identifier (i.e. SID) and the associated instance-value.
-  Instance-values are encoded using the rules defined in {{I-D.ietf-core-yang-cbor}} section 4.
+The following new Content-Types are defined in this document:
 
 application/yang-identifiers+cbor:
 
@@ -360,7 +353,6 @@ application/yang-identifiers+cbor:
 
 : The message payload of Content-Type 'application/yang-identifiers+cbor' is encoded using a CBOR array.
   Each entry of this CBOR array contain an instance-identifier encoded as defined in {{I-D.ietf-core-yang-cbor}} section 6.13.1.
-
 
 application/yang-instances+cbor:
 
@@ -379,20 +371,20 @@ application/yang-instances+cbor:
 
 The different Content-Type usages are summarized in the table below:
 
-| Method         | Resource     | Content-Type                      |
-| GET response   | data node    | application/yang-data+cbor        |
-| PUT request    | data node    | application/yang-data+cbor        |
-| POST request   | data node    | application/yang-data+cbor        |
-| DELETE         | data node    | n/a                               |
-| GET response   | datastore    | application/yang-data+cbor        |
-| PUT request    | datastore    | application/yang-data+cbor        |
-| POST request   | datastore    | application/yang-data+cbor        |
-| FETCH request  | datastore    | application/yang-identifiers+cbor |
-| FETCH response | datastore    | application/yang-instances+cbor   |
-| iPATCH request | datastore    | application/yang-instances+cbor   |
-| GET response   | event stream | application/yang-instances+cbor   |
-| POST request   | rpc, action  | application/yang-data+cbor        |
-| POST response  | rpc, action  | application/yang-data+cbor        |
+| Method         | Resource     | Content-Type                       |
+| GET response   | data node    | application/yang-data+cbor; id=sid |
+| PUT request    | data node    | application/yang-data+cbor; id=sid |
+| POST request   | data node    | application/yang-data+cbor; id=sid |
+| DELETE         | data node    | n/a                                |
+| GET response   | datastore    | application/yang-data+cbor; id=sid |
+| PUT request    | datastore    | application/yang-data+cbor; id=sid |
+| POST request   | datastore    | application/yang-data+cbor; id=sid |
+| FETCH request  | datastore    | application/yang-identifiers+cbor  |
+| FETCH response | datastore    | application/yang-instances+cbor    |
+| iPATCH request | datastore    | application/yang-instances+cbor    |
+| GET response   | event stream | application/yang-instances+cbor    |
+| POST request   | rpc, action  | application/yang-data+cbor; id=sid |
+| POST response  | rpc, action  | application/yang-data+cbor; id=sid |
 {: align="left"}
 
 ## Unified datastore {#unified-datastore}
@@ -584,7 +576,7 @@ is a list node.
 FORMAT:
   GET <data node resource> ['k' Uri-Query option]
 
-  2.05 Content (Content-Format: application/yang-data+cbor)
+  2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
   CBOR map of SID, instance-value
 ~~~~
 {: artwork-align="left"}
@@ -602,7 +594,7 @@ data node (i.e. 1723) and the value encoded using a 'text string' as defined in 
 ~~~~
 REQ: GET </c/a7>
 
-RES: 2.05 Content (Content-Format: application/yang-data+cbor)
+RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
 {
   1723 : "2014-10-26T12:16:31Z"
 }
@@ -617,7 +609,7 @@ CBOR map as specified by {{I-D.ietf-core-yang-cbor}} section 4.2.
 ~~~~
 REQ: GET </c/a5>
 
-RES: 2.05 Content (Content-Format: application/yang-data+cbor)
+RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
 {
   1721 : {
     2 : "2014-10-26T12:16:51Z",    / current-datetime (SID 1723) /
@@ -635,7 +627,7 @@ containing 2 instances.
 ~~~~
 REQ: GET </c/X9>
 
-RES: 2.05 Content (Content-Format: application/yang-data+cbor)
+RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
 {
   1533 : [
     {
@@ -666,7 +658,7 @@ section 4.4.1 containing the requested instance.
 ~~~~
 REQ: GET </c/X9?k=eth0>
 
-RES: 2.05 Content (Content-Format: application/yang-data+cbor)
+RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
 {
   1533 : [
     {
@@ -690,7 +682,7 @@ specified by {{I-D.ietf-core-yang-cbor}} section 6.4.
 ~~~~
 REQ: GET </c/X-?k=eth0>
 
-RES: 2.05 Content (Content-Format: application/yang-data+cbor)
+RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
 {
   1534 : "Ethernet adaptor"
 }
@@ -782,7 +774,7 @@ of a list instance, keys MUST be present in the payload.
 ~~~~
 FORMAT:
   POST <data node resource>
-       (Content-Format: application/yang-data+cbor)
+       (Content-Format: application/yang-data+cbor; id=sid)
   CBOR map of SID, instance-value
 
   2.01 Created
@@ -802,7 +794,7 @@ to have been discovered using request similar to {{discovery-ex-ds}}.
 
 ~~~~
 REQ: POST <coap://example.com/ds/X9>
-     (Content-Format: application/yang-data+cbor)
+     (Content-Format: application/yang-data+cbor; id=sid)
 {
   1533 : [
     {
@@ -829,7 +821,7 @@ CoAP PUT message.
 ~~~~
 FORMAT:
   PUT <data node resource> ['k' Uri-Query option]
-      (Content-Format: application/yang-data+cbor)
+      (Content-Format: application/yang-data+cbor; id=sid)
   CBOR map of SID, instance-value
 
   2.01 Created
@@ -847,7 +839,7 @@ using a request similar to {{discovery-ex-ds}}.
 
 ~~~~
 REQ: PUT </c/X9?k=eth0>
-     (Content-Format: application/yang-data+cbor)
+     (Content-Format: application/yang-data+cbor; id=sid)
 {
   1533 : [
     {
@@ -965,7 +957,7 @@ and delete a whole datastore respectively.
 FORMAT:
   GET <datastore resource>
 
-  2.05 Content (Content-Format: application/yang-data+cbor)
+  2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
   CBOR map of SID, instance-value
 ~~~~
 {: artwork-align="left"}
@@ -973,7 +965,7 @@ FORMAT:
 ~~~~
 FORMAT:
   PUT <datastore resource>
-      (Content-Format: application/yang-data+cbor)
+      (Content-Format: application/yang-data+cbor; id=sid)
   CBOR map of SID, instance-value
 
   2.04 Changed
@@ -983,7 +975,7 @@ FORMAT:
 ~~~~
 FORMAT:
   POST <datastore resource>
-       (Content-Format: application/yang-data+cbor)
+       (Content-Format: application/yang-data+cbor; id=sid)
   CBOR map of SID, instance-value
 
   2.01 Created
@@ -1015,7 +1007,7 @@ CBOR map with data nodes from these two modules is returned:
 ~~~~
 REQ:  GET </c>
 
-RES: 2.05 Content (Content-Format: application/yang-data+cbor)
+RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
 {
   1721 : {                       / Clock (SID 1721) /
     2: "2016-10-26T12:16:31Z",   / current-datetime (SID 1723) /
@@ -1165,10 +1157,10 @@ The returned success response code is 2.05 Content.
 ~~~~
 FORMAT:
   POST <data node resource> ['k' Uri-Query option]
-       (Content-Format: application/yang-data+cbor)
+       (Content-Format: application/yang-data+cbor; id=sid)
   CBOR map of SID, instance-value
 
-  2.05 Content (Content-Format: application/yang-data+cbor)
+  2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
   CBOR map of SID, instance-value
 
 ~~~~
@@ -1220,14 +1212,14 @@ of the server instance with name equal to "myserver".
 
 ~~~~
 REQ:  POST </c/Opq?k=myserver>
-      (Content-Format: application/yang-data+cbor)
+      (Content-Format: application/yang-data+cbor; id=sid)
 {
   60002 : {
     1 : "2016-02-08T14:10:08Z09:00" / reset-at (SID 60003) /
   }
 }
 
-RES:  2.05 Content (Content-Format: application/yang-data+cbor)
+RES:  2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
 {
   60002 : {
     2 : "2016-02-08T14:10:08Z09:18" / reset-finished-at (SID 60004)/
@@ -1466,7 +1458,7 @@ The following 'error-tag' and 'error-app-tag' are defined by the ietf-comi YANG 
 For example, the CoMI server might return the following error.
 
 ~~~~
-RES:  4.00 Bad Request (Content-Format: application/yang-data+cbor)
+RES:  4.00 Bad Request (Content-Format: application/yang-data+cbor; id=sid)
 {
   1024 : {
     4 : 1011,        / error-tag (SID 1028) /
@@ -1521,7 +1513,6 @@ This document adds the following resource type to the "Resource Type (rt=) Link 
 This document adds the following Content-Format to the "CoAP Content-Formats", within the "Constrained RESTful Environments (CoRE) Parameters" registry.
 
 | Media Type                        | Content Coding | ID   | Reference |
-| application/yang-data+cbor        |                | TBD1 | RFC XXXX  |
 | application/yang-identifiers+cbor |                | TBD2 | RFC XXXX  |
 | application/yang-instances+cbor   |                | TBD3 | RFC XXXX  |
 {: align="left"}
@@ -1534,7 +1525,6 @@ This document adds the following Content-Format to the "CoAP Content-Formats", w
 This document adds the following media types to the "Media Types" registry.
 
 | Name                  | Template                    | Reference |
-| yang-data+cbor        | application/yang-data+cbor  | RFC XXXX  |
 | yang-identifiers+cbor | application/                | RFC XXXX  |
 |                       | yang-identifiers+cbor       |           |
 | yang-instances+cbor   | application/                | RFC XXXX  |
