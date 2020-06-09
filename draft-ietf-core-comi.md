@@ -334,44 +334,44 @@ Instance-identifiers are used to uniquely identify data node instances within a 
 When part of a payload, instance-identifiers are encoded in CBOR based on the rules defined in {{I-D.ietf-core-yang-cbor}} section 6.13.1. When part of a URI, the SID is appended to the URI of the targeted datastore, the keys are specified using the 'k' query parameter as defined in {{query}}.
 
 
-## Content-Types {#content-type}
+## Media-Types {#media-type}
 
-CoMI uses Content-Types based on the YANG to CBOR mapping specified
+CoMI uses Media-Types based on the YANG to CBOR mapping specified
 in {{I-D.ietf-core-yang-cbor}}.
 
-The following Content-Type is used as defined in {{I-D.ietf-core-sid}}.
+The following Media-Type is used as defined in {{I-D.ietf-core-sid}}.
 
-* application/yang-data+cbor; id=sid:
+* application/yang-data+cbor; id=sid
 
-The following new Content-Types are defined in this document:
+The following new Media-Types are defined in this document:
 
 application/yang-identifiers+cbor:
 
-: This Content-Type represents a CBOR YANG document containing a list of instance-identifier used to target specific data node instances within a datastore.
+: This Media-Type represents a CBOR YANG document containing a list of instance-identifier used to target specific data node instances within a datastore.
 
 : FORMAT: CBOR array of instance-identifier
 
-: The message payload of Content-Type 'application/yang-identifiers+cbor' is encoded using a CBOR array.
+: The message payload of Media-Type 'application/yang-identifiers+cbor' is encoded using a CBOR array.
   Each entry of this CBOR array contain an instance-identifier encoded as defined in {{I-D.ietf-core-yang-cbor}} section 6.13.1.
 
 application/yang-instances+cbor:
 
-: This Content-Type represents a CBOR YANG document containing a list of data node instances.
+: This Media-Type represents a CBOR YANG document containing a list of data node instances.
   Each data node instance is identified by its associated instance-identifier.
 
 : FORMAT: CBOR array of CBOR map of instance-identifier, instance-value
 
-: The message payload of Content-Type 'application/yang-instances+cbor' is encoded using a CBOR array.
+: The message payload of Media-Type 'application/yang-instances+cbor' is encoded using a CBOR array.
   Each entry within this CBOR array contains a CBOR map carrying an instance-identifier and associated instance-value.
   Instance-identifiers are encoded using the rules defined in {{I-D.ietf-core-yang-cbor}} section 6.13.1, instance-values are encoded using the rules defined in {{I-D.ietf-core-yang-cbor}} section 4.
 
-: When present in an iPATCH request payload, this Content-Type carry a list of data node instances to be replaced, created, or deleted.
+: When present in an iPATCH request payload, this Media-Type carry a list of data node instances to be replaced, created, or deleted.
   For each data node instance D, for which the instance-identifier is the same as a data node instance I, in the targeted datastore resource: the value of D replaces the value of I.  When the value of D is null, the data node instance I is removed.  When the targeted datastore resource does not contain a data node instance with the same instance-identifier as D, a new instance is created with the same instance-identifier and value as D.
 
 
-The different Content-Type usages are summarized in the table below:
+The different Media-Type usages are summarized in the table below:
 
-| Method         | Resource     | Content-Type                       |
+| Method         | Resource     | Media-Type                         |
 | GET response   | data node    | application/yang-data+cbor; id=sid |
 | PUT request    | data node    | application/yang-data+cbor; id=sid |
 | POST request   | data node    | application/yang-data+cbor; id=sid |
@@ -865,7 +865,7 @@ CoAP iPATCH method {{RFC8132}}.
 
 There are no query parameters for the iPATCH method.
 
-The processing of the iPATCH command is specified by Content-Type 'application/yang-instances+cbor'.
+The processing of the iPATCH command is specified by Media-Type 'application/yang-instances+cbor'.
 In summary, if the CBOR patch payload contains a data node instance that is not present
 in the target, this instance is added. If the target contains the specified instance,
 the content of this instance is replaced with the value of the payload.
@@ -1397,7 +1397,7 @@ The following list of common CoAP errors should be implemented by CoMI servers. 
 
 * Error 4.13 (Request Entity Too Large) may be returned by the CoMI server during a block transfer request, see {{RFC7959}} for more details.
 
-* Error 4.15 (Unsupported Content-Format) is returned by the CoMI server when the Content-Format used in the request does not match those specified in section {{content-type}}.
+* Error 4.15 (Unsupported Content-Format) is returned by the CoMI server when the Content-Format used in the request does not match those specified in section {{media-type}}.
 
 
 The CoMI server MUST also enforce the different constraints associated with the YANG data models implemented. These constraints are described in {{RFC7950}} section 8. These errors are reported using the CoAP error code 4.00 (Bad Request) and may have the following error container as payload. The YANG definition and associated .sid file are available in {{ietf-comi-yang}} and {{ietf-comi-sid}}. The error container is encoded using the encoding rules of a YANG data template as defined in {{I-D.ietf-core-yang-cbor}} section 5.
