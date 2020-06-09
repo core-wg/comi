@@ -427,9 +427,9 @@ represented as decimal numbers.
 
 This note specifies a Management Interface. CoAP endpoints that
 implement the CoMI management protocol, support
-at least one discoverable management resource of resource type (rt): core.c.ds,
-with example path: /c, where c is short-hand for CoMI/CORECONF. The path /c is
-not compulsory (see {{discovery}}).
+at least one discoverable management resource of resource type (rt): core.c.ds.
+The path of the discoverable management resource is left to implementers to
+select (see {{discovery}}).
 
 The mapping of YANG data node instances to CoMI resources is as follows.
 Every data node of the YANG modules loaded in the CoMI server represents
@@ -504,14 +504,13 @@ Key values are encoded using the rules defined in the following table.
 
 In this table:
 
-  * The method int2str() is used to convert an integer value to a decimal string. For example, int2str(\x01\x23) returns the three-character string "291" (the quotes are added for readability, but they are not part of the payload).
-  * The boolean representations (0) and (1) are the single character strings U+0030 and U+0031, where false maps to (0) and true maps to (1).
-  * The method urlSafeBase64() is used to convert a binary string to base64 using the URL and Filename safe alphabet as defined by {{RFC4648}} section 5, without padding. For example, urlSafeBase64(\xF9\x56\xA1\x3C) return the six-character string "-VahPA" (the quotes are added for readability, but they are not part of the payload).
+  * The method int2str() is used to convert an integer value to a decimal string. For example, int2str(0x0123) return the three-character string "291".
+  * The boolean values false and true are represented as the single-character strings "0" and "1" respectively.
+  * The method urlSafeBase64() is used to convert a binary string to base64 using the URL and Filename safe alphabet as defined by {{RFC4648}} section 5, without padding. For example, urlSafeBase64(0xF956A13C) return the six-character string "-VahPA".
   * The method CBORencode() is used to convert a YANG value to CBOR as specified in {{I-D.ietf-core-yang-cbor}} section 6.
 
-The resulting key strings are joined using commas between two consecutive key
-values to produce the value of the 'k' parameter. The string value of the 'k'
-parameter is encoded in a Uri-Query as specified in {{RFC7252}} section 6.5.
+The resulting key strings are joined using commas between every two consecutive
+key values to produce the value of the 'k' parameter.
 
 ## Data Retrieval {#data-retrieval}
 
@@ -598,10 +597,10 @@ Using, for example, the current-datetime leaf from module ietf-system {{RFC7317}
 retrieve the value of 'system-state/clock/current-datetime'.
 The SID of 'system-state/clock/current-datetime' is 1723, encoded in base64 according to {{id-compression}},
 yields a7. The response to the request returns the CBOR map with the key set to the SID of the requested
-data node (i.e. 1723) and the value encoded using a 'text string' as defined in {{I-D.ietf-core-yang-cbor}} section 6.4.
+data node (i.e. 1723) and the value encoded using a 'text string' as defined in {{I-D.ietf-core-yang-cbor}} section 6.4. The datastore resource path /c is an example location discovered with a request similar to {{discovery-ex-ds}}.
 
 ~~~~
-REQ: GET <example.com/path/to/the/data/store/resource/a7>
+REQ: GET </c/a7>
 
 RES: 2.05 Content (Content-Format: application/yang-data+cbor)
 {
@@ -616,7 +615,7 @@ case, the CoMI client performs a GET request on the clock container
 CBOR map as specified by {{I-D.ietf-core-yang-cbor}} section 4.2.
 
 ~~~~
-REQ: GET <example.com/path/to/the/data/store/resource/a5>
+REQ: GET </c/a5>
 
 RES: 2.05 Content (Content-Format: application/yang-data+cbor)
 {
@@ -634,7 +633,7 @@ a CBOR array as specified by {{I-D.ietf-core-yang-cbor}} section 4.4.1
 containing 2 instances.
 
 ~~~~
-REQ: GET <example.com/path/to/the/data/store/resource/X9>
+REQ: GET </c/X9>
 
 RES: 2.05 Content (Content-Format: application/yang-data+cbor)
 {
@@ -665,7 +664,7 @@ is encoded using a CBOR array as specified by {{I-D.ietf-core-yang-cbor}}
 section 4.4.1 containing the requested instance.
 
 ~~~~
-REQ: GET <example.com/path/to/the/data/store/resource/X9?k=eth0>
+REQ: GET </c/X9?k=eth0>
 
 RES: 2.05 Content (Content-Format: application/yang-data+cbor)
 {
@@ -689,7 +688,7 @@ The returned value is encoded in CBOR based on the rules
 specified by {{I-D.ietf-core-yang-cbor}} section 6.4.
 
 ~~~~
-REQ: GET <example.com/path/to/the/data/store/resource/X-?k=eth0>
+REQ: GET </c/X-?k=eth0>
 
 RES: 2.05 Content (Content-Format: application/yang-data+cbor)
 {
@@ -731,7 +730,7 @@ list (SID 1533) instance identified with name="eth0" are queried.
 
 
 ~~~~
-REQ: FETCH <example.com/path/to/the/data/store/resource/>
+REQ: FETCH </c>
      (Content-Format: application/yang-identifiers+cbor)
 [
   1723,            / current-datetime (SID 1723) /
@@ -796,10 +795,13 @@ a "4.09 Conflict" response code MUST be returned
 #### Post example {#post-example}
 
 The example uses the interface list from module ietf-interfaces {{RFC7223}}.
-This example creates a new list instance within the interface list (SID = 1533):
+This example creates a new list instance within the interface list (SID =
+1533), while assuming the datastore resource is hosted on the CoAP server with DNS name
+example.com and with path /ds. The path /ds is an example location that is assumed
+to have been discovered using request similar to {{discovery-ex-ds}}.
 
 ~~~~
-REQ: POST <example.com/path/to/the/data/store/resource/X9>
+REQ: POST <coap://example.com/ds/X9>
      (Content-Format: application/yang-data+cbor)
 {
   1533 : [
@@ -839,11 +841,12 @@ FORMAT:
 
 The example uses the interface list from module ietf-interfaces {{RFC7223}}.
 This example updates the instance of the list interface (SID = 1533) with key
-name="eth0":
+name="eth0". The example location /c is an example location that is discovered
+using a request similar to {{discovery-ex-ds}}.
 
 
 ~~~~
-REQ: PUT <example.com/path/to/the/data/store/resource/X9?k=eth0>
+REQ: PUT </c/X9?k=eth0>
      (Content-Format: application/yang-data+cbor)
 {
   1533 : [
@@ -898,7 +901,7 @@ In this example, a CoMI client requests the following operations:
   * Add/set the server "NTP Pool server 2" to the list "/system/ntp/server" (SID 1756).
 
 ~~~~
-REQ: iPATCH <example.com/path/to/the/data/store/resource>
+REQ: iPATCH </c>
      (Content-Format: application/yang-instances+cbor)
 [
   {
@@ -945,7 +948,7 @@ This example deletes an instance of the interface list (SID = 1533):
 
 
 ~~~~
-REQ:   DELETE <example.com/path/to/the/data/store/resource/X9?k=eth0>
+REQ:   DELETE </c/X9?k=eth0>
 
 RES:   2.02 Deleted
 ~~~~
@@ -1010,7 +1013,7 @@ CBOR map with data nodes from these two modules is returned:
 
 
 ~~~~
-REQ:  GET <example.com/path/to/the/data/store/resource>
+REQ:  GET </c>
 
 RES: 2.05 Content (Content-Format: application/yang-data+cbor)
 {
@@ -1101,11 +1104,13 @@ module example-port {
 ~~~~
 {: artwork-align="left"}
 
-By executing a GET with Observe 0 on the default event stream resource the
-client receives the following response:
+In this example the default event stream resource path /s is an example
+location discovered with a request similar to {{discovery-ex-es}}. By executing a
+GET with Observe 0 on the default event stream resource the client receives the
+following response:
 
 ~~~~
-REQ:  GET <example.com/path/to/the/default/event/stream> Observe(0)
+REQ:  GET </s> Observe(0)
 
 RES:  2.05 Content (Content-Format: application/yang-tree+cbor)
       Observe(12)
@@ -1139,7 +1144,7 @@ When not supported by a CoMI server, this option shall be ignored, all events no
 When present, this option contains a comma-separated list of notification SIDs. For example, the following request returns notifications 60010 and 60020.
 
 ~~~~
-REQ:  GET <example.com/path/to/the/default/event/stream?f=60010,60020> Observe(0)
+REQ:  GET </s?f=60010,60020> Observe(0)
 ~~~~
 {: artwork-align="left"}
 
@@ -1214,7 +1219,7 @@ of the server instance with name equal to "myserver".
 
 
 ~~~~
-REQ:  POST <example.com/path/to/the/data/store/resource/Opq?k=myserver>
+REQ:  POST </c/Opq?k=myserver>
       (Content-Format: application/yang-data+cbor)
 {
   60002 : {
@@ -1279,10 +1284,11 @@ sending a GET request to
 of the YANG library module.
 
 The following example assumes that the SID of the YANG library is 2351 (kv
-encoded as specified in {{id-compression}}).
+encoded as specified in {{id-compression}}) and that the server uses /c as
+datastore resource path.
 
 ~~~~
-REQ: GET /.well-known/core?rt=core.c.yl
+REQ: GET </.well-known/core?rt=core.c.yl>
 
 RES: 2.05 Content (Content-Format: application/link-format)
 </c/kv>;rt="core.c.yl"
@@ -1318,15 +1324,16 @@ sid               = 1*DIGIT
 {: artwork-align="left"}
 
 
-For example:
+The following example assumes that the server uses /c as datastore resource
+path.
 
 ~~~~
-REQ: GET /.well-known/core?rt=core.c.ds
+REQ: GET </.well-known/core?rt=core.c.ds>
 
 RES: 2.05 Content (Content-Format: application/link-format)
 </c>; rt="core.c.ds";ds=1029
 ~~~~
-{: artwork-align="left"}
+{: #discovery-ex-ds artwork-align="left"}
 
 ### Data node Resource Discovery
 
@@ -1341,10 +1348,11 @@ and their location.
 The example below shows the discovery of the presence and location of
 data nodes. Data nodes '/ietf-system:system-state/clock/boot-datetime' (SID 1722)
 and '/ietf-system:system-state/clock/current-datetime' (SID 1723) are returned.
+The example assumes that the server uses /c as datastore resource path.
 
 
 ~~~~
-REQ: GET /.well-known/core?rt=core.c.dn
+REQ: GET </.well-known/core?rt=core.c.dn>
 
 RES: 2.05 Content (Content-Format: application/link-format)
 </c/a6>;rt="core.c.dn",
@@ -1365,15 +1373,16 @@ parameter with the value "core.c.es".
 
 Upon success, the return payload contains the list of event stream resources.
 
-For example:
+The following example assumes that the server uses /s as the default event stream
+resource.
 
 ~~~~
-REQ: GET /.well-known/core?rt=core.c.es
+REQ: GET </.well-known/core?rt=core.c.es>
 
 RES: 2.05 Content (Content-Format: application/link-format)
 </s>;rt="core.c.es"
 ~~~~
-{: artwork-align="left"}
+{: #discovery-ex-es artwork-align="left"}
 
 
 # Error Handling {#error-handling}
