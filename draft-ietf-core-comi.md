@@ -145,7 +145,7 @@ The following terms are defined in the YANG data modeling language {{RFC7950}}: 
 
 The following terms are defined in {{RFC6241}}: configuration data, datastore, state data
 
-The following term is defined in {{I-D.ietf-core-sid}}: YANG schema item identifier (SID).
+The following term is defined in {{I-D.ietf-core-sid}}: YANG schema item identifier (YANG SID, often shorten to simply SID).
 
 The following terms are defined in the CoAP protocol {{RFC7252}}: Confirmable Message, Content-Format, Endpoint.
 
@@ -286,7 +286,7 @@ but differs more significantly from RESTCONF.
 
 In the YANG specification, items are identified with a name string. In order
 to significantly reduce the size of identifiers used in CoMI, numeric
- identifiers called YANG Schema Item iDentifier (SID) are used instead.
+ identifiers called YANG Schema Item iDentifier (YANG SID or simply SID) are used instead.
 
 When used in a URI, SIDs are encoded using base64 encoding of the SID bytes. The base64 encoding is using the URL and Filename safe
 alphabet as defined by {{RFC4648}} section 5, without padding. The last 6 bits encoded is always aligned
@@ -425,7 +425,7 @@ select (see {{discovery}}).
 
 The mapping of YANG data node instances to CoMI resources is as follows.
 Every data node of the YANG modules loaded in the CoMI server represents
-a sub-resource of the datastore resource (e.g. /c/SID).
+a sub-resource of the datastore resource (e.g. /c/YANGSID).
 When multiple instances of a list exist, instance selection is possible
 as described in {{query}}, {{get-example}}, and {{fetch}}.
 
@@ -436,7 +436,7 @@ The description of the CoMI management interface is shown in the table below:
 
 | CoAP resource                | Example path  | rt          |
 | Datastore resource           | /c            | core.c.ds   |
-| Data node resource           | /c/SID        | core.c.dn   |
+| Data node resource           | /c/YANGSID    | core.c.dn   |
 | Default event steam resource | /s            | core.c.ev   |
 {: align="left"}
 
