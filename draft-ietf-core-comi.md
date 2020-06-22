@@ -6,7 +6,7 @@ cat: std
 pi:
   toc: 'yes'
   symrefs: 'yes'
-title: CoAP Management Interface (CORECONF)
+title: CoAP Management Interface (CoMI)
 abbrev: CoMI
 area: Applications
 wg: CoRE
@@ -94,8 +94,7 @@ and networks, called CoAP Management Interface (CoMI). The Constrained Applicati
 Protocol (CoAP) is used to access datastore and data node resources specified
 in YANG, or SMIv2 converted to YANG. CoMI uses the YANG to CBOR mapping and converts
 YANG identifier strings to numeric identifiers for payload size reduction.
-The complete solution composed of CoMI, {{I-D.ietf-core-yang-cbor}} and
-{{I-D.ietf-core-sid}} is called CORECONF. CORECONF extends the set of YANG based
+CoMI extends the set of YANG based
 protocols, NETCONF and RESTCONF, with the capability to manage constrained devices
 and networks.
 
@@ -127,11 +126,11 @@ The use of standardized data models specified in a standardized language, such
 as YANG, promotes interoperability between devices and applications from
 different manufacturers.
 
-CORECONF and RESTCONF are intended to work in a stateless client-server fashion.
+CoMI and RESTCONF are intended to work in a stateless client-server fashion.
 They use a single round-trip to complete a single editing transaction, where
 NETCONF needs multiple round trips.
 
-To promote small messages, CORECONF uses a YANG to CBOR mapping
+To promote small messages, CoMI uses a YANG to CBOR mapping
 {{I-D.ietf-core-yang-cbor}} and numeric identifiers {{I-D.ietf-core-sid}}
 to minimize CBOR payloads and URI length.
 
@@ -252,36 +251,36 @@ architecture. The different numbered components of {{archit}} are discussed acco
   resources. CoMI relies on security protocols such as DTLS {{RFC6347}} or OSCORE {{RFC8613}} to secure CoAP communications.
 
 
-## Major differences between RESTCONF and CORECONF {#major-differences}
+## Major differences between RESTCONF and CoMI {#major-differences}
 
-CORECONF is a RESTful protocol for small devices where saving bytes to
+CoMI is a RESTful protocol for small devices where saving bytes to
 transport a message is very important. Contrary to RESTCONF, many design
 decisions are motivated by the
-saving of bytes. Consequently, CORECONF is not a RESTCONF over CoAP protocol,
+saving of bytes. Consequently, CoMI is not a RESTCONF over CoAP protocol,
 but differs more significantly from RESTCONF.
 
 ### Differences due to CoAP and its efficient usage {#major-differences-coap}
 
-* CORECONF uses CoAP/UDP as transport protocol and CBOR as payload format
+* CoMI uses CoAP/UDP as transport protocol and CBOR as payload format
   {{I-D.ietf-core-yang-cbor}}. RESTCONF uses HTTP/TCP as transport
   protocol and JSON or XML as payload formats.
 
-* CORECONF uses the methods FETCH and iPATCH to access multiple data nodes.
+* CoMI uses the methods FETCH and iPATCH to access multiple data nodes.
   RESTCONF uses instead the HTTP method PATCH and the HTTP method GET with the "fields" Query parameter.
 
 * RESTCONF uses the HTTP methods HEAD, and OPTIONS, which are not supported by CoAP.
 
-* CORECONF does not support "insert" query parameter (first, last, before, after)
+* CoMI does not support "insert" query parameter (first, last, before, after)
   and the "point" query parameter which are supported by RESTCONF.
 
-* CORECONF does not support the "start-time" and "stop-time" query parameters
+* CoMI does not support the "start-time" and "stop-time" query parameters
   to retrieve past notifications.
 
 ### Differences due to the use of CBOR {#major-differences-cbor}
 
-* CORECONF encodes YANG identifier strings as numbers, where RESTCONF does not.
+* CoMI encodes YANG identifier strings as numbers, where RESTCONF does not.
 
-* CORECONF also differ in the handling of default values, only 'report-all' and 'trim' options are supported.
+* CoMI also differ in the handling of default values, only 'report-all' and 'trim' options are supported.
 
 ## Compression of YANG identifiers {#id-compression}
 
@@ -402,7 +401,7 @@ Characteristics of the unified datastore are summarized in the table below:
 | YANG nodes    | all data nodes ("config true" and "config false") |
 | Access        | read-write                                        |
 | How applied   | changes applied in place immediately or with a  minimal delay |
-| Protocols     | CORECONF                                          |
+| Protocols     | CoMI                                              |
 | Defined in    | "ietf-comi"                                       |
 {: align="left"}
 
