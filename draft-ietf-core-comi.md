@@ -62,6 +62,7 @@ author:
   email: ivaylo@ackl.io
 normative:
   RFC2119:
+  RFC3688:
   RFC8174:
   RFC4648:
   RFC5277:
@@ -1575,6 +1576,20 @@ Each of these media types share the following information:
 
 // RFC Ed.: replace RFC XXXX with this RFC number and remove this note.
 
+## YANG Namespace Registration
+
+This document registers the following XML namespace URN in the "IETF XML
+Registry", following the format defined in {{RFC3688}}:
+
+URI: please assign urn:ietf:params:xml:ns:yang:ietf-comi
+
+Registrant Contact: The IESG.
+
+XML: N/A, the requested URI is an XML namespace.
+
+Reference:    RFC XXXX
+
+// RFC Ed.: please replace XXXX with RFC number and remove this note
 
 # Acknowledgments
 
