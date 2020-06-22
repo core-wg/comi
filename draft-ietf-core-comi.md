@@ -7,7 +7,7 @@ pi:
   toc: 'yes'
   symrefs: 'yes'
 title: CoAP Management Interface (CORECONF)
-abbrev: CoMI
+abbrev: CORECONF
 area: Applications
 wg: CoRE
 author:
@@ -90,12 +90,11 @@ informative:
 --- abstract
 
 This document describes a network management interface for constrained devices
-and networks, called CoAP Management Interface (CoMI). The Constrained Application
+and networks, called CoAP Management Interface (CORECONF). The Constrained Application
 Protocol (CoAP) is used to access datastore and data node resources specified
-in YANG, or SMIv2 converted to YANG. CoMI uses the YANG to CBOR mapping and converts
+in YANG, or SMIv2 converted to YANG. CORECONF uses the YANG to CBOR mapping and converts
 YANG identifier strings to numeric identifiers for payload size reduction.
-The complete solution composed of CoMI, {{I-D.ietf-core-yang-cbor}} and
-{{I-D.ietf-core-sid}} is called CORECONF. CORECONF extends the set of YANG based
+CORECONF extends the set of YANG based
 protocols, NETCONF and RESTCONF, with the capability to manage constrained devices
 and networks.
 
@@ -185,9 +184,9 @@ instance-value:
   the payload according to the rules defined in section 4 of {{I-D.ietf-core-yang-cbor}}.
 
 
-# CoMI Architecture {#comi-architecture}
+# CORECONF Architecture {#comi-architecture}
 
-This section describes the CoMI architecture to use CoAP for reading and
+This section describes the CORECONF architecture to use CoAP for reading and
 modifying the content of datastore(s) used for the management of the instrumented
 node.
 
@@ -215,9 +214,9 @@ Client   V                               Server       V
                                          |+---------------------+|
                                          +-----------------------+
 ~~~~
-{: #archit title='Abstract CoMI architecture' artwork-align="left"}
+{: #archit title='Abstract CORECONF architecture' artwork-align="left"}
 
- {{archit}} is a high-level representation of the main elements of the CoMI management
+ {{archit}} is a high-level representation of the main elements of the CORECONF management
 architecture. The different numbered components of {{archit}} are discussed according to the component number.
 
 
@@ -231,25 +230,25 @@ architecture. The different numbered components of {{archit}} are discussed acco
 
 
 (3) CoAP request/response messages:
-: The CoMI client sends request messages to and receives response messages
-  from the CoMI server.
+: The CORECONF client sends request messages to and receives response messages
+  from the CORECONF server.
 
 
 (4) Request, Indication, Response, Confirm:
-: Processes performed by the CoMI clients and servers.
+: Processes performed by the CORECONF clients and servers.
 
 
 (5) Datastore:
-: A resource used to access configuration data, state data, RPCs, and actions. A CoMI server may support a single unified datastore or multiple datastores as those defined by Network Management Datastore Architecture (NMDA) {{RFC8342}}.
+: A resource used to access configuration data, state data, RPCs, and actions. A CORECONF server may support a single unified datastore or multiple datastores as those defined by Network Management Datastore Architecture (NMDA) {{RFC8342}}.
 
 
 (6) Event stream:
-: A resource used to get real-time notifications. A CoMI server may support multiple Event streams serving different purposes such as normal monitoring, diagnostic, syslog, security monitoring.
+: A resource used to get real-time notifications. A CORECONF server may support multiple Event streams serving different purposes such as normal monitoring, diagnostic, syslog, security monitoring.
 
 
 (7) Security:
-: The server MUST prevent unauthorized users from reading or writing any CoMI
-  resources. CoMI relies on security protocols such as DTLS {{RFC6347}} or OSCORE {{RFC8613}} to secure CoAP communications.
+: The server MUST prevent unauthorized users from reading or writing any CORECONF
+  resources. CORECONF relies on security protocols such as DTLS {{RFC6347}} or OSCORE {{RFC8613}} to secure CoAP communications.
 
 
 ## Major differences between RESTCONF and CORECONF {#major-differences}
@@ -286,7 +285,7 @@ but differs more significantly from RESTCONF.
 ## Compression of YANG identifiers {#id-compression}
 
 In the YANG specification, items are identified with a name string. In order
-to significantly reduce the size of identifiers used in CoMI, numeric
+to significantly reduce the size of identifiers used in CORECONF, numeric
  identifiers called YANG Schema Item iDentifier (YANG SID or simply SID) are used instead.
 
 When used in a URI, SIDs are encoded using base64 encoding of the SID bytes. The base64 encoding is using the URL and Filename safe
@@ -337,7 +336,7 @@ When part of a payload, instance-identifiers are encoded in CBOR based on the ru
 
 ## Media-Types {#media-type}
 
-CoMI uses Media-Types based on the YANG to CBOR mapping specified
+CORECONF uses Media-Types based on the YANG to CBOR mapping specified
 in {{I-D.ietf-core-yang-cbor}}.
 
 The following Media-Type is used as defined in {{I-D.ietf-core-sid}}.
@@ -390,9 +389,9 @@ The different Media-Type usages are summarized in the table below:
 
 ## Unified datastore {#unified-datastore}
 
-CoMI supports a simple datastore model consisting of a single unified datastore. This datastore provides access to both configuration and operational data. Configuration updates performed on this datastore are reflected immediately or with a minimal delay as operational data.
+CORECONF supports a simple datastore model consisting of a single unified datastore. This datastore provides access to both configuration and operational data. Configuration updates performed on this datastore are reflected immediately or with a minimal delay as operational data.
 
-Alternatively, CoMI servers MAY implement a more complex datastore model such as the Network Management Datastore Architecture (NMDA) as defined by {{RFC8342}}. Each datastore supported is implemented as a datastore resource.
+Alternatively, CORECONF servers MAY implement a more complex datastore model such as the Network Management Datastore Architecture (NMDA) as defined by {{RFC8342}}. Each datastore supported is implemented as a datastore resource.
 
 Characteristics of the unified datastore are summarized in the table below:
 
@@ -402,13 +401,13 @@ Characteristics of the unified datastore are summarized in the table below:
 | YANG nodes    | all data nodes ("config true" and "config false") |
 | Access        | read-write                                        |
 | How applied   | changes applied in place immediately or with a  minimal delay |
-| Protocols     | CORECONF                                          |
-| Defined in    | "ietf-comi"                                       |
+| Protocols     | CORECONF                                              |
+| Defined in    | "ietf-coreconf"                                       |
 {: align="left"}
 
 # Example syntax {#example-syntax}
 
-CBOR is used to encode CoMI request and response payloads. The CBOR syntax
+CBOR is used to encode CORECONF request and response payloads. The CBOR syntax
 of the YANG payloads is specified in {{RFC7049}}. The payload examples are
 notated in Diagnostic notation (defined in section 6 of {{RFC7049}}) that
 can be automatically converted to CBOR.
@@ -419,21 +418,21 @@ represented as decimal numbers.
 # CoAP Interface {#coap-interface}
 
 This note specifies a Management Interface. CoAP endpoints that
-implement the CoMI management protocol, support
+implement the CORECONF management protocol, support
 at least one discoverable management resource of resource type (rt): core.c.ds.
 The path of the discoverable management resource is left to implementers to
 select (see {{discovery}}).
 
-The mapping of YANG data node instances to CoMI resources is as follows.
-Every data node of the YANG modules loaded in the CoMI server represents
+The mapping of YANG data node instances to CORECONF resources is as follows.
+Every data node of the YANG modules loaded in the CORECONF server represents
 a sub-resource of the datastore resource (e.g. /c/YANGSID).
 When multiple instances of a list exist, instance selection is possible
 as described in {{query}}, {{get-example}}, and {{fetch}}.
 
-CoMI also supports event stream resources used to observe notification instances.
+CORECONF also supports event stream resources used to observe notification instances.
 Event stream resources can be discovered using resource type (rt): core.c.ev.
 
-The description of the CoMI management interface is shown in the table below:
+The description of the CORECONF management interface is shown in the table below:
 
 | CoAP resource                | Example path  | rt          |
 | Datastore resource           | /c            | core.c.ds   |
@@ -444,7 +443,7 @@ The description of the CoMI management interface is shown in the table below:
 The path values in the table are example ones. On discovery, the server makes
 the actual path values known for these resources.
 
-The methods used by CoMI are:
+The methods used by CORECONF are:
 
 | Operation | Description                                                                                 |
 | GET       | Retrieve the datastore resource or a data node resource                                     |
@@ -603,7 +602,7 @@ RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
 {: artwork-align="left"}
 
 The next example represents the retrieval of a YANG container. In this
-case, the CoMI client performs a GET request on the clock container
+case, the CORECONF client performs a GET request on the clock container
 (SID = 1721; base64: a5). The container returned is encoded using a
 CBOR map as specified by {{I-D.ietf-core-yang-cbor}} section 4.2.
 
@@ -651,7 +650,7 @@ RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
 {: artwork-align="left"}
 
 To retrieve a specific instance within the /interfaces/interface YANG list,
-the CoMI client adds the key of the targeted instance in its CoAP request
+the CORECONF client adds the key of the targeted instance in its CoAP request
 using the 'k' query parameter. The return payload containing the instance requested
 is encoded using a CBOR array as specified by {{I-D.ietf-core-yang-cbor}}
 section 4.4.1 containing the requested instance.
@@ -751,12 +750,12 @@ RES: 2.05 Content (Content-Format: application/yang-instances+cbor)
 
 ## Data Editing {#data-editing}
 
-CoMI allows datastore contents to be created, modified and deleted using
+CORECONF allows datastore contents to be created, modified and deleted using
 CoAP methods.
 
 ### Data Ordering {#DataOrdering}
 
-A CoMI server MUST preserve the relative order of all user-ordered list
+A CORECONF server MUST preserve the relative order of all user-ordered list
 and leaf-list entries that are received in a single edit request.  These YANG
 data node types are encoded as CBOR arrays so messages will preserve their
 order.
@@ -764,7 +763,7 @@ order.
 
 ### POST {#post-operation}
 
-The CoAP POST operation is used in CoMI for the creation of data node resources and the
+The CoAP POST operation is used in CORECONF for the creation of data node resources and the
 invocation of "ACTION" and "RPC" resources.
 Refer to {{rpc}} for details on "ACTION" and "RPC" resources.
 
@@ -885,7 +884,7 @@ FORMAT:
 
 #### iPATCH example {#ipatch-example}
 
-In this example, a CoMI client requests the following operations:
+In this example, a CORECONF client requests the following operations:
 
   * Set "/system/ntp/enabled" (SID 1755) to true.
 
@@ -1031,7 +1030,7 @@ RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
 ## Event stream {#event-stream}
 
 Event notification is an essential function for the management of servers.
-CoMI allows notifications specified in YANG {{RFC5277}} to be reported to a list
+CORECONF allows notifications specified in YANG {{RFC5277}} to be reported to a list
 of clients. The path for the default event stream can be discovered as
 described in {{coap-interface}}. The server MAY support additional event
 stream resources to address different notification needs.
@@ -1132,7 +1131,7 @@ notify the client when a new event is generated.
 
 The 'f' (filter) option is used to indicate which subset of all possible notifications is of interest.  If not present, all notifications supported by the event stream are reported.
 
-When not supported by a CoMI server, this option shall be ignored, all events notifications are reported independently of the presence and content of the 'f' (filter) option.
+When not supported by a CORECONF server, this option shall be ignored, all events notifications are reported independently of the presence and content of the 'f' (filter) option.
 
 When present, this option contains a comma-separated list of notification SIDs. For example, the following request returns notifications 60010 and 60020.
 
@@ -1257,7 +1256,7 @@ which are foreseen for data streaming purposes.
 
 # Application Discovery {#discovery}
 
-Two application discovery mechanisms are supported by CoMI, the YANG library
+Two application discovery mechanisms are supported by CORECONF, the YANG library
 data model as defined by {{I-D.ietf-core-yang-library}} and
 the CORE resource discovery {{RFC6690}}.
 Implementers may choose to implement one or the other or both.
@@ -1265,8 +1264,8 @@ Implementers may choose to implement one or the other or both.
 ## YANG library
 
 The YANG library data model {{I-D.ietf-core-yang-library}} provides a high-level description of the resources available. The YANG library contains the
-list of modules, features, and deviations supported by the CoMI server.
-From this information, CoMI clients can infer the list of data nodes supported
+list of modules, features, and deviations supported by the CORECONF server.
+From this information, CORECONF clients can infer the list of data nodes supported
 and the interaction model to be used to access them. This module also contains
 the list of datastores implemented.
 
@@ -1297,7 +1296,7 @@ resources using "/.well-known/core" as defined by {{RFC6690}}.
 
 ### Datastore Resource Discovery
 
-The presence and location of (path to) each datastore implemented by the CoMI server
+The presence and location of (path to) each datastore implemented by the CORECONF server
 can be discovered by sending a GET request to "/.well-known/core" including a
 resource type (RT) parameter with the value "core.c.ds".
 
@@ -1306,7 +1305,7 @@ Upon success, the return payload contains the list of datastore resources.
 Each datastore returned is further qualified using the "ds" Link-Format attribute.
 This attribute is set to the SID assigned to the datastore identity.
 When a unified datastore is implemented, the ds attribute is set to 1029 as
-specified in {{ietf-comi-sid}}.
+specified in {{ietf-coreconf-sid}}.
 For other examples of datastores, see the Network Management Datastore Architecture (NMDA) {{RFC7950}}.
 
 ~~~~
@@ -1331,7 +1330,7 @@ RES: 2.05 Content (Content-Format: application/link-format)
 ### Data node Resource Discovery
 
 If implemented, the presence and location of (path to) each data node
-implemented by the CoMI server are discovered by sending a GET request to
+implemented by the CORECONF server are discovered by sending a GET request to
 "/.well-known/core" including a resource type (RT) parameter with the value
 "core.c.dn".
 
@@ -1360,7 +1359,7 @@ pagination).
 
 ### Event stream Resource Discovery
 
-The presence and location of (path to) each event stream implemented by the CoMI server are
+The presence and location of (path to) each event stream implemented by the CORECONF server are
 discovered by sending a GET request to "/.well-known/core" including a resource type (RT)
 parameter with the value "core.c.es".
 
@@ -1380,28 +1379,28 @@ RES: 2.05 Content (Content-Format: application/link-format)
 
 # Error Handling {#error-handling}
 
-In case a request is received which cannot be processed properly, the CoMI server MUST return an error response. This error response MUST contain a CoAP 4.xx or 5.xx response code.
+In case a request is received which cannot be processed properly, the CORECONF server MUST return an error response. This error response MUST contain a CoAP 4.xx or 5.xx response code.
 
-Errors returned by a CoMI server can be broken into two categories, those associated with the CoAP protocol itself and those generated during the validation of the YANG data model constrains as described in {{RFC7950}} section 8.
+Errors returned by a CORECONF server can be broken into two categories, those associated with the CoAP protocol itself and those generated during the validation of the YANG data model constrains as described in {{RFC7950}} section 8.
 
-The following list of common CoAP errors should be implemented by CoMI servers. This list is not exhaustive, other errors defined by CoAP and associated RFCs may be applicable.
+The following list of common CoAP errors should be implemented by CORECONF servers. This list is not exhaustive, other errors defined by CoAP and associated RFCs may be applicable.
 
-* Error 4.01 (Unauthorized) is returned by the CoMI server when the CoMI client is not authorized to perform the requested action on the targeted resource (i.e. data node, datastore, rpc, action or event stream).
+* Error 4.01 (Unauthorized) is returned by the CORECONF server when the CORECONF client is not authorized to perform the requested action on the targeted resource (i.e. data node, datastore, rpc, action or event stream).
 
-* Error 4.02 (Bad Option) is returned by the CoMI server when one or more CoAP options are unknown or malformed.
+* Error 4.02 (Bad Option) is returned by the CORECONF server when one or more CoAP options are unknown or malformed.
 
-* Error 4.04 (Not Found) is returned by the CoMI server when the CoMI client is requesting a non-instantiated resource (i.e. data node, datastore, rpc, action or event stream).
+* Error 4.04 (Not Found) is returned by the CORECONF server when the CORECONF client is requesting a non-instantiated resource (i.e. data node, datastore, rpc, action or event stream).
 
-* Error 4.05 (Method Not Allowed) is returned by the CoMI server when the CoMI client is requesting a method not supported on the targeted resource. (e.g. GET on an rpc, PUT or POST on a data node with "config" set to false).
+* Error 4.05 (Method Not Allowed) is returned by the CORECONF server when the CORECONF client is requesting a method not supported on the targeted resource. (e.g. GET on an rpc, PUT or POST on a data node with "config" set to false).
 
-* Error 4.08 (Request Entity Incomplete) is returned by the CoMI server if one or multiple blocks of a block transfer request is missing, see {{RFC7959}} for more details.
+* Error 4.08 (Request Entity Incomplete) is returned by the CORECONF server if one or multiple blocks of a block transfer request is missing, see {{RFC7959}} for more details.
 
-* Error 4.13 (Request Entity Too Large) may be returned by the CoMI server during a block transfer request, see {{RFC7959}} for more details.
+* Error 4.13 (Request Entity Too Large) may be returned by the CORECONF server during a block transfer request, see {{RFC7959}} for more details.
 
-* Error 4.15 (Unsupported Content-Format) is returned by the CoMI server when the Content-Format used in the request does not match those specified in section {{media-type}}.
+* Error 4.15 (Unsupported Content-Format) is returned by the CORECONF server when the Content-Format used in the request does not match those specified in section {{media-type}}.
 
 
-The CoMI server MUST also enforce the different constraints associated with the YANG data models implemented. These constraints are described in {{RFC7950}} section 8. These errors are reported using the CoAP error code 4.00 (Bad Request) and may have the following error container as payload. The YANG definition and associated .sid file are available in {{ietf-comi-yang}} and {{ietf-comi-sid}}. The error container is encoded using the encoding rules of a YANG data template as defined in {{I-D.ietf-core-yang-cbor}} section 5.
+The CORECONF server MUST also enforce the different constraints associated with the YANG data models implemented. These constraints are described in {{RFC7950}} section 8. These errors are reported using the CoAP error code 4.00 (Bad Request) and may have the following error container as payload. The YANG definition and associated .sid file are available in {{ietf-coreconf-yang}} and {{ietf-coreconf-sid}}. The error container is encoded using the encoding rules of a YANG data template as defined in {{I-D.ietf-core-yang-cbor}} section 5.
 
 ~~~~
 +--rw error!
@@ -1412,51 +1411,51 @@ The CoMI server MUST also enforce the different constraints associated with the 
 ~~~~
 {: artwork-align="left"}
 
-The following 'error-tag' and 'error-app-tag' are defined by the ietf-comi YANG module, these tags are implemented as YANG identity and can be extended as needed.
+The following 'error-tag' and 'error-app-tag' are defined by the ietf-coreconf YANG module, these tags are implemented as YANG identity and can be extended as needed.
 
-* error-tag 'operation-failed' is returned by the CoMI server when the operation request cannot be processed successfully.
+* error-tag 'operation-failed' is returned by the CORECONF server when the operation request cannot be processed successfully.
 
-  * error-app-tag 'malformed-message' is returned by the CoMI server when the payload received from the CoMI client does not contain a well-formed CBOR content as defined in {{RFC7049}} section 3.3 or does not comply with the CBOR structure defined within this document.
+  * error-app-tag 'malformed-message' is returned by the CORECONF server when the payload received from the CORECONF client does not contain a well-formed CBOR content as defined in {{RFC7049}} section 3.3 or does not comply with the CBOR structure defined within this document.
 
-  * error-app-tag 'data-not-unique' is returned by the CoMI server when the validation of the 'unique' constraint of a list or leaf-list fails.
+  * error-app-tag 'data-not-unique' is returned by the CORECONF server when the validation of the 'unique' constraint of a list or leaf-list fails.
 
-  * error-app-tag 'too-many-elements' is returned by the CoMI server when the validation of the 'max-elements' constraint of a list or leaf-list fails.
+  * error-app-tag 'too-many-elements' is returned by the CORECONF server when the validation of the 'max-elements' constraint of a list or leaf-list fails.
 
-  * error-app-tag 'too-few-elements' is returned by the CoMI server when the validation of the 'min-elements' constraint of a list or leaf-list fails.
+  * error-app-tag 'too-few-elements' is returned by the CORECONF server when the validation of the 'min-elements' constraint of a list or leaf-list fails.
 
-  * error-app-tag 'must-violation' is returned by the CoMI server when the restrictions imposed by a 'must' statement are violated.
+  * error-app-tag 'must-violation' is returned by the CORECONF server when the restrictions imposed by a 'must' statement are violated.
 
-  * error-app-tag 'duplicate' is returned by the CoMI server when a client tries to create a duplicate list or leaf-list entry.
+  * error-app-tag 'duplicate' is returned by the CORECONF server when a client tries to create a duplicate list or leaf-list entry.
 
-* error-tag 'invalid-value' is returned by the CoMI server when the CoMI client tries to update or create a leaf with a value encoded using an invalid CBOR datatype or if the 'range', 'length', 'pattern' or 'require-instance' constrain is not fulfilled.
+* error-tag 'invalid-value' is returned by the CORECONF server when the CORECONF client tries to update or create a leaf with a value encoded using an invalid CBOR datatype or if the 'range', 'length', 'pattern' or 'require-instance' constrain is not fulfilled.
 
-  * error-app-tag 'invalid-datatype' is returned by the CoMI server when CBOR encoding does not follow the rules set by the YANG Build-In type or when the value is incompatible with it (e.g. a value greater than 127 for an int8, undefined enumeration).
+  * error-app-tag 'invalid-datatype' is returned by the CORECONF server when CBOR encoding does not follow the rules set by the YANG Build-In type or when the value is incompatible with it (e.g. a value greater than 127 for an int8, undefined enumeration).
 
-  * error-app-tag 'not-in-range' is returned by the CoMI server when the validation of the 'range' property fails.
+  * error-app-tag 'not-in-range' is returned by the CORECONF server when the validation of the 'range' property fails.
 
-  * error-app-tag 'invalid-length' is returned by the CoMI server when the validation of the 'length' property fails.
+  * error-app-tag 'invalid-length' is returned by the CORECONF server when the validation of the 'length' property fails.
 
-  * error-app-tag 'pattern-test-failed' is returned by the CoMI server when the validation of the 'pattern' property fails.
+  * error-app-tag 'pattern-test-failed' is returned by the CORECONF server when the validation of the 'pattern' property fails.
 
-* error-tag 'missing-element' is returned by the CoMI server when the operation requested by a CoMI client fails to comply with the 'mandatory' constraint defined. The 'mandatory' constraint is enforced for leafs and choices, unless the node or any of its ancestors have a 'when' condition or 'if-feature' expression that evaluates to 'false'.
+* error-tag 'missing-element' is returned by the CORECONF server when the operation requested by a CORECONF client fails to comply with the 'mandatory' constraint defined. The 'mandatory' constraint is enforced for leafs and choices, unless the node or any of its ancestors have a 'when' condition or 'if-feature' expression that evaluates to 'false'.
 
-  * error-app-tag 'missing-key' is returned by the CoMI server to further qualify a missing-element error. This error is returned when the CoMI client  tries to create or list instance, without all the 'key' specified or when the CoMI client  tries to delete a leaf listed as a 'key'.
+  * error-app-tag 'missing-key' is returned by the CORECONF server to further qualify a missing-element error. This error is returned when the CORECONF client  tries to create or list instance, without all the 'key' specified or when the CORECONF client  tries to delete a leaf listed as a 'key'.
 
-  * error-app-tag 'missing-input-parameter' is returned by the CoMI server when the input parameters of an RPC or action are incomplete.
+  * error-app-tag 'missing-input-parameter' is returned by the CORECONF server when the input parameters of an RPC or action are incomplete.
 
-* error-tag 'unknown-element' is returned by the CoMI server when the CoMI client  tries to access a data node of a YANG module not supported, of a data node associated with an 'if-feature' expression evaluated to 'false' or to a 'when' condition evaluated to 'false'.
+* error-tag 'unknown-element' is returned by the CORECONF server when the CORECONF client  tries to access a data node of a YANG module not supported, of a data node associated with an 'if-feature' expression evaluated to 'false' or to a 'when' condition evaluated to 'false'.
 
-* error-tag 'bad-element' is returned by the CoMI server when the CoMI client  tries to create data nodes for more than one case in a choice.
+* error-tag 'bad-element' is returned by the CORECONF server when the CORECONF client  tries to create data nodes for more than one case in a choice.
 
-* error-tag 'data-missing' is returned by the CoMI server when a data node required to accept the request is not present.
+* error-tag 'data-missing' is returned by the CORECONF server when a data node required to accept the request is not present.
 
-  * error-app-tag 'instance-required' is returned by the CoMI server when a leaf of type 'instance-identifier' or 'leafref' marked with require-instance set to 'true' refers to an instance that does not exist.
+  * error-app-tag 'instance-required' is returned by the CORECONF server when a leaf of type 'instance-identifier' or 'leafref' marked with require-instance set to 'true' refers to an instance that does not exist.
 
-  * error-app-tag 'missing-choice' is returned by the CoMI server when no nodes exist in a mandatory choice.
+  * error-app-tag 'missing-choice' is returned by the CORECONF server when no nodes exist in a mandatory choice.
 
-* error-tag 'error' is returned by the CoMI server when an unspecified error has occurred.
+* error-tag 'error' is returned by the CORECONF server when an unspecified error has occurred.
 
-For example, the CoMI server might return the following error.
+For example, the CORECONF server might return the following error.
 
 ~~~~
 RES:  4.00 Bad Request (Content-Format: application/yang-data+cbor; id=sid)
@@ -1478,7 +1477,7 @@ RES:  4.00 Bad Request (Content-Format: application/yang-data+cbor; id=sid)
 # Security Considerations
 
 For secure network management, it is important to restrict access to configuration variables
-only to authorized parties. CoMI re-uses the security mechanisms already available to CoAP,
+only to authorized parties. CORECONF re-uses the security mechanisms already available to CoAP,
 this includes DTLS {{RFC6347}} and OSCORE {{RFC8613}} for protected access to
 resources, as well as suitable authentication and authorization mechanisms, for
 example those defined in ACE OAuth {{I-D.ietf-ace-oauth-authz}}.
@@ -1548,7 +1547,7 @@ Each of these media types share the following information:
 
   *  Published specification: RFC XXXX
 
-  *  Applications that use this media type: CoMI
+  *  Applications that use this media type: CORECONF
 
   *  Fragment identifier considerations: N/A
 
@@ -1581,7 +1580,7 @@ Each of these media types share the following information:
 This document registers the following XML namespace URN in the "IETF XML
 Registry", following the format defined in {{RFC3688}}:
 
-URI: please assign urn:ietf:params:xml:ns:yang:ietf-comi
+URI: please assign urn:ietf:params:xml:ns:yang:ietf-coreconf
 
 Registrant Contact: The IESG.
 
@@ -1594,7 +1593,7 @@ Reference:    RFC XXXX
 # Acknowledgments
 
 We are very grateful to Bert Greevenbosch who was one of the original authors
-of the CoMI specification.
+of the CORECONF specification.
 
 Mehmet Ersue and Bert Wijnen explained the encoding aspects of PDUs transported
 under SNMP. Carsten Bormann has given feedback on the use of CBOR.
@@ -1607,15 +1606,15 @@ Michael Verschoor, and Thomas Watteyne.
 
 --- back
 
-# ietf-comi YANG module {#ietf-comi-yang}
+# ietf-coreconf YANG module {#ietf-coreconf-yang}
 
 ~~~~
-<CODE BEGINS> file "ietf-comi@2019-03-28.yang"
-module ietf-comi {
+<CODE BEGINS> file "ietf-coreconf@2019-03-28.yang"
+module ietf-coreconf {
   yang-version 1.1;
 
-  namespace "urn:ietf:params:xml:ns:yang:ietf-comi";
-  prefix comi;
+  namespace "urn:ietf:params:xml:ns:yang:ietf-coreconf";
+  prefix coreconf;
 
   import ietf-datastores {
     prefix ds;
@@ -1647,7 +1646,7 @@ module ietf-comi {
 
   description
     "This module contains the different definitions required
-     by the CoMI protocol.
+     by the CORECONF protocol.
 
      Copyright (c) 2019 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
@@ -1684,14 +1683,14 @@ module ietf-comi {
   identity operation-failed {
     base error-tag;
     description
-      "Returned by the CoMI server when the operation request
+      "Returned by the CORECONF server when the operation request
        can't be processed successfully.";
   }
 
   identity invalid-value {
     base error-tag;
     description
-      "Returned by the CoMI server when the CoMI client tries to
+      "Returned by the CORECONF server when the CORECONF client tries to
        update or create a leaf with a value encoded using an
        invalid CBOR datatype or if the 'range', 'length',
        'pattern' or 'require-instance' constrain is not
@@ -1701,8 +1700,8 @@ module ietf-comi {
   identity missing-element {
     base error-tag;
     description
-      "Returned by the CoMI server when the operation requested
-       by a CoMI client fails to comply with the 'mandatory'
+      "Returned by the CORECONF server when the operation requested
+       by a CORECONF client fails to comply with the 'mandatory'
        constraint defined. The 'mandatory' constraint is
        enforced for leafs and choices, unless the node or any of
        its ancestors have a 'when' condition or 'if-feature'
@@ -1712,7 +1711,7 @@ module ietf-comi {
   identity unknown-element {
     base error-tag;
     description
-      "Returned by the CoMI server when the CoMI client tries to
+      "Returned by the CORECONF server when the CORECONF client tries to
        access a data node of a YANG module not supported, of a
        data node associated with an 'if-feature' expression
        evaluated to 'false' or to a 'when' condition evaluated
@@ -1722,21 +1721,21 @@ module ietf-comi {
   identity bad-element {
     base error-tag;
     description
-      "Returned by the CoMI server when the CoMI client tries to
+      "Returned by the CORECONF server when the CORECONF client tries to
        create data nodes for more than one case in a choice.";
   }
 
   identity data-missing {
     base error-tag;
     description
-      "Returned by the CoMI server when a data node required to
+      "Returned by the CORECONF server when a data node required to
        accept the request is not present.";
   }
 
   identity error {
     base error-tag;
     description
-      "Returned by the CoMI server when an unspecified error has
+      "Returned by the CORECONF server when an unspecified error has
       occurred.";
   }
 
@@ -1748,8 +1747,8 @@ module ietf-comi {
   identity malformed-message {
     base error-app-tag;
     description
-      "Returned by the CoMI server when the payload received
-       from the CoMI client don't contain a well-formed CBOR
+      "Returned by the CORECONF server when the payload received
+       from the CORECONF client don't contain a well-formed CBOR
        content as defined in [RFC7049] section 3.3 or don't
        comply with the CBOR structure defined within this
        document.";
@@ -1758,42 +1757,42 @@ module ietf-comi {
   identity data-not-unique {
     base error-app-tag;
     description
-      "Returned by the CoMI server when the validation of the
+      "Returned by the CORECONF server when the validation of the
        'unique' constraint of a list or leaf-list fails.";
   }
 
   identity too-many-elements {
     base error-app-tag;
     description
-      "Returned by the CoMI server when the validation of the
+      "Returned by the CORECONF server when the validation of the
        'max-elements' constraint of a list or leaf-list fails.";
   }
 
   identity too-few-elements {
     base error-app-tag;
     description
-      "Returned by the CoMI server when the validation of the
+      "Returned by the CORECONF server when the validation of the
        'min-elements' constraint of a list or leaf-list fails.";
   }
 
   identity must-violation {
     base error-app-tag;
     description
-      "Returned by the CoMI server when the restrictions
+      "Returned by the CORECONF server when the restrictions
        imposed by a 'must' statement are violated.";
   }
 
   identity duplicate {
     base error-app-tag;
     description
-      "Returned by the CoMI server when a client tries to create
+      "Returned by the CORECONF server when a client tries to create
        a duplicate list or leaf-list entry.";
   }
 
   identity invalid-datatype {
     base error-app-tag;
     description
-      "Returned by the CoMI server when CBOR encoding is
+      "Returned by the CORECONF server when CBOR encoding is
        incorect or when the value encoded is incompatible with
        the YANG Built-In type. (e.g. value greater than 127
        for an int8, undefined enumeration).";
@@ -1802,45 +1801,45 @@ module ietf-comi {
   identity not-in-range {
     base error-app-tag;
     description
-      "Returned by the CoMI server when the validation of the
+      "Returned by the CORECONF server when the validation of the
        'range' property fails.";
   }
 
   identity invalid-length {
     base error-app-tag;
     description
-      "Returned by the CoMI server when the validation of the
+      "Returned by the CORECONF server when the validation of the
        'length' property fails.";
   }
 
   identity pattern-test-failed {
     base error-app-tag;
     description
-      "Returned by the CoMI server when the validation of the
+      "Returned by the CORECONF server when the validation of the
        'pattern' property fails.";
   }
 
   identity missing-key {
     base error-app-tag;
     description
-      "Returned by the CoMI server to further qualify a
+      "Returned by the CORECONF server to further qualify a
        missing-element error. This error is returned when the
-       CoMI client tries to create or list instance, without all
-       the 'key' specified or when the CoMI client tries to
+       CORECONF client tries to create or list instance, without all
+       the 'key' specified or when the CORECONF client tries to
        delete a leaf listed as a 'key'.";
   }
 
   identity missing-input-parameter {
     base error-app-tag;
     description
-      "Returned by the CoMI server when the input parameters
+      "Returned by the CORECONF server when the input parameters
        of a RPC or action are incomplete.";
   }
 
   identity instance-required {
     base error-app-tag;
     description
-      "Returned by the CoMI server when a leaf of type
+      "Returned by the CORECONF server when a leaf of type
        'instance-identifier' or 'leafref' marked with
        require-instance set to 'true' refers to an instance
        that does not exist.";
@@ -1849,11 +1848,11 @@ module ietf-comi {
   identity missing-choice {
     base error-app-tag;
     description
-      "Returned by the CoMI server when no nodes exist in a
+      "Returned by the CORECONF server when no nodes exist in a
        mandatory choice.";
   }
 
-  rc:yang-data comi-error {
+  rc:yang-data coreconf-error {
     container error {
       description
         "Optional payload of a 4.00 Bad Request CoAP error.";
@@ -1894,7 +1893,7 @@ module ietf-comi {
 ~~~~
 {: artwork-align="left"}
 
-# ietf-comi .sid file {#ietf-comi-sid}
+# ietf-coreconf .sid file {#ietf-coreconf-sid}
 
 ~~~~
 {
@@ -1904,12 +1903,12 @@ module ietf-comi {
       "size": 100
     }
   ],
-  "module-name": "ietf-comi",
+  "module-name": "ietf-coreconf",
   "module-revision": "2019-03-28",
   "items": [
     {
       "namespace": "module",
-      "identifier": "ietf-comi",
+      "identifier": "ietf-coreconf",
       "sid": 1000
     },
     {
@@ -2034,27 +2033,27 @@ module ietf-comi {
     },
     {
       "namespace": "data",
-      "identifier": "/ietf-comi:error",
+      "identifier": "/ietf-coreconf:error",
       "sid": 1024
     },
     {
       "namespace": "data",
-      "identifier": "/ietf-comi:error/error-app-tag",
+      "identifier": "/ietf-coreconf:error/error-app-tag",
       "sid": 1025
     },
     {
       "namespace": "data",
-      "identifier": "/ietf-comi:error/error-data-node",
+      "identifier": "/ietf-coreconf:error/error-data-node",
       "sid": 1026
     },
     {
       "namespace": "data",
-      "identifier": "/ietf-comi:error/error-message",
+      "identifier": "/ietf-coreconf:error/error-message",
       "sid": 1027
     },
     {
       "namespace": "data",
-      "identifier": "/ietf-comi:error/error-tag",
+      "identifier": "/ietf-coreconf:error/error-tag",
       "sid": 1028
     }
   ]
