@@ -6,7 +6,7 @@ cat: std
 pi:
   toc: 'yes'
   symrefs: 'yes'
-title: CoAP Management Interface (CORECONF)
+title: CoAP Management Interface
 abbrev: CoMI
 area: Applications
 wg: CoRE
@@ -90,9 +90,9 @@ informative:
 --- abstract
 
 This document describes a network management interface for constrained devices
-and networks, called CoAP Management Interface (CoMI). The Constrained Application
-Protocol (CoAP) is used to access datastore and data node resources specified
-in YANG, or SMIv2 converted to YANG. CoMI uses the YANG to CBOR mapping and converts
+and networks, called CoAP Management Interface (CoMI) and the protocol CORECONF that is uses CoMI. The Constrained Application
+Protocol (CoAP) is used by CoMI to access datastore and data node resources specified
+in YANG, or SMIv2 converted to YANG. CORECONF uses the YANG to CBOR mapping and converts
 YANG identifier strings to numeric identifiers for payload size reduction.
 The complete solution composed of CoMI, {{I-D.ietf-core-yang-cbor}} and
 {{I-D.ietf-core-sid}} is called CORECONF. CORECONF extends the set of YANG based
@@ -185,9 +185,9 @@ instance-value:
   the payload according to the rules defined in section 4 of {{I-D.ietf-core-yang-cbor}}.
 
 
-# CoMI Architecture {#comi-architecture}
+# CORECONF Architecture {#comi-architecture}
 
-This section describes the CoMI architecture to use CoAP for reading and
+This section describes the CORECONF architecture to use CoAP for reading and
 modifying the content of datastore(s) used for the management of the instrumented
 node.
 
@@ -215,9 +215,9 @@ Client   V                               Server       V
                                          |+---------------------+|
                                          +-----------------------+
 ~~~~
-{: #archit title='Abstract CoMI architecture' artwork-align="left"}
+{: #archit title='Abstract CORECONF architecture' artwork-align="left"}
 
- {{archit}} is a high-level representation of the main elements of the CoMI management
+ {{archit}} is a high-level representation of the main elements of the CORECONF management
 architecture. The different numbered components of {{archit}} are discussed according to the component number.
 
 
@@ -231,25 +231,25 @@ architecture. The different numbered components of {{archit}} are discussed acco
 
 
 (3) CoAP request/response messages:
-: The CoMI client sends request messages to and receives response messages
-  from the CoMI server.
+: The CORECONF client sends request messages to and receives response messages
+  from the CORECONF server.
 
 
 (4) Request, Indication, Response, Confirm:
-: Processes performed by the CoMI clients and servers.
+: Processes performed by the CORECONF clients and servers.
 
 
 (5) Datastore:
-: A resource used to access configuration data, state data, RPCs, and actions. A CoMI server may support a single unified datastore or multiple datastores as those defined by Network Management Datastore Architecture (NMDA) {{RFC8342}}.
+: A resource used to access configuration data, state data, RPCs, and actions. A CORECONF server may support a single unified datastore or multiple datastores as those defined by Network Management Datastore Architecture (NMDA) {{RFC8342}}.
 
 
 (6) Event stream:
-: A resource used to get real-time notifications. A CoMI server may support multiple Event streams serving different purposes such as normal monitoring, diagnostic, syslog, security monitoring.
+: A resource used to get real-time notifications. A CORECONF server may support multiple Event streams serving different purposes such as normal monitoring, diagnostic, syslog, security monitoring.
 
 
 (7) Security:
-: The server MUST prevent unauthorized users from reading or writing any CoMI
-  resources. CoMI relies on security protocols such as DTLS {{RFC6347}} or OSCORE {{RFC8613}} to secure CoAP communications.
+: The server MUST prevent unauthorized users from reading or writing any CORECONF
+  resources. CORECONF relies on security protocols such as DTLS {{RFC6347}} or OSCORE {{RFC8613}} to secure CoAP communications.
 
 
 ## Major differences between RESTCONF and CORECONF {#major-differences}
@@ -286,7 +286,7 @@ but differs more significantly from RESTCONF.
 ## Compression of YANG identifiers {#id-compression}
 
 In the YANG specification, items are identified with a name string. In order
-to significantly reduce the size of identifiers used in CoMI, numeric
+to significantly reduce the size of identifiers used in CORECONF, numeric
  identifiers called YANG Schema Item iDentifier (YANG SID or simply SID) are used instead.
 
 When used in a URI, SIDs are encoded using base64 encoding of the SID bytes. The base64 encoding is using the URL and Filename safe
@@ -337,7 +337,7 @@ When part of a payload, instance-identifiers are encoded in CBOR based on the ru
 
 ## Media-Types {#media-type}
 
-CoMI uses Media-Types based on the YANG to CBOR mapping specified
+CORECONF uses Media-Types based on the YANG to CBOR mapping specified
 in {{I-D.ietf-core-yang-cbor}}.
 
 The following Media-Type is used as defined in {{I-D.ietf-core-sid}}.
@@ -390,9 +390,9 @@ The different Media-Type usages are summarized in the table below:
 
 ## Unified datastore {#unified-datastore}
 
-CoMI supports a simple datastore model consisting of a single unified datastore. This datastore provides access to both configuration and operational data. Configuration updates performed on this datastore are reflected immediately or with a minimal delay as operational data.
+CORECONF supports a simple datastore model consisting of a single unified datastore. This datastore provides access to both configuration and operational data. Configuration updates performed on this datastore are reflected immediately or with a minimal delay as operational data.
 
-Alternatively, CoMI servers MAY implement a more complex datastore model such as the Network Management Datastore Architecture (NMDA) as defined by {{RFC8342}}. Each datastore supported is implemented as a datastore resource.
+Alternatively, CORECONF servers MAY implement a more complex datastore model such as the Network Management Datastore Architecture (NMDA) as defined by {{RFC8342}}. Each datastore supported is implemented as a datastore resource.
 
 Characteristics of the unified datastore are summarized in the table below:
 
@@ -408,7 +408,7 @@ Characteristics of the unified datastore are summarized in the table below:
 
 # Example syntax {#example-syntax}
 
-CBOR is used to encode CoMI request and response payloads. The CBOR syntax
+CBOR is used to encode CORECONF request and response payloads. The CBOR syntax
 of the YANG payloads is specified in {{RFC7049}}. The payload examples are
 notated in Diagnostic notation (defined in section 6 of {{RFC7049}}) that
 can be automatically converted to CBOR.
@@ -603,7 +603,7 @@ RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
 {: artwork-align="left"}
 
 The next example represents the retrieval of a YANG container. In this
-case, the CoMI client performs a GET request on the clock container
+case, the CORECONF client performs a GET request on the clock container
 (SID = 1721; base64: a5). The container returned is encoded using a
 CBOR map as specified by {{I-D.ietf-core-yang-cbor}} section 4.2.
 
@@ -651,7 +651,7 @@ RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
 {: artwork-align="left"}
 
 To retrieve a specific instance within the /interfaces/interface YANG list,
-the CoMI client adds the key of the targeted instance in its CoAP request
+the CORECONF client adds the key of the targeted instance in its CoAP request
 using the 'k' query parameter. The return payload containing the instance requested
 is encoded using a CBOR array as specified by {{I-D.ietf-core-yang-cbor}}
 section 4.4.1 containing the requested instance.
@@ -756,7 +756,7 @@ CoAP methods.
 
 ### Data Ordering {#DataOrdering}
 
-A CoMI server MUST preserve the relative order of all user-ordered list
+A CORECONF server MUST preserve the relative order of all user-ordered list
 and leaf-list entries that are received in a single edit request.  These YANG
 data node types are encoded as CBOR arrays so messages will preserve their
 order.
@@ -885,7 +885,7 @@ FORMAT:
 
 #### iPATCH example {#ipatch-example}
 
-In this example, a CoMI client requests the following operations:
+In this example, a CORECONF client requests the following operations:
 
   * Set "/system/ntp/enabled" (SID 1755) to true.
 
@@ -1478,7 +1478,7 @@ RES:  4.00 Bad Request (Content-Format: application/yang-data+cbor; id=sid)
 # Security Considerations
 
 For secure network management, it is important to restrict access to configuration variables
-only to authorized parties. CoMI re-uses the security mechanisms already available to CoAP,
+only to authorized parties. CORECONF re-uses the security mechanisms already available to CoAP,
 this includes DTLS {{RFC6347}} and OSCORE {{RFC8613}} for protected access to
 resources, as well as suitable authentication and authorization mechanisms, for
 example those defined in ACE OAuth {{I-D.ietf-ace-oauth-authz}}.
@@ -1548,7 +1548,7 @@ Each of these media types share the following information:
 
   *  Published specification: RFC XXXX
 
-  *  Applications that use this media type: CoMI
+  *  Applications that use this media type: CORECONF
 
   *  Fragment identifier considerations: N/A
 
@@ -1594,7 +1594,7 @@ Reference:    RFC XXXX
 # Acknowledgments
 
 We are very grateful to Bert Greevenbosch who was one of the original authors
-of the CoMI specification.
+of the CoMI and CORECONF specification.
 
 Mehmet Ersue and Bert Wijnen explained the encoding aspects of PDUs transported
 under SNMP. Carsten Bormann has given feedback on the use of CBOR.
