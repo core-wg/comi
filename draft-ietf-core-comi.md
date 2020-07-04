@@ -1,7 +1,7 @@
 ---
 stand_alone: true
 ipr: trust200902
-docname: draft-ietf-core-comi-09
+docname: draft-ietf-core-comi-10
 cat: std
 pi:
   toc: 'yes'
