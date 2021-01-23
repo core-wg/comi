@@ -1,7 +1,7 @@
 ---
 stand_alone: true
 ipr: trust200902
-docname: draft-ietf-core-comi-10
+docname: draft-ietf-core-comi-11
 cat: std
 pi:
   toc: 'yes'
@@ -81,7 +81,7 @@ normative:
 informative:
   RFC6347:
   RFC6690:
-  RFC7223:
+  RFC8343:
   RFC7317:
   RFC8342:
   RFC8613:
@@ -716,7 +716,7 @@ FORMAT:
 #### FETCH examples {#fetch-example}
 
 This example uses the current-datetime leaf from module ietf-system {{RFC7317}}
-and the interface list from module ietf-interfaces {{RFC7223}}.
+and the interface list from module ietf-interfaces {{RFC8343}}.
 In this example the value of current-datetime (SID 1723) and the interface
 list (SID 1533) instance identified with name="eth0" are queried.
 
@@ -736,11 +736,12 @@ RES: 2.05 Content (Content-Format: application/yang-instances+cbor)
   },
   {
     1533 : {
-      4 : "eth0",                 / name (SID 1537) /
-      1 : "Ethernet adaptor",     / description (SID 1534) /
-      5 : 1880,                   / type (SID 1538), identity /
-                                  / ethernetCsmacd (SID 1880) /
-      2 : true                    / enabled (SID 1535) /
+       4 : "eth0",                 / name (SID 1537) /
+       1 : "Ethernet adaptor",     / description (SID 1534) /
+       5 : 1880,                   / type (SID 1538), identity /
+                                   / ethernetCsmacd (SID 1880) /
+       2 : true,                   / enabled (SID 1535) /
+      11 : 3                       / oper-status (SID 1544), value is testing /
     }
   }
 ]
@@ -786,7 +787,7 @@ a "4.09 Conflict" response code MUST be returned
 
 #### Post example {#post-example}
 
-The example uses the interface list from module ietf-interfaces {{RFC7223}}.
+The example uses the interface list from module ietf-interfaces {{RFC8343}}.
 This example creates a new list instance within the interface list (SID =
 1533), while assuming the datastore resource is hosted on the CoAP server with DNS name
 example.com and with path /ds. The path /ds is an example location that is assumed
@@ -831,7 +832,7 @@ FORMAT:
 
 #### PUT example {#put-example}
 
-The example uses the interface list from module ietf-interfaces {{RFC7223}}.
+The example uses the interface list from module ietf-interfaces {{RFC8343}}.
 This example updates the instance of the list interface (SID = 1533) with key
 name="eth0". The example location /c is an example location that is discovered
 using a request similar to {{discovery-ex-ds}}.
@@ -935,7 +936,7 @@ FORMAT:
 
 #### DELETE example {#delete-example}
 
-This example uses the interface list from module ietf-interfaces {{RFC7223}}.
+This example uses the interface list from module ietf-interfaces {{RFC8343}}.
 This example deletes an instance of the interface list (SID = 1533):
 
 
@@ -996,7 +997,7 @@ at the GET indication of after a successful processing of a PUT or POST request.
 
 ### Full datastore examples {#datastore-example}
 
-The example uses the interface list from module ietf-interfaces {{RFC7223}} and
+The example uses the interface list from module ietf-interfaces {{RFC8343}} and
 the clock container from module ietf-system {{RFC7317}}.
 We assume that the datastore contains two modules ietf-system (SID 1700) and
 ietf-interfaces (SID 1500); they contain the 'interface' list (SID 1533) with
@@ -1015,11 +1016,12 @@ RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
   },
   1533 : [
     {                              / interface (SID 1533) /
-      4 : "eth0",                  / name (SID 1537) /
-      1 : "Ethernet adaptor",      / description (SID 1534) /
-      5 : 1880,                    / type (SID 1538), identity: /
+       4 : "eth0",                 / name (SID 1537) /
+       1 : "Ethernet adaptor",     / description (SID 1534) /
+       5 : 1880,                   / type (SID 1538), identity: /
                                    / ethernetCsmacd (SID 1880) /
-      2 : true                     / enabled (SID 1535) /
+       2 : true,                   / enabled (SID 1535) /
+      11 : 3                       / oper-status (SID 1544), value is testing /
     }
   ]
 }
