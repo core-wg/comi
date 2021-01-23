@@ -2,21 +2,21 @@
 
 
 
-CoRE                                                   M. Veillette, Ed.
+CoRE                                                 M.V. Veillette, Ed.
 Internet-Draft                                   Trilliant Networks Inc.
 Intended status: Standards Track                    P. van der Stok, Ed.
-Expires: January 5, 2021                                      consultant
-                                                                A. Pelov
+Expires: 27 July 2021                                         consultant
+                                                              A.P. Pelov
                                                                   Acklio
                                                               A. Bierman
                                                                YumaWorks
-                                                          I. Petrov, Ed.
+                                                        I.I. Petrov, Ed.
                                                                   Acklio
-                                                           July 04, 2020
+                                                         23 January 2021
 
 
                   CoAP Management Interface (CORECONF)
-                        draft-ietf-core-comi-10
+                        draft-ietf-core-comi-11
 
 Abstract
 
@@ -53,27 +53,26 @@ Status of This Memo
 
 
 
-Veillette, et al.        Expires January 5, 2021                [Page 1]
+Veillette, et al.         Expires 27 July 2021                  [Page 1]
 
-Internet-Draft                  CORECONF                       July 2020
+Internet-Draft                  CORECONF                    January 2021
 
 
-   This Internet-Draft will expire on January 5, 2021.
+   This Internet-Draft will expire on 27 July 2021.
 
 Copyright Notice
 
-   Copyright (c) 2020 IETF Trust and the persons identified as the
+   Copyright (c) 2021 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
-   Provisions Relating to IETF Documents
-   (https://trustee.ietf.org/license-info) in effect on the date of
-   publication of this document.  Please review these documents
-   carefully, as they describe your rights and restrictions with respect
-   to this document.  Code Components extracted from this document must
-   include Simplified BSD License text as described in Section 4.e of
-   the Trust Legal Provisions and are provided without warranty as
-   described in the Simplified BSD License.
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Simplified BSD License text
+   as described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Simplified BSD License.
 
 Table of Contents
 
@@ -106,15 +105,15 @@ Table of Contents
      4.5.  Event stream  . . . . . . . . . . . . . . . . . . . . . .  25
        4.5.1.  Notify Examples . . . . . . . . . . . . . . . . . . .  26
        4.5.2.  The 'f' query parameter . . . . . . . . . . . . . . .  27
-
-
-
-Veillette, et al.        Expires January 5, 2021                [Page 2]
-
-Internet-Draft                  CORECONF                       July 2020
-
-
      4.6.  RPC statements  . . . . . . . . . . . . . . . . . . . . .  27
+
+
+
+Veillette, et al.         Expires 27 July 2021                  [Page 2]
+
+Internet-Draft                  CORECONF                    January 2021
+
+
        4.6.1.  RPC Example . . . . . . . . . . . . . . . . . . . . .  28
    5.  Use of Block-wise Transfers . . . . . . . . . . . . . . . . .  30
    6.  Application Discovery . . . . . . . . . . . . . . . . . . . .  30
@@ -126,7 +125,8 @@ Internet-Draft                  CORECONF                       July 2020
    7.  Error Handling  . . . . . . . . . . . . . . . . . . . . . . .  33
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .  36
    9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  37
-     9.1.  Resource Type (rt=) Link Target Attribute Values Registry  37
+     9.1.  Resource Type (rt=) Link Target Attribute Values
+           Registry  . . . . . . . . . . . . . . . . . . . . . . . .  37
      9.2.  CoAP Content-Formats Registry . . . . . . . . . . . . . .  37
      9.3.  Media Types Registry  . . . . . . . . . . . . . . . . . .  38
      9.4.  YANG Namespace Registration . . . . . . . . . . . . . . .  39
@@ -136,7 +136,7 @@ Internet-Draft                  CORECONF                       July 2020
      11.2.  Informative References . . . . . . . . . . . . . . . . .  41
    Appendix A.  ietf-coreconf YANG module  . . . . . . . . . . . . .  42
    Appendix B.  ietf-coreconf .sid file  . . . . . . . . . . . . . .  48
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  51
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  52
 
 1.  Introduction
 
@@ -165,9 +165,9 @@ Internet-Draft                  CORECONF                       July 2020
 
 
 
-Veillette, et al.        Expires January 5, 2021                [Page 3]
+Veillette, et al.         Expires 27 July 2021                  [Page 3]
 
-Internet-Draft                  CORECONF                       July 2020
+Internet-Draft                  CORECONF                    January 2021
 
 
    To promote small messages, CORECONF uses a YANG to CBOR mapping
@@ -216,16 +216,18 @@ Internet-Draft                  CORECONF                       July 2020
       the key leaves of the list.
 
    single instance identifier:  Handle used to identify a specific data
+
+
+
+
+
+Veillette, et al.         Expires 27 July 2021                  [Page 4]
+
+Internet-Draft                  CORECONF                    January 2021
+
+
       node which can be instantiated only once.  This includes data
       nodes defined at the root of a YANG module and data nodes defined
-
-
-
-Veillette, et al.        Expires January 5, 2021                [Page 4]
-
-Internet-Draft                  CORECONF                       July 2020
-
-
       within a container.  This excludes data nodes defined within a
       list or any children of these data nodes.
 
@@ -264,7 +266,7 @@ Internet-Draft                  CORECONF                       July 2020
                                             |+---------------------+|
                                             +-----------------------+
 
-                 Figure 1: Abstract CORECONF architecture
+                  Figure 1: Abstract CORECONF architecture
 
    Figure 1 is a high-level representation of the main elements of the
    CORECONF management architecture.  The different numbered components
@@ -275,11 +277,9 @@ Internet-Draft                  CORECONF                       July 2020
 
 
 
-
-
-Veillette, et al.        Expires January 5, 2021                [Page 5]
+Veillette, et al.         Expires 27 July 2021                  [Page 5]
 
-Internet-Draft                  CORECONF                       July 2020
+Internet-Draft                  CORECONF                    January 2021
 
 
    (2) SMIv2 specification:  Optional part that consists of a named
@@ -319,38 +319,38 @@ Internet-Draft                  CORECONF                       July 2020
 
 2.1.1.  Differences due to CoAP and its efficient usage
 
-   o  CORECONF uses CoAP/UDP as transport protocol and CBOR as payload
+   *  CORECONF uses CoAP/UDP as transport protocol and CBOR as payload
       format [I-D.ietf-core-yang-cbor].  RESTCONF uses HTTP/TCP as
       transport protocol and JSON or XML as payload formats.
 
-   o  CORECONF uses the methods FETCH and iPATCH to access multiple data
+   *  CORECONF uses the methods FETCH and iPATCH to access multiple data
       nodes.  RESTCONF uses instead the HTTP method PATCH and the HTTP
       method GET with the "fields" Query parameter.
 
-   o  RESTCONF uses the HTTP methods HEAD, and OPTIONS, which are not
+   *  RESTCONF uses the HTTP methods HEAD, and OPTIONS, which are not
       supported by CoAP.
 
 
 
 
-Veillette, et al.        Expires January 5, 2021                [Page 6]
+Veillette, et al.         Expires 27 July 2021                  [Page 6]
 
-Internet-Draft                  CORECONF                       July 2020
+Internet-Draft                  CORECONF                    January 2021
 
 
-   o  CORECONF does not support "insert" query parameter (first, last,
+   *  CORECONF does not support "insert" query parameter (first, last,
       before, after) and the "point" query parameter which are supported
       by RESTCONF.
 
-   o  CORECONF does not support the "start-time" and "stop-time" query
+   *  CORECONF does not support the "start-time" and "stop-time" query
       parameters to retrieve past notifications.
 
 2.1.2.  Differences due to the use of CBOR
 
-   o  CORECONF encodes YANG identifier strings as numbers, where
+   *  CORECONF encodes YANG identifier strings as numbers, where
       RESTCONF does not.
 
-   o  CORECONF also differ in the handling of default values, only
+   *  CORECONF also differ in the handling of default values, only
       'report-all' and 'trim' options are supported.
 
 2.2.  Compression of YANG identifiers
@@ -380,7 +380,7 @@ Internet-Draft                  CORECONF                       July 2020
                     URLsafeChar[SID >> 6 & 0x3F] |
                     URLsafeChar[SID & 0x3F]
 
-                                 Figure 2
+                                  Figure 2
 
    For example, SID 1721 is encoded as follow.
 
@@ -389,9 +389,9 @@ Internet-Draft                  CORECONF                       July 2020
 
 
 
-Veillette, et al.        Expires January 5, 2021                [Page 7]
+Veillette, et al.         Expires 27 July 2021                  [Page 7]
 
-Internet-Draft                  CORECONF                       July 2020
+Internet-Draft                  CORECONF                    January 2021
 
 
    URLsafeChar[1721 >> 60 & 0x3F] = URLsafeChar[0] = 'A'
@@ -430,7 +430,7 @@ Internet-Draft                  CORECONF                       July 2020
 
    The following Media-Type is used as defined in [I-D.ietf-core-sid].
 
-   o  application/yang-data+cbor; id=sid
+   *  application/yang-data+cbor; id=sid
 
    The following new Media-Types are defined in this document:
 
@@ -441,15 +441,16 @@ Internet-Draft                  CORECONF                       July 2020
       FORMAT: CBOR array of instance-identifier
 
       The message payload of Media-Type 'application/yang-
-      identifiers+cbor' is encoded using a CBOR array.  Each entry of
 
 
 
-Veillette, et al.        Expires January 5, 2021                [Page 8]
+
+Veillette, et al.         Expires 27 July 2021                  [Page 8]
 
-Internet-Draft                  CORECONF                       July 2020
+Internet-Draft                  CORECONF                    January 2021
 
 
+      identifiers+cbor' is encoded using a CBOR array.  Each entry of
       this CBOR array contain an instance-identifier encoded as defined
       in [I-D.ietf-core-yang-cbor] section 6.13.1.
 
@@ -500,43 +501,45 @@ Internet-Draft                  CORECONF                       July 2020
 
 
 
-
-Veillette, et al.        Expires January 5, 2021                [Page 9]
+Veillette, et al.         Expires 27 July 2021                  [Page 9]
 
-Internet-Draft                  CORECONF                       July 2020
+Internet-Draft                  CORECONF                    January 2021
 
 
-   +---------------+--------------+------------------------------------+
-   | Method        | Resource     | Media-Type                         |
-   +---------------+--------------+------------------------------------+
-   | GET response  | data node    | application/yang-data+cbor; id=sid |
-   |               |              |                                    |
-   | PUT request   | data node    | application/yang-data+cbor; id=sid |
-   |               |              |                                    |
-   | POST request  | data node    | application/yang-data+cbor; id=sid |
-   |               |              |                                    |
-   | DELETE        | data node    | n/a                                |
-   |               |              |                                    |
-   | GET response  | datastore    | application/yang-data+cbor; id=sid |
-   |               |              |                                    |
-   | PUT request   | datastore    | application/yang-data+cbor; id=sid |
-   |               |              |                                    |
-   | POST request  | datastore    | application/yang-data+cbor; id=sid |
-   |               |              |                                    |
-   | FETCH request | datastore    | application/yang-identifiers+cbor  |
-   |               |              |                                    |
-   | FETCH         | datastore    | application/yang-instances+cbor    |
-   | response      |              |                                    |
-   |               |              |                                    |
-   | iPATCH        | datastore    | application/yang-instances+cbor    |
-   | request       |              |                                    |
-   |               |              |                                    |
-   | GET response  | event stream | application/yang-instances+cbor    |
-   |               |              |                                    |
-   | POST request  | rpc, action  | application/yang-data+cbor; id=sid |
-   |               |              |                                    |
-   | POST response | rpc, action  | application/yang-data+cbor; id=sid |
-   +---------------+--------------+------------------------------------+
+   +================+===========+====================================+
+   | Method         | Resource  | Media-Type                         |
+   +================+===========+====================================+
+   | GET response   | data node | application/yang-data+cbor; id=sid |
+   +----------------+-----------+------------------------------------+
+   | PUT request    | data node | application/yang-data+cbor; id=sid |
+   +----------------+-----------+------------------------------------+
+   | POST request   | data node | application/yang-data+cbor; id=sid |
+   +----------------+-----------+------------------------------------+
+   | DELETE         | data node | n/a                                |
+   +----------------+-----------+------------------------------------+
+   | GET response   | datastore | application/yang-data+cbor; id=sid |
+   +----------------+-----------+------------------------------------+
+   | PUT request    | datastore | application/yang-data+cbor; id=sid |
+   +----------------+-----------+------------------------------------+
+   | POST request   | datastore | application/yang-data+cbor; id=sid |
+   +----------------+-----------+------------------------------------+
+   | FETCH request  | datastore | application/yang-identifiers+cbor  |
+   +----------------+-----------+------------------------------------+
+   | FETCH response | datastore | application/yang-instances+cbor    |
+   +----------------+-----------+------------------------------------+
+   | iPATCH request | datastore | application/yang-instances+cbor    |
+   +----------------+-----------+------------------------------------+
+   | GET response   | event     | application/yang-instances+cbor    |
+   |                | stream    |                                    |
+   +----------------+-----------+------------------------------------+
+   | POST request   | rpc,      | application/yang-data+cbor; id=sid |
+   |                | action    |                                    |
+   +----------------+-----------+------------------------------------+
+   | POST response  | rpc,      | application/yang-data+cbor; id=sid |
+   |                | action    |                                    |
+   +----------------+-----------+------------------------------------+
+
+                                 Table 1
 
 2.5.  Unified datastore
 
@@ -551,36 +554,37 @@ Internet-Draft                  CORECONF                       July 2020
    (NMDA) as defined by [RFC8342].  Each datastore supported is
    implemented as a datastore resource.
 
+
+
+
+Veillette, et al.         Expires 27 July 2021                 [Page 10]
+
+Internet-Draft                  CORECONF                    January 2021
+
+
    Characteristics of the unified datastore are summarized in the table
    below:
 
+   +==============+===================================================+
+   | Name         | Value                                             |
+   +==============+===================================================+
+   | Name         | unified                                           |
+   +--------------+---------------------------------------------------+
+   | YANG modules | all modules                                       |
+   +--------------+---------------------------------------------------+
+   | YANG nodes   | all data nodes ("config true" and "config false") |
+   +--------------+---------------------------------------------------+
+   | Access       | read-write                                        |
+   +--------------+---------------------------------------------------+
+   | How applied  | changes applied in place immediately or with a    |
+   |              | minimal delay                                     |
+   +--------------+---------------------------------------------------+
+   | Protocols    | CORECONF                                          |
+   +--------------+---------------------------------------------------+
+   | Defined in   | "ietf-coreconf"                                   |
+   +--------------+---------------------------------------------------+
 
-
-
-Veillette, et al.        Expires January 5, 2021               [Page 10]
-
-Internet-Draft                  CORECONF                       July 2020
-
-
-   +-------------+-----------------------------------------------------+
-   | Name        | Value                                               |
-   +-------------+-----------------------------------------------------+
-   | Name        | unified                                             |
-   |             |                                                     |
-   | YANG        | all modules                                         |
-   | modules     |                                                     |
-   |             |                                                     |
-   | YANG nodes  | all data nodes ("config true" and "config false")   |
-   |             |                                                     |
-   | Access      | read-write                                          |
-   |             |                                                     |
-   | How applied | changes applied in place immediately or with a      |
-   |             | minimal delay                                       |
-   |             |                                                     |
-   | Protocols   | CORECONF                                            |
-   |             |                                                     |
-   | Defined in  | "ietf-coreconf"                                     |
-   +-------------+-----------------------------------------------------+
+                                 Table 2
 
 3.  Example syntax
 
@@ -607,78 +611,81 @@ Internet-Draft                  CORECONF                       July 2020
    selection is possible as described in Section 4.1, Section 4.2.3.1,
    and Section 4.2.4.
 
+
+
+Veillette, et al.         Expires 27 July 2021                 [Page 11]
+
+Internet-Draft                  CORECONF                    January 2021
+
+
    CORECONF also supports event stream resources used to observe
    notification instances.  Event stream resources can be discovered
    using resource type (rt): core.c.ev.
 
-
-
-Veillette, et al.        Expires January 5, 2021               [Page 11]
-
-Internet-Draft                  CORECONF                       July 2020
-
-
    The description of the CORECONF management interface is shown in the
    table below:
 
-   +------------------------------+--------------+-----------+
+   +==============================+==============+===========+
    | CoAP resource                | Example path | rt        |
-   +------------------------------+--------------+-----------+
+   +==============================+==============+===========+
    | Datastore resource           | /c           | core.c.ds |
-   |                              |              |           |
+   +------------------------------+--------------+-----------+
    | Data node resource           | /c/YANGSID   | core.c.dn |
-   |                              |              |           |
+   +------------------------------+--------------+-----------+
    | Default event steam resource | /s           | core.c.ev |
    +------------------------------+--------------+-----------+
+
+                             Table 3
 
    The path values in the table are example ones.  On discovery, the
    server makes the actual path values known for these resources.
 
    The methods used by CORECONF are:
 
-   +-----------+-------------------------------------------------------+
-   | Operation | Description                                           |
-   +-----------+-------------------------------------------------------+
-   | GET       | Retrieve the datastore resource or a data node        |
-   |           | resource                                              |
-   |           |                                                       |
-   | FETCH     | Retrieve specific data nodes within a datastore       |
-   |           | resource                                              |
-   |           |                                                       |
-   | POST      | Create a datastore resource or a data node resource,  |
-   |           | invoke an RPC or action                               |
-   |           |                                                       |
-   | PUT       | Create or replace a datastore resource or a data node |
-   |           | resource                                              |
-   |           |                                                       |
-   | iPATCH    | Idem-potently create, replace, and delete data node   |
-   |           | resource(s) within a datastore resource               |
-   |           |                                                       |
-   | DELETE    | Delete a datastore resource or a data node resource   |
-   +-----------+-------------------------------------------------------+
+   +===========+================================================+
+   | Operation | Description                                    |
+   +===========+================================================+
+   | GET       | Retrieve the datastore resource or a data node |
+   |           | resource                                       |
+   +-----------+------------------------------------------------+
+   | FETCH     | Retrieve specific data nodes within a          |
+   |           | datastore resource                             |
+   +-----------+------------------------------------------------+
+   | POST      | Create a datastore resource or a data node     |
+   |           | resource, invoke an RPC or action              |
+   +-----------+------------------------------------------------+
+   | PUT       | Create or replace a datastore resource or a    |
+   |           | data node resource                             |
+   +-----------+------------------------------------------------+
+   | iPATCH    | Idem-potently create, replace, and delete data |
+   |           | node resource(s) within a datastore resource   |
+   +-----------+------------------------------------------------+
+   | DELETE    | Delete a datastore resource or a data node     |
+   |           | resource                                       |
+   +-----------+------------------------------------------------+
+
+                              Table 4
+
+
+
+
+Veillette, et al.         Expires 27 July 2021                 [Page 12]
+
+Internet-Draft                  CORECONF                    January 2021
+
 
    There is at most one instance of the 'k' query parameter for YANG
    list element selection for the GET, PUT, POST, and DELETE methods.
    Having multiple instances of that query parameter shall be treated as
    an error.
 
-
-
-
-
-
-
-
-Veillette, et al.        Expires January 5, 2021               [Page 12]
-
-Internet-Draft                  CORECONF                       July 2020
-
-
-   +-----------------+----------------------------------------+
+   +=================+========================================+
    | Query parameter | Description                            |
-   +-----------------+----------------------------------------+
+   +=================+========================================+
    | k               | Select an instance within YANG list(s) |
    +-----------------+----------------------------------------+
+
+                             Table 5
 
    This parameter is not used for FETCH and iPATCH, because their
    request payloads support list instance selection.
@@ -692,10 +699,10 @@ Internet-Draft                  CORECONF                       July 2020
    lists can be part of lists.  The order of key value generation is
    given recursively by:
 
-   o  For a given list, if a parent data node is a list, generate the
+   *  For a given list, if a parent data node is a list, generate the
       keys for the parent list first.
 
-   o  For a given list, generate key values in the order specified in
+   *  For a given list, generate key values in the order specified in
       the YANG module.
 
    Key values are encoded using the rules defined in the following
@@ -718,60 +725,55 @@ Internet-Draft                  CORECONF                       July 2020
 
 
 
-
-
-
-
-
-
-
-Veillette, et al.        Expires January 5, 2021               [Page 13]
+Veillette, et al.         Expires 27 July 2021                 [Page 13]
 
-Internet-Draft                  CORECONF                       July 2020
+Internet-Draft                  CORECONF                    January 2021
 
 
-   +-----------------------------+--------------------------------+
+   +=============================+================================+
    | YANG datatype               | Uri-Query text content         |
-   +-----------------------------+--------------------------------+
+   +=============================+================================+
    | uint8,uint16,unit32, uint64 | int2str(key)                   |
-   |                             |                                |
+   +-----------------------------+--------------------------------+
    | int8, int16,int32, int64    | urlSafeBase64(CBORencode(key)) |
-   |                             |                                |
+   +-----------------------------+--------------------------------+
    | decimal64                   | urlSafeBase64(CBOR key)        |
-   |                             |                                |
+   +-----------------------------+--------------------------------+
    | string                      | key                            |
-   |                             |                                |
+   +-----------------------------+--------------------------------+
    | boolean                     | "0" or "1"                     |
-   |                             |                                |
+   +-----------------------------+--------------------------------+
    | enumeration                 | int2str(key)                   |
-   |                             |                                |
+   +-----------------------------+--------------------------------+
    | bits                        | urlSafeBase64(CBORencode(key)) |
-   |                             |                                |
+   +-----------------------------+--------------------------------+
    | binary                      | urlSafeBase64(key)             |
-   |                             |                                |
+   +-----------------------------+--------------------------------+
    | identityref                 | int2str(key)                   |
-   |                             |                                |
+   +-----------------------------+--------------------------------+
    | union                       | urlSafeBase64(CBORencode(key)) |
-   |                             |                                |
+   +-----------------------------+--------------------------------+
    | instance-identifier         | urlSafeBase64(CBORencode(key)) |
    +-----------------------------+--------------------------------+
 
+                               Table 6
+
    In this table:
 
-   o  The method int2str() is used to convert an integer value to a
+   *  The method int2str() is used to convert an integer value to a
       decimal string.  For example, int2str(0x0123) return the three-
       character string "291".
 
-   o  The boolean values false and true are represented as the single-
+   *  The boolean values false and true are represented as the single-
       character strings "0" and "1" respectively.
 
-   o  The method urlSafeBase64() is used to convert a binary string to
+   *  The method urlSafeBase64() is used to convert a binary string to
       base64 using the URL and Filename safe alphabet as defined by
       [RFC4648] section 5, without padding.  For example,
       urlSafeBase64(0xF956A13C) return the six-character string
       "-VahPA".
 
-   o  The method CBORencode() is used to convert a YANG value to CBOR as
+   *  The method CBORencode() is used to convert a YANG value to CBOR as
       specified in [I-D.ietf-core-yang-cbor] section 6.
 
    The resulting key strings are joined using commas between every two
@@ -779,11 +781,9 @@ Internet-Draft                  CORECONF                       July 2020
 
 
 
-
-
-Veillette, et al.        Expires January 5, 2021               [Page 14]
+Veillette, et al.         Expires 27 July 2021                 [Page 14]
 
-Internet-Draft                  CORECONF                       July 2020
+Internet-Draft                  CORECONF                    January 2021
 
 
 4.2.  Data Retrieval
@@ -795,15 +795,16 @@ Internet-Draft                  CORECONF                       July 2020
    There are two additional query parameters for the GET and FETCH
    methods.
 
-   +-------------+-----------------------------------------------------+
-   | query       | Description                                         |
-   | parameters  |                                                     |
-   +-------------+-----------------------------------------------------+
-   | c           | Control selection of configuration and non-         |
-   |             | configuration data nodes (GET and FETCH)            |
-   |             |                                                     |
-   | d           | Control retrieval of default values.                |
-   +-------------+-----------------------------------------------------+
+   +==================+=============================================+
+   | query parameters | Description                                 |
+   +==================+=============================================+
+   | c                | Control selection of configuration and non- |
+   |                  | configuration data nodes (GET and FETCH)    |
+   +------------------+---------------------------------------------+
+   | d                | Control retrieval of default values.        |
+   +------------------+---------------------------------------------+
+
+                                Table 7
 
 4.2.1.  Using the 'c' query parameter
 
@@ -812,15 +813,17 @@ Internet-Draft                  CORECONF                       July 2020
 
    The allowed values are:
 
-   +-------+-----------------------------------------------------+
+   +=======+=====================================================+
    | Value | Description                                         |
-   +-------+-----------------------------------------------------+
+   +=======+=====================================================+
    | c     | Return only configuration descendant data nodes     |
-   |       |                                                     |
+   +-------+-----------------------------------------------------+
    | n     | Return only non-configuration descendant data nodes |
-   |       |                                                     |
+   +-------+-----------------------------------------------------+
    | a     | Return all descendant data nodes                    |
    +-------+-----------------------------------------------------+
+
+                               Table 8
 
    This option is only allowed for GET and FETCH methods on datastore
    and data node resources.  A 4.02 (Bad Option) error is returned if
@@ -834,12 +837,9 @@ Internet-Draft                  CORECONF                       July 2020
 
 
 
-
-
-
-Veillette, et al.        Expires January 5, 2021               [Page 15]
+Veillette, et al.         Expires 27 July 2021                 [Page 15]
 
-Internet-Draft                  CORECONF                       July 2020
+Internet-Draft                  CORECONF                    January 2021
 
 
 4.2.2.  Using the 'd' query parameter
@@ -849,15 +849,17 @@ Internet-Draft                  CORECONF                       July 2020
 
    The allowed values are:
 
-   +-------+-----------------------------------------------------------+
-   | Value | Description                                               |
-   +-------+-----------------------------------------------------------+
-   | a     | All data nodes are reported. Defined as 'report-all' in   |
-   |       | section 3.1 of [RFC6243].                                 |
-   |       |                                                           |
-   | t     | Data nodes set to the YANG default are not reported.      |
-   |       | Defined as 'trim' in section 3.2 of [RFC6243].            |
-   +-------+-----------------------------------------------------------+
+   +=======+======================================================+
+   | Value | Description                                          |
+   +=======+======================================================+
+   | a     | All data nodes are reported.  Defined as 'report-    |
+   |       | all' in section 3.1 of [RFC6243].                    |
+   +-------+------------------------------------------------------+
+   | t     | Data nodes set to the YANG default are not reported. |
+   |       | Defined as 'trim' in section 3.2 of [RFC6243].       |
+   +-------+------------------------------------------------------+
+
+                               Table 9
 
    If the target of a GET or FETCH method is a data node that represents
    a leaf that has a default value, and the leaf has not been given a
@@ -891,11 +893,9 @@ Internet-Draft                  CORECONF                       July 2020
 
 
 
-
-
-Veillette, et al.        Expires January 5, 2021               [Page 16]
+Veillette, et al.         Expires 27 July 2021                 [Page 16]
 
-Internet-Draft                  CORECONF                       July 2020
+Internet-Draft                  CORECONF                    January 2021
 
 
    The returned payload contains the CBOR encoding of the requested
@@ -949,9 +949,9 @@ Internet-Draft                  CORECONF                       July 2020
 
 
 
-Veillette, et al.        Expires January 5, 2021               [Page 17]
+Veillette, et al.         Expires 27 July 2021                 [Page 17]
 
-Internet-Draft                  CORECONF                       July 2020
+Internet-Draft                  CORECONF                    January 2021
 
 
   REQ: GET </c/X9>
@@ -998,18 +998,21 @@ Internet-Draft                  CORECONF                       July 2020
     ]
   }
 
+
+
+
+
+
+
+
+Veillette, et al.         Expires 27 July 2021                 [Page 18]
+
+Internet-Draft                  CORECONF                    January 2021
+
+
    It is equally possible to select a leaf of a specific instance of a
    list.  The example below requests the description leaf (SID 1534,
    base64: X-) within the interface list corresponding to the interface
-
-
-
-
-Veillette, et al.        Expires January 5, 2021               [Page 18]
-
-Internet-Draft                  CORECONF                       July 2020
-
-
    name "eth0".  The returned value is encoded in CBOR based on the
    rules specified by [I-D.ietf-core-yang-cbor] section 6.4.
 
@@ -1049,7 +1052,7 @@ Internet-Draft                  CORECONF                       July 2020
 
    This example uses the current-datetime leaf from module ietf-system
    [RFC7317] and the interface list from module ietf-interfaces
-   [RFC7223].  In this example the value of current-datetime (SID 1723)
+   [RFC8343].  In this example the value of current-datetime (SID 1723)
    and the interface list (SID 1533) instance identified with
    name="eth0" are queried.
 
@@ -1058,36 +1061,34 @@ Internet-Draft                  CORECONF                       July 2020
 
 
 
-
-
-
-Veillette, et al.        Expires January 5, 2021               [Page 19]
+Veillette, et al.         Expires 27 July 2021                 [Page 19]
 
-Internet-Draft                  CORECONF                       July 2020
+Internet-Draft                  CORECONF                    January 2021
 
 
-   REQ: FETCH </c>
-        (Content-Format: application/yang-identifiers+cbor)
-   [
-     1723,            / current-datetime (SID 1723) /
-     [1533, "eth0"]   / interface (SID 1533) with name = "eth0" /
-   ]
+REQ: FETCH </c>
+     (Content-Format: application/yang-identifiers+cbor)
+[
+  1723,            / current-datetime (SID 1723) /
+  [1533, "eth0"]   / interface (SID 1533) with name = "eth0" /
+]
 
-   RES: 2.05 Content (Content-Format: application/yang-instances+cbor)
-   [
-     {
-       1723 : "2014-10-26T12:16:31Z" / current-datetime (SID 1723) /
-     },
-     {
-       1533 : {
-         4 : "eth0",                 / name (SID 1537) /
-         1 : "Ethernet adaptor",     / description (SID 1534) /
-         5 : 1880,                   / type (SID 1538), identity /
-                                     / ethernetCsmacd (SID 1880) /
-         2 : true                    / enabled (SID 1535) /
-       }
-     }
-   ]
+RES: 2.05 Content (Content-Format: application/yang-instances+cbor)
+[
+  {
+    1723 : "2014-10-26T12:16:31Z" / current-datetime (SID 1723) /
+  },
+  {
+    1533 : {
+       4 : "eth0",                 / name (SID 1537) /
+       1 : "Ethernet adaptor",     / description (SID 1534) /
+       5 : 1880,                   / type (SID 1538), identity /
+                                   / ethernetCsmacd (SID 1880) /
+       2 : true,                   / enabled (SID 1535) /
+      11 : 3                       / oper-status (SID 1544), value is testing /
+    }
+  }
+]
 
 4.3.  Data Editing
 
@@ -1116,10 +1117,9 @@ Internet-Draft                  CORECONF                       July 2020
 
 
 
-
-Veillette, et al.        Expires January 5, 2021               [Page 20]
+Veillette, et al.         Expires 27 July 2021                 [Page 20]
 
-Internet-Draft                  CORECONF                       July 2020
+Internet-Draft                  CORECONF                    January 2021
 
 
    FORMAT:
@@ -1135,7 +1135,7 @@ Internet-Draft                  CORECONF                       July 2020
 4.3.2.1.  Post example
 
    The example uses the interface list from module ietf-interfaces
-   [RFC7223].  This example creates a new list instance within the
+   [RFC8343].  This example creates a new list instance within the
    interface list (SID = 1533), while assuming the datastore resource is
    hosted on the CoAP server with DNS name example.com and with path
    /ds.  The path /ds is an example location that is assumed to have
@@ -1173,15 +1173,15 @@ Internet-Draft                  CORECONF                       July 2020
 
 
 
-Veillette, et al.        Expires January 5, 2021               [Page 21]
+Veillette, et al.         Expires 27 July 2021                 [Page 21]
 
-Internet-Draft                  CORECONF                       July 2020
+Internet-Draft                  CORECONF                    January 2021
 
 
 4.3.3.1.  PUT example
 
    The example uses the interface list from module ietf-interfaces
-   [RFC7223].  This example updates the instance of the list interface
+   [RFC8343].  This example updates the instance of the list interface
    (SID = 1533) with key name="eth0".  The example location /c is an
    example location that is discovered using a request similar to
    Figure 4.
@@ -1229,21 +1229,21 @@ Internet-Draft                  CORECONF                       July 2020
 
 
 
-Veillette, et al.        Expires January 5, 2021               [Page 22]
+Veillette, et al.         Expires 27 July 2021                 [Page 22]
 
-Internet-Draft                  CORECONF                       July 2020
+Internet-Draft                  CORECONF                    January 2021
 
 
 4.3.4.1.  iPATCH example
 
    In this example, a CORECONF client requests the following operations:
 
-   o  Set "/system/ntp/enabled" (SID 1755) to true.
+   *  Set "/system/ntp/enabled" (SID 1755) to true.
 
-   o  Remove the server "tac.nrc.ca" from the "/system/ntp/server" (SID
+   *  Remove the server "tac.nrc.ca" from the "/system/ntp/server" (SID
       1756) list.
 
-   o  Add/set the server "NTP Pool server 2" to the list "/system/ntp/
+   *  Add/set the server "NTP Pool server 2" to the list "/system/ntp/
       server" (SID 1756).
 
    REQ: iPATCH </c>
@@ -1280,14 +1280,14 @@ Internet-Draft                  CORECONF                       July 2020
 4.3.5.1.  DELETE example
 
    This example uses the interface list from module ietf-interfaces
-   [RFC7223].  This example deletes an instance of the interface list
+   [RFC8343].  This example deletes an instance of the interface list
    (SID = 1533):
 
 
 
-Veillette, et al.        Expires January 5, 2021               [Page 23]
+Veillette, et al.         Expires 27 July 2021                 [Page 23]
 
-Internet-Draft                  CORECONF                       July 2020
+Internet-Draft                  CORECONF                    January 2021
 
 
    REQ:   DELETE </c/X9?k=eth0>
@@ -1331,7 +1331,7 @@ Internet-Draft                  CORECONF                       July 2020
 4.4.1.  Full datastore examples
 
    The example uses the interface list from module ietf-interfaces
-   [RFC7223] and the clock container from module ietf-system [RFC7317].
+   [RFC8343] and the clock container from module ietf-system [RFC7317].
    We assume that the datastore contains two modules ietf-system (SID
    1700) and ietf-interfaces (SID 1500); they contain the 'interface'
    list (SID 1533) with one instance and the 'clock' container (SID
@@ -1341,29 +1341,30 @@ Internet-Draft                  CORECONF                       July 2020
 
 
 
-Veillette, et al.        Expires January 5, 2021               [Page 24]
+Veillette, et al.         Expires 27 July 2021                 [Page 24]
 
-Internet-Draft                  CORECONF                       July 2020
+Internet-Draft                  CORECONF                    January 2021
 
 
-  REQ:  GET </c>
+REQ:  GET </c>
 
-  RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
-  {
-    1721 : {                       / Clock (SID 1721) /
-      2: "2016-10-26T12:16:31Z",   / current-datetime (SID 1723) /
-      1: "2014-10-05T09:00:00Z"    / boot-datetime (SID 1722) /
-    },
-    1533 : [
-      {                              / interface (SID 1533) /
-        4 : "eth0",                  / name (SID 1537) /
-        1 : "Ethernet adaptor",      / description (SID 1534) /
-        5 : 1880,                    / type (SID 1538), identity: /
-                                     / ethernetCsmacd (SID 1880) /
-        2 : true                     / enabled (SID 1535) /
-      }
-    ]
-  }
+RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
+{
+  1721 : {                       / Clock (SID 1721) /
+    2: "2016-10-26T12:16:31Z",   / current-datetime (SID 1723) /
+    1: "2014-10-05T09:00:00Z"    / boot-datetime (SID 1722) /
+  },
+  1533 : [
+    {                              / interface (SID 1533) /
+       4 : "eth0",                 / name (SID 1537) /
+       1 : "Ethernet adaptor",     / description (SID 1534) /
+       5 : 1880,                   / type (SID 1538), identity: /
+                                   / ethernetCsmacd (SID 1880) /
+       2 : true,                   / enabled (SID 1535) /
+      11 : 3                       / oper-status (SID 1544), value is testing /
+    }
+  ]
+}
 
 4.5.  Event stream
 
@@ -1391,17 +1392,19 @@ Internet-Draft                  CORECONF                       July 2020
    fragmentation is available - for example the one described in
    Section 5.
 
+
+
+
+
+
+Veillette, et al.         Expires 27 July 2021                 [Page 25]
+
+Internet-Draft                  CORECONF                    January 2021
+
+
    The format of notification without any content is a null value.  The
    format of single notification is defined in [I-D.ietf-core-yang-cbor]
    section 4.2.1.  For multiple notifications the format is an array
-
-
-
-Veillette, et al.        Expires January 5, 2021               [Page 25]
-
-Internet-Draft                  CORECONF                       July 2020
-
-
    where each element is a single notification as described in
    [I-D.ietf-core-yang-cbor] section 4.2.1.
 
@@ -1450,12 +1453,9 @@ Internet-Draft                  CORECONF                       July 2020
 
 
 
-
-
-
-Veillette, et al.        Expires January 5, 2021               [Page 26]
+Veillette, et al.         Expires 27 July 2021                 [Page 26]
 
-Internet-Draft                  CORECONF                       July 2020
+Internet-Draft                  CORECONF                    January 2021
 
 
    REQ:  GET </s> Observe(0)
@@ -1503,17 +1503,20 @@ Internet-Draft                  CORECONF                       July 2020
    Remote procedure Call (RPC) in the server.  It is invoked using a
    POST method to an "Action" or "RPC" resource instance.
 
+
+
+
+
+
+
+Veillette, et al.         Expires 27 July 2021                 [Page 27]
+
+Internet-Draft                  CORECONF                    January 2021
+
+
    The request payload contains the values assigned to the input
    container when specified.  The response payload contains the values
    of the output container when specified.  Both the input and output
-
-
-
-Veillette, et al.        Expires January 5, 2021               [Page 27]
-
-Internet-Draft                  CORECONF                       July 2020
-
-
    containers are encoded in CBOR using the rules defined in
    [I-D.ietf-core-yang-cbor] section 4.2.1.
 
@@ -1526,7 +1529,6 @@ Internet-Draft                  CORECONF                       July 2020
 
      2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
      CBOR map of SID, instance-value
-
 
 4.6.1.  RPC Example
 
@@ -1563,11 +1565,9 @@ Internet-Draft                  CORECONF                       July 2020
 
 
 
-
-
-Veillette, et al.        Expires January 5, 2021               [Page 28]
+Veillette, et al.         Expires 27 July 2021                 [Page 28]
 
-Internet-Draft                  CORECONF                       July 2020
+Internet-Draft                  CORECONF                    January 2021
 
 
    module example-server-farm {
@@ -1621,9 +1621,9 @@ Internet-Draft                  CORECONF                       July 2020
 
 
 
-Veillette, et al.        Expires January 5, 2021               [Page 29]
+Veillette, et al.         Expires 27 July 2021                 [Page 29]
 
-Internet-Draft                  CORECONF                       July 2020
+Internet-Draft                  CORECONF                    January 2021
 
 
 5.  Use of Block-wise Transfers
@@ -1672,16 +1672,18 @@ Internet-Draft                  CORECONF                       July 2020
    be used to access them.  This module also contains the list of
    datastores implemented.
 
+
+
+
+
+
+Veillette, et al.         Expires 27 July 2021                 [Page 30]
+
+Internet-Draft                  CORECONF                    January 2021
+
+
    As described in [RFC6690], the location of the YANG library can be
    found by sending a GET request to "/.well-known/core" including a
-
-
-
-Veillette, et al.        Expires January 5, 2021               [Page 30]
-
-Internet-Draft                  CORECONF                       July 2020
-
-
    resource type (RT) parameter with the value "core.c.yl".  Upon
    success, the return payload will contain the root resource of the
    YANG library module.
@@ -1731,11 +1733,9 @@ Internet-Draft                  CORECONF                       July 2020
 
 
 
-
-
-Veillette, et al.        Expires January 5, 2021               [Page 31]
+Veillette, et al.         Expires 27 July 2021                 [Page 31]
 
-Internet-Draft                  CORECONF                       July 2020
+Internet-Draft                  CORECONF                    January 2021
 
 
    REQ: GET </.well-known/core?rt=core.c.ds>
@@ -1743,7 +1743,7 @@ Internet-Draft                  CORECONF                       July 2020
    RES: 2.05 Content (Content-Format: application/link-format)
    </c>; rt="core.c.ds";ds=1029
 
-                                 Figure 4
+                                  Figure 4
 
 6.2.2.  Data node Resource Discovery
 
@@ -1789,9 +1789,9 @@ Internet-Draft                  CORECONF                       July 2020
 
 
 
-Veillette, et al.        Expires January 5, 2021               [Page 32]
+Veillette, et al.         Expires 27 July 2021                 [Page 32]
 
-Internet-Draft                  CORECONF                       July 2020
+Internet-Draft                  CORECONF                    January 2021
 
 
    REQ: GET </.well-known/core?rt=core.c.es>
@@ -1799,7 +1799,7 @@ Internet-Draft                  CORECONF                       July 2020
    RES: 2.05 Content (Content-Format: application/link-format)
    </s>;rt="core.c.es"
 
-                                 Figure 5
+                                  Figure 5
 
 7.  Error Handling
 
@@ -1816,28 +1816,28 @@ Internet-Draft                  CORECONF                       July 2020
    CORECONF servers.  This list is not exhaustive, other errors defined
    by CoAP and associated RFCs may be applicable.
 
-   o  Error 4.01 (Unauthorized) is returned by the CORECONF server when
+   *  Error 4.01 (Unauthorized) is returned by the CORECONF server when
       the CORECONF client is not authorized to perform the requested
       action on the targeted resource (i.e. data node, datastore, rpc,
       action or event stream).
 
-   o  Error 4.02 (Bad Option) is returned by the CORECONF server when
+   *  Error 4.02 (Bad Option) is returned by the CORECONF server when
       one or more CoAP options are unknown or malformed.
 
-   o  Error 4.04 (Not Found) is returned by the CORECONF server when the
+   *  Error 4.04 (Not Found) is returned by the CORECONF server when the
       CORECONF client is requesting a non-instantiated resource (i.e.
       data node, datastore, rpc, action or event stream).
 
-   o  Error 4.05 (Method Not Allowed) is returned by the CORECONF server
+   *  Error 4.05 (Method Not Allowed) is returned by the CORECONF server
       when the CORECONF client is requesting a method not supported on
       the targeted resource. (e.g.  GET on an rpc, PUT or POST on a data
       node with "config" set to false).
 
-   o  Error 4.08 (Request Entity Incomplete) is returned by the CORECONF
+   *  Error 4.08 (Request Entity Incomplete) is returned by the CORECONF
       server if one or multiple blocks of a block transfer request is
       missing, see [RFC7959] for more details.
 
-   o  Error 4.13 (Request Entity Too Large) may be returned by the
+   *  Error 4.13 (Request Entity Too Large) may be returned by the
       CORECONF server during a block transfer request, see [RFC7959] for
       more details.
 
@@ -1845,12 +1845,12 @@ Internet-Draft                  CORECONF                       July 2020
 
 
 
-Veillette, et al.        Expires January 5, 2021               [Page 33]
+Veillette, et al.         Expires 27 July 2021                 [Page 33]
 
-Internet-Draft                  CORECONF                       July 2020
+Internet-Draft                  CORECONF                    January 2021
 
 
-   o  Error 4.15 (Unsupported Content-Format) is returned by the
+   *  Error 4.15 (Unsupported Content-Format) is returned by the
       CORECONF server when the Content-Format used in the request does
       not match those specified in section Section 2.4.
 
@@ -1873,82 +1873,82 @@ Internet-Draft                  CORECONF                       July 2020
    ietf-coreconf YANG module, these tags are implemented as YANG
    identity and can be extended as needed.
 
-   o  error-tag 'operation-failed' is returned by the CORECONF server
+   *  error-tag 'operation-failed' is returned by the CORECONF server
       when the operation request cannot be processed successfully.
 
-      *  error-app-tag 'malformed-message' is returned by the CORECONF
+      -  error-app-tag 'malformed-message' is returned by the CORECONF
          server when the payload received from the CORECONF client does
          not contain a well-formed CBOR content as defined in [RFC7049]
          section 3.3 or does not comply with the CBOR structure defined
          within this document.
 
-      *  error-app-tag 'data-not-unique' is returned by the CORECONF
+      -  error-app-tag 'data-not-unique' is returned by the CORECONF
          server when the validation of the 'unique' constraint of a list
          or leaf-list fails.
 
-      *  error-app-tag 'too-many-elements' is returned by the CORECONF
+      -  error-app-tag 'too-many-elements' is returned by the CORECONF
          server when the validation of the 'max-elements' constraint of
          a list or leaf-list fails.
 
-      *  error-app-tag 'too-few-elements' is returned by the CORECONF
+      -  error-app-tag 'too-few-elements' is returned by the CORECONF
          server when the validation of the 'min-elements' constraint of
          a list or leaf-list fails.
 
-      *  error-app-tag 'must-violation' is returned by the CORECONF
+      -  error-app-tag 'must-violation' is returned by the CORECONF
          server when the restrictions imposed by a 'must' statement are
          violated.
 
 
 
 
-Veillette, et al.        Expires January 5, 2021               [Page 34]
+Veillette, et al.         Expires 27 July 2021                 [Page 34]
 
-Internet-Draft                  CORECONF                       July 2020
+Internet-Draft                  CORECONF                    January 2021
 
 
-      *  error-app-tag 'duplicate' is returned by the CORECONF server
+      -  error-app-tag 'duplicate' is returned by the CORECONF server
          when a client tries to create a duplicate list or leaf-list
          entry.
 
-   o  error-tag 'invalid-value' is returned by the CORECONF server when
+   *  error-tag 'invalid-value' is returned by the CORECONF server when
       the CORECONF client tries to update or create a leaf with a value
       encoded using an invalid CBOR datatype or if the 'range',
       'length', 'pattern' or 'require-instance' constrain is not
       fulfilled.
 
-      *  error-app-tag 'invalid-datatype' is returned by the CORECONF
+      -  error-app-tag 'invalid-datatype' is returned by the CORECONF
          server when CBOR encoding does not follow the rules set by the
          YANG Build-In type or when the value is incompatible with it
          (e.g. a value greater than 127 for an int8, undefined
          enumeration).
 
-      *  error-app-tag 'not-in-range' is returned by the CORECONF server
+      -  error-app-tag 'not-in-range' is returned by the CORECONF server
          when the validation of the 'range' property fails.
 
-      *  error-app-tag 'invalid-length' is returned by the CORECONF
+      -  error-app-tag 'invalid-length' is returned by the CORECONF
          server when the validation of the 'length' property fails.
 
-      *  error-app-tag 'pattern-test-failed' is returned by the CORECONF
+      -  error-app-tag 'pattern-test-failed' is returned by the CORECONF
          server when the validation of the 'pattern' property fails.
 
-   o  error-tag 'missing-element' is returned by the CORECONF server
+   *  error-tag 'missing-element' is returned by the CORECONF server
       when the operation requested by a CORECONF client fails to comply
       with the 'mandatory' constraint defined.  The 'mandatory'
       constraint is enforced for leafs and choices, unless the node or
       any of its ancestors have a 'when' condition or 'if-feature'
       expression that evaluates to 'false'.
 
-      *  error-app-tag 'missing-key' is returned by the CORECONF server
+      -  error-app-tag 'missing-key' is returned by the CORECONF server
          to further qualify a missing-element error.  This error is
          returned when the CORECONF client tries to create or list
          instance, without all the 'key' specified or when the CORECONF
          client tries to delete a leaf listed as a 'key'.
 
-      *  error-app-tag 'missing-input-parameter' is returned by the
+      -  error-app-tag 'missing-input-parameter' is returned by the
          CORECONF server when the input parameters of an RPC or action
          are incomplete.
 
-   o  error-tag 'unknown-element' is returned by the CORECONF server
+   *  error-tag 'unknown-element' is returned by the CORECONF server
       when the CORECONF client tries to access a data node of a YANG
       module not supported, of a data node associated with an 'if-
       feature' expression evaluated to 'false' or to a 'when' condition
@@ -1957,27 +1957,27 @@ Internet-Draft                  CORECONF                       July 2020
 
 
 
-Veillette, et al.        Expires January 5, 2021               [Page 35]
+Veillette, et al.         Expires 27 July 2021                 [Page 35]
 
-Internet-Draft                  CORECONF                       July 2020
+Internet-Draft                  CORECONF                    January 2021
 
 
-   o  error-tag 'bad-element' is returned by the CORECONF server when
+   *  error-tag 'bad-element' is returned by the CORECONF server when
       the CORECONF client tries to create data nodes for more than one
       case in a choice.
 
-   o  error-tag 'data-missing' is returned by the CORECONF server when a
+   *  error-tag 'data-missing' is returned by the CORECONF server when a
       data node required to accept the request is not present.
 
-      *  error-app-tag 'instance-required' is returned by the CORECONF
+      -  error-app-tag 'instance-required' is returned by the CORECONF
          server when a leaf of type 'instance-identifier' or 'leafref'
          marked with require-instance set to 'true' refers to an
          instance that does not exist.
 
-      *  error-app-tag 'missing-choice' is returned by the CORECONF
+      -  error-app-tag 'missing-choice' is returned by the CORECONF
          server when no nodes exist in a mandatory choice.
 
-   o  error-tag 'error' is returned by the CORECONF server when an
+   *  error-tag 'error' is returned by the CORECONF server when an
       unspecified error has occurred.
 
    For example, the CORECONF server might return the following error.
@@ -2013,9 +2013,9 @@ RES:  4.00 Bad Request (Content-Format: application/yang-data+cbor; id=sid)
 
 
 
-Veillette, et al.        Expires January 5, 2021               [Page 36]
+Veillette, et al.         Expires 27 July 2021                 [Page 36]
 
-Internet-Draft                  CORECONF                       July 2020
+Internet-Draft                  CORECONF                    January 2021
 
 
    As [I-D.ietf-core-yang-cbor] and [RFC4648] are used for payload and
@@ -2030,17 +2030,19 @@ Internet-Draft                  CORECONF                       July 2020
    (rt=) Link Target Attribute Values", within the "Constrained RESTful
    Environments (CoRE) Parameters" registry.
 
-   +-----------+---------------------+-----------+
+   +===========+=====================+===========+
    | Value     | Description         | Reference |
-   +-----------+---------------------+-----------+
+   +===========+=====================+===========+
    | core.c.ds | YANG datastore      | RFC XXXX  |
-   |           |                     |           |
+   +-----------+---------------------+-----------+
    | core.c.dn | YANG data node      | RFC XXXX  |
-   |           |                     |           |
+   +-----------+---------------------+-----------+
    | core.c.yl | YANG module library | RFC XXXX  |
-   |           |                     |           |
+   +-----------+---------------------+-----------+
    | core.c.es | YANG event stream   | RFC XXXX  |
    +-----------+---------------------+-----------+
+
+                       Table 10
 
    // RFC Ed.: replace RFC XXXX with this RFC number and remove this
    note.
@@ -2051,68 +2053,82 @@ Internet-Draft                  CORECONF                       July 2020
    Formats", within the "Constrained RESTful Environments (CoRE)
    Parameters" registry.
 
-   +-----------------------------------+------------+------+-----------+
-   | Media Type                        | Content    | ID   | Reference |
-   |                                   | Coding     |      |           |
-   +-----------------------------------+------------+------+-----------+
-   | application/yang-identifiers+cbor |            | TBD2 | RFC XXXX  |
-   |                                   |            |      |           |
-   | application/yang-instances+cbor   |            | TBD3 | RFC XXXX  |
-   +-----------------------------------+------------+------+-----------+
+   +=======================+================+======+===========+
+   | Media Type            | Content Coding | ID   | Reference |
+   +=======================+================+======+===========+
+   | application/yang-     |                | TBD2 | RFC XXXX  |
+   | identifiers+cbor      |                |      |           |
+   +-----------------------+----------------+------+-----------+
+   | application/yang-     |                | TBD3 | RFC XXXX  |
+   | instances+cbor        |                |      |           |
+   +-----------------------+----------------+------+-----------+
+
+                              Table 11
+
+
+
+
+
+Veillette, et al.         Expires 27 July 2021                 [Page 37]
+
+Internet-Draft                  CORECONF                    January 2021
+
 
    // RFC Ed.: replace TBD1, TBD2 and TBD3 with assigned IDs and remove
-   this note.  // RFC Ed.: replace RFC XXXX with this RFC number and
+   this note. // RFC Ed.: replace RFC XXXX with this RFC number and
    remove this note.
-
-
-
-
-
-
-Veillette, et al.        Expires January 5, 2021               [Page 37]
-
-Internet-Draft                  CORECONF                       July 2020
-
 
 9.3.  Media Types Registry
 
    This document adds the following media types to the "Media Types"
    registry.
 
-   +-----------------------+-----------------------+-----------+
+   +=======================+=======================+===========+
    | Name                  | Template              | Reference |
-   +-----------------------+-----------------------+-----------+
+   +=======================+=======================+===========+
    | yang-identifiers+cbor | application/          | RFC XXXX  |
-   |                       |                       |           |
+   +-----------------------+-----------------------+-----------+
    |                       | yang-identifiers+cbor |           |
-   |                       |                       |           |
+   +-----------------------+-----------------------+-----------+
    | yang-instances+cbor   | application/          | RFC XXXX  |
-   |                       |                       |           |
+   +-----------------------+-----------------------+-----------+
    |                       | yang-instances+cbor   |           |
    +-----------------------+-----------------------+-----------+
 
+                              Table 12
+
    Each of these media types share the following information:
 
-   o  Subtype name: <as listed in table>
+   *  Subtype name: <as listed in table>
 
-   o  Required parameters: N/A
+   *  Required parameters: N/A
 
-   o  Optional parameters: N/A
+   *  Optional parameters: N/A
 
-   o  Encoding considerations: binary
+   *  Encoding considerations: binary
 
-   o  Security considerations: See the Security Considerations section
+   *  Security considerations: See the Security Considerations section
       of RFC XXXX
 
-   o  Interoperability considerations: N/A
+   *  Interoperability considerations: N/A
 
-   o  Published specification: RFC XXXX
+   *  Published specification: RFC XXXX
 
-   o  Applications that use this media type: CORECONF
+   *  Applications that use this media type: CORECONF
 
-   o  Fragment identifier considerations: N/A
+   *  Fragment identifier considerations: N/A
 
-   o  Additional information:
+   *  Additional information:
+
+
+
+
+
+
+Veillette, et al.         Expires 27 July 2021                 [Page 38]
+
+Internet-Draft                  CORECONF                    January 2021
+
 
    *  Deprecated alias names for this type: N/A
 
@@ -2122,26 +2138,18 @@ Internet-Draft                  CORECONF                       July 2020
 
    *  Macintosh file type code(s): N/A
 
-
-
-
-Veillette, et al.        Expires January 5, 2021               [Page 38]
-
-Internet-Draft                  CORECONF                       July 2020
-
-
-   o  Person & email address to contact for further information:
+   *  Person & email address to contact for further information:
       iesg&ietf.org
 
-   o  Intended usage: COMMON
+   *  Intended usage: COMMON
 
-   o  Restrictions on usage: N/A
+   *  Restrictions on usage: N/A
 
-   o  Author: Michel Veillette, ietf&augustcellars.com
+   *  Author: Michel Veillette, ietf&augustcellars.com
 
-   o  Change Controller: IESG
+   *  Change Controller: IESG
 
-   o  Provisional registration?  No
+   *  Provisional registration?  No
 
    // RFC Ed.: replace RFC XXXX with this RFC number and remove this
    note.
@@ -2170,40 +2178,22 @@ Internet-Draft                  CORECONF                       July 2020
    transported under SNMP.  Carsten Bormann has given feedback on the
    use of CBOR.
 
+
+
+
+Veillette, et al.         Expires 27 July 2021                 [Page 39]
+
+Internet-Draft                  CORECONF                    January 2021
+
+
    The draft has benefited from comments (alphabetical order) by Rodney
    Cummings, Dee Denteneer, Esko Dijk, Klaus Hartke, Michael van
    Hartskamp, Tanguy Ropitault, Juergen Schoenwaelder, Anuj Sehgal, Zach
    Shelby, Hannes Tschofenig, Michael Verschoor, and Thomas Watteyne.
 
-
-
-
-
-
-
-Veillette, et al.        Expires January 5, 2021               [Page 39]
-
-Internet-Draft                  CORECONF                       July 2020
-
-
 11.  References
 
 11.1.  Normative References
-
-   [I-D.ietf-core-sid]
-              Veillette, M., Pelov, A., and I. Petrov, "YANG Schema Item
-              iDentifier (SID)", draft-ietf-core-sid-13 (work in
-              progress), June 2020.
-
-   [I-D.ietf-core-yang-cbor]
-              Veillette, M., Petrov, I., and A. Pelov, "CBOR Encoding of
-              Data Modeled with YANG", draft-ietf-core-yang-cbor-12
-              (work in progress), March 2020.
-
-   [I-D.ietf-core-yang-library]
-              Veillette, M. and I. Petrov, "Constrained YANG Module
-              Library", draft-ietf-core-yang-library-01 (work in
-              progress), January 2020.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -2213,6 +2203,10 @@ Internet-Draft                  CORECONF                       July 2020
    [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
               DOI 10.17487/RFC3688, January 2004,
               <https://www.rfc-editor.org/info/rfc3688>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
    [RFC4648]  Josefsson, S., "The Base16, Base32, and Base64 Data
               Encodings", RFC 4648, DOI 10.17487/RFC4648, October 2006,
@@ -2235,22 +2229,18 @@ Internet-Draft                  CORECONF                       July 2020
               Representation (CBOR)", RFC 7049, DOI 10.17487/RFC7049,
               October 2013, <https://www.rfc-editor.org/info/rfc7049>.
 
-
-
-Veillette, et al.        Expires January 5, 2021               [Page 40]
-
-Internet-Draft                  CORECONF                       July 2020
-
-
    [RFC7252]  Shelby, Z., Hartke, K., and C. Bormann, "The Constrained
               Application Protocol (CoAP)", RFC 7252,
               DOI 10.17487/RFC7252, June 2014,
               <https://www.rfc-editor.org/info/rfc7252>.
 
-   [RFC7641]  Hartke, K., "Observing Resources in the Constrained
-              Application Protocol (CoAP)", RFC 7641,
-              DOI 10.17487/RFC7641, September 2015,
-              <https://www.rfc-editor.org/info/rfc7641>.
+
+
+
+Veillette, et al.         Expires 27 July 2021                 [Page 40]
+
+Internet-Draft                  CORECONF                    January 2021
+
 
    [RFC7950]  Bjorklund, M., Ed., "The YANG 1.1 Data Modeling Language",
               RFC 7950, DOI 10.17487/RFC7950, August 2016,
@@ -2261,27 +2251,52 @@ Internet-Draft                  CORECONF                       July 2020
               DOI 10.17487/RFC7959, August 2016,
               <https://www.rfc-editor.org/info/rfc7959>.
 
-   [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
-              Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
-              <https://www.rfc-editor.org/info/rfc8040>.
+   [RFC7641]  Hartke, K., "Observing Resources in the Constrained
+              Application Protocol (CoAP)", RFC 7641,
+              DOI 10.17487/RFC7641, September 2015,
+              <https://www.rfc-editor.org/info/rfc7641>.
 
    [RFC8132]  van der Stok, P., Bormann, C., and A. Sehgal, "PATCH and
               FETCH Methods for the Constrained Application Protocol
               (CoAP)", RFC 8132, DOI 10.17487/RFC8132, April 2017,
               <https://www.rfc-editor.org/info/rfc8132>.
 
-   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
-              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
-              May 2017, <https://www.rfc-editor.org/info/rfc8174>.
+   [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
+              Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
+              <https://www.rfc-editor.org/info/rfc8040>.
+
+   [I-D.ietf-core-yang-cbor]
+              Veillette, M., Petrov, I., and A. Pelov, "CBOR Encoding of
+              Data Modeled with YANG", Work in Progress, Internet-Draft,
+              draft-ietf-core-yang-cbor-14, 17 January 2021,
+              <http://www.ietf.org/internet-drafts/draft-ietf-core-yang-
+              cbor-14.txt>.
+
+   [I-D.ietf-core-sid]
+              Veillette, M., Pelov, A., and I. Petrov, "YANG Schema Item
+              iDentifier (YANG SID)", Work in Progress, Internet-Draft,
+              draft-ietf-core-sid-15, 17 January 2021,
+              <http://www.ietf.org/internet-drafts/draft-ietf-core-sid-
+              15.txt>.
+
+   [I-D.ietf-core-yang-library]
+              Veillette, M. and I. Petrov, "Constrained YANG Module
+              Library", Work in Progress, Internet-Draft, draft-ietf-
+              core-yang-library-03, 11 January 2021,
+              <http://www.ietf.org/internet-drafts/draft-ietf-core-yang-
+              library-03.txt>.
 
 11.2.  Informative References
 
-   [I-D.ietf-ace-oauth-authz]
-              Seitz, L., Selander, G., Wahlstroem, E., Erdtman, S., and
-              H. Tschofenig, "Authentication and Authorization for
-              Constrained Environments (ACE) using the OAuth 2.0
-              Framework (ACE-OAuth)", draft-ietf-ace-oauth-authz-35
-              (work in progress), June 2020.
+
+
+
+
+
+Veillette, et al.         Expires 27 July 2021                 [Page 41]
+
+Internet-Draft                  CORECONF                    January 2021
+
 
    [RFC6347]  Rescorla, E. and N. Modadugu, "Datagram Transport Layer
               Security Version 1.2", RFC 6347, DOI 10.17487/RFC6347,
@@ -2291,16 +2306,9 @@ Internet-Draft                  CORECONF                       July 2020
               Format", RFC 6690, DOI 10.17487/RFC6690, August 2012,
               <https://www.rfc-editor.org/info/rfc6690>.
 
-
-
-Veillette, et al.        Expires January 5, 2021               [Page 41]
-
-Internet-Draft                  CORECONF                       July 2020
-
-
-   [RFC7223]  Bjorklund, M., "A YANG Data Model for Interface
-              Management", RFC 7223, DOI 10.17487/RFC7223, May 2014,
-              <https://www.rfc-editor.org/info/rfc7223>.
+   [RFC8343]  Bjorklund, M., "A YANG Data Model for Interface
+              Management", RFC 8343, DOI 10.17487/RFC8343, March 2018,
+              <https://www.rfc-editor.org/info/rfc8343>.
 
    [RFC7317]  Bierman, A. and M. Bjorklund, "A YANG Data Model for
               System Management", RFC 7317, DOI 10.17487/RFC7317, August
@@ -2316,335 +2324,346 @@ Internet-Draft                  CORECONF                       July 2020
               (OSCORE)", RFC 8613, DOI 10.17487/RFC8613, July 2019,
               <https://www.rfc-editor.org/info/rfc8613>.
 
+   [I-D.ietf-ace-oauth-authz]
+              Seitz, L., Selander, G., Wahlstroem, E., Erdtman, S., and
+              H. Tschofenig, "Authentication and Authorization for
+              Constrained Environments (ACE) using the OAuth 2.0
+              Framework (ACE-OAuth)", Work in Progress, Internet-Draft,
+              draft-ietf-ace-oauth-authz-36, 16 November 2020,
+              <http://www.ietf.org/internet-drafts/draft-ietf-ace-oauth-
+              authz-36.txt>.
+
 Appendix A.  ietf-coreconf YANG module
 
-<CODE BEGINS> file "ietf-coreconf@2019-03-28.yang"
-module ietf-coreconf {
-  yang-version 1.1;
+   <CODE BEGINS> file "ietf-coreconf@2019-03-28.yang"
+   module ietf-coreconf {
+     yang-version 1.1;
 
-  namespace "urn:ietf:params:xml:ns:yang:ietf-coreconf";
-  prefix coreconf;
+     namespace "urn:ietf:params:xml:ns:yang:ietf-coreconf";
+     prefix coreconf;
 
-  import ietf-datastores {
-    prefix ds;
-  }
-
-  import ietf-restconf {
-    prefix rc;
-    description
-      "This import statement is required to access
-       the yang-data extension defined in RFC 8040.";
-    reference "RFC 8040: RESTCONF Protocol";
-  }
-
-  organization
-    "IETF Core Working Group";
-
-  contact
-    "Michel Veillette
-     <mailto:michel.veillette@trilliantinc.com>
-
-     Alexander Pelov
-     <mailto:alexander@ackl.io>
+     import ietf-datastores {
+       prefix ds;
+     }
 
 
 
-Veillette, et al.        Expires January 5, 2021               [Page 42]
+
+Veillette, et al.         Expires 27 July 2021                 [Page 42]
 
-Internet-Draft                  CORECONF                       July 2020
+Internet-Draft                  CORECONF                    January 2021
 
 
-     Peter van der Stok
-     <mailto:consultancy@vanderstok.org>
+     import ietf-restconf {
+       prefix rc;
+       description
+         "This import statement is required to access
+          the yang-data extension defined in RFC 8040.";
+       reference "RFC 8040: RESTCONF Protocol";
+     }
 
-     Andy Bierman
-     <mailto:andy@yumaworks.com>";
+     organization
+       "IETF Core Working Group";
 
-  description
-    "This module contains the different definitions required
-     by the CORECONF protocol.
+     contact
+       "Michel Veillette
+        <mailto:michel.veillette@trilliantinc.com>
 
-     Copyright (c) 2019 IETF Trust and the persons identified as
-     authors of the code.  All rights reserved.
+        Alexander Pelov
+        <mailto:alexander@ackl.io>
 
-     Redistribution and use in source and binary forms, with or
-     without modification, is permitted pursuant to, and subject to
-     the license terms contained in, the Simplified BSD License set
-     forth in Section 4.c of the IETF Trust's Legal Provisions
-     Relating to IETF Documents
-     (https://trustee.ietf.org/license-info).
+        Peter van der Stok
+        <mailto:consultancy@vanderstok.org>
 
-     This version of this YANG module is part of RFC XXXX;
-     see the RFC itself for full legal notices.";
+        Andy Bierman
+        <mailto:andy@yumaworks.com>";
 
-  revision 2019-03-28 {
      description
-      "Initial revision.";
-    reference
-      "[I-D.ietf-core-comi] CoAP Management Interface";
-  }
+       "This module contains the different definitions required
+        by the CORECONF protocol.
 
-  identity unified {
-    base ds:datastore;
-    description
-      "Identifier of the unified configuration and operational
-       state datastore.";
-  }
+        Copyright (c) 2019 IETF Trust and the persons identified as
+        authors of the code.  All rights reserved.
 
-  identity error-tag {
-    description
-      "Base identity for error-tag.";
-  }
+        Redistribution and use in source and binary forms, with or
+        without modification, is permitted pursuant to, and subject to
+        the license terms contained in, the Simplified BSD License set
+        forth in Section 4.c of the IETF Trust's Legal Provisions
+        Relating to IETF Documents
+        (https://trustee.ietf.org/license-info).
 
-  identity operation-failed {
-    base error-tag;
-    description
-      "Returned by the CORECONF server when the operation request
-       can't be processed successfully.";
-  }
+        This version of this YANG module is part of RFC XXXX;
+        see the RFC itself for full legal notices.";
 
-
-
-Veillette, et al.        Expires January 5, 2021               [Page 43]
-
-Internet-Draft                  CORECONF                       July 2020
-
-
-  identity invalid-value {
-    base error-tag;
-    description
-      "Returned by the CORECONF server when the CORECONF client tries to
-       update or create a leaf with a value encoded using an
-       invalid CBOR datatype or if the 'range', 'length',
-       'pattern' or 'require-instance' constrain is not
-       fulfilled.";
-  }
-
-  identity missing-element {
-    base error-tag;
-    description
-      "Returned by the CORECONF server when the operation requested
-       by a CORECONF client fails to comply with the 'mandatory'
-       constraint defined. The 'mandatory' constraint is
-       enforced for leafs and choices, unless the node or any of
-       its ancestors have a 'when' condition or 'if-feature'
-       expression that evaluates to 'false'.";
-  }
-
-  identity unknown-element {
-    base error-tag;
-    description
-      "Returned by the CORECONF server when the CORECONF client tries to
-       access a data node of a YANG module not supported, of a
-       data node associated with an 'if-feature' expression
-       evaluated to 'false' or to a 'when' condition evaluated
-       to 'false'.";
-  }
-
-  identity bad-element {
-    base error-tag;
-    description
-      "Returned by the CORECONF server when the CORECONF client tries to
-       create data nodes for more than one case in a choice.";
-  }
-
-  identity data-missing {
-    base error-tag;
-    description
-      "Returned by the CORECONF server when a data node required to
-       accept the request is not present.";
-  }
-
-  identity error {
-    base error-tag;
-    description
-
-
-
-Veillette, et al.        Expires January 5, 2021               [Page 44]
-
-Internet-Draft                  CORECONF                       July 2020
-
-
-      "Returned by the CORECONF server when an unspecified error has
-      occurred.";
-  }
-
-  identity error-app-tag {
-    description
-      "Base identity for error-app-tag.";
-  }
-
-  identity malformed-message {
-    base error-app-tag;
-    description
-      "Returned by the CORECONF server when the payload received
-       from the CORECONF client don't contain a well-formed CBOR
-       content as defined in [RFC7049] section 3.3 or don't
-       comply with the CBOR structure defined within this
-       document.";
-  }
-
-  identity data-not-unique {
-    base error-app-tag;
-    description
-      "Returned by the CORECONF server when the validation of the
-       'unique' constraint of a list or leaf-list fails.";
-  }
-
-  identity too-many-elements {
-    base error-app-tag;
-    description
-      "Returned by the CORECONF server when the validation of the
-       'max-elements' constraint of a list or leaf-list fails.";
-  }
-
-  identity too-few-elements {
-    base error-app-tag;
-    description
-      "Returned by the CORECONF server when the validation of the
-       'min-elements' constraint of a list or leaf-list fails.";
-  }
-
-  identity must-violation {
-    base error-app-tag;
-    description
-      "Returned by the CORECONF server when the restrictions
-       imposed by a 'must' statement are violated.";
-  }
-
-  identity duplicate {
-
-
-
-Veillette, et al.        Expires January 5, 2021               [Page 45]
-
-Internet-Draft                  CORECONF                       July 2020
-
-
-    base error-app-tag;
-    description
-      "Returned by the CORECONF server when a client tries to create
-       a duplicate list or leaf-list entry.";
-  }
-
-  identity invalid-datatype {
-    base error-app-tag;
-    description
-      "Returned by the CORECONF server when CBOR encoding is
-       incorect or when the value encoded is incompatible with
-       the YANG Built-In type. (e.g. value greater than 127
-       for an int8, undefined enumeration).";
-  }
-
-  identity not-in-range {
-    base error-app-tag;
-    description
-      "Returned by the CORECONF server when the validation of the
-       'range' property fails.";
-  }
-
-  identity invalid-length {
-    base error-app-tag;
-    description
-      "Returned by the CORECONF server when the validation of the
-       'length' property fails.";
-  }
-
-  identity pattern-test-failed {
-    base error-app-tag;
-    description
-      "Returned by the CORECONF server when the validation of the
-       'pattern' property fails.";
-  }
-
-  identity missing-key {
-    base error-app-tag;
-    description
-      "Returned by the CORECONF server to further qualify a
-       missing-element error. This error is returned when the
-       CORECONF client tries to create or list instance, without all
-       the 'key' specified or when the CORECONF client tries to
-       delete a leaf listed as a 'key'.";
-  }
-
-  identity missing-input-parameter {
-    base error-app-tag;
-
-
-
-Veillette, et al.        Expires January 5, 2021               [Page 46]
-
-Internet-Draft                  CORECONF                       July 2020
-
-
-    description
-      "Returned by the CORECONF server when the input parameters
-       of a RPC or action are incomplete.";
-  }
-
-  identity instance-required {
-    base error-app-tag;
-    description
-      "Returned by the CORECONF server when a leaf of type
-       'instance-identifier' or 'leafref' marked with
-       require-instance set to 'true' refers to an instance
-       that does not exist.";
-  }
-
-  identity missing-choice {
-    base error-app-tag;
-    description
-      "Returned by the CORECONF server when no nodes exist in a
-       mandatory choice.";
-  }
-
-  rc:yang-data coreconf-error {
-    container error {
-      description
-        "Optional payload of a 4.00 Bad Request CoAP error.";
-
-      leaf error-tag {
-        type identityref {
-          base error-tag;
-        }
-        mandatory true;
+     revision 2019-03-28 {
         description
-          "The enumerated error-tag.";
-      }
-
-      leaf error-app-tag {
-        type identityref {
-          base error-app-tag;
-        }
-        description
-          "The application-specific error-tag.";
-      }
-
-      leaf error-data-node {
-        type instance-identifier;
-        description
-          "When the error reported is caused by a specific data node,
-           this leaf identifies the data node in error.";
+         "Initial revision.";
+       reference
+         "[I-D.ietf-core-comi] CoAP Management Interface";
+     }
 
 
 
-Veillette, et al.        Expires January 5, 2021               [Page 47]
+
+Veillette, et al.         Expires 27 July 2021                 [Page 43]
 
-Internet-Draft                  CORECONF                       July 2020
+Internet-Draft                  CORECONF                    January 2021
 
 
-      }
+     identity unified {
+       base ds:datastore;
+       description
+         "Identifier of the unified configuration and operational
+          state datastore.";
+     }
 
-      leaf error-message {
-        type string;
-        description
-          "A message describing the error.";
-      }
-    }
-  }
-}
-<CODE ENDS>
+     identity error-tag {
+       description
+         "Base identity for error-tag.";
+     }
+
+     identity operation-failed {
+       base error-tag;
+       description
+         "Returned by the CORECONF server when the operation request
+          can't be processed successfully.";
+     }
+
+     identity invalid-value {
+       base error-tag;
+       description
+         "Returned by the CORECONF server when the CORECONF client tries to
+          update or create a leaf with a value encoded using an
+          invalid CBOR datatype or if the 'range', 'length',
+          'pattern' or 'require-instance' constrain is not
+          fulfilled.";
+     }
+
+     identity missing-element {
+       base error-tag;
+       description
+         "Returned by the CORECONF server when the operation requested
+          by a CORECONF client fails to comply with the 'mandatory'
+          constraint defined. The 'mandatory' constraint is
+          enforced for leafs and choices, unless the node or any of
+          its ancestors have a 'when' condition or 'if-feature'
+          expression that evaluates to 'false'.";
+     }
+
+     identity unknown-element {
+       base error-tag;
+       description
+         "Returned by the CORECONF server when the CORECONF client tries to
+          access a data node of a YANG module not supported, of a
+          data node associated with an 'if-feature' expression
+          evaluated to 'false' or to a 'when' condition evaluated
+          to 'false'.";
+
+
+
+Veillette, et al.         Expires 27 July 2021                 [Page 44]
+
+Internet-Draft                  CORECONF                    January 2021
+
+
+     }
+
+     identity bad-element {
+       base error-tag;
+       description
+         "Returned by the CORECONF server when the CORECONF client tries to
+          create data nodes for more than one case in a choice.";
+     }
+
+     identity data-missing {
+       base error-tag;
+       description
+         "Returned by the CORECONF server when a data node required to
+          accept the request is not present.";
+     }
+
+     identity error {
+       base error-tag;
+       description
+         "Returned by the CORECONF server when an unspecified error has
+         occurred.";
+     }
+
+     identity error-app-tag {
+       description
+         "Base identity for error-app-tag.";
+     }
+
+     identity malformed-message {
+       base error-app-tag;
+       description
+         "Returned by the CORECONF server when the payload received
+          from the CORECONF client don't contain a well-formed CBOR
+          content as defined in [RFC7049] section 3.3 or don't
+          comply with the CBOR structure defined within this
+          document.";
+     }
+
+     identity data-not-unique {
+       base error-app-tag;
+       description
+         "Returned by the CORECONF server when the validation of the
+          'unique' constraint of a list or leaf-list fails.";
+     }
+
+     identity too-many-elements {
+       base error-app-tag;
+       description
+
+
+
+Veillette, et al.         Expires 27 July 2021                 [Page 45]
+
+Internet-Draft                  CORECONF                    January 2021
+
+
+         "Returned by the CORECONF server when the validation of the
+          'max-elements' constraint of a list or leaf-list fails.";
+     }
+
+     identity too-few-elements {
+       base error-app-tag;
+       description
+         "Returned by the CORECONF server when the validation of the
+          'min-elements' constraint of a list or leaf-list fails.";
+     }
+
+     identity must-violation {
+       base error-app-tag;
+       description
+         "Returned by the CORECONF server when the restrictions
+          imposed by a 'must' statement are violated.";
+     }
+
+     identity duplicate {
+       base error-app-tag;
+       description
+         "Returned by the CORECONF server when a client tries to create
+          a duplicate list or leaf-list entry.";
+     }
+
+     identity invalid-datatype {
+       base error-app-tag;
+       description
+         "Returned by the CORECONF server when CBOR encoding is
+          incorect or when the value encoded is incompatible with
+          the YANG Built-In type. (e.g. value greater than 127
+          for an int8, undefined enumeration).";
+     }
+
+     identity not-in-range {
+       base error-app-tag;
+       description
+         "Returned by the CORECONF server when the validation of the
+          'range' property fails.";
+     }
+
+     identity invalid-length {
+       base error-app-tag;
+       description
+         "Returned by the CORECONF server when the validation of the
+          'length' property fails.";
+     }
+
+
+
+
+Veillette, et al.         Expires 27 July 2021                 [Page 46]
+
+Internet-Draft                  CORECONF                    January 2021
+
+
+     identity pattern-test-failed {
+       base error-app-tag;
+       description
+         "Returned by the CORECONF server when the validation of the
+          'pattern' property fails.";
+     }
+
+     identity missing-key {
+       base error-app-tag;
+       description
+         "Returned by the CORECONF server to further qualify a
+          missing-element error. This error is returned when the
+          CORECONF client tries to create or list instance, without all
+          the 'key' specified or when the CORECONF client tries to
+          delete a leaf listed as a 'key'.";
+     }
+
+     identity missing-input-parameter {
+       base error-app-tag;
+       description
+         "Returned by the CORECONF server when the input parameters
+          of a RPC or action are incomplete.";
+     }
+
+     identity instance-required {
+       base error-app-tag;
+       description
+         "Returned by the CORECONF server when a leaf of type
+          'instance-identifier' or 'leafref' marked with
+          require-instance set to 'true' refers to an instance
+          that does not exist.";
+     }
+
+     identity missing-choice {
+       base error-app-tag;
+       description
+         "Returned by the CORECONF server when no nodes exist in a
+          mandatory choice.";
+     }
+
+     rc:yang-data coreconf-error {
+       container error {
+         description
+           "Optional payload of a 4.00 Bad Request CoAP error.";
+
+         leaf error-tag {
+           type identityref {
+             base error-tag;
+
+
+
+Veillette, et al.         Expires 27 July 2021                 [Page 47]
+
+Internet-Draft                  CORECONF                    January 2021
+
+
+           }
+           mandatory true;
+           description
+             "The enumerated error-tag.";
+         }
+
+         leaf error-app-tag {
+           type identityref {
+             base error-app-tag;
+           }
+           description
+             "The application-specific error-tag.";
+         }
+
+         leaf error-data-node {
+           type instance-identifier;
+           description
+             "When the error reported is caused by a specific data node,
+              this leaf identifies the data node in error.";
+         }
+
+         leaf error-message {
+           type string;
+           description
+             "A message describing the error.";
+         }
+       }
+     }
+   }
+   <CODE ENDS>
 
 Appendix B.  ietf-coreconf .sid file
 
@@ -2663,6 +2682,14 @@ Appendix B.  ietf-coreconf .sid file
          "identifier": "ietf-coreconf",
          "sid": 1000
        },
+
+
+
+Veillette, et al.         Expires 27 July 2021                 [Page 48]
+
+Internet-Draft                  CORECONF                    January 2021
+
+
        {
          "namespace": "identity",
          "identifier": "bad-element",
@@ -2682,14 +2709,6 @@ Appendix B.  ietf-coreconf .sid file
          "namespace": "identity",
          "identifier": "duplicate",
          "sid": 1004
-
-
-
-Veillette, et al.        Expires January 5, 2021               [Page 48]
-
-Internet-Draft                  CORECONF                       July 2020
-
-
        },
        {
          "namespace": "identity",
@@ -2719,6 +2738,14 @@ Internet-Draft                  CORECONF                       July 2020
        {
          "namespace": "identity",
          "identifier": "invalid-length",
+
+
+
+Veillette, et al.         Expires 27 July 2021                 [Page 49]
+
+Internet-Draft                  CORECONF                    January 2021
+
+
          "sid": 1010
        },
        {
@@ -2738,14 +2765,6 @@ Internet-Draft                  CORECONF                       July 2020
        },
        {
          "namespace": "identity",
-
-
-
-Veillette, et al.        Expires January 5, 2021               [Page 49]
-
-Internet-Draft                  CORECONF                       July 2020
-
-
          "identifier": "missing-element",
          "sid": 1014
        },
@@ -2775,6 +2794,14 @@ Internet-Draft                  CORECONF                       July 2020
          "sid": 1019
        },
        {
+
+
+
+Veillette, et al.         Expires 27 July 2021                 [Page 50]
+
+Internet-Draft                  CORECONF                    January 2021
+
+
          "namespace": "identity",
          "identifier": "pattern-test-failed",
          "sid": 1020
@@ -2794,14 +2821,6 @@ Internet-Draft                  CORECONF                       July 2020
          "identifier": "unified",
          "sid": 1029
        },
-
-
-
-Veillette, et al.        Expires January 5, 2021               [Page 50]
-
-Internet-Draft                  CORECONF                       July 2020
-
-
        {
          "namespace": "identity",
          "identifier": "unknown-element",
@@ -2831,6 +2850,14 @@ Internet-Draft                  CORECONF                       July 2020
          "namespace": "data",
          "identifier": "/ietf-coreconf:error/error-tag",
          "sid": 1028
+
+
+
+Veillette, et al.         Expires 27 July 2021                 [Page 51]
+
+Internet-Draft                  CORECONF                    January 2021
+
+
        }
      ]
    }
@@ -2840,22 +2867,10 @@ Authors' Addresses
    Michel Veillette (editor)
    Trilliant Networks Inc.
    610 Rue du Luxembourg
-   Granby, Quebec  J2J 2V2
+   Granby Quebec J2J 2V2
    Canada
 
    Email: michel.veillette@trilliant.com
-
-
-
-
-
-
-
-
-
-Veillette, et al.        Expires January 5, 2021               [Page 51]
-
-Internet-Draft                  CORECONF                       July 2020
 
 
    Peter van der Stok (editor)
@@ -2869,7 +2884,7 @@ Internet-Draft                  CORECONF                       July 2020
    Alexander Pelov
    Acklio
    2bis rue de la Chataigneraie
-   Cesson-Sevigne, Bretagne  35510
+   35510 Cesson-Sevigne
    France
 
    Email: a@ackl.io
@@ -2879,8 +2894,8 @@ Internet-Draft                  CORECONF                       July 2020
    YumaWorks
    685 Cochran St.
    Suite #160
-   Simi Valley, CA  93065
-   USA
+   Simi Valley, CA 93065
+   United States of America
 
    Email: andy@yumaworks.com
 
@@ -2888,8 +2903,16 @@ Internet-Draft                  CORECONF                       July 2020
    Ivaylo Petrov (editor)
    Acklio
    1137A avenue des Champs Blancs
-   Cesson-Sevigne, Bretagne  35510
+   35510 Cesson-Sevigne
    France
+
+
+
+
+Veillette, et al.         Expires 27 July 2021                 [Page 52]
+
+Internet-Draft                  CORECONF                    January 2021
+
 
    Email: ivaylo@ackl.io
 
@@ -2909,4 +2932,37 @@ Internet-Draft                  CORECONF                       July 2020
 
 
 
-Veillette, et al.        Expires January 5, 2021               [Page 52]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Veillette, et al.         Expires 27 July 2021                 [Page 53]
