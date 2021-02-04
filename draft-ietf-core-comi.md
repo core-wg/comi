@@ -308,7 +308,7 @@ SID in base64 = URLsafeChar[SID >> 60 & 0x3F] |
 ~~~~
 {: #Fig-sid-encoding artwork-align="left"}
 
-For example, SID 1721 is encoded as follow.
+For example, SID 1721 is encoded as follows.
 
 ~~~~
 URLsafeChar[1721 >> 60 & 0x3F] = URLsafeChar[0] = 'A'
