@@ -42,279 +42,788 @@ and networks.
 -->
 <link href="draft-ietf-core-comi.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
+<style type="text/css">@import url('https://martinthomson.github.io/i-d-template/fonts.css');
 
-<style type="text/css">/*<![CDATA[*/
-@viewport {
-  zoom: 1.0;
-  width: extend-to-zoom;
+html {
+  --background-color: #fff;
+  --text-color: #222;
+  --title-color: #191919;
+  --link-color: #2a6496;
+  --highlight-color: #f9f9f9;
+  --line-color: #eee;
+  --small-font-size: 14.5px;
 }
-@-ms-viewport {
-  width: extend-to-zoom;
-  zoom: 1.0;
-}
-
-@media screen and (min-width: 1024px) {
-  ul.toc, #rfc\.toc {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    right: calc(50vw - 500px);
-    width: 300px;
-    padding: 0 1em;
-    z-index: 1;
-  }
-  #rfc\.toc {
-    top: 16px;
-  }
-  ul.toc {
-    top: 80px;
-    overflow: auto;
-  }
-
-  body {
-    padding-left: 1.5em;
-    padding-right: 29em;
-  }
-}
-
 body {
-  font: 15px "Helvetica Neue",Helvetica,Arial,sans-serif;
-  color: #333;
-  font-size-adjust: 0.5;
-  line-height: 130%;
-  margin: 2.5em auto;
-  max-width: 724px;
+  max-width: 600px;
+  margin: 75px auto;
+  padding: 0 5px;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  font: 16px/22px "Lora", serif;
+  scroll-behavior: smooth;
 }
 
-.title, .filename, h1, h2, h3, h4 {
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-size-adjust: 0.5;
-  font-weight: 500;
-  color: #333;
-  line-height: 100%;
-  margin: 0.8em 0 0.3em;
-}
-.title { font-size: 36px; }
-h1 { font-size: 30px; }
-h2 { font-size: 24px; }
-h3, h4 { font-size: 18px; }
-h1 a[href], h2 a[href], h3 a[href], h4 a[href] {
-  color: #333;
-}
-
-ul.toc li {
-  list-style: none;
-  text-indent: -2.5em;
-  padding-left: 2.5em;
-  padding-bottom: 5px;
-  margin: 0;
-}
-ul.toc ul {
-  margin: 0;
-}
-/* xml2rfc nests ul directly inside ul which messes with the style badly */
-ul.toc, ul.toc>ul, ul.toc ul>ul {
-  margin: 0 0 0 1.5em;
-}
-
-table {
-  margin-left: 0em;
-  border-collapse: collapse;
-}
-th {
-  text-align: left;
-  border-bottom: 2px solid #ddd;
-}
-td {
-  border-top: 1px solid #ddd;
-  vertical-align: top;
-}
-tr:nth-child(2n+1) > td,
-tr:nth-child(2n+1) > th {
-  background-color: #f9f9f9;
-}
-td.reference {
-  max-width: 200px;
-  border-top: none;
-  padding-right: 1em;
-}
-.right {
-  text-align: right;
-}
-
-
-table.header {
-  width: 100%;
-}
-table.header td {
-  border: none;
-  background-color: transparent;
-  color: black;
-}
-.filename {
-  color: rgb(119, 119, 119);
-  font-size: 23px;
-  font-weight: normal;
-  height: auto;
-  line-height: 100%;
-}
-#rfc\.abstract+p {
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 130%;
-}
-
-samp, tt, code, pre {
-  font: 11pt consolas, monospace;
-  font-size-adjust: none;
-}
-pre {
-  background-color: #eee;
-  border: 1px solid #ddd;
-  overflow-x: auto;
-  padding: 5px;
-  margin: 5px;
-}
-.figure {
-  font-style: italic;
-  margin: 0 1.5em;
-}
-
-address {
-  margin: 10px 0 0;
-}
-.vcard {
-  font-style: normal;
-}
-.vcardline {
-  display: block;
-}
-.vcardline .fn {
-  font-weight: bold;
-}
-.vcardline .hidden {
+.ears {
   display: none;
 }
 
-dl {
+/* headings */
+#title, h1, h2, h3, h4, h5, h6 {
+  font-family: "Cabin Condensed", sans-serif;
+  font-weight: 600;
+  margin: 0.8em 0 0.3em;
+  font-size-adjust: 0.5;
+  color: var(--title-color);
+}
+#title {
+  padding: 1em 0 0.2em;
+  font-size: 32px;
+  line-height: 40px;
+  clear: both;
+}
+h1, h2, h3 {
+  font-size: 22px;
+  line-height: 26px;
+}
+h4, h5, h6 {
+  font-size: 18px;
+  line-height: 22px;
+}
+
+/* general structure */
+.author {
+  padding-bottom: 0.3em;
+}
+#abstract+p, #abstract+p code, #abstract+p samp, #abstract+p tt {
+  font-size: 18px;
+  line-height: 24px;
+}
+p {
+  padding: 0;
+  margin: 0.5em 0;
+  text-align: left;
+}
+div {
+  margin: 0;
+}
+.alignRight.art-text {
+  background-color: var(--highlight-color);
+  border: 1px solid var(--line-color);
+  border-radius: 3px;
+  padding: 0.5em 1em 0;
+  margin-bottom: 0.5em;
+}
+.alignRight.art-text pre {
+  padding: 0;
+  width: auto;
+}
+.alignRight {
+  margin: 1em 0;
+}
+.alignRight > *:first-child {
+  border: none;
+  margin: 0;
+  float: right;
+  clear: both;
+}
+.alignRight > *:nth-child(2) {
+  clear: both;
+  display: block;
+  border: none;
+}
+svg {
+  display: block;
+}
+.alignCenter.art-text {
+  background-color: var(--highlight-color);
+  border: 1px solid var(--line-color);
+  border-radius: 3px;
+  padding: 0.5em 1em 0;
+  margin-bottom: 0.5em;
+}
+.alignCenter.art-text pre {
+  padding: 0;
+  width: auto;
+}
+.alignCenter {
+  margin: 1em 0;
+}
+.alignCenter > *:first-child {
+  border: none;
+  /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
+     support flexbox yet.
+  */
+  display: table;
+  margin: 0 auto;
+}
+
+/* lists */
+ol, ul {
+  padding: 0;
+  margin: 0 0 1em 2em;
+}
+ol ol, ul ul, ol ul, ul ol {
   margin-left: 1em;
 }
-dl.dl-horizontal: {
-  margin-left: 0;
+li {
+  margin: 0 0 0.25em 0;
+}
+.ulCompact li {
+  margin: 0;
+}
+ul.empty, .ulEmpty {
+  list-style-type: none;
+}
+ul.empty li, .ulEmpty li {
+  margin-top: 0.5em;
+}
+ul.compact, .ulCompact,
+ol.compact, .olCompact {
+  line-height: 100%;
+  margin: 0 0 0 2em;
+}
+
+/* definition lists */
+dl {
 }
 dl > dt {
   float: left;
   margin-right: 1em;
 }
-dl.nohang > dt {
-  float: none;
-}
 dl > dd {
-  margin-bottom: .5em;
+  margin-bottom: .8em;
+  min-height: 1.3em;
 }
-dl.compact > dd {
+dl.compact > dd, .dlCompact > dd {
   margin-bottom: 0em;
 }
 dl > dd > dl {
   margin-top: 0.5em;
   margin-bottom: 0em;
 }
-ul.empty {
-  list-style-type: none;
-}
-ul.empty li {
-  margin-top: .5em;
-}
-
-hr {
-  border: 0;
-  border-top: 1px solid #eee;
-}
-
-a {
-  text-decoration: none;
-}
-a[href] {
-  color: #2a6496;
-}
-a[href]:hover {
-  background-color: #eee;
-}
-
-ol, ul, li, p {
-  padding: 0;
-  margin: 0.5em 0 0.5em 2em;
-}
-li, p {
-  margin-left: 0;
-}
-address {
-  font-style: normal;
-}
-
-.github-fork-ribbon-wrapper {
+dd.break {
   display: none;
 }
-@media screen and (min-width: 800px) {
-  /* "Fork me on GitHub" CSS ribbon based on
-   * https://github.com/simonwhitaker/github-fork-ribbon-css
-   */
-  .github-fork-ribbon {
-    position: absolute;
-    padding: 2px 0;
-    background-color: #a00;
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
-    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
-    font: 700 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-    pointer-events: auto;
+/* links */
+a, a[href].selfRef:hover {
+  text-decoration: none;
+}
+a[href].selfRef {
+  color: var(--text-color);
+}
+a[href] {
+  color: var(--link-color);
+}
+a[href]:hover {
+  text-decoration: underline;
+}
+a[href].selfRef:hover {
+  background-color: var(--highlight-color);
+}
+a.xref {
+  white-space: nowrap;
+}
 
-    top: 38px;
-    right: -45px;
-
-    transform: rotate(45deg);
-  }
-
-  .github-fork-ribbon a[href],
-  .github-fork-ribbon a[href]:hover {
-    color: #fff;
-    background-color: transparent;
-    text-decoration: none;
-    text-shadow: 0 -1px rgba(0, 0, 0, 0.5);
-    text-align: center;
-
-    width: 190px;
-    line-height: 18px;
-
+/* Figures */
+tt, code, pre {
+  background-color: var(--highlight-color);
+  font: 14px/22px 'Oxygen Mono', monospace;
+}
+pre {
+  border: 1px solid var(--line-color);
+  font-size: 13.5px;
+  line-height: 16px;
+  letter-spacing: -0.2px;
+  margin: 5px;
+  padding: 5px;
+}
+img {
+  max-width: 100%;
+}
+figure {
+  margin: 0.5em 0;
+}
+figure blockquote {
+  margin: 0.8em 0.4em 0.4em;
+}
+figcaption, caption {
+  font-style: italic;
+  margin: 0.5em 1.5em;
+  text-align: left;
+}
+@media screen {
+  pre {
     display: inline-block;
-    padding: 2px 0;
-
-    border: 1.5px dotted #fff;
-    border-color: rgba(255, 255, 255, 0.6);
+    overflow-x: auto;
+    max-width: 100%;
+    width: calc(100% - 22px - 1em);
   }
-
-  .github-fork-ribbon-wrapper {
+  figure pre {
     display: block;
-    width: 130px;
-    height: 130px;
-    position: absolute;
-    overflow: hidden;
-    top: 0; right: 0;
-    z-index: 2;
-    pointer-events: none;
+    width: calc(100% - 25px);
+  }
+  pre + .pilcrow {
+    display: inline-block;
+    vertical-align: text-bottom;
+    padding-bottom: 8px;
+  }
+  table {
+    display: inline-block;
+    overflow-x: auto;
   }
 }
-@media screen and (min-width: 1000px) {
-  .github-fork-ribbon-wrapper {
-    position: fixed;
-  }
-  /*]]>*/</style>
 
+/* aside, blockquote */
+aside, blockquote {
+  margin-left: 0;
+  padding: 0 2em;
+  font-style: italic;
+}
+blockquote {
+  background-color: var(--highlight-color);
+  border: 1px solid var(--line-color);
+  border-radius: 3px;
+  margin: 1em 0;
+}
+cite {
+  display: block;
+  text-align: right;
+  font-style: italic;
+}
+
+/* tables */
+table {
+  max-width: 100%;
+  margin: 0 0 1em;
+  border-collapse: collapse;
+}
+table.right {
+  margin-left: auto;
+}
+table.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+table.left {
+  margin-right: auto;
+}
+thead, tbody {
+  border: 1px solid var(--line-color);
+}
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 5px 10px;
+}
+th {
+  background-color: var(--line-color);
+}
+tr:nth-child(2n) > td {
+  background-color: var(--background-color);
+}
+tr:nth-child(2n+1) > td {
+  background-color: var(--highlight-color);
+}
+thead+tbody > tr:nth-child(2n) > td {
+  background-color: var(--highlight-color);
+}
+thead+tbody > tr:nth-child(2n+1) > td {
+  background-color: var(--background-color);
+}
+table caption {
+  margin: 0;
+  padding: 3px 1em;
+}
+table p {
+  margin: 0;
+}
+
+/* pilcrow */
+a.pilcrow {
+  margin-left: 3px;
+  visibility: hidden;
+  user-select: none;
+}
+a.pilcrow[href] { color: #ddd; }
+a.pilcrow[href]:hover { text-decoration: none; }
+@media screen {
+  :hover > a.pilcrow {
+    visibility: visible;
+  }
+  a.pilcrow:hover {
+    background-color: transparent;
+  }
+}
+
+/* misc */
+hr {
+  border: 0;
+  border-top: 1px solid var(--line-color);
+}
+.bcp14 {
+  font-variant: small-caps;
+}
+
+.role {
+  font-variant: all-small-caps;
+}
+
+/* info block */
+#identifiers {
+  margin: 0;
+  font-size: var(--small-font-size);
+  line-height: 18px;
+  --identifier-width: 8em;
+}
+#identifiers dt {
+  width: var(--identifier-width);
+  margin: 0;
+  clear: left;
+  float: left;
+  text-align: right;
+}
+#identifiers dd {
+  margin: 0 0 0 calc(1em + var(--identifier-width));
+  min-width: 5em;
+}
+#identifiers .authors .author {
+  display: inline-block;
+  margin-right: 1.5em;
+}
+#identifiers .authors .org {
+  font-style: italic;
+}
+
+/* The prepared/rendered info at the very bottom of the page */
+.docInfo {
+  color: #999;
+  font-size: 0.9em;
+  font-style: italic;
+  margin-top: 2em;
+}
+.docInfo .prepared {
+  float: left;
+}
+.docInfo .prepared {
+  float: right;
+}
+
+/* table of contents */
+#toc {
+  padding: 0.75em 0 2em 0;
+  margin-bottom: 1em;
+}
+#toc nav ul {
+  margin: 0 0.5em 0 0;
+  padding: 0;
+  list-style: none;
+}
+#toc nav li {
+  line-height: 1.3em;
+  margin: 0.75em 0;
+  padding-left: 1.2em;
+  text-indent: -1.2em;
+}
+#toc a.xref {
+  white-space: normal;
+}
+/* references */
+.references dt {
+  text-align: right;
+  font-weight: bold;
+  min-width: 7em;
+}
+.references dd {
+  margin-left: 8em;
+  overflow: auto;
+}
+
+.refInstance {
+  margin-bottom: 1.25em;
+}
+
+.references .ascii {
+  margin-bottom: 0.25em;
+}
+
+/* index */
+.index ul {
+  margin: 0 0 0 1em;
+  padding: 0;
+  list-style: none;
+}
+.index ul ul {
+  margin: 0;
+}
+.index li {
+  margin: 0;
+  text-indent: -2em;
+  padding-left: 2em;
+  padding-bottom: 5px;
+}
+.indexIndex {
+  margin: 0.5em 0 1em;
+}
+.index a {
+  font-weight: 700;
+}
+/* make the index two-column on all but the smallest screens */
+@media (min-width: 500px) {
+  .index ul {
+    column-count: 2;
+    column-gap: 20px;
+  }
+  .index ul ul {
+    column-count: 1;
+    column-gap: 0;
+  }
+}
+
+/* authors */
+address.vcard {
+  font-style: normal;
+  margin: 1em 0;
+}
+address.vcard .nameRole {
+  font-weight: 700;
+  margin-left: 0;
+}
+address.vcard .label {
+  margin: 0.5em 0;
+}
+address.vcard .type {
+  display: none;
+}
+.alternative-contact {
+  margin: 1.5em 0 1em;
+}
+hr.addr {
+  border-top: 1px dashed;
+  margin: 0;
+  color: #ddd;
+  max-width: calc(100% - 16px);
+}
+@media (min-width: 500px) {
+  #authors-addresses > section {
+    column-count: 2;
+    column-gap: 20px;
+  }
+  #authors-addresses > section > h2 {
+    column-span: all;
+  }
+  /* hack for break-inside: avoid-column */
+  #authors-addresses address {
+    display: inline-block;
+    break-inside: avoid-column;
+  }
+}
+
+.rfcEditorRemove p:first-of-type {
+  font-style: italic;
+}
+.cref {
+  background-color: rgba(249, 232, 105, 0.3);
+  padding: 2px 4px;
+}
+.crefSource {
+  font-style: italic;
+}
+/* alternative layout for smaller screens */
+@media screen and (max-width: 929px) {
+  #toc {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    padding: 0;
+    margin: 0;
+    border-bottom: 1px solid #ccc;
+    opacity: 0.6;
+  }
+  #toc.active {
+      opacity: 1;
+  }
+  #toc h2 {
+    margin: 0;
+    padding: 2px 0 2px 6px;
+    padding-right: 1em;
+    font-size: 18px;
+    line-height: 24px;
+    min-width: 190px;
+    text-align: right;
+    background-color: #444;
+    color: white;
+    cursor: pointer;
+  }
+  #toc h2::before { /* css hamburger */
+    float: right;
+    position: relative;
+    width: 1em;
+    height: 1px;
+    left: -164px;
+    margin: 8px 0 0 0;
+    background: white none repeat scroll 0 0;
+    box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+    content: "";
+  }
+  #toc nav {
+    display: none;
+    background-color: var(--background-color);
+    padding: 0.5em 1em 1em;
+    overflow: auto;
+    overscroll-behavior: contain;
+    height: calc(100vh - 48px);
+    border-left: 1px solid #ddd;
+  }
+  #toc.active nav {
+    display: block;
+  }
+  /* Make the collapsed ToC header render white on gray also when it's a link */
+  #toc h2 a,
+  #toc h2 a:link,
+  #toc h2 a:focus,
+  #toc h2 a:hover,
+  #toc a.toplink,
+  #toc a.toplink:hover {
+    color: white;
+    background-color: #444;
+    text-decoration: none;
+  }
+  #toc a.toplink {
+    margin-top: 2px;
+  }
+}
+
+/* alternative layout for wide screens */
+@media screen and (min-width: 930px) {
+  body {
+    padding-right: 360px;
+    padding-right: calc(min(180px + 20%, 500px));
+  }
+  #toc {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    right: calc(50vw - 480px);
+    width: 312px;
+    margin: 0;
+    padding: 0;
+    z-index: 1;
+  }
+  #toc h2 {
+    margin: 0;
+    padding: 0.25em 1em 1em 0;
+  }
+  #toc nav {
+    display: block;
+    height: calc(90vh - 84px);
+    bottom: 0;
+    padding: 0.5em 0 2em;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+  #toc nav > ul  {
+    margin-bottom: 2em;
+  }
+  #toc ul {
+    margin: 0 0 0 4px;
+    font-size: var(--small-font-size);
+  }
+  #toc ul p, #toc ul li {
+    margin: 2px 0;
+    line-height: 22px;
+  }
+  img { /* future proofing */
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* pagination */
+@media print {
+  body {
+    width: 100%;
+  }
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+  #n-copyright-notice {
+    border-bottom: none;
+  }
+  #toc, #n-introduction {
+    page-break-before: always;
+  }
+  #toc {
+    border-top: none;
+    padding-top: 0;
+  }
+  figure, pre {
+    page-break-inside: avoid;
+  }
+  figure {
+    overflow: scroll;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+  h2+*, h3+*, h4+*, h5+*, h6+* {
+    page-break-before: avoid;
+  }
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 10pt;
+  }
+  table {
+    border: 1px solid #ddd;
+  }
+  td {
+    border-top: 1px solid #ddd;
+  }
+}
+
+@page :first {
+  padding-top: 0;
+  @top-left {
+    content: normal;
+    border: none;
+  }
+  @top-center {
+    content: normal;
+    border: none;
+  }
+  @top-right {
+    content: normal;
+    border: none;
+  }
+}
+
+@page {
+  size: A4;
+  margin-bottom: 45mm;
+  padding-top: 20px;
+}
+
+/* Changes introduced to fix issues found during implementation */
+
+/* Separate body from document info even without intervening H1 */
+section {
+  clear: both;
+}
+
+/* Top align author divs, to avoid names without organization dropping level with org names */
+.author {
+  vertical-align: top;
+}
+
+/* Style section numbers with more space between number and title */
+.section-number {
+  padding-right: 0.5em;
+}
+
+/* Add styling for a link in the ToC that points to the top of the document */
+a.toplink {
+  float: right;
+  margin: 8px 0.5em 0;
+}
+
+/* Fix the dl styling to match the RFC 7992 attributes */
+dl > dt,
+dl.dlParallel > dt {
+  float: left;
+  margin-right: 1em;
+}
+dl.dlNewline > dt {
+  float: none;
+}
+
+/* Provide styling for table cell text alignment */
+table .text-left, table .text-left {
+  text-align: left;
+}
+table .text-center, table .text-center {
+  text-align: center;
+}
+table .text-right, table .text-right {
+  text-align: right;
+}
+
+/* Make the alternative author contact information look less like just another
+   author, and group it closer with the primary author contact information */
+.alternative-contact {
+  margin: 0.5em 0 0.25em 0;
+}
+address .non-ascii {
+  margin: 0 0 0 2em;
+}
+
+/* With it being possible to set tables with alignment
+  left, center, and right, { width: 100%; } does not make sense */
+table {
+  width: auto;
+}
+
+/* Avoid reference text that sits in a block with very wide left margin,
+   because of a long floating dt label.*/
+.references dd {
+  overflow: visible;
+}
+
+/* Control caption placement */
+caption {
+  caption-side: bottom;
+}
+
+/* Limit the width of the author address vcard, so names in right-to-left
+   script don't end up on the other side of the page. */
+
+address.vcard {
+  max-width: 20em;
+  margin-right: auto;
+}
+
+/* For address alignment dependent on LTR or RTL scripts */
+address div.left {
+  text-align: left;
+}
+address div.right {
+  text-align: right;
+}
+
+/* Give the table caption label the same styling as the figcaption */
+
+@media print {
+  .toplink {
+    display: none;
+  }
+
+  /* avoid overwriting the top border line with the ToC header */
+  #toc {
+    padding-top: 1px;
+  }
+
+  /* Avoid page breaks inside dl and author address entries */
+  dd {
+    page-break-before: avoid;
+  }
+  .vcard {
+    page-break-inside: avoid;
+  }
+
+}
+/* Tweak the bcp14 keyword presentation */
+.bcp14 {
+  font-variant: small-caps;
+  font-weight: bold;
+  font-size: 0.9em;
+}
+</style>
 <link href="rfc-local.css" rel="stylesheet" type="text/css">
-<script type="application/javascript">async function addMetadata(){try{const e=document.styleSheets[0].cssRules;for(let t=0;t<e.length;t++)if(/#identifiers/.exec(e[t].selectorText)){const a=e[t].cssText.replace("#identifiers","#external-updates");document.styleSheets[0].insertRule(a,document.styleSheets[0].cssRules.length)}}catch(e){console.log(e)}const e=document.getElementById("external-metadata");if(e)try{var t,a="",o=function(e){const t=document.getElementsByTagName("meta");for(let a=0;a<t.length;a++)if(t[a].getAttribute("name")===e)return t[a].getAttribute("content");return""}("rfc.number");if(o){t="https://www.rfc-editor.org/rfc/rfc"+o+".json";try{const e=await fetch(t);a=await e.json()}catch(e){t=document.URL.indexOf("html")>=0?document.URL.replace(/html$/,"json"):document.URL+".json";const o=await fetch(t);a=await o.json()}}if(!a)return;e.style.display="block";const s="",d="https://datatracker.ietf.org/doc",n="https://datatracker.ietf.org/ipr/search",c="https://www.rfc-editor.org/info",l=a.doc_id.toLowerCase(),i=a.doc_id.slice(0,3).toLowerCase(),f=a.doc_id.slice(3).replace(/^0+/,""),u={status:"Status",obsoletes:"Obsoletes",obsoleted_by:"Obsoleted By",updates:"Updates",updated_by:"Updated By",see_also:"See Also",errata_url:"Errata"};let h="<dl style='overflow:hidden' id='external-updates'>";["status","obsoletes","obsoleted_by","updates","updated_by","see_also","errata_url"].forEach(e=>{if("status"==e){a[e]=a[e].toLowerCase();var t=a[e].split(" "),o=t.length,w="",p=1;for(let e=0;e<o;e++)p<o?w=w+r(t[e])+" ":w+=r(t[e]),p++;a[e]=w}else if("obsoletes"==e||"obsoleted_by"==e||"updates"==e||"updated_by"==e){var g,m="",b=1;g=a[e].length;for(let t=0;t<g;t++)a[e][t]&&(a[e][t]=String(a[e][t]).toLowerCase(),m=b<g?m+"<a href='"+s+"/rfc/".concat(a[e][t])+"'>"+a[e][t].slice(3)+"</a>, ":m+"<a href='"+s+"/rfc/".concat(a[e][t])+"'>"+a[e][t].slice(3)+"</a>",b++);a[e]=m}else if("see_also"==e){var y,L="",C=1;y=a[e].length;for(let t=0;t<y;t++)if(a[e][t]){a[e][t]=String(a[e][t]);var _=a[e][t].slice(0,3),v=a[e][t].slice(3).replace(/^0+/,"");L=C<y?"RFC"!=_?L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+_+" "+v+"</a>, ":L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+v+"</a>, ":"RFC"!=_?L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+_+" "+v+"</a>":L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+v+"</a>",C++}a[e]=L}else if("errata_url"==e){var R="";R=a[e]?R+"<a href='"+a[e]+"'>Errata exist</a> | <a href='"+d+"/"+l+"'>Datatracker</a>| <a href='"+n+"/?"+i+"="+f+"&submit="+i+"'>IPR</a> | <a href='"+c+"/"+l+"'>Info page</a>":"<a href='"+d+"/"+l+"'>Datatracker</a> | <a href='"+n+"/?"+i+"="+f+"&submit="+i+"'>IPR</a> | <a href='"+c+"/"+l+"'>Info page</a>",a[e]=R}""!=a[e]?"Errata"==u[e]?h+=`<dt>More info:</dt><dd>${a[e]}</dd>`:h+=`<dt>${u[e]}:</dt><dd>${a[e]}</dd>`:"Errata"==u[e]&&(h+=`<dt>More info:</dt><dd>${a[e]}</dd>`)}),h+="</dl>",e.innerHTML=h}catch(e){console.log(e)}else console.log("Could not locate metadata <div> element");function r(e){return e.charAt(0).toUpperCase()+e.slice(1)}}window.removeEventListener("load",addMetadata),window.addEventListener("load",addMetadata);</script>
 </head>
 <body>
-<script src="metadata.min.js"></script>
 <table class="ears">
 <thead><tr>
 <td class="left">Internet-Draft</td>
@@ -436,187 +945,187 @@ and should be sent to yot@ietf.org.<a href="#section-note.1-1" class="pilcrow">�
         <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents">
 <a href="#name-table-of-contents" class="section-name selfRef">Table of Contents</a>
         </h2>
-<nav class="toc"><ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.1">
+<nav class="toc"><ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.1">
             <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="xref">1</a>.  <a href="#name-introduction" class="xref">Introduction</a><a href="#section-toc.1-1.1.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.1.2.1">
+<ul class="toc ulEmpty compact">
+<li class="toc ulEmpty compact" id="section-toc.1-1.1.2.1">
                 <p id="section-toc.1-1.1.2.1.1" class="keepWithNext"><a href="#section-1.1" class="xref">1.1</a>.  <a href="#name-terminology" class="xref">Terminology</a><a href="#section-toc.1-1.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.2">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.2">
             <p id="section-toc.1-1.2.1"><a href="#section-2" class="xref">2</a>.  <a href="#name-coreconf-architecture" class="xref">CORECONF Architecture</a><a href="#section-toc.1-1.2.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.2.2.1">
+<ul class="toc ulEmpty compact">
+<li class="toc ulEmpty compact" id="section-toc.1-1.2.2.1">
                 <p id="section-toc.1-1.2.2.1.1"><a href="#section-2.1" class="xref">2.1</a>.  <a href="#name-major-differences-between-r" class="xref">Major differences between RESTCONF and CORECONF</a><a href="#section-toc.1-1.2.2.1.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.2.2.1.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.2.2.1.2.1">
                     <p id="section-toc.1-1.2.2.1.2.1.1" class="keepWithNext"><a href="#section-2.1.1" class="xref">2.1.1</a>.  <a href="#name-differences-due-to-coap-and" class="xref">Differences due to CoAP and its efficient usage</a><a href="#section-toc.1-1.2.2.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.2.2.1.2.2">
+                  <li class="compact ulEmpty toc" id="section-toc.1-1.2.2.1.2.2">
                     <p id="section-toc.1-1.2.2.1.2.2.1"><a href="#section-2.1.2" class="xref">2.1.2</a>.  <a href="#name-differences-due-to-the-use-" class="xref">Differences due to the use of CBOR</a><a href="#section-toc.1-1.2.2.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.2.2.2">
+              <li class="toc ulEmpty compact" id="section-toc.1-1.2.2.2">
                 <p id="section-toc.1-1.2.2.2.1"><a href="#section-2.2" class="xref">2.2</a>.  <a href="#name-compression-of-yang-identif" class="xref">Compression of YANG identifiers</a><a href="#section-toc.1-1.2.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.2.2.3">
+              <li class="toc ulEmpty compact" id="section-toc.1-1.2.2.3">
                 <p id="section-toc.1-1.2.2.3.1"><a href="#section-2.3" class="xref">2.3</a>.  <a href="#name-instance-identifier" class="xref">Instance-identifier</a><a href="#section-toc.1-1.2.2.3.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.2.2.4">
+              <li class="toc ulEmpty compact" id="section-toc.1-1.2.2.4">
                 <p id="section-toc.1-1.2.2.4.1"><a href="#section-2.4" class="xref">2.4</a>.  <a href="#name-media-types" class="xref">Media-Types</a><a href="#section-toc.1-1.2.2.4.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.2.2.5">
+              <li class="toc ulEmpty compact" id="section-toc.1-1.2.2.5">
                 <p id="section-toc.1-1.2.2.5.1"><a href="#section-2.5" class="xref">2.5</a>.  <a href="#name-unified-datastore" class="xref">Unified datastore</a><a href="#section-toc.1-1.2.2.5.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.3">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.3">
             <p id="section-toc.1-1.3.1"><a href="#section-3" class="xref">3</a>.  <a href="#name-example-syntax" class="xref">Example syntax</a><a href="#section-toc.1-1.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.4">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.4">
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="xref">4</a>.  <a href="#name-coap-interface" class="xref">CoAP Interface</a><a href="#section-toc.1-1.4.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.4.2.1">
+<ul class="toc ulEmpty compact">
+<li class="toc ulEmpty compact" id="section-toc.1-1.4.2.1">
                 <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="xref">4.1</a>.  <a href="#name-using-the-k-query-parameter" class="xref">Using the 'k' query parameter</a><a href="#section-toc.1-1.4.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.4.2.2">
+              <li class="toc ulEmpty compact" id="section-toc.1-1.4.2.2">
                 <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="xref">4.2</a>.  <a href="#name-data-retrieval" class="xref">Data Retrieval</a><a href="#section-toc.1-1.4.2.2.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.4.2.2.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.4.2.2.2.1">
                     <p id="section-toc.1-1.4.2.2.2.1.1"><a href="#section-4.2.1" class="xref">4.2.1</a>.  <a href="#name-using-the-c-query-parameter" class="xref">Using the 'c' query parameter</a><a href="#section-toc.1-1.4.2.2.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.4.2.2.2.2">
+                  <li class="compact ulEmpty toc" id="section-toc.1-1.4.2.2.2.2">
                     <p id="section-toc.1-1.4.2.2.2.2.1"><a href="#section-4.2.2" class="xref">4.2.2</a>.  <a href="#name-using-the-d-query-parameter" class="xref">Using the 'd' query parameter</a><a href="#section-toc.1-1.4.2.2.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.4.2.2.2.3">
+                  <li class="compact ulEmpty toc" id="section-toc.1-1.4.2.2.2.3">
                     <p id="section-toc.1-1.4.2.2.2.3.1"><a href="#section-4.2.3" class="xref">4.2.3</a>.  <a href="#name-get" class="xref">GET</a><a href="#section-toc.1-1.4.2.2.2.3.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.4.2.2.2.4">
+                  <li class="compact ulEmpty toc" id="section-toc.1-1.4.2.2.2.4">
                     <p id="section-toc.1-1.4.2.2.2.4.1"><a href="#section-4.2.4" class="xref">4.2.4</a>.  <a href="#name-fetch" class="xref">FETCH</a><a href="#section-toc.1-1.4.2.2.2.4.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.4.2.3">
+              <li class="toc ulEmpty compact" id="section-toc.1-1.4.2.3">
                 <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="xref">4.3</a>.  <a href="#name-data-editing" class="xref">Data Editing</a><a href="#section-toc.1-1.4.2.3.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.4.2.3.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.4.2.3.2.1">
                     <p id="section-toc.1-1.4.2.3.2.1.1"><a href="#section-4.3.1" class="xref">4.3.1</a>.  <a href="#name-data-ordering" class="xref">Data Ordering</a><a href="#section-toc.1-1.4.2.3.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.4.2.3.2.2">
+                  <li class="compact ulEmpty toc" id="section-toc.1-1.4.2.3.2.2">
                     <p id="section-toc.1-1.4.2.3.2.2.1"><a href="#section-4.3.2" class="xref">4.3.2</a>.  <a href="#name-post" class="xref">POST</a><a href="#section-toc.1-1.4.2.3.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.4.2.3.2.3">
+                  <li class="compact ulEmpty toc" id="section-toc.1-1.4.2.3.2.3">
                     <p id="section-toc.1-1.4.2.3.2.3.1"><a href="#section-4.3.3" class="xref">4.3.3</a>.  <a href="#name-put" class="xref">PUT</a><a href="#section-toc.1-1.4.2.3.2.3.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.4.2.3.2.4">
+                  <li class="compact ulEmpty toc" id="section-toc.1-1.4.2.3.2.4">
                     <p id="section-toc.1-1.4.2.3.2.4.1"><a href="#section-4.3.4" class="xref">4.3.4</a>.  <a href="#name-ipatch" class="xref">iPATCH</a><a href="#section-toc.1-1.4.2.3.2.4.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.4.2.3.2.5">
+                  <li class="compact ulEmpty toc" id="section-toc.1-1.4.2.3.2.5">
                     <p id="section-toc.1-1.4.2.3.2.5.1"><a href="#section-4.3.5" class="xref">4.3.5</a>.  <a href="#name-delete" class="xref">DELETE</a><a href="#section-toc.1-1.4.2.3.2.5.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.4.2.4">
+              <li class="toc ulEmpty compact" id="section-toc.1-1.4.2.4">
                 <p id="section-toc.1-1.4.2.4.1"><a href="#section-4.4" class="xref">4.4</a>.  <a href="#name-full-datastore-access" class="xref">Full datastore access</a><a href="#section-toc.1-1.4.2.4.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.4.2.4.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.4.2.4.2.1">
                     <p id="section-toc.1-1.4.2.4.2.1.1"><a href="#section-4.4.1" class="xref">4.4.1</a>.  <a href="#name-full-datastore-examples" class="xref">Full datastore examples</a><a href="#section-toc.1-1.4.2.4.2.1.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.4.2.5">
+              <li class="toc ulEmpty compact" id="section-toc.1-1.4.2.5">
                 <p id="section-toc.1-1.4.2.5.1"><a href="#section-4.5" class="xref">4.5</a>.  <a href="#name-event-stream" class="xref">Event stream</a><a href="#section-toc.1-1.4.2.5.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.4.2.5.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.4.2.5.2.1">
                     <p id="section-toc.1-1.4.2.5.2.1.1"><a href="#section-4.5.1" class="xref">4.5.1</a>.  <a href="#name-notify-examples" class="xref">Notify Examples</a><a href="#section-toc.1-1.4.2.5.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.4.2.5.2.2">
+                  <li class="compact ulEmpty toc" id="section-toc.1-1.4.2.5.2.2">
                     <p id="section-toc.1-1.4.2.5.2.2.1"><a href="#section-4.5.2" class="xref">4.5.2</a>.  <a href="#name-the-f-query-parameter" class="xref">The 'f' query parameter</a><a href="#section-toc.1-1.4.2.5.2.2.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.4.2.6">
+              <li class="toc ulEmpty compact" id="section-toc.1-1.4.2.6">
                 <p id="section-toc.1-1.4.2.6.1"><a href="#section-4.6" class="xref">4.6</a>.  <a href="#name-rpc-statements" class="xref">RPC statements</a><a href="#section-toc.1-1.4.2.6.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.4.2.6.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.4.2.6.2.1">
                     <p id="section-toc.1-1.4.2.6.2.1.1"><a href="#section-4.6.1" class="xref">4.6.1</a>.  <a href="#name-rpc-example" class="xref">RPC Example</a><a href="#section-toc.1-1.4.2.6.2.1.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
             </ul>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.5">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.5">
             <p id="section-toc.1-1.5.1"><a href="#section-5" class="xref">5</a>.  <a href="#name-use-of-block-wise-transfers" class="xref">Use of Block-wise Transfers</a><a href="#section-toc.1-1.5.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.6">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.6">
             <p id="section-toc.1-1.6.1"><a href="#section-6" class="xref">6</a>.  <a href="#name-application-discovery" class="xref">Application Discovery</a><a href="#section-toc.1-1.6.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.6.2.1">
+<ul class="toc ulEmpty compact">
+<li class="toc ulEmpty compact" id="section-toc.1-1.6.2.1">
                 <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="xref">6.1</a>.  <a href="#name-yang-library" class="xref">YANG library</a><a href="#section-toc.1-1.6.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.6.2.2">
+              <li class="toc ulEmpty compact" id="section-toc.1-1.6.2.2">
                 <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="xref">6.2</a>.  <a href="#name-resource-discovery" class="xref">Resource Discovery</a><a href="#section-toc.1-1.6.2.2.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.6.2.2.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.6.2.2.2.1">
                     <p id="section-toc.1-1.6.2.2.2.1.1"><a href="#section-6.2.1" class="xref">6.2.1</a>.  <a href="#name-datastore-resource-discover" class="xref">Datastore Resource Discovery</a><a href="#section-toc.1-1.6.2.2.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.6.2.2.2.2">
+                  <li class="compact ulEmpty toc" id="section-toc.1-1.6.2.2.2.2">
                     <p id="section-toc.1-1.6.2.2.2.2.1"><a href="#section-6.2.2" class="xref">6.2.2</a>.  <a href="#name-data-node-resource-discover" class="xref">Data node Resource Discovery</a><a href="#section-toc.1-1.6.2.2.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.6.2.2.2.3">
+                  <li class="compact ulEmpty toc" id="section-toc.1-1.6.2.2.2.3">
                     <p id="section-toc.1-1.6.2.2.2.3.1"><a href="#section-6.2.3" class="xref">6.2.3</a>.  <a href="#name-event-stream-resource-disco" class="xref">Event stream Resource Discovery</a><a href="#section-toc.1-1.6.2.2.2.3.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
             </ul>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.7">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.7">
             <p id="section-toc.1-1.7.1"><a href="#section-7" class="xref">7</a>.  <a href="#name-error-handling" class="xref">Error Handling</a><a href="#section-toc.1-1.7.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.8">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.8">
             <p id="section-toc.1-1.8.1"><a href="#section-8" class="xref">8</a>.  <a href="#name-security-considerations" class="xref">Security Considerations</a><a href="#section-toc.1-1.8.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.9">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.9">
             <p id="section-toc.1-1.9.1"><a href="#section-9" class="xref">9</a>.  <a href="#name-iana-considerations" class="xref">IANA Considerations</a><a href="#section-toc.1-1.9.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.9.2.1">
+<ul class="toc ulEmpty compact">
+<li class="toc ulEmpty compact" id="section-toc.1-1.9.2.1">
                 <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="xref">9.1</a>.  <a href="#name-resource-type-rt-link-targe" class="xref">Resource Type (rt=) Link Target Attribute Values Registry</a><a href="#section-toc.1-1.9.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.9.2.2">
+              <li class="toc ulEmpty compact" id="section-toc.1-1.9.2.2">
                 <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="xref">9.2</a>.  <a href="#name-coap-content-formats-regist" class="xref">CoAP Content-Formats Registry</a><a href="#section-toc.1-1.9.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.9.2.3">
+              <li class="toc ulEmpty compact" id="section-toc.1-1.9.2.3">
                 <p id="section-toc.1-1.9.2.3.1"><a href="#section-9.3" class="xref">9.3</a>.  <a href="#name-media-types-registry" class="xref">Media Types Registry</a><a href="#section-toc.1-1.9.2.3.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.9.2.4">
+              <li class="toc ulEmpty compact" id="section-toc.1-1.9.2.4">
                 <p id="section-toc.1-1.9.2.4.1"><a href="#section-9.4" class="xref">9.4</a>.  <a href="#name-yang-namespace-registration" class="xref">YANG Namespace Registration</a><a href="#section-toc.1-1.9.2.4.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.10">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.10">
             <p id="section-toc.1-1.10.1"><a href="#section-10" class="xref">10</a>. <a href="#name-acknowledgments" class="xref">Acknowledgments</a><a href="#section-toc.1-1.10.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.11">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.11">
             <p id="section-toc.1-1.11.1"><a href="#section-11" class="xref">11</a>. <a href="#name-references" class="xref">References</a><a href="#section-toc.1-1.11.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.11.2.1">
+<ul class="toc ulEmpty compact">
+<li class="toc ulEmpty compact" id="section-toc.1-1.11.2.1">
                 <p id="section-toc.1-1.11.2.1.1"><a href="#section-11.1" class="xref">11.1</a>.  <a href="#name-normative-references" class="xref">Normative References</a><a href="#section-toc.1-1.11.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.11.2.2">
+              <li class="toc ulEmpty compact" id="section-toc.1-1.11.2.2">
                 <p id="section-toc.1-1.11.2.2.1"><a href="#section-11.2" class="xref">11.2</a>.  <a href="#name-informative-references" class="xref">Informative References</a><a href="#section-toc.1-1.11.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.12">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.12">
             <p id="section-toc.1-1.12.1"><a href="#section-appendix.a" class="xref">Appendix A</a>.  <a href="#name-ietf-coreconf-yang-module" class="xref">ietf-coreconf YANG module</a><a href="#section-toc.1-1.12.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.13">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.13">
             <p id="section-toc.1-1.13.1"><a href="#section-appendix.b" class="xref">Appendix B</a>.  <a href="#name-ietf-coreconf-sid-file" class="xref">ietf-coreconf .sid file</a><a href="#section-toc.1-1.13.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.14">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.14">
             <p id="section-toc.1-1.14.1"><a href="#section-appendix.c" class="xref"></a><a href="#name-authors-addresses" class="xref">Authors' Addresses</a><a href="#section-toc.1-1.14.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
@@ -635,7 +1144,7 @@ the large quantities of devices that are expected in
 future installations. Messages between devices need to be as small and
 infrequent as possible. The implementation
 complexity and runtime resources need to be as small as possible.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">This draft describes the CoAP Management Interface which uses CoAP methods
+<p id="section-1-2">This draft describes the CoAP Management Interface (CORECONF) which uses CoAP methods
 to access structured data defined in YANG <span>[<a href="#RFC7950" class="xref">RFC7950</a>]</span>. This draft is
 complementary to <span>[<a href="#RFC8040" class="xref">RFC8040</a>]</span> which describes a REST-like interface
 called RESTCONF, which uses HTTP methods to access structured data
@@ -659,56 +1168,64 @@ to minimize CBOR payloads and URI length.<a href="#section-1-5" class="pilcrow">
 document are to be interpreted as described in BCP 14 <span>[<a href="#RFC2119" class="xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="xref">RFC8174</a>]</span>
 when, and only when, they appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
 <p id="section-1.1-2">The following terms are defined in the YANG data modeling language <span>[<a href="#RFC7950" class="xref">RFC7950</a>]</span>: action, anydata, anyxml, client, container, data model, data node, identity, instance identifier, leaf, leaf-list, list, module, RPC, schema node, server, submodule.<a href="#section-1.1-2" class="pilcrow">¶</a></p>
-<p id="section-1.1-3">The following terms are defined in <span>[<a href="#RFC6241" class="xref">RFC6241</a>]</span>: configuration data, datastore, state data<a href="#section-1.1-3" class="pilcrow">¶</a></p>
+<p id="section-1.1-3">The following terms are defined in <span>[<a href="#RFC6241" class="xref">RFC6241</a>]</span>: configuration data, datastore, state data.<a href="#section-1.1-3" class="pilcrow">¶</a></p>
 <p id="section-1.1-4">The following term is defined in <span>[<a href="#I-D.ietf-core-sid" class="xref">I-D.ietf-core-sid</a>]</span>: YANG schema item identifier (YANG SID, often shorten to simply SID).<a href="#section-1.1-4" class="pilcrow">¶</a></p>
 <p id="section-1.1-5">The following terms are defined in the CoAP protocol <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>: Confirmable Message, Content-Format, Endpoint.<a href="#section-1.1-5" class="pilcrow">¶</a></p>
 <p id="section-1.1-6">The following terms are defined in this document:<a href="#section-1.1-6" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-1.1-7">
-          <dt id="section-1.1-7.1">data node resource:</dt>
+          <dt id="section-1.1-7.1">
+data node resource:  </dt>
           <dd style="margin-left: 1.5em" id="section-1.1-7.2">
-  a CoAP resource that models a YANG data node.<a href="#section-1.1-7.2" class="pilcrow">¶</a>
+            <p id="section-1.1-7.2.1">a CoAP resource that models a YANG data node.<a href="#section-1.1-7.2.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-1.1-7.3">datastore resource:</dt>
+<dt id="section-1.1-7.3">
+datastore resource:  </dt>
           <dd style="margin-left: 1.5em" id="section-1.1-7.4">
-  a CoAP resource that models a YANG datastore.<a href="#section-1.1-7.4" class="pilcrow">¶</a>
+            <p id="section-1.1-7.4.1">a CoAP resource that models a YANG datastore.<a href="#section-1.1-7.4.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-1.1-7.5">event stream resource:</dt>
+<dt id="section-1.1-7.5">
+event stream resource:  </dt>
           <dd style="margin-left: 1.5em" id="section-1.1-7.6">
-  a CoAP resource used by clients to observe YANG notifications.<a href="#section-1.1-7.6" class="pilcrow">¶</a>
+            <p id="section-1.1-7.6.1">a CoAP resource used by clients to observe YANG notifications.<a href="#section-1.1-7.6.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-1.1-7.7">notification instance:</dt>
+<dt id="section-1.1-7.7">
+notification instance:  </dt>
           <dd style="margin-left: 1.5em" id="section-1.1-7.8">
-  An instance of a schema node of type notification, specified in a YANG module
+            <p id="section-1.1-7.8.1">An instance of a schema node of type notification, specified in a YANG module
 implemented by the server. The instance is generated in the server at the occurrence
-of the corresponding event and reported by an event stream resource.<a href="#section-1.1-7.8" class="pilcrow">¶</a>
+of the corresponding event and reported by an event stream resource.<a href="#section-1.1-7.8.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-1.1-7.9">list instance identifier:</dt>
+<dt id="section-1.1-7.9">
+list instance identifier:  </dt>
           <dd style="margin-left: 1.5em" id="section-1.1-7.10">
-  Handle used to identify a YANG data node that is an instance of a YANG "list"
-specified with the values of the key leaves of the list.<a href="#section-1.1-7.10" class="pilcrow">¶</a>
+            <p id="section-1.1-7.10.1">Handle used to identify a YANG data node that is an instance of a YANG "list",
+specified with the values of the key leaves of the list.<a href="#section-1.1-7.10.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-1.1-7.11">single instance identifier:</dt>
+<dt id="section-1.1-7.11">
+single instance identifier:  </dt>
           <dd style="margin-left: 1.5em" id="section-1.1-7.12">
-  Handle used to identify a specific data node which can be instantiated only
+            <p id="section-1.1-7.12.1">Handle used to identify a specific data node which can be instantiated only
 once. This includes data nodes defined at the root of a YANG module and
 data nodes defined within a container. This excludes data nodes defined
-within a list or any children of these data nodes.<a href="#section-1.1-7.12" class="pilcrow">¶</a>
+within a list or any children of these data nodes.<a href="#section-1.1-7.12.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-1.1-7.13">instance-identifier:</dt>
+<dt id="section-1.1-7.13">
+instance-identifier:  </dt>
           <dd style="margin-left: 1.5em" id="section-1.1-7.14">
-  List instance identifier or single instance identifier.<a href="#section-1.1-7.14" class="pilcrow">¶</a>
+            <p id="section-1.1-7.14.1">List instance identifier or single instance identifier.<a href="#section-1.1-7.14.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-1.1-7.15">instance-value:</dt>
+<dt id="section-1.1-7.15">
+instance-value:  </dt>
           <dd style="margin-left: 1.5em" id="section-1.1-7.16">
-  The value assigned to a data node instance. Instance-values are serialized into
-the payload according to the rules defined in section 4 of <span>[<a href="#I-D.ietf-core-yang-cbor" class="xref">I-D.ietf-core-yang-cbor</a>]</span>.<a href="#section-1.1-7.16" class="pilcrow">¶</a>
+            <p id="section-1.1-7.16.1">The value assigned to a data node instance. Instance-values are serialized into
+the payload according to the rules defined in <span><a href="https://tools.ietf.org/html/draft-ietf-core-yang-cbor-15#section-4" class="relref">Section 4</a> of [<a href="#I-D.ietf-core-yang-cbor" class="xref">I-D.ietf-core-yang-cbor</a>]</span>.<a href="#section-1.1-7.16.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 </dl>
@@ -758,42 +1275,49 @@ Client   V                               Server       V
 <p id="section-2-3"><a href="#archit" class="xref">Figure 1</a> is a high-level representation of the main elements of the CORECONF management
 architecture. The different numbered components of <a href="#archit" class="xref">Figure 1</a> are discussed according to the component number.<a href="#section-2-3" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-2-4">
-        <dt id="section-2-4.1">(1) YANG specification:</dt>
+        <dt id="section-2-4.1">
+(1) YANG specification:  </dt>
         <dd style="margin-left: 1.5em" id="section-2-4.2">
-  contains a set of named and versioned modules.<a href="#section-2-4.2" class="pilcrow">¶</a>
+          <p id="section-2-4.2.1">contains a set of named and versioned modules.<a href="#section-2-4.2.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-2-4.3">(2) SMIv2 specification:</dt>
+<dt id="section-2-4.3">
+(2) SMIv2 specification:  </dt>
         <dd style="margin-left: 1.5em" id="section-2-4.4">
-  Optional part that consists of a named module which, specifies a set of variables and "conceptual tables". There
-is an algorithm to translate SMIv2 specifications to YANG specifications.<a href="#section-2-4.4" class="pilcrow">¶</a>
+          <p id="section-2-4.4.1">Optional part that consists of a named module which, specifies a set of variables and "conceptual tables". There
+is an algorithm to translate SMIv2 specifications to YANG specifications.<a href="#section-2-4.4.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-2-4.5">(3) CoAP request/response messages:</dt>
+<dt id="section-2-4.5">
+(3) CoAP request/response messages:  </dt>
         <dd style="margin-left: 1.5em" id="section-2-4.6">
-  The CORECONF client sends request messages to and receives response messages
-from the CORECONF server.<a href="#section-2-4.6" class="pilcrow">¶</a>
+          <p id="section-2-4.6.1">The CORECONF client sends request messages to and receives response messages
+from the CORECONF server.<a href="#section-2-4.6.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-2-4.7">(4) Request, Indication, Response, Confirm:</dt>
+<dt id="section-2-4.7">
+(4) Request, Indication, Response, Confirm:  </dt>
         <dd style="margin-left: 1.5em" id="section-2-4.8">
-  Processes performed by the CORECONF clients and servers.<a href="#section-2-4.8" class="pilcrow">¶</a>
+          <p id="section-2-4.8.1">Processes performed by the CORECONF clients and servers.<a href="#section-2-4.8.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-2-4.9">(5) Datastore:</dt>
+<dt id="section-2-4.9">
+(5) Datastore:  </dt>
         <dd style="margin-left: 1.5em" id="section-2-4.10">
-  A resource used to access configuration data, state data, RPCs, and actions. A CORECONF server may support a single unified datastore or multiple datastores as those defined by Network Management Datastore Architecture (NMDA) <span>[<a href="#RFC8342" class="xref">RFC8342</a>]</span>.<a href="#section-2-4.10" class="pilcrow">¶</a>
+          <p id="section-2-4.10.1">A resource used to access configuration data, state data, RPCs, and actions. A CORECONF server may support a single unified datastore or multiple datastores as those defined by Network Management Datastore Architecture (NMDA) <span>[<a href="#RFC8342" class="xref">RFC8342</a>]</span>.<a href="#section-2-4.10.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-2-4.11">(6) Event stream:</dt>
+<dt id="section-2-4.11">
+(6) Event stream:  </dt>
         <dd style="margin-left: 1.5em" id="section-2-4.12">
-  A resource used to get real-time notifications. A CORECONF server may support multiple Event streams serving different purposes such as normal monitoring, diagnostic, syslog, security monitoring.<a href="#section-2-4.12" class="pilcrow">¶</a>
+          <p id="section-2-4.12.1">A resource used to get real-time notifications. A CORECONF server may support multiple Event streams serving different purposes such as normal monitoring, diagnostic, syslog, security monitoring.<a href="#section-2-4.12.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-2-4.13">(7) Security:</dt>
+<dt id="section-2-4.13">
+(7) Security:  </dt>
         <dd style="margin-left: 1.5em" id="section-2-4.14">
-  The server MUST prevent unauthorized users from reading or writing any CORECONF
-resources. CORECONF relies on security protocols such as DTLS <span>[<a href="#RFC6347" class="xref">RFC6347</a>]</span> or OSCORE <span>[<a href="#RFC8613" class="xref">RFC8613</a>]</span> to secure CoAP communications.<a href="#section-2-4.14" class="pilcrow">¶</a>
+          <p id="section-2-4.14.1">The server MUST prevent unauthorized users from reading or writing any CORECONF
+resources. CORECONF relies on security protocols such as DTLS <span>[<a href="#RFC6347" class="xref">RFC6347</a>]</span> or OSCORE <span>[<a href="#RFC8613" class="xref">RFC8613</a>]</span> to secure CoAP communications.<a href="#section-2-4.14.1" class="pilcrow">¶</a></p>
 </dd>
       <dd class="break"></dd>
 </dl>
@@ -839,7 +1363,7 @@ to retrieve past notifications.<a href="#section-2.1.1-1.5" class="pilcrow">¶</
 <ul class="normal">
 <li class="normal" id="section-2.1.2-1.1">CORECONF encodes YANG identifier strings as numbers, where RESTCONF does not.<a href="#section-2.1.2-1.1" class="pilcrow">¶</a>
 </li>
-            <li class="normal" id="section-2.1.2-1.2">CORECONF also differ in the handling of default values, only 'report-all' and 'trim' options are supported.<a href="#section-2.1.2-1.2" class="pilcrow">¶</a>
+            <li class="normal" id="section-2.1.2-1.2">CORECONF also differs in the handling of default values, only 'report-all' and 'trim' options are supported.<a href="#section-2.1.2-1.2" class="pilcrow">¶</a>
 </li>
           </ul>
 </section>
@@ -855,7 +1379,7 @@ to retrieve past notifications.<a href="#section-2.1.1-1.5" class="pilcrow">¶</
 to significantly reduce the size of identifiers used in CORECONF, numeric
  identifiers called YANG Schema Item iDentifier (YANG SID or simply SID) are used instead.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
 <p id="section-2.2-2">When used in a URI, SIDs are encoded using base64 encoding of the SID bytes. The base64 encoding is using the URL and Filename safe
-alphabet as defined by <span>[<a href="#RFC4648" class="xref">RFC4648</a>]</span> section 5, without padding. The last 6 bits encoded is always aligned
+alphabet as defined by <span><a href="https://rfc-editor.org/rfc/rfc4648#section-5" class="relref">Section 5</a> of [<a href="#RFC4648" class="xref">RFC4648</a>]</span>, without padding. The last 6 bits encoded is always aligned
 with the least significant 6 bits of the SID represented using an unsigned integer.
 'A' characters (value 0) at the start of the resulting string are removed. See <a href="#Fig-sid-encoding" class="xref">Figure 2</a> for complete illustration.<a href="#section-2.2-2" class="pilcrow">¶</a></p>
 <div id="Fig-sid-encoding">
@@ -877,7 +1401,7 @@ SID in base64 = URLsafeChar[SID &gt;&gt; 60 &amp; 0x3F] |
 </div>
 <figcaption><a href="#figure-2" class="selfRef">Figure 2</a></figcaption></figure>
 </div>
-<p id="section-2.2-4">For example, SID 1721 is encoded as follow.<a href="#section-2.2-4" class="pilcrow">¶</a></p>
+<p id="section-2.2-4">For example, SID 1721 is encoded as follows.<a href="#section-2.2-4" class="pilcrow">¶</a></p>
 <div class="artwork art-text alignLeft" id="section-2.2-5">
 <pre>
 URLsafeChar[1721 &gt;&gt; 60 &amp; 0x3F] = URLsafeChar[0] = 'A'
@@ -901,8 +1425,8 @@ URLsafeChar[1721 &amp; 0x3F]       = URLsafeChar[57] = '5'
         <h3 id="name-instance-identifier">
 <a href="#section-2.3" class="section-number selfRef">2.3. </a><a href="#name-instance-identifier" class="section-name selfRef">Instance-identifier</a>
         </h3>
-<p id="section-2.3-1">Instance-identifiers are used to uniquely identify data node instances within a datastore. This YANG built-in type is defined in <span>[<a href="#RFC7950" class="xref">RFC7950</a>]</span> section 9.13. An instance-identifier is composed of the data node identifier (i.e. a SID) and for data nodes within list(s) the keys used to index within these list(s).<a href="#section-2.3-1" class="pilcrow">¶</a></p>
-<p id="section-2.3-2">When part of a payload, instance-identifiers are encoded in CBOR based on the rules defined in <span>[<a href="#I-D.ietf-core-yang-cbor" class="xref">I-D.ietf-core-yang-cbor</a>]</span> section 6.13.1. When part of a URI, the SID is appended to the URI of the targeted datastore, the keys are specified using the 'k' query parameter as defined in <a href="#query" class="xref">Section 4.1</a>.<a href="#section-2.3-2" class="pilcrow">¶</a></p>
+<p id="section-2.3-1">Instance-identifiers are used to uniquely identify data node instances within a datastore. This YANG built-in type is defined in <span><a href="https://rfc-editor.org/rfc/rfc7950#section-9.13" class="relref">Section 9.13</a> of [<a href="#RFC7950" class="xref">RFC7950</a>]</span>. An instance-identifier is composed of the data node identifier (i.e. a SID) and for data nodes within list(s) the keys used to index within these list(s).<a href="#section-2.3-1" class="pilcrow">¶</a></p>
+<p id="section-2.3-2">When part of a payload, instance-identifiers are encoded in CBOR based on the rules defined in <span><a href="https://tools.ietf.org/html/draft-ietf-core-yang-cbor-15#section-6.13.1" class="relref">Section 6.13.1</a> of [<a href="#I-D.ietf-core-yang-cbor" class="xref">I-D.ietf-core-yang-cbor</a>]</span>. When part of a URI, the SID is appended to the URI of the targeted datastore, the keys are specified using the 'k' query parameter as defined in <a href="#query" class="xref">Section 4.1</a>.<a href="#section-2.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="media-type">
@@ -919,39 +1443,46 @@ in <span>[<a href="#I-D.ietf-core-yang-cbor" class="xref">I-D.ietf-core-yang-cbo
         </ul>
 <p id="section-2.4-4">The following new Media-Types are defined in this document:<a href="#section-2.4-4" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-2.4-5">
-          <dt id="section-2.4-5.1">application/yang-identifiers+cbor:</dt>
+          <dt id="section-2.4-5.1">
+application/yang-identifiers+cbor:  </dt>
           <dd style="margin-left: 1.5em" id="section-2.4-5.2">
-  This Media-Type represents a CBOR YANG document containing a list of instance-identifier used to target specific data node instances within a datastore.<a href="#section-2.4-5.2" class="pilcrow">¶</a>
+            <p id="section-2.4-5.2.1">This Media-Type represents a CBOR YANG document containing a list of instance-identifiers used to target specific data node instances within a datastore.<a href="#section-2.4-5.2.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 <dt id="section-2.4-5.3"></dt>
-          <dd style="margin-left: 1.5em" id="section-2.4-5.4">FORMAT: CBOR array of instance-identifier<a href="#section-2.4-5.4" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-2.4-5.4">
+            <p id="section-2.4-5.4.1">FORMAT: CBOR array of instance-identifier<a href="#section-2.4-5.4.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 <dt id="section-2.4-5.5"></dt>
-          <dd style="margin-left: 1.5em" id="section-2.4-5.6">The message payload of Media-Type 'application/yang-identifiers+cbor' is encoded using a CBOR array.
-Each entry of this CBOR array contain an instance-identifier encoded as defined in <span>[<a href="#I-D.ietf-core-yang-cbor" class="xref">I-D.ietf-core-yang-cbor</a>]</span> section 6.13.1.<a href="#section-2.4-5.6" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-2.4-5.6">
+            <p id="section-2.4-5.6.1">The message payload of Media-Type 'application/yang-identifiers+cbor' is encoded using a CBOR array.
+Each entry of this CBOR array contain an instance-identifier encoded as defined in <span><a href="https://tools.ietf.org/html/draft-ietf-core-yang-cbor-15#section-6.13.1" class="relref">Section 6.13.1</a> of [<a href="#I-D.ietf-core-yang-cbor" class="xref">I-D.ietf-core-yang-cbor</a>]</span>.<a href="#section-2.4-5.6.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-2.4-5.7">application/yang-instances+cbor:</dt>
+<dt id="section-2.4-5.7">
+application/yang-instances+cbor:  </dt>
           <dd style="margin-left: 1.5em" id="section-2.4-5.8">
-  This Media-Type represents a CBOR YANG document containing a list of data node instances.
-Each data node instance is identified by its associated instance-identifier.<a href="#section-2.4-5.8" class="pilcrow">¶</a>
+            <p id="section-2.4-5.8.1">This Media-Type represents a CBOR YANG document containing a list of data node instances.
+Each data node instance is identified by its associated instance-identifier.<a href="#section-2.4-5.8.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 <dt id="section-2.4-5.9"></dt>
-          <dd style="margin-left: 1.5em" id="section-2.4-5.10">FORMAT: CBOR array of CBOR map of instance-identifier, instance-value<a href="#section-2.4-5.10" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-2.4-5.10">
+            <p id="section-2.4-5.10.1">FORMAT: CBOR array of CBOR map of instance-identifier, instance-value<a href="#section-2.4-5.10.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 <dt id="section-2.4-5.11"></dt>
-          <dd style="margin-left: 1.5em" id="section-2.4-5.12">The message payload of Media-Type 'application/yang-instances+cbor' is encoded using a CBOR array.
+          <dd style="margin-left: 1.5em" id="section-2.4-5.12">
+            <p id="section-2.4-5.12.1">The message payload of Media-Type 'application/yang-instances+cbor' is encoded using a CBOR array.
 Each entry within this CBOR array contains a CBOR map carrying an instance-identifier and associated instance-value.
-Instance-identifiers are encoded using the rules defined in <span>[<a href="#I-D.ietf-core-yang-cbor" class="xref">I-D.ietf-core-yang-cbor</a>]</span> section 6.13.1, instance-values are encoded using the rules defined in <span>[<a href="#I-D.ietf-core-yang-cbor" class="xref">I-D.ietf-core-yang-cbor</a>]</span> section 4.<a href="#section-2.4-5.12" class="pilcrow">¶</a>
+Instance-identifiers are encoded using the rules defined in <span><a href="https://tools.ietf.org/html/draft-ietf-core-yang-cbor-15#section-6.13.1" class="relref">Section 6.13.1</a> of [<a href="#I-D.ietf-core-yang-cbor" class="xref">I-D.ietf-core-yang-cbor</a>]</span>, instance-values are encoded using the rules defined in <span><a href="https://tools.ietf.org/html/draft-ietf-core-yang-cbor-15#section-4" class="relref">Section 4</a> of [<a href="#I-D.ietf-core-yang-cbor" class="xref">I-D.ietf-core-yang-cbor</a>]</span>.<a href="#section-2.4-5.12.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 <dt id="section-2.4-5.13"></dt>
-          <dd style="margin-left: 1.5em" id="section-2.4-5.14">When present in an iPATCH request payload, this Media-Type carry a list of data node instances to be replaced, created, or deleted.
-For each data node instance D, for which the instance-identifier is the same as a data node instance I, in the targeted datastore resource: the value of D replaces the value of I.  When the value of D is null, the data node instance I is removed.  When the targeted datastore resource does not contain a data node instance with the same instance-identifier as D, a new instance is created with the same instance-identifier and value as D.<a href="#section-2.4-5.14" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-2.4-5.14">
+            <p id="section-2.4-5.14.1">When present in an iPATCH request payload, this Media-Type carry a list of data node instances to be replaced, created, or deleted.
+For each data node instance D, for which the instance-identifier is the same as a data node instance I, in the targeted datastore resource: the value of D replaces the value of I.  When the value of D is null, the data node instance I is removed.  When the targeted datastore resource does not contain a data node instance with the same instance-identifier as D, a new instance is created with the same instance-identifier and value as D.<a href="#section-2.4-5.14.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 </dl>
@@ -1092,11 +1623,12 @@ For each data node instance D, for which the instance-identifier is the same as 
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-example-syntax" class="section-name selfRef">Example syntax</a>
       </h2>
 <p id="section-3-1">CBOR is used to encode CORECONF request and response payloads. The CBOR syntax
-of the YANG payloads is specified in <span>[<a href="#RFC7049" class="xref">RFC7049</a>]</span>. The payload examples are
-notated in Diagnostic notation (defined in section 6 of <span>[<a href="#RFC7049" class="xref">RFC7049</a>]</span>) that
+of the YANG payloads is specified in <span>[<a href="#I-D.ietf-core-yang-cbor" class="xref">I-D.ietf-core-yang-cbor</a>]</span>, based on <span>[<a href="#RFC8949" class="xref">RFC8949</a>]</span>.
+The payload examples are
+notated in Diagnostic notation (defined in <span><a href="https://rfc-editor.org/rfc/rfc8949#section-8" class="relref">Section 8</a> of [<a href="#RFC8949" class="xref">RFC8949</a>]</span>) that
 can be automatically converted to CBOR.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">SIDs in URIs are represented as a base64 number, SIDs in the payload are
-represented as decimal numbers.<a href="#section-3-2" class="pilcrow">¶</a></p>
+shown as decimal numbers.<a href="#section-3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="coap-interface">
@@ -1104,14 +1636,14 @@ represented as decimal numbers.<a href="#section-3-2" class="pilcrow">¶</a></p>
       <h2 id="name-coap-interface">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-coap-interface" class="section-name selfRef">CoAP Interface</a>
       </h2>
-<p id="section-4-1">This note specifies a Management Interface. CoAP endpoints that
+<p id="section-4-1">This document specifies a Management Interface. CoAP endpoints that
 implement the CORECONF management protocol, support
 at least one discoverable management resource of resource type (rt): core.c.ds.
 The path of the discoverable management resource is left to implementers to
 select (see <a href="#discovery" class="xref">Section 6</a>).<a href="#section-4-1" class="pilcrow">¶</a></p>
 <p id="section-4-2">The mapping of YANG data node instances to CORECONF resources is as follows.
 Every data node of the YANG modules loaded in the CORECONF server represents
-a sub-resource of the datastore resource (e.g. /c/YANGSID).
+a sub-resource of the datastore resource (e.g. <code>/c/YANGSID</code>).
 When multiple instances of a list exist, instance selection is possible
 as described in <a href="#query" class="xref">Section 4.1</a>, <a href="#get-example" class="xref">Section 4.2.3.1</a>, and <a href="#fetch" class="xref">Section 4.2.4</a>.<a href="#section-4-2" class="pilcrow">¶</a></p>
 <p id="section-4-3">CORECONF also supports event stream resources used to observe notification instances.
@@ -1174,7 +1706,7 @@ the actual path values known for these resources.<a href="#section-4-6" class="p
           </tr>
           <tr>
             <td class="text-left" rowspan="1" colspan="1">iPATCH</td>
-            <td class="text-left" rowspan="1" colspan="1">Idem-potently create, replace, and delete data node resource(s) within a datastore resource</td>
+            <td class="text-left" rowspan="1" colspan="1">Idempotently create, replace, and delete data node resource(s) within a datastore resource</td>
           </tr>
           <tr>
             <td class="text-left" rowspan="1" colspan="1">DELETE</td>
@@ -1229,16 +1761,16 @@ of lists. The order of key value generation is given recursively by:<a href="#se
           </thead>
           <tbody>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">uint8,uint16,unit32, uint64</td>
+              <td class="text-left" rowspan="1" colspan="1">uint8, uint16, uint32, uint64</td>
               <td class="text-left" rowspan="1" colspan="1">int2str(key)</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">int8, int16,int32, int64</td>
+              <td class="text-left" rowspan="1" colspan="1">int8, int16, int32, int64</td>
               <td class="text-left" rowspan="1" colspan="1">urlSafeBase64(CBORencode(key))</td>
             </tr>
             <tr>
               <td class="text-left" rowspan="1" colspan="1">decimal64</td>
-              <td class="text-left" rowspan="1" colspan="1">urlSafeBase64(CBOR key)</td>
+              <td class="text-left" rowspan="1" colspan="1">urlSafeBase64(CBORencode(key))</td>
             </tr>
             <tr>
               <td class="text-left" rowspan="1" colspan="1">string</td>
@@ -1276,13 +1808,13 @@ of lists. The order of key value generation is given recursively by:<a href="#se
         </table>
 <p id="section-4.1-5">In this table:<a href="#section-4.1-5" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4.1-6.1">The method int2str() is used to convert an integer value to a decimal string. For example, int2str(0x0123) return the three-character string "291".<a href="#section-4.1-6.1" class="pilcrow">¶</a>
+<li class="normal" id="section-4.1-6.1">The method int2str() is used to convert an unsigned integer value to a decimal string. For example, int2str(0x0123) return the three-character string "291".<a href="#section-4.1-6.1" class="pilcrow">¶</a>
 </li>
           <li class="normal" id="section-4.1-6.2">The boolean values false and true are represented as the single-character strings "0" and "1" respectively.<a href="#section-4.1-6.2" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-4.1-6.3">The method urlSafeBase64() is used to convert a binary string to base64 using the URL and Filename safe alphabet as defined by <span>[<a href="#RFC4648" class="xref">RFC4648</a>]</span> section 5, without padding. For example, urlSafeBase64(0xF956A13C) return the six-character string "-VahPA".<a href="#section-4.1-6.3" class="pilcrow">¶</a>
+          <li class="normal" id="section-4.1-6.3">The method urlSafeBase64() is used to convert a binary string to base64 using the URL and Filename safe alphabet as defined by <span><a href="https://rfc-editor.org/rfc/rfc4648#section-5" class="relref">Section 5</a> of [<a href="#RFC4648" class="xref">RFC4648</a>]</span>, without padding. For example, urlSafeBase64(0xF956A13C) return the six-character string "-VahPA".<a href="#section-4.1-6.3" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-4.1-6.4">The method CBORencode() is used to convert a YANG value to CBOR as specified in <span>[<a href="#I-D.ietf-core-yang-cbor" class="xref">I-D.ietf-core-yang-cbor</a>]</span> section 6.<a href="#section-4.1-6.4" class="pilcrow">¶</a>
+          <li class="normal" id="section-4.1-6.4">The method CBORencode() is used to convert a YANG value to CBOR as specified in <span><a href="https://tools.ietf.org/html/draft-ietf-core-yang-cbor-15#section-6" class="relref">Section 6</a> of [<a href="#I-D.ietf-core-yang-cbor" class="xref">I-D.ietf-core-yang-cbor</a>]</span>.<a href="#section-4.1-6.4" class="pilcrow">¶</a>
 </li>
         </ul>
 <p id="section-4.1-7">The resulting key strings are joined using commas between every two consecutive
@@ -1296,7 +1828,7 @@ key values to produce the value of the 'k' parameter.<a href="#section-4.1-7" cl
         </h3>
 <p id="section-4.2-1">One or more data nodes can be retrieved by the client.
 The operation is mapped to the GET method defined in
-section 5.8.1 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span> and to the FETCH method defined in section 2 of <span>[<a href="#RFC8132" class="xref">RFC8132</a>]</span>.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
+<span><a href="https://rfc-editor.org/rfc/rfc7252#section-5.8.1" class="relref">Section 5.8.1</a> of [<a href="#RFC7252" class="xref">RFC7252</a>]</span> and to the FETCH method defined in <span><a href="https://rfc-editor.org/rfc/rfc8132#section-2" class="relref">Section 2</a> of [<a href="#RFC8132" class="xref">RFC8132</a>]</span>.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
 <p id="section-4.2-2">There are two additional query parameters for the GET and FETCH methods.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
 <table class="left" id="table-7">
           <caption><a href="#table-7" class="selfRef">Table 7</a></caption>
@@ -1374,11 +1906,11 @@ descendant nodes of the requested data nodes will be processed.<a href="#section
             <tbody>
               <tr>
                 <td class="text-left" rowspan="1" colspan="1">a</td>
-                <td class="text-left" rowspan="1" colspan="1">All data nodes are reported. Defined as 'report-all' in section 3.1 of <span>[<a href="#RFC6243" class="xref">RFC6243</a>]</span>.</td>
+                <td class="text-left" rowspan="1" colspan="1">All data nodes are reported. Defined as 'report-all' in <span><a href="https://rfc-editor.org/rfc/rfc6243#section-3.1" class="relref">Section 3.1</a> of [<a href="#RFC6243" class="xref">RFC6243</a>]</span>.</td>
               </tr>
               <tr>
                 <td class="text-left" rowspan="1" colspan="1">t</td>
-                <td class="text-left" rowspan="1" colspan="1">Data nodes set to the YANG default are not reported. Defined as 'trim' in section 3.2 of <span>[<a href="#RFC6243" class="xref">RFC6243</a>]</span>.</td>
+                <td class="text-left" rowspan="1" colspan="1">Data nodes set to the YANG default are not reported. Defined as 'trim' in <span><a href="https://rfc-editor.org/rfc/rfc6243#section-3.2" class="relref">Section 3.2</a> of [<a href="#RFC6243" class="xref">RFC6243</a>]</span>.</td>
               </tr>
             </tbody>
           </table>
@@ -1387,13 +1919,13 @@ that has a default value, and the leaf has not been given a value by any
 client yet, the server MUST return the default value of the leaf.<a href="#section-4.2.2-4" class="pilcrow">¶</a></p>
 <p id="section-4.2.2-5">If the target of a GET method is a data node that represents a
 container or list that has child resources with default values,
-and these have not been given value yet,<a href="#section-4.2.2-5" class="pilcrow">¶</a></p>
-<ul class="ulEmpty normal">
-<li class="ulEmpty normal" id="section-4.2.2-6.1">The server MUST NOT return the child resource if d=t<a href="#section-4.2.2-6.1" class="pilcrow">¶</a>
+and these have not been given a value yet,<a href="#section-4.2.2-5" class="pilcrow">¶</a></p>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-4.2.2-6.1">The server MUST NOT return the child resource if d=t<a href="#section-4.2.2-6.1" class="pilcrow">¶</a>
 </li>
           </ul>
-<ul class="ulEmpty normal">
-<li class="ulEmpty normal" id="section-4.2.2-7.1">The server MUST return the child resource if d=a.<a href="#section-4.2.2-7.1" class="pilcrow">¶</a>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-4.2.2-7.1">The server MUST return the child resource if d=a.<a href="#section-4.2.2-7.1" class="pilcrow">¶</a>
 </li>
           </ul>
 <p id="section-4.2.2-8">If this query parameter is not present, the default value is "t" (the quotes are
@@ -1428,7 +1960,7 @@ FORMAT:
 retrieve the value of 'system-state/clock/current-datetime'.
 The SID of 'system-state/clock/current-datetime' is 1723, encoded in base64 according to <a href="#id-compression" class="xref">Section 2.2</a>,
 yields a7. The response to the request returns the CBOR map with the key set to the SID of the requested
-data node (i.e. 1723) and the value encoded using a 'text string' as defined in <span>[<a href="#I-D.ietf-core-yang-cbor" class="xref">I-D.ietf-core-yang-cbor</a>]</span> section 6.4. The datastore resource path /c is an example location discovered with a request similar to <a href="#discovery-ex-ds" class="xref">Figure 4</a>.<a href="#section-4.2.3.1-1" class="pilcrow">¶</a></p>
+data node (i.e. 1723) and the value encoded using a 'text string' as defined in <span><a href="https://tools.ietf.org/html/draft-ietf-core-yang-cbor-15#section-4" class="relref">Section 4</a> of [<a href="#I-D.ietf-core-yang-cbor" class="xref">I-D.ietf-core-yang-cbor</a>]</span>. The datastore resource path /c is an example location discovered with a request similar to <a href="#discovery-ex-ds" class="xref">Figure 4</a>.<a href="#section-4.2.3.1-1" class="pilcrow">¶</a></p>
 <div class="artwork art-text alignLeft" id="section-4.2.3.1-2">
 <pre>
 REQ: GET &lt;/c/a7&gt;
@@ -1442,7 +1974,7 @@ RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
 <p id="section-4.2.3.1-3">The next example represents the retrieval of a YANG container. In this
 case, the CORECONF client performs a GET request on the clock container
 (SID = 1721; base64: a5). The container returned is encoded using a
-CBOR map as specified by <span>[<a href="#I-D.ietf-core-yang-cbor" class="xref">I-D.ietf-core-yang-cbor</a>]</span> section 4.2.<a href="#section-4.2.3.1-3" class="pilcrow">¶</a></p>
+CBOR map as specified by <span><a href="https://tools.ietf.org/html/draft-ietf-core-yang-cbor-15#section-4.2" class="relref">Section 4.2</a> of [<a href="#I-D.ietf-core-yang-cbor" class="xref">I-D.ietf-core-yang-cbor</a>]</span>.<a href="#section-4.2.3.1-3" class="pilcrow">¶</a></p>
 <div id="Fig-get-system-current-datetime">
 <figure id="figure-3">
               <div class="artwork art-text alignLeft" id="section-4.2.3.1-4.1">
@@ -1462,7 +1994,7 @@ RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
 </div>
 <p id="section-4.2.3.1-5">This example shows the retrieval of the /interfaces/interface YANG list
 accessed using SID 1533 (base64: X9). The return payload is encoded using
-a CBOR array as specified by <span>[<a href="#I-D.ietf-core-yang-cbor" class="xref">I-D.ietf-core-yang-cbor</a>]</span> section 4.4.1
+a CBOR array as specified by <span><a href="https://tools.ietf.org/html/draft-ietf-core-yang-cbor-15#section-4.4.1" class="relref">Section 4.4.1</a> of [<a href="#I-D.ietf-core-yang-cbor" class="xref">I-D.ietf-core-yang-cbor</a>]</span>
 containing 2 instances.<a href="#section-4.2.3.1-5" class="pilcrow">¶</a></p>
 <div class="artwork art-text alignLeft" id="section-4.2.3.1-6">
 <pre>
@@ -1492,8 +2024,7 @@ RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
 <p id="section-4.2.3.1-7">To retrieve a specific instance within the /interfaces/interface YANG list,
 the CORECONF client adds the key of the targeted instance in its CoAP request
 using the 'k' query parameter. The return payload containing the instance requested
-is encoded using a CBOR array as specified by <span>[<a href="#I-D.ietf-core-yang-cbor" class="xref">I-D.ietf-core-yang-cbor</a>]</span>
-section 4.4.1 containing the requested instance.<a href="#section-4.2.3.1-7" class="pilcrow">¶</a></p>
+is encoded using a CBOR array as specified by <span><a href="https://tools.ietf.org/html/draft-ietf-core-yang-cbor-15#section-4.4.1" class="relref">Section 4.4.1</a> of [<a href="#I-D.ietf-core-yang-cbor" class="xref">I-D.ietf-core-yang-cbor</a>]</span> containing the requested instance.<a href="#section-4.2.3.1-7" class="pilcrow">¶</a></p>
 <div class="artwork art-text alignLeft" id="section-4.2.3.1-8">
 <pre>
 REQ: GET &lt;/c/X9?k=eth0&gt;
@@ -1516,7 +2047,7 @@ RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
 The example below requests the description leaf (SID 1534, base64: X-)
 within the interface list corresponding to the interface name "eth0".
 The returned value is encoded in CBOR based on the rules
-specified by <span>[<a href="#I-D.ietf-core-yang-cbor" class="xref">I-D.ietf-core-yang-cbor</a>]</span> section 6.4.<a href="#section-4.2.3.1-9" class="pilcrow">¶</a></p>
+specified by <span><a href="https://tools.ietf.org/html/draft-ietf-core-yang-cbor-15#section-6.4" class="relref">Section 6.4</a> of [<a href="#I-D.ietf-core-yang-cbor" class="xref">I-D.ietf-core-yang-cbor</a>]</span>.<a href="#section-4.2.3.1-9" class="pilcrow">¶</a></p>
 <div class="artwork art-text alignLeft" id="section-4.2.3.1-10">
 <pre>
 REQ: GET &lt;/c/X-?k=eth0&gt;
@@ -1537,11 +2068,11 @@ RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
 <a href="#section-4.2.4" class="section-number selfRef">4.2.4. </a><a href="#name-fetch" class="section-name selfRef">FETCH</a>
           </h4>
 <p id="section-4.2.4-1">The FETCH is used to retrieve multiple instance-values.
-The FETCH request payload contains the list of instance-identifier of the data node instances requested.<a href="#section-4.2.4-1" class="pilcrow">¶</a></p>
+The FETCH request payload contains the list of instance-identifiers of the data node instances requested.<a href="#section-4.2.4-1" class="pilcrow">¶</a></p>
 <p id="section-4.2.4-2">The return response payload contains a list of data node instance-values in the same order as requested.
 A CBOR null is returned for each data node requested by the client, not supported by the server or not currently instantiated.<a href="#section-4.2.4-2" class="pilcrow">¶</a></p>
 <p id="section-4.2.4-3">For compactness, indexes of the list instance identifiers returned by the FETCH response SHOULD be elided, only the SID is provided.
-This approach may also help reducing implementations complexity since the format of each entry within the CBOR array of the FETCH response is identical to the format of the corresponding GET response.<a href="#section-4.2.4-3" class="pilcrow">¶</a></p>
+This approach may also help reducing implementation complexity since the format of each entry within the CBOR array of the FETCH response is identical to the format of the corresponding GET response.<a href="#section-4.2.4-3" class="pilcrow">¶</a></p>
 <div class="artwork art-text alignLeft" id="section-4.2.4-4">
 <pre>
 FORMAT:
@@ -1927,9 +2458,8 @@ exceed the MTU of a single CoAP packet. If such cases could arise, implementers
 should make sure appropriate fragmentation is available - for example the one
 described in <a href="#block" class="xref">Section 5</a>.<a href="#section-4.5-3" class="pilcrow">¶</a></p>
 <p id="section-4.5-4">The format of notification without any content is a null value. The format of
-single notification is defined in <span>[<a href="#I-D.ietf-core-yang-cbor" class="xref">I-D.ietf-core-yang-cbor</a>]</span> section
-4.2.1. For multiple notifications the format is an array where each element is
-a single notification as described in <span>[<a href="#I-D.ietf-core-yang-cbor" class="xref">I-D.ietf-core-yang-cbor</a>]</span> section 4.2.1.<a href="#section-4.5-4" class="pilcrow">¶</a></p>
+single notification is defined in <span><a href="https://tools.ietf.org/html/draft-ietf-core-yang-cbor-15#section-4.2.1" class="relref">Section 4.2.1</a> of [<a href="#I-D.ietf-core-yang-cbor" class="xref">I-D.ietf-core-yang-cbor</a>]</span>. For multiple notifications the format is an array where each element is
+a single notification as described in <span><a href="https://tools.ietf.org/html/draft-ietf-core-yang-cbor-15#section-4.2.1" class="relref">Section 4.2.1</a> of [<a href="#I-D.ietf-core-yang-cbor" class="xref">I-D.ietf-core-yang-cbor</a>]</span>.<a href="#section-4.5-4" class="pilcrow">¶</a></p>
 <div class="artwork art-text alignLeft" id="section-4.5-5">
 <pre>
 FORMAT:
@@ -1942,8 +2472,8 @@ FORMAT:
 <p id="section-4.5-6">The array of data node instances may contain identical entries which have
 been generated at different times.<a href="#section-4.5-6" class="pilcrow">¶</a></p>
 <p id="section-4.5-7">An example implementation is:<a href="#section-4.5-7" class="pilcrow">¶</a></p>
-<ul class="ulEmpty normal">
-<li class="ulEmpty normal" id="section-4.5-8.1">Every time an event is generated, the generated notification instance is
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-4.5-8.1">Every time an event is generated, the generated notification instance is
 appended to the chosen stream(s). After an aggregation period, which may be
 limited by the maximum number of notifications supported,
 the content of the instance is sent to all clients observing the modified stream.<a href="#section-4.5-8.1" class="pilcrow">¶</a>
@@ -2026,12 +2556,12 @@ REQ:  GET &lt;/s?f=60010,60020&gt; Observe(0)
 <a href="#section-4.6" class="section-number selfRef">4.6. </a><a href="#name-rpc-statements" class="section-name selfRef">RPC statements</a>
         </h3>
 <p id="section-4.6-1">The YANG "action" and "RPC" statements specify the execution of a Remote
-procedure Call (RPC) in the server.  It is invoked using a POST method to
+Procedure Call (RPC) in the server.  It is invoked using a POST method to
 an "Action" or "RPC" resource instance.<a href="#section-4.6-1" class="pilcrow">¶</a></p>
 <p id="section-4.6-2">The request payload contains the values assigned to the input container when specified.
 The response payload contains the values of the output container when specified.
 Both the input and output containers are encoded in CBOR using the rules defined in
-<span>[<a href="#I-D.ietf-core-yang-cbor" class="xref">I-D.ietf-core-yang-cbor</a>]</span> section 4.2.1.<a href="#section-4.6-2" class="pilcrow">¶</a></p>
+<span><a href="https://tools.ietf.org/html/draft-ietf-core-yang-cbor-15#section-4.2.1" class="relref">Section 4.2.1</a> of [<a href="#I-D.ietf-core-yang-cbor" class="xref">I-D.ietf-core-yang-cbor</a>]</span>.<a href="#section-4.6-2" class="pilcrow">¶</a></p>
 <p id="section-4.6-3">The returned success response code is 2.05 Content.<a href="#section-4.6-3" class="pilcrow">¶</a></p>
 <div class="artwork art-text alignLeft" id="section-4.6-4">
 <pre>
@@ -2050,7 +2580,7 @@ FORMAT:
           <h4 id="name-rpc-example">
 <a href="#section-4.6.1" class="section-number selfRef">4.6.1. </a><a href="#name-rpc-example" class="section-name selfRef">RPC Example</a>
           </h4>
-<p id="section-4.6.1-1">The example is based on the YANG action "reset" as defined in <span>[<a href="#RFC7950" class="xref">RFC7950</a>]</span> section 7.15.3
+<p id="section-4.6.1-1">The example is based on the YANG action "reset" as defined in <span><a href="https://rfc-editor.org/rfc/rfc7950#section-7.15.3" class="relref">Section 7.15.3</a> of [<a href="#RFC7950" class="xref">RFC7950</a>]</span>
 and annotated below with SIDs.<a href="#section-4.6.1-1" class="pilcrow">¶</a></p>
 <div class="artwork art-text alignLeft" id="section-4.6.1-2">
 <pre>
@@ -2163,8 +2693,8 @@ sending a GET request to
 "/.well-known/core" including a resource type (RT) parameter with the value
 "core.c.yl". Upon success, the return payload will contain the root resource
 of the YANG library module.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
-<p id="section-6.1-3">The following example assumes that the SID of the YANG library is 2351 (kv
-encoded as specified in <a href="#id-compression" class="xref">Section 2.2</a>) and that the server uses /c as
+<p id="section-6.1-3">The following example assumes that the SID of the YANG library is 2351 (<code>kv</code> after
+encoding as specified in <a href="#id-compression" class="xref">Section 2.2</a>) and that the server uses /c as
 datastore resource path.<a href="#section-6.1-3" class="pilcrow">¶</a></p>
 <div class="artwork art-text alignLeft" id="section-6.1-4">
 <pre>
@@ -2287,7 +2817,7 @@ RES: 2.05 Content (Content-Format: application/link-format)
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-error-handling" class="section-name selfRef">Error Handling</a>
       </h2>
 <p id="section-7-1">In case a request is received which cannot be processed properly, the CORECONF server MUST return an error response. This error response MUST contain a CoAP 4.xx or 5.xx response code.<a href="#section-7-1" class="pilcrow">¶</a></p>
-<p id="section-7-2">Errors returned by a CORECONF server can be broken into two categories, those associated with the CoAP protocol itself and those generated during the validation of the YANG data model constrains as described in <span>[<a href="#RFC7950" class="xref">RFC7950</a>]</span> section 8.<a href="#section-7-2" class="pilcrow">¶</a></p>
+<p id="section-7-2">Errors returned by a CORECONF server can be broken into two categories, those associated with the CoAP protocol itself and those generated during the validation of the YANG data model constraints as described in <span><a href="https://rfc-editor.org/rfc/rfc7950#section-8" class="relref">Section 8</a> of [<a href="#RFC7950" class="xref">RFC7950</a>]</span>.<a href="#section-7-2" class="pilcrow">¶</a></p>
 <p id="section-7-3">The following list of common CoAP errors should be implemented by CORECONF servers. This list is not exhaustive, other errors defined by CoAP and associated RFCs may be applicable.<a href="#section-7-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-7-4.1">Error 4.01 (Unauthorized) is returned by the CORECONF server when the CORECONF client is not authorized to perform the requested action on the targeted resource (i.e. data node, datastore, rpc, action or event stream).<a href="#section-7-4.1" class="pilcrow">¶</a>
@@ -2302,10 +2832,10 @@ RES: 2.05 Content (Content-Format: application/link-format)
 </li>
         <li class="normal" id="section-7-4.6">Error 4.13 (Request Entity Too Large) may be returned by the CORECONF server during a block transfer request, see <span>[<a href="#RFC7959" class="xref">RFC7959</a>]</span> for more details.<a href="#section-7-4.6" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-7-4.7">Error 4.15 (Unsupported Content-Format) is returned by the CORECONF server when the Content-Format used in the request does not match those specified in section <a href="#media-type" class="xref">Section 2.4</a>.<a href="#section-7-4.7" class="pilcrow">¶</a>
+        <li class="normal" id="section-7-4.7">Error 4.15 (Unsupported Content-Format) is returned by the CORECONF server when the Content-Format used in the request does not match those specified in <a href="#media-type" class="xref">Section 2.4</a>.<a href="#section-7-4.7" class="pilcrow">¶</a>
 </li>
       </ul>
-<p id="section-7-5">The CORECONF server MUST also enforce the different constraints associated with the YANG data models implemented. These constraints are described in <span>[<a href="#RFC7950" class="xref">RFC7950</a>]</span> section 8. These errors are reported using the CoAP error code 4.00 (Bad Request) and may have the following error container as payload. The YANG definition and associated .sid file are available in <a href="#ietf-coreconf-yang" class="xref">Appendix A</a> and <a href="#ietf-coreconf-sid" class="xref">Appendix B</a>. The error container is encoded using the encoding rules of a YANG data template as defined in <span>[<a href="#I-D.ietf-core-yang-cbor" class="xref">I-D.ietf-core-yang-cbor</a>]</span> section 5.<a href="#section-7-5" class="pilcrow">¶</a></p>
+<p id="section-7-5">The CORECONF server MUST also enforce the different constraints associated with the YANG data models implemented. These constraints are described in <span><a href="https://rfc-editor.org/rfc/rfc7950#section-8" class="relref">Section 8</a> of [<a href="#RFC7950" class="xref">RFC7950</a>]</span>. These errors are reported using the CoAP error code 4.00 (Bad Request) and may have the following error container as payload. The YANG definition and associated .sid file are available in <a href="#ietf-coreconf-yang" class="xref">Appendix A</a> and <a href="#ietf-coreconf-sid" class="xref">Appendix B</a>. The error container is encoded using the encoding rules of a YANG data template as defined in <span><a href="https://tools.ietf.org/html/draft-ietf-core-yang-cbor-15#section-5" class="relref">Section 5</a> of [<a href="#I-D.ietf-core-yang-cbor" class="xref">I-D.ietf-core-yang-cbor</a>]</span>.<a href="#section-7-5" class="pilcrow">¶</a></p>
 <div class="artwork art-text alignLeft" id="section-7-6">
 <pre>
 +--rw error!
@@ -2320,7 +2850,7 @@ RES: 2.05 Content (Content-Format: application/link-format)
 <li class="normal" id="section-7-8.1">
           <p id="section-7-8.1.1">error-tag 'operation-failed' is returned by the CORECONF server when the operation request cannot be processed successfully.<a href="#section-7-8.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7-8.1.2.1">error-app-tag 'malformed-message' is returned by the CORECONF server when the payload received from the CORECONF client does not contain a well-formed CBOR content as defined in <span>[<a href="#RFC7049" class="xref">RFC7049</a>]</span> section 3.3 or does not comply with the CBOR structure defined within this document.<a href="#section-7-8.1.2.1" class="pilcrow">¶</a>
+<li class="normal" id="section-7-8.1.2.1">error-app-tag 'malformed-message' is returned by the CORECONF server when the payload received from the CORECONF client does not contain a well-formed CBOR content as defined in <span>[<a href="#RFC8949" class="xref">RFC8949</a>]</span> or does not comply with the CBOR structure defined within this document.<a href="#section-7-8.1.2.1" class="pilcrow">¶</a>
 </li>
             <li class="normal" id="section-7-8.1.2.2">error-app-tag 'data-not-unique' is returned by the CORECONF server when the validation of the 'unique' constraint of a list or leaf-list fails.<a href="#section-7-8.1.2.2" class="pilcrow">¶</a>
 </li>
@@ -2402,7 +2932,7 @@ this includes DTLS <span>[<a href="#RFC6347" class="xref">RFC6347</a>]</span> an
 resources, as well as suitable authentication and authorization mechanisms, for
 example those defined in ACE OAuth <span>[<a href="#I-D.ietf-ace-oauth-authz" class="xref">I-D.ietf-ace-oauth-authz</a>]</span>.<a href="#section-8-1" class="pilcrow">¶</a></p>
 <p id="section-8-2">All the security considerations of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>, <span>[<a href="#RFC7959" class="xref">RFC7959</a>]</span>, <span>[<a href="#RFC8132" class="xref">RFC8132</a>]</span> and
-<span>[<a href="#RFC7641" class="xref">RFC7641</a>]</span> apply to this document as well. The use of NoSec DTLS, when OSCORE
+<span>[<a href="#RFC7641" class="xref">RFC7641</a>]</span> apply to this document as well. The use of NoSec (<span><a href="https://rfc-editor.org/rfc/rfc7252#section-9" class="relref">Section 9</a> of [<a href="#RFC7252" class="xref">RFC7252</a>]</span>), when OSCORE
 is not used, is NOT RECOMMENDED.<a href="#section-8-2" class="pilcrow">¶</a></p>
 <p id="section-8-3">In addition, mechanisms for authentication and authorization may need to be
 selected if not provided with the CoAP security mode.<a href="#section-8-3" class="pilcrow">¶</a></p>
@@ -2571,7 +3101,7 @@ well-understood.<a href="#section-8-4" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-9.3-6.3">Restrictions on usage: N/A<a href="#section-9.3-6.3" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-9.3-6.4">Author: Michel Veillette, ietf&amp;augustcellars.com<a href="#section-9.3-6.4" class="pilcrow">¶</a>
+          <li class="normal" id="section-9.3-6.4">Author: Michel Veillette<a href="#section-9.3-6.4" class="pilcrow">¶</a>
 </li>
           <li class="normal" id="section-9.3-6.5">Change Controller: IESG<a href="#section-9.3-6.5" class="pilcrow">¶</a>
 </li>
@@ -2649,9 +3179,9 @@ Michael Verschoor, and Thomas Watteyne.<a href="#section-10-3" class="pilcrow">�
         <dd>
 <span class="refAuthor">Bierman, A.</span><span class="refAuthor"> and B. Lengyel</span>, <span class="refTitle">"With-defaults Capability for NETCONF"</span>, <span class="seriesInfo">RFC 6243</span>, <span class="seriesInfo">DOI 10.17487/RFC6243</span>, <time datetime="2011-06" class="refDate">June 2011</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6243">https://www.rfc-editor.org/info/rfc6243</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC7049">[RFC7049]</dt>
+<dt id="RFC8949">[RFC8949]</dt>
         <dd>
-<span class="refAuthor">Bormann, C.</span><span class="refAuthor"> and P. Hoffman</span>, <span class="refTitle">"Concise Binary Object Representation (CBOR)"</span>, <span class="seriesInfo">RFC 7049</span>, <span class="seriesInfo">DOI 10.17487/RFC7049</span>, <time datetime="2013-10" class="refDate">October 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7049">https://www.rfc-editor.org/info/rfc7049</a>&gt;</span>. </dd>
+<span class="refAuthor">Bormann, C.</span><span class="refAuthor"> and P. Hoffman</span>, <span class="refTitle">"Concise Binary Object Representation (CBOR)"</span>, <span class="seriesInfo">STD 94</span>, <span class="seriesInfo">RFC 8949</span>, <span class="seriesInfo">DOI 10.17487/RFC8949</span>, <time datetime="2020-12" class="refDate">December 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8949">https://www.rfc-editor.org/info/rfc8949</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC7252">[RFC7252]</dt>
         <dd>
@@ -2874,7 +3404,7 @@ module ietf-coreconf {
     description
       "Returned by the CORECONF server when the payload received
        from the CORECONF client don't contain a well-formed CBOR
-       content as defined in [RFC7049] section 3.3 or don't
+       content as defined in [RFC8949] or don't
        comply with the CBOR structure defined within this
        document.";
   }
@@ -3275,6 +3805,5 @@ toc.querySelector("nav").addEventListener("click", e => {
   toc.classList.remove("active");
 });
 </script>
-  <div class="github-fork-ribbon-wrapper"><div class="github-fork-ribbon"><a href="https://github.com/core-wg/comi">Fork me on GitHub</a></div></div>
 </body>
 </html>

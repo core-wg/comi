@@ -92,20 +92,20 @@ Table of Contents
      4.2.  Data Retrieval  . . . . . . . . . . . . . . . . . . . . .  15
        4.2.1.  Using the 'c' query parameter . . . . . . . . . . . .  15
        4.2.2.  Using the 'd' query parameter . . . . . . . . . . . .  16
-       4.2.3.  GET . . . . . . . . . . . . . . . . . . . . . . . . .  16
+       4.2.3.  GET . . . . . . . . . . . . . . . . . . . . . . . . .  17
        4.2.4.  FETCH . . . . . . . . . . . . . . . . . . . . . . . .  19
      4.3.  Data Editing  . . . . . . . . . . . . . . . . . . . . . .  20
-       4.3.1.  Data Ordering . . . . . . . . . . . . . . . . . . . .  20
-       4.3.2.  POST  . . . . . . . . . . . . . . . . . . . . . . . .  20
-       4.3.3.  PUT . . . . . . . . . . . . . . . . . . . . . . . . .  21
-       4.3.4.  iPATCH  . . . . . . . . . . . . . . . . . . . . . . .  22
-       4.3.5.  DELETE  . . . . . . . . . . . . . . . . . . . . . . .  23
+       4.3.1.  Data Ordering . . . . . . . . . . . . . . . . . . . .  21
+       4.3.2.  POST  . . . . . . . . . . . . . . . . . . . . . . . .  21
+       4.3.3.  PUT . . . . . . . . . . . . . . . . . . . . . . . . .  22
+       4.3.4.  iPATCH  . . . . . . . . . . . . . . . . . . . . . . .  23
+       4.3.5.  DELETE  . . . . . . . . . . . . . . . . . . . . . . .  24
      4.4.  Full datastore access . . . . . . . . . . . . . . . . . .  24
-       4.4.1.  Full datastore examples . . . . . . . . . . . . . . .  24
-     4.5.  Event stream  . . . . . . . . . . . . . . . . . . . . . .  25
-       4.5.1.  Notify Examples . . . . . . . . . . . . . . . . . . .  26
-       4.5.2.  The 'f' query parameter . . . . . . . . . . . . . . .  27
-     4.6.  RPC statements  . . . . . . . . . . . . . . . . . . . . .  27
+       4.4.1.  Full datastore examples . . . . . . . . . . . . . . .  25
+     4.5.  Event stream  . . . . . . . . . . . . . . . . . . . . . .  26
+       4.5.1.  Notify Examples . . . . . . . . . . . . . . . . . . .  27
+       4.5.2.  The 'f' query parameter . . . . . . . . . . . . . . .  28
+     4.6.  RPC statements  . . . . . . . . . . . . . . . . . . . . .  28
 
 
 
@@ -114,29 +114,29 @@ Veillette, et al.         Expires 8 August 2021                 [Page 2]
 Internet-Draft                  CORECONF                   February 2021
 
 
-       4.6.1.  RPC Example . . . . . . . . . . . . . . . . . . . . .  28
-   5.  Use of Block-wise Transfers . . . . . . . . . . . . . . . . .  30
-   6.  Application Discovery . . . . . . . . . . . . . . . . . . . .  30
-     6.1.  YANG library  . . . . . . . . . . . . . . . . . . . . . .  30
-     6.2.  Resource Discovery  . . . . . . . . . . . . . . . . . . .  31
-       6.2.1.  Datastore Resource Discovery  . . . . . . . . . . . .  31
-       6.2.2.  Data node Resource Discovery  . . . . . . . . . . . .  32
-       6.2.3.  Event stream Resource Discovery . . . . . . . . . . .  32
-   7.  Error Handling  . . . . . . . . . . . . . . . . . . . . . . .  33
-   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  36
-   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  37
+       4.6.1.  RPC Example . . . . . . . . . . . . . . . . . . . . .  29
+   5.  Use of Block-wise Transfers . . . . . . . . . . . . . . . . .  31
+   6.  Application Discovery . . . . . . . . . . . . . . . . . . . .  31
+     6.1.  YANG library  . . . . . . . . . . . . . . . . . . . . . .  31
+     6.2.  Resource Discovery  . . . . . . . . . . . . . . . . . . .  32
+       6.2.1.  Datastore Resource Discovery  . . . . . . . . . . . .  32
+       6.2.2.  Data node Resource Discovery  . . . . . . . . . . . .  33
+       6.2.3.  Event stream Resource Discovery . . . . . . . . . . .  33
+   7.  Error Handling  . . . . . . . . . . . . . . . . . . . . . . .  34
+   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  37
+   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  38
      9.1.  Resource Type (rt=) Link Target Attribute Values
-           Registry  . . . . . . . . . . . . . . . . . . . . . . . .  37
-     9.2.  CoAP Content-Formats Registry . . . . . . . . . . . . . .  37
-     9.3.  Media Types Registry  . . . . . . . . . . . . . . . . . .  38
-     9.4.  YANG Namespace Registration . . . . . . . . . . . . . . .  39
-   10. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  39
-   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  40
-     11.1.  Normative References . . . . . . . . . . . . . . . . . .  40
-     11.2.  Informative References . . . . . . . . . . . . . . . . .  41
-   Appendix A.  ietf-coreconf YANG module  . . . . . . . . . . . . .  42
-   Appendix B.  ietf-coreconf .sid file  . . . . . . . . . . . . . .  48
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  52
+           Registry  . . . . . . . . . . . . . . . . . . . . . . . .  38
+     9.2.  CoAP Content-Formats Registry . . . . . . . . . . . . . .  38
+     9.3.  Media Types Registry  . . . . . . . . . . . . . . . . . .  39
+     9.4.  YANG Namespace Registration . . . . . . . . . . . . . . .  40
+   10. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  41
+   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  41
+     11.1.  Normative References . . . . . . . . . . . . . . . . . .  41
+     11.2.  Informative References . . . . . . . . . . . . . . . . .  43
+   Appendix A.  ietf-coreconf YANG module  . . . . . . . . . . . . .  43
+   Appendix B.  ietf-coreconf .sid file  . . . . . . . . . . . . . .  49
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  53
 
 1.  Introduction
 
@@ -148,11 +148,11 @@ Internet-Draft                  CORECONF                   February 2021
    need to be as small and infrequent as possible.  The implementation
    complexity and runtime resources need to be as small as possible.
 
-   This draft describes the CoAP Management Interface which uses CoAP
-   methods to access structured data defined in YANG [RFC7950].  This
-   draft is complementary to [RFC8040] which describes a REST-like
-   interface called RESTCONF, which uses HTTP methods to access
-   structured data defined in YANG.
+   This draft describes the CoAP Management Interface (CORECONF) which
+   uses CoAP methods to access structured data defined in YANG
+   [RFC7950].  This draft is complementary to [RFC8040] which describes
+   a REST-like interface called RESTCONF, which uses HTTP methods to
+   access structured data defined in YANG.
 
    The use of standardized data models specified in a standardized
    language, such as YANG, promotes interoperability between devices and
@@ -188,7 +188,7 @@ Internet-Draft                  CORECONF                   February 2021
    module, RPC, schema node, server, submodule.
 
    The following terms are defined in [RFC6241]: configuration data,
-   datastore, state data
+   datastore, state data.
 
    The following term is defined in [I-D.ietf-core-sid]: YANG schema
    item identifier (YANG SID, often shorten to simply SID).
@@ -212,7 +212,7 @@ Internet-Draft                  CORECONF                   February 2021
       resource.
 
    list instance identifier:  Handle used to identify a YANG data node
-      that is an instance of a YANG "list" specified with the values of
+      that is an instance of a YANG "list", specified with the values of
       the key leaves of the list.
 
    single instance identifier:  Handle used to identify a specific data
@@ -236,7 +236,7 @@ Internet-Draft                  CORECONF                   February 2021
 
    instance-value:  The value assigned to a data node instance.
       Instance-values are serialized into the payload according to the
-      rules defined in section 4 of [I-D.ietf-core-yang-cbor].
+      rules defined in Section 4 of [I-D.ietf-core-yang-cbor].
 
 2.  CORECONF Architecture
 
@@ -350,7 +350,7 @@ Internet-Draft                  CORECONF                   February 2021
    *  CORECONF encodes YANG identifier strings as numbers, where
       RESTCONF does not.
 
-   *  CORECONF also differ in the handling of default values, only
+   *  CORECONF also differs in the handling of default values, only
       'report-all' and 'trim' options are supported.
 
 2.2.  Compression of YANG identifiers
@@ -362,7 +362,7 @@ Internet-Draft                  CORECONF                   February 2021
 
    When used in a URI, SIDs are encoded using base64 encoding of the SID
    bytes.  The base64 encoding is using the URL and Filename safe
-   alphabet as defined by [RFC4648] section 5, without padding.  The
+   alphabet as defined by Section 5 of [RFC4648], without padding.  The
    last 6 bits encoded is always aligned with the least significant 6
    bits of the SID represented using an unsigned integer.  'A'
    characters (value 0) at the start of the resulting string are
@@ -382,7 +382,7 @@ Internet-Draft                  CORECONF                   February 2021
 
                                   Figure 2
 
-   For example, SID 1721 is encoded as follow.
+   For example, SID 1721 is encoded as follows.
 
 
 
@@ -413,15 +413,15 @@ Internet-Draft                  CORECONF                   February 2021
 
    Instance-identifiers are used to uniquely identify data node
    instances within a datastore.  This YANG built-in type is defined in
-   [RFC7950] section 9.13.  An instance-identifier is composed of the
+   Section 9.13 of [RFC7950].  An instance-identifier is composed of the
    data node identifier (i.e. a SID) and for data nodes within list(s)
    the keys used to index within these list(s).
 
    When part of a payload, instance-identifiers are encoded in CBOR
-   based on the rules defined in [I-D.ietf-core-yang-cbor] section
-   6.13.1.  When part of a URI, the SID is appended to the URI of the
-   targeted datastore, the keys are specified using the 'k' query
-   parameter as defined in Section 4.1.
+   based on the rules defined in Section 6.13.1 of
+   [I-D.ietf-core-yang-cbor].  When part of a URI, the SID is appended
+   to the URI of the targeted datastore, the keys are specified using
+   the 'k' query parameter as defined in Section 4.1.
 
 2.4.  Media-Types
 
@@ -435,7 +435,7 @@ Internet-Draft                  CORECONF                   February 2021
    The following new Media-Types are defined in this document:
 
    application/yang-identifiers+cbor:  This Media-Type represents a CBOR
-      YANG document containing a list of instance-identifier used to
+      YANG document containing a list of instance-identifiers used to
       target specific data node instances within a datastore.
 
       FORMAT: CBOR array of instance-identifier
@@ -452,7 +452,7 @@ Internet-Draft                  CORECONF                   February 2021
 
       identifiers+cbor' is encoded using a CBOR array.  Each entry of
       this CBOR array contain an instance-identifier encoded as defined
-      in [I-D.ietf-core-yang-cbor] section 6.13.1.
+      in Section 6.13.1 of [I-D.ietf-core-yang-cbor].
 
    application/yang-instances+cbor:  This Media-Type represents a CBOR
       YANG document containing a list of data node instances.  Each data
@@ -465,9 +465,9 @@ Internet-Draft                  CORECONF                   February 2021
       instances+cbor' is encoded using a CBOR array.  Each entry within
       this CBOR array contains a CBOR map carrying an instance-
       identifier and associated instance-value.  Instance-identifiers
-      are encoded using the rules defined in [I-D.ietf-core-yang-cbor]
-      section 6.13.1, instance-values are encoded using the rules
-      defined in [I-D.ietf-core-yang-cbor] section 4.
+      are encoded using the rules defined in Section 6.13.1 of
+      [I-D.ietf-core-yang-cbor], instance-values are encoded using the
+      rules defined in Section 4 of [I-D.ietf-core-yang-cbor].
 
       When present in an iPATCH request payload, this Media-Type carry a
       list of data node instances to be replaced, created, or deleted.
@@ -589,27 +589,27 @@ Internet-Draft                  CORECONF                   February 2021
 3.  Example syntax
 
    CBOR is used to encode CORECONF request and response payloads.  The
-   CBOR syntax of the YANG payloads is specified in [RFC7049].  The
-   payload examples are notated in Diagnostic notation (defined in
-   section 6 of [RFC7049]) that can be automatically converted to CBOR.
+   CBOR syntax of the YANG payloads is specified in
+   [I-D.ietf-core-yang-cbor], based on [RFC8949].  The payload examples
+   are notated in Diagnostic notation (defined in Section 8 of
+   [RFC8949]) that can be automatically converted to CBOR.
 
    SIDs in URIs are represented as a base64 number, SIDs in the payload
-   are represented as decimal numbers.
+   are shown as decimal numbers.
 
 4.  CoAP Interface
 
-   This note specifies a Management Interface.  CoAP endpoints that
+   This document specifies a Management Interface.  CoAP endpoints that
    implement the CORECONF management protocol, support at least one
    discoverable management resource of resource type (rt): core.c.ds.
    The path of the discoverable management resource is left to
    implementers to select (see Section 6).
 
-   The mapping of YANG data node instances to CORECONF resources is as
-   follows.  Every data node of the YANG modules loaded in the CORECONF
-   server represents a sub-resource of the datastore resource (e.g. /c/
-   YANGSID).  When multiple instances of a list exist, instance
-   selection is possible as described in Section 4.1, Section 4.2.3.1,
-   and Section 4.2.4.
+
+
+
+
+
 
 
 
@@ -617,6 +617,13 @@ Veillette, et al.         Expires 8 August 2021                [Page 11]
 
 Internet-Draft                  CORECONF                   February 2021
 
+
+   The mapping of YANG data node instances to CORECONF resources is as
+   follows.  Every data node of the YANG modules loaded in the CORECONF
+   server represents a sub-resource of the datastore resource (e.g. "/c/
+   YANGSID").  When multiple instances of a list exist, instance
+   selection is possible as described in Section 4.1, Section 4.2.3.1,
+   and Section 4.2.4.
 
    CORECONF also supports event stream resources used to observe
    notification instances.  Event stream resources can be discovered
@@ -642,29 +649,22 @@ Internet-Draft                  CORECONF                   February 2021
 
    The methods used by CORECONF are:
 
-   +===========+================================================+
-   | Operation | Description                                    |
-   +===========+================================================+
-   | GET       | Retrieve the datastore resource or a data node |
-   |           | resource                                       |
-   +-----------+------------------------------------------------+
-   | FETCH     | Retrieve specific data nodes within a          |
-   |           | datastore resource                             |
-   +-----------+------------------------------------------------+
-   | POST      | Create a datastore resource or a data node     |
-   |           | resource, invoke an RPC or action              |
-   +-----------+------------------------------------------------+
-   | PUT       | Create or replace a datastore resource or a    |
-   |           | data node resource                             |
-   +-----------+------------------------------------------------+
-   | iPATCH    | Idem-potently create, replace, and delete data |
-   |           | node resource(s) within a datastore resource   |
-   +-----------+------------------------------------------------+
-   | DELETE    | Delete a datastore resource or a data node     |
-   |           | resource                                       |
-   +-----------+------------------------------------------------+
 
-                              Table 4
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -673,6 +673,30 @@ Veillette, et al.         Expires 8 August 2021                [Page 12]
 
 Internet-Draft                  CORECONF                   February 2021
 
+
+   +===========+===============================================+
+   | Operation | Description                                   |
+   +===========+===============================================+
+   | GET       | Retrieve the datastore resource or a data     |
+   |           | node resource                                 |
+   +-----------+-----------------------------------------------+
+   | FETCH     | Retrieve specific data nodes within a         |
+   |           | datastore resource                            |
+   +-----------+-----------------------------------------------+
+   | POST      | Create a datastore resource or a data node    |
+   |           | resource, invoke an RPC or action             |
+   +-----------+-----------------------------------------------+
+   | PUT       | Create or replace a datastore resource or a   |
+   |           | data node resource                            |
+   +-----------+-----------------------------------------------+
+   | iPATCH    | Idempotently create, replace, and delete data |
+   |           | node resource(s) within a datastore resource  |
+   +-----------+-----------------------------------------------+
+   | DELETE    | Delete a datastore resource or a data node    |
+   |           | resource                                      |
+   +-----------+-----------------------------------------------+
+
+                              Table 4
 
    There is at most one instance of the 'k' query parameter for YANG
    list element selection for the GET, PUT, POST, and DELETE methods.
@@ -699,6 +723,13 @@ Internet-Draft                  CORECONF                   February 2021
    lists can be part of lists.  The order of key value generation is
    given recursively by:
 
+
+
+Veillette, et al.         Expires 8 August 2021                [Page 13]
+
+Internet-Draft                  CORECONF                   February 2021
+
+
    *  For a given list, if a parent data node is a list, generate the
       keys for the parent list first.
 
@@ -708,76 +739,45 @@ Internet-Draft                  CORECONF                   February 2021
    Key values are encoded using the rules defined in the following
    table.
 
+   +===============================+================================+
+   | YANG datatype                 | Uri-Query text content         |
+   +===============================+================================+
+   | uint8, uint16, uint32, uint64 | int2str(key)                   |
+   +-------------------------------+--------------------------------+
+   | int8, int16, int32, int64     | urlSafeBase64(CBORencode(key)) |
+   +-------------------------------+--------------------------------+
+   | decimal64                     | urlSafeBase64(CBORencode(key)) |
+   +-------------------------------+--------------------------------+
+   | string                        | key                            |
+   +-------------------------------+--------------------------------+
+   | boolean                       | "0" or "1"                     |
+   +-------------------------------+--------------------------------+
+   | enumeration                   | int2str(key)                   |
+   +-------------------------------+--------------------------------+
+   | bits                          | urlSafeBase64(CBORencode(key)) |
+   +-------------------------------+--------------------------------+
+   | binary                        | urlSafeBase64(key)             |
+   +-------------------------------+--------------------------------+
+   | identityref                   | int2str(key)                   |
+   +-------------------------------+--------------------------------+
+   | union                         | urlSafeBase64(CBORencode(key)) |
+   +-------------------------------+--------------------------------+
+   | instance-identifier           | urlSafeBase64(CBORencode(key)) |
+   +-------------------------------+--------------------------------+
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Veillette, et al.         Expires 8 August 2021                [Page 13]
-
-Internet-Draft                  CORECONF                   February 2021
-
-
-   +=============================+================================+
-   | YANG datatype               | Uri-Query text content         |
-   +=============================+================================+
-   | uint8,uint16,unit32, uint64 | int2str(key)                   |
-   +-----------------------------+--------------------------------+
-   | int8, int16,int32, int64    | urlSafeBase64(CBORencode(key)) |
-   +-----------------------------+--------------------------------+
-   | decimal64                   | urlSafeBase64(CBOR key)        |
-   +-----------------------------+--------------------------------+
-   | string                      | key                            |
-   +-----------------------------+--------------------------------+
-   | boolean                     | "0" or "1"                     |
-   +-----------------------------+--------------------------------+
-   | enumeration                 | int2str(key)                   |
-   +-----------------------------+--------------------------------+
-   | bits                        | urlSafeBase64(CBORencode(key)) |
-   +-----------------------------+--------------------------------+
-   | binary                      | urlSafeBase64(key)             |
-   +-----------------------------+--------------------------------+
-   | identityref                 | int2str(key)                   |
-   +-----------------------------+--------------------------------+
-   | union                       | urlSafeBase64(CBORencode(key)) |
-   +-----------------------------+--------------------------------+
-   | instance-identifier         | urlSafeBase64(CBORencode(key)) |
-   +-----------------------------+--------------------------------+
-
-                               Table 6
+                                Table 6
 
    In this table:
 
-   *  The method int2str() is used to convert an integer value to a
-      decimal string.  For example, int2str(0x0123) return the three-
-      character string "291".
+   *  The method int2str() is used to convert an unsigned integer value
+      to a decimal string.  For example, int2str(0x0123) return the
+      three-character string "291".
 
    *  The boolean values false and true are represented as the single-
       character strings "0" and "1" respectively.
 
-   *  The method urlSafeBase64() is used to convert a binary string to
-      base64 using the URL and Filename safe alphabet as defined by
-      [RFC4648] section 5, without padding.  For example,
-      urlSafeBase64(0xF956A13C) return the six-character string
-      "-VahPA".
 
-   *  The method CBORencode() is used to convert a YANG value to CBOR as
-      specified in [I-D.ietf-core-yang-cbor] section 6.
 
-   The resulting key strings are joined using commas between every two
-   consecutive key values to produce the value of the 'k' parameter.
 
 
 
@@ -786,11 +786,23 @@ Veillette, et al.         Expires 8 August 2021                [Page 14]
 Internet-Draft                  CORECONF                   February 2021
 
 
+   *  The method urlSafeBase64() is used to convert a binary string to
+      base64 using the URL and Filename safe alphabet as defined by
+      Section 5 of [RFC4648], without padding.  For example,
+      urlSafeBase64(0xF956A13C) return the six-character string
+      "-VahPA".
+
+   *  The method CBORencode() is used to convert a YANG value to CBOR as
+      specified in Section 6 of [I-D.ietf-core-yang-cbor].
+
+   The resulting key strings are joined using commas between every two
+   consecutive key values to produce the value of the 'k' parameter.
+
 4.2.  Data Retrieval
 
    One or more data nodes can be retrieved by the client.  The operation
-   is mapped to the GET method defined in section 5.8.1 of [RFC7252] and
-   to the FETCH method defined in section 2 of [RFC8132].
+   is mapped to the GET method defined in Section 5.8.1 of [RFC7252] and
+   to the FETCH method defined in Section 2 of [RFC8132].
 
    There are two additional query parameters for the GET and FETCH
    methods.
@@ -813,6 +825,23 @@ Internet-Draft                  CORECONF                   February 2021
 
    The allowed values are:
 
+
+
+
+
+
+
+
+
+
+
+
+
+Veillette, et al.         Expires 8 August 2021                [Page 15]
+
+Internet-Draft                  CORECONF                   February 2021
+
+
    +=======+=====================================================+
    | Value | Description                                         |
    +=======+=====================================================+
@@ -833,15 +862,6 @@ Internet-Draft                  CORECONF                   February 2021
    quotes are added for readability, but they are not part of the
    payload).
 
-
-
-
-
-Veillette, et al.         Expires 8 August 2021                [Page 15]
-
-Internet-Draft                  CORECONF                   February 2021
-
-
 4.2.2.  Using the 'd' query parameter
 
    The 'd' (with-defaults) option controls how the default values of the
@@ -853,10 +873,10 @@ Internet-Draft                  CORECONF                   February 2021
    | Value | Description                                          |
    +=======+======================================================+
    | a     | All data nodes are reported.  Defined as 'report-    |
-   |       | all' in section 3.1 of [RFC6243].                    |
+   |       | all' in Section 3.1 of [RFC6243].                    |
    +-------+------------------------------------------------------+
    | t     | Data nodes set to the YANG default are not reported. |
-   |       | Defined as 'trim' in section 3.2 of [RFC6243].       |
+   |       | Defined as 'trim' in Section 3.2 of [RFC6243].       |
    +-------+------------------------------------------------------+
 
                                Table 9
@@ -868,7 +888,15 @@ Internet-Draft                  CORECONF                   February 2021
 
    If the target of a GET method is a data node that represents a
    container or list that has child resources with default values, and
-   these have not been given value yet,
+   these have not been given a value yet,
+
+
+
+
+Veillette, et al.         Expires 8 August 2021                [Page 16]
+
+Internet-Draft                  CORECONF                   February 2021
+
 
       The server MUST NOT return the child resource if d=t
 
@@ -891,13 +919,6 @@ Internet-Draft                  CORECONF                   February 2021
      2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
      CBOR map of SID, instance-value
 
-
-
-Veillette, et al.         Expires 8 August 2021                [Page 16]
-
-Internet-Draft                  CORECONF                   February 2021
-
-
    The returned payload contains the CBOR encoding of the requested
    instance-value.
 
@@ -910,7 +931,7 @@ Internet-Draft                  CORECONF                   February 2021
    Section 2.2, yields a7.  The response to the request returns the CBOR
    map with the key set to the SID of the requested data node (i.e.
    1723) and the value encoded using a 'text string' as defined in
-   [I-D.ietf-core-yang-cbor] section 6.4.  The datastore resource path
+   Section 4 of [I-D.ietf-core-yang-cbor].  The datastore resource path
    /c is an example location discovered with a request similar to
    Figure 4.
 
@@ -921,11 +942,23 @@ Internet-Draft                  CORECONF                   February 2021
     1723 : "2014-10-26T12:16:31Z"
   }
 
+
+
+
+
+
+
+
+Veillette, et al.         Expires 8 August 2021                [Page 17]
+
+Internet-Draft                  CORECONF                   February 2021
+
+
    The next example represents the retrieval of a YANG container.  In
    this case, the CORECONF client performs a GET request on the clock
    container (SID = 1721; base64: a5).  The container returned is
-   encoded using a CBOR map as specified by [I-D.ietf-core-yang-cbor]
-   section 4.2.
+   encoded using a CBOR map as specified by Section 4.2 of
+   [I-D.ietf-core-yang-cbor].
 
   REQ: GET </c/a5>
 
@@ -941,18 +974,8 @@ Internet-Draft                  CORECONF                   February 2021
 
    This example shows the retrieval of the /interfaces/interface YANG
    list accessed using SID 1533 (base64: X9).  The return payload is
-   encoded using a CBOR array as specified by [I-D.ietf-core-yang-cbor]
-   section 4.4.1 containing 2 instances.
-
-
-
-
-
-
-Veillette, et al.         Expires 8 August 2021                [Page 17]
-
-Internet-Draft                  CORECONF                   February 2021
-
+   encoded using a CBOR array as specified by Section 4.4.1 of
+   [I-D.ietf-core-yang-cbor] containing 2 instances.
 
   REQ: GET </c/X9>
 
@@ -979,9 +1002,17 @@ Internet-Draft                  CORECONF                   February 2021
    To retrieve a specific instance within the /interfaces/interface YANG
    list, the CORECONF client adds the key of the targeted instance in
    its CoAP request using the 'k' query parameter.  The return payload
+
+
+
+Veillette, et al.         Expires 8 August 2021                [Page 18]
+
+Internet-Draft                  CORECONF                   February 2021
+
+
    containing the instance requested is encoded using a CBOR array as
-   specified by [I-D.ietf-core-yang-cbor] section 4.4.1 containing the
-   requested instance.
+   specified by Section 4.4.1 of [I-D.ietf-core-yang-cbor] containing
+   the requested instance.
 
   REQ: GET </c/X9?k=eth0>
 
@@ -998,23 +1029,11 @@ Internet-Draft                  CORECONF                   February 2021
     ]
   }
 
-
-
-
-
-
-
-
-Veillette, et al.         Expires 8 August 2021                [Page 18]
-
-Internet-Draft                  CORECONF                   February 2021
-
-
    It is equally possible to select a leaf of a specific instance of a
    list.  The example below requests the description leaf (SID 1534,
    base64: X-) within the interface list corresponding to the interface
    name "eth0".  The returned value is encoded in CBOR based on the
-   rules specified by [I-D.ietf-core-yang-cbor] section 6.4.
+   rules specified by Section 6.4 of [I-D.ietf-core-yang-cbor].
 
   REQ: GET </c/X-?k=eth0>
 
@@ -1026,7 +1045,7 @@ Internet-Draft                  CORECONF                   February 2021
 4.2.4.  FETCH
 
    The FETCH is used to retrieve multiple instance-values.  The FETCH
-   request payload contains the list of instance-identifier of the data
+   request payload contains the list of instance-identifiers of the data
    node instances requested.
 
    The return response payload contains a list of data node instance-
@@ -1036,9 +1055,16 @@ Internet-Draft                  CORECONF                   February 2021
 
    For compactness, indexes of the list instance identifiers returned by
    the FETCH response SHOULD be elided, only the SID is provided.  This
-   approach may also help reducing implementations complexity since the
+   approach may also help reducing implementation complexity since the
    format of each entry within the CBOR array of the FETCH response is
    identical to the format of the corresponding GET response.
+
+
+
+Veillette, et al.         Expires 8 August 2021                [Page 19]
+
+Internet-Draft                  CORECONF                   February 2021
+
 
    FORMAT:
      FETCH <datastore resource>
@@ -1055,16 +1081,6 @@ Internet-Draft                  CORECONF                   February 2021
    [RFC8343].  In this example the value of current-datetime (SID 1723)
    and the interface list (SID 1533) instance identified with
    name="eth0" are queried.
-
-
-
-
-
-
-Veillette, et al.         Expires 8 August 2021                [Page 19]
-
-Internet-Draft                  CORECONF                   February 2021
-
 
 REQ: FETCH </c>
      (Content-Format: application/yang-identifiers+cbor)
@@ -1095,6 +1111,17 @@ RES: 2.05 Content (Content-Format: application/yang-instances+cbor)
    CORECONF allows datastore contents to be created, modified and
    deleted using CoAP methods.
 
+
+
+
+
+
+
+Veillette, et al.         Expires 8 August 2021                [Page 20]
+
+Internet-Draft                  CORECONF                   February 2021
+
+
 4.3.1.  Data Ordering
 
    A CORECONF server MUST preserve the relative order of all user-
@@ -1112,15 +1139,6 @@ RES: 2.05 Content (Content-Format: application/yang-instances+cbor)
    message.  The URI specifies the data node resource of the instance to
    be created.  In the case of a list instance, keys MUST be present in
    the payload.
-
-
-
-
-
-Veillette, et al.         Expires 8 August 2021                [Page 20]
-
-Internet-Draft                  CORECONF                   February 2021
-
 
    FORMAT:
      POST <data node resource>
@@ -1140,6 +1158,25 @@ Internet-Draft                  CORECONF                   February 2021
    hosted on the CoAP server with DNS name example.com and with path
    /ds.  The path /ds is an example location that is assumed to have
    been discovered using request similar to Figure 4.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Veillette, et al.         Expires 8 August 2021                [Page 21]
+
+Internet-Draft                  CORECONF                   February 2021
+
 
    REQ: POST <coap://example.com/ds/X9>
         (Content-Format: application/yang-data+cbor; id=sid)
@@ -1170,14 +1207,6 @@ Internet-Draft                  CORECONF                   February 2021
 
      2.01 Created
 
-
-
-
-Veillette, et al.         Expires 8 August 2021                [Page 21]
-
-Internet-Draft                  CORECONF                   February 2021
-
-
 4.3.3.1.  PUT example
 
    The example uses the interface list from module ietf-interfaces
@@ -1185,6 +1214,25 @@ Internet-Draft                  CORECONF                   February 2021
    (SID = 1533) with key name="eth0".  The example location /c is an
    example location that is discovered using a request similar to
    Figure 4.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Veillette, et al.         Expires 8 August 2021                [Page 22]
+
+Internet-Draft                  CORECONF                   February 2021
+
 
    REQ: PUT </c/X9?k=eth0>
         (Content-Format: application/yang-data+cbor; id=sid)
@@ -1224,16 +1272,6 @@ Internet-Draft                  CORECONF                   February 2021
 
      2.04 Changed
 
-
-
-
-
-
-Veillette, et al.         Expires 8 August 2021                [Page 22]
-
-Internet-Draft                  CORECONF                   February 2021
-
-
 4.3.4.1.  iPATCH example
 
    In this example, a CORECONF client requests the following operations:
@@ -1242,6 +1280,15 @@ Internet-Draft                  CORECONF                   February 2021
 
    *  Remove the server "tac.nrc.ca" from the "/system/ntp/server" (SID
       1756) list.
+
+
+
+
+
+Veillette, et al.         Expires 8 August 2021                [Page 23]
+
+Internet-Draft                  CORECONF                   February 2021
+
 
    *  Add/set the server "NTP Pool server 2" to the list "/system/ntp/
       server" (SID 1756).
@@ -1283,13 +1330,6 @@ Internet-Draft                  CORECONF                   February 2021
    [RFC8343].  This example deletes an instance of the interface list
    (SID = 1533):
 
-
-
-Veillette, et al.         Expires 8 August 2021                [Page 23]
-
-Internet-Draft                  CORECONF                   February 2021
-
-
    REQ:   DELETE </c/X9?k=eth0>
 
    RES:   2.02 Deleted
@@ -1298,6 +1338,13 @@ Internet-Draft                  CORECONF                   February 2021
 
    The methods GET, PUT, POST, and DELETE can be used to request,
    replace, create, and delete a whole datastore respectively.
+
+
+
+Veillette, et al.         Expires 8 August 2021                [Page 24]
+
+Internet-Draft                  CORECONF                   February 2021
+
 
    FORMAT:
      GET <datastore resource>
@@ -1341,7 +1388,16 @@ Internet-Draft                  CORECONF                   February 2021
 
 
 
-Veillette, et al.         Expires 8 August 2021                [Page 24]
+
+
+
+
+
+
+
+
+
+Veillette, et al.         Expires 8 August 2021                [Page 25]
 
 Internet-Draft                  CORECONF                   February 2021
 
@@ -1397,16 +1453,16 @@ RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
 
 
 
-Veillette, et al.         Expires 8 August 2021                [Page 25]
+Veillette, et al.         Expires 8 August 2021                [Page 26]
 
 Internet-Draft                  CORECONF                   February 2021
 
 
    The format of notification without any content is a null value.  The
-   format of single notification is defined in [I-D.ietf-core-yang-cbor]
-   section 4.2.1.  For multiple notifications the format is an array
-   where each element is a single notification as described in
-   [I-D.ietf-core-yang-cbor] section 4.2.1.
+   format of single notification is defined in Section 4.2.1 of
+   [I-D.ietf-core-yang-cbor].  For multiple notifications the format is
+   an array where each element is a single notification as described in
+   Section 4.2.1 of [I-D.ietf-core-yang-cbor].
 
    FORMAT:
      GET <stream-resource> Observe(0)
@@ -1453,7 +1509,7 @@ Internet-Draft                  CORECONF                   February 2021
 
 
 
-Veillette, et al.         Expires 8 August 2021                [Page 26]
+Veillette, et al.         Expires 8 August 2021                [Page 27]
 
 Internet-Draft                  CORECONF                   February 2021
 
@@ -1500,7 +1556,7 @@ Internet-Draft                  CORECONF                   February 2021
 4.6.  RPC statements
 
    The YANG "action" and "RPC" statements specify the execution of a
-   Remote procedure Call (RPC) in the server.  It is invoked using a
+   Remote Procedure Call (RPC) in the server.  It is invoked using a
    POST method to an "Action" or "RPC" resource instance.
 
 
@@ -1509,7 +1565,7 @@ Internet-Draft                  CORECONF                   February 2021
 
 
 
-Veillette, et al.         Expires 8 August 2021                [Page 27]
+Veillette, et al.         Expires 8 August 2021                [Page 28]
 
 Internet-Draft                  CORECONF                   February 2021
 
@@ -1518,7 +1574,7 @@ Internet-Draft                  CORECONF                   February 2021
    container when specified.  The response payload contains the values
    of the output container when specified.  Both the input and output
    containers are encoded in CBOR using the rules defined in
-   [I-D.ietf-core-yang-cbor] section 4.2.1.
+   Section 4.2.1 of [I-D.ietf-core-yang-cbor].
 
    The returned success response code is 2.05 Content.
 
@@ -1533,7 +1589,7 @@ Internet-Draft                  CORECONF                   February 2021
 4.6.1.  RPC Example
 
    The example is based on the YANG action "reset" as defined in
-   [RFC7950] section 7.15.3 and annotated below with SIDs.
+   Section 7.15.3 of [RFC7950] and annotated below with SIDs.
 
 
 
@@ -1565,7 +1621,7 @@ Internet-Draft                  CORECONF                   February 2021
 
 
 
-Veillette, et al.         Expires 8 August 2021                [Page 28]
+Veillette, et al.         Expires 8 August 2021                [Page 29]
 
 Internet-Draft                  CORECONF                   February 2021
 
@@ -1621,7 +1677,7 @@ Internet-Draft                  CORECONF                   February 2021
 
 
 
-Veillette, et al.         Expires 8 August 2021                [Page 29]
+Veillette, et al.         Expires 8 August 2021                [Page 30]
 
 Internet-Draft                  CORECONF                   February 2021
 
@@ -1677,7 +1733,7 @@ Internet-Draft                  CORECONF                   February 2021
 
 
 
-Veillette, et al.         Expires 8 August 2021                [Page 30]
+Veillette, et al.         Expires 8 August 2021                [Page 31]
 
 Internet-Draft                  CORECONF                   February 2021
 
@@ -1689,8 +1745,8 @@ Internet-Draft                  CORECONF                   February 2021
    YANG library module.
 
    The following example assumes that the SID of the YANG library is
-   2351 (kv encoded as specified in Section 2.2) and that the server
-   uses /c as datastore resource path.
+   2351 ("kv" after encoding as specified in Section 2.2) and that the
+   server uses /c as datastore resource path.
 
    REQ: GET </.well-known/core?rt=core.c.yl>
 
@@ -1733,7 +1789,7 @@ Internet-Draft                  CORECONF                   February 2021
 
 
 
-Veillette, et al.         Expires 8 August 2021                [Page 31]
+Veillette, et al.         Expires 8 August 2021                [Page 32]
 
 Internet-Draft                  CORECONF                   February 2021
 
@@ -1789,7 +1845,7 @@ Internet-Draft                  CORECONF                   February 2021
 
 
 
-Veillette, et al.         Expires 8 August 2021                [Page 32]
+Veillette, et al.         Expires 8 August 2021                [Page 33]
 
 Internet-Draft                  CORECONF                   February 2021
 
@@ -1809,8 +1865,8 @@ Internet-Draft                  CORECONF                   February 2021
 
    Errors returned by a CORECONF server can be broken into two
    categories, those associated with the CoAP protocol itself and those
-   generated during the validation of the YANG data model constrains as
-   described in [RFC7950] section 8.
+   generated during the validation of the YANG data model constraints as
+   described in Section 8 of [RFC7950].
 
    The following list of common CoAP errors should be implemented by
    CORECONF servers.  This list is not exhaustive, other errors defined
@@ -1845,23 +1901,23 @@ Internet-Draft                  CORECONF                   February 2021
 
 
 
-Veillette, et al.         Expires 8 August 2021                [Page 33]
+Veillette, et al.         Expires 8 August 2021                [Page 34]
 
 Internet-Draft                  CORECONF                   February 2021
 
 
    *  Error 4.15 (Unsupported Content-Format) is returned by the
       CORECONF server when the Content-Format used in the request does
-      not match those specified in section Section 2.4.
+      not match those specified in Section 2.4.
 
    The CORECONF server MUST also enforce the different constraints
    associated with the YANG data models implemented.  These constraints
-   are described in [RFC7950] section 8.  These errors are reported
+   are described in Section 8 of [RFC7950].  These errors are reported
    using the CoAP error code 4.00 (Bad Request) and may have the
    following error container as payload.  The YANG definition and
    associated .sid file are available in Appendix A and Appendix B.  The
    error container is encoded using the encoding rules of a YANG data
-   template as defined in [I-D.ietf-core-yang-cbor] section 5.
+   template as defined in Section 5 of [I-D.ietf-core-yang-cbor].
 
    +--rw error!
       +--rw error-tag             identityref
@@ -1878,9 +1934,9 @@ Internet-Draft                  CORECONF                   February 2021
 
       -  error-app-tag 'malformed-message' is returned by the CORECONF
          server when the payload received from the CORECONF client does
-         not contain a well-formed CBOR content as defined in [RFC7049]
-         section 3.3 or does not comply with the CBOR structure defined
-         within this document.
+         not contain a well-formed CBOR content as defined in [RFC8949]
+         or does not comply with the CBOR structure defined within this
+         document.
 
       -  error-app-tag 'data-not-unique' is returned by the CORECONF
          server when the validation of the 'unique' constraint of a list
@@ -1901,7 +1957,7 @@ Internet-Draft                  CORECONF                   February 2021
 
 
 
-Veillette, et al.         Expires 8 August 2021                [Page 34]
+Veillette, et al.         Expires 8 August 2021                [Page 35]
 
 Internet-Draft                  CORECONF                   February 2021
 
@@ -1957,7 +2013,7 @@ Internet-Draft                  CORECONF                   February 2021
 
 
 
-Veillette, et al.         Expires 8 August 2021                [Page 35]
+Veillette, et al.         Expires 8 August 2021                [Page 36]
 
 Internet-Draft                  CORECONF                   February 2021
 
@@ -2005,18 +2061,21 @@ RES:  4.00 Bad Request (Content-Format: application/yang-data+cbor; id=sid)
    example those defined in ACE OAuth [I-D.ietf-ace-oauth-authz].
 
    All the security considerations of [RFC7252], [RFC7959], [RFC8132]
-   and [RFC7641] apply to this document as well.  The use of NoSec DTLS,
-   when OSCORE is not used, is NOT RECOMMENDED.
-
-   In addition, mechanisms for authentication and authorization may need
-   to be selected if not provided with the CoAP security mode.
+   and [RFC7641] apply to this document as well.  The use of NoSec
+   (Section 9 of [RFC7252]), when OSCORE is not used, is NOT
+   RECOMMENDED.
 
 
 
-Veillette, et al.         Expires 8 August 2021                [Page 36]
+
+
+Veillette, et al.         Expires 8 August 2021                [Page 37]
 
 Internet-Draft                  CORECONF                   February 2021
 
+
+   In addition, mechanisms for authentication and authorization may need
+   to be selected if not provided with the CoAP security mode.
 
    As [I-D.ietf-core-yang-cbor] and [RFC4648] are used for payload and
    SID encoding, the security considerations of those documents also
@@ -2053,6 +2112,24 @@ Internet-Draft                  CORECONF                   February 2021
    Formats", within the "Constrained RESTful Environments (CoRE)
    Parameters" registry.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+Veillette, et al.         Expires 8 August 2021                [Page 38]
+
+Internet-Draft                  CORECONF                   February 2021
+
+
    +=======================+================+======+===========+
    | Media Type            | Content Coding | ID   | Reference |
    +=======================+================+======+===========+
@@ -2064,15 +2141,6 @@ Internet-Draft                  CORECONF                   February 2021
    +-----------------------+----------------+------+-----------+
 
                               Table 11
-
-
-
-
-
-Veillette, et al.         Expires 8 August 2021                [Page 37]
-
-Internet-Draft                  CORECONF                   February 2021
-
 
    // RFC Ed.: replace TBD1, TBD2 and TBD3 with assigned IDs and remove
    this note. // RFC Ed.: replace RFC XXXX with this RFC number and
@@ -2110,6 +2178,14 @@ Internet-Draft                  CORECONF                   February 2021
    *  Security considerations: See the Security Considerations section
       of RFC XXXX
 
+
+
+
+Veillette, et al.         Expires 8 August 2021                [Page 39]
+
+Internet-Draft                  CORECONF                   February 2021
+
+
    *  Interoperability considerations: N/A
 
    *  Published specification: RFC XXXX
@@ -2119,16 +2195,6 @@ Internet-Draft                  CORECONF                   February 2021
    *  Fragment identifier considerations: N/A
 
    *  Additional information:
-
-
-
-
-
-
-Veillette, et al.         Expires 8 August 2021                [Page 38]
-
-Internet-Draft                  CORECONF                   February 2021
-
 
    *  Deprecated alias names for this type: N/A
 
@@ -2145,7 +2211,7 @@ Internet-Draft                  CORECONF                   February 2021
 
    *  Restrictions on usage: N/A
 
-   *  Author: Michel Veillette, ietf&augustcellars.com
+   *  Author: Michel Veillette
 
    *  Change Controller: IESG
 
@@ -2169,6 +2235,13 @@ Internet-Draft                  CORECONF                   February 2021
 
    // RFC Ed.: please replace XXXX with RFC number and remove this note
 
+
+
+Veillette, et al.         Expires 8 August 2021                [Page 40]
+
+Internet-Draft                  CORECONF                   February 2021
+
+
 10.  Acknowledgments
 
    We are very grateful to Bert Greevenbosch who was one of the original
@@ -2177,14 +2250,6 @@ Internet-Draft                  CORECONF                   February 2021
    Mehmet Ersue and Bert Wijnen explained the encoding aspects of PDUs
    transported under SNMP.  Carsten Bormann has given feedback on the
    use of CBOR.
-
-
-
-
-Veillette, et al.         Expires 8 August 2021                [Page 39]
-
-Internet-Draft                  CORECONF                   February 2021
-
 
    The draft has benefited from comments (alphabetical order) by Rodney
    Cummings, Dee Denteneer, Esko Dijk, Klaus Hartke, Michael van
@@ -2225,22 +2290,23 @@ Internet-Draft                  CORECONF                   February 2021
               NETCONF", RFC 6243, DOI 10.17487/RFC6243, June 2011,
               <https://www.rfc-editor.org/info/rfc6243>.
 
-   [RFC7049]  Bormann, C. and P. Hoffman, "Concise Binary Object
-              Representation (CBOR)", RFC 7049, DOI 10.17487/RFC7049,
-              October 2013, <https://www.rfc-editor.org/info/rfc7049>.
+
+
+
+Veillette, et al.         Expires 8 August 2021                [Page 41]
+
+Internet-Draft                  CORECONF                   February 2021
+
+
+   [RFC8949]  Bormann, C. and P. Hoffman, "Concise Binary Object
+              Representation (CBOR)", STD 94, RFC 8949,
+              DOI 10.17487/RFC8949, December 2020,
+              <https://www.rfc-editor.org/info/rfc8949>.
 
    [RFC7252]  Shelby, Z., Hartke, K., and C. Bormann, "The Constrained
               Application Protocol (CoAP)", RFC 7252,
               DOI 10.17487/RFC7252, June 2014,
               <https://www.rfc-editor.org/info/rfc7252>.
-
-
-
-
-Veillette, et al.         Expires 8 August 2021                [Page 40]
-
-Internet-Draft                  CORECONF                   February 2021
-
 
    [RFC7950]  Bjorklund, M., Ed., "The YANG 1.1 Data Modeling Language",
               RFC 7950, DOI 10.17487/RFC7950, August 2016,
@@ -2279,6 +2345,15 @@ Internet-Draft                  CORECONF                   February 2021
               <http://www.ietf.org/internet-drafts/draft-ietf-core-sid-
               15.txt>.
 
+
+
+
+
+Veillette, et al.         Expires 8 August 2021                [Page 42]
+
+Internet-Draft                  CORECONF                   February 2021
+
+
    [I-D.ietf-core-yang-library]
               Veillette, M. and I. Petrov, "Constrained YANG Module
               Library", Work in Progress, Internet-Draft, draft-ietf-
@@ -2287,16 +2362,6 @@ Internet-Draft                  CORECONF                   February 2021
               library-03.txt>.
 
 11.2.  Informative References
-
-
-
-
-
-
-Veillette, et al.         Expires 8 August 2021                [Page 41]
-
-Internet-Draft                  CORECONF                   February 2021
-
 
    [RFC6347]  Rescorla, E. and N. Modadugu, "Datagram Transport Layer
               Security Version 1.2", RFC 6347, DOI 10.17487/RFC6347,
@@ -2335,6 +2400,16 @@ Internet-Draft                  CORECONF                   February 2021
 
 Appendix A.  ietf-coreconf YANG module
 
+
+
+
+
+
+Veillette, et al.         Expires 8 August 2021                [Page 43]
+
+Internet-Draft                  CORECONF                   February 2021
+
+
    <CODE BEGINS> file "ietf-coreconf@2019-03-28.yang"
    module ietf-coreconf {
      yang-version 1.1;
@@ -2345,14 +2420,6 @@ Appendix A.  ietf-coreconf YANG module
      import ietf-datastores {
        prefix ds;
      }
-
-
-
-
-Veillette, et al.         Expires 8 August 2021                [Page 42]
-
-Internet-Draft                  CORECONF                   February 2021
-
 
      import ietf-restconf {
        prefix rc;
@@ -2392,6 +2459,13 @@ Internet-Draft                  CORECONF                   February 2021
         Relating to IETF Documents
         (https://trustee.ietf.org/license-info).
 
+
+
+Veillette, et al.         Expires 8 August 2021                [Page 44]
+
+Internet-Draft                  CORECONF                   February 2021
+
+
         This version of this YANG module is part of RFC XXXX;
         see the RFC itself for full legal notices.";
 
@@ -2401,14 +2475,6 @@ Internet-Draft                  CORECONF                   February 2021
        reference
          "[I-D.ietf-core-comi] CoAP Management Interface";
      }
-
-
-
-
-Veillette, et al.         Expires 8 August 2021                [Page 43]
-
-Internet-Draft                  CORECONF                   February 2021
-
 
      identity unified {
        base ds:datastore;
@@ -2448,6 +2514,14 @@ Internet-Draft                  CORECONF                   February 2021
           enforced for leafs and choices, unless the node or any of
           its ancestors have a 'when' condition or 'if-feature'
           expression that evaluates to 'false'.";
+
+
+
+Veillette, et al.         Expires 8 August 2021                [Page 45]
+
+Internet-Draft                  CORECONF                   February 2021
+
+
      }
 
      identity unknown-element {
@@ -2458,14 +2532,6 @@ Internet-Draft                  CORECONF                   February 2021
           data node associated with an 'if-feature' expression
           evaluated to 'false' or to a 'when' condition evaluated
           to 'false'.";
-
-
-
-Veillette, et al.         Expires 8 August 2021                [Page 44]
-
-Internet-Draft                  CORECONF                   February 2021
-
-
      }
 
      identity bad-element {
@@ -2499,10 +2565,18 @@ Internet-Draft                  CORECONF                   February 2021
        description
          "Returned by the CORECONF server when the payload received
           from the CORECONF client don't contain a well-formed CBOR
-          content as defined in [RFC7049] section 3.3 or don't
+          content as defined in [RFC8949] or don't
           comply with the CBOR structure defined within this
           document.";
      }
+
+
+
+
+Veillette, et al.         Expires 8 August 2021                [Page 46]
+
+Internet-Draft                  CORECONF                   February 2021
+
 
      identity data-not-unique {
        base error-app-tag;
@@ -2514,14 +2588,6 @@ Internet-Draft                  CORECONF                   February 2021
      identity too-many-elements {
        base error-app-tag;
        description
-
-
-
-Veillette, et al.         Expires 8 August 2021                [Page 45]
-
-Internet-Draft                  CORECONF                   February 2021
-
-
          "Returned by the CORECONF server when the validation of the
           'max-elements' constraint of a list or leaf-list fails.";
      }
@@ -2560,6 +2626,14 @@ Internet-Draft                  CORECONF                   February 2021
        base error-app-tag;
        description
          "Returned by the CORECONF server when the validation of the
+
+
+
+Veillette, et al.         Expires 8 August 2021                [Page 47]
+
+Internet-Draft                  CORECONF                   February 2021
+
+
           'range' property fails.";
      }
 
@@ -2569,14 +2643,6 @@ Internet-Draft                  CORECONF                   February 2021
          "Returned by the CORECONF server when the validation of the
           'length' property fails.";
      }
-
-
-
-
-Veillette, et al.         Expires 8 August 2021                [Page 46]
-
-Internet-Draft                  CORECONF                   February 2021
-
 
      identity pattern-test-failed {
        base error-app-tag;
@@ -2616,6 +2682,14 @@ Internet-Draft                  CORECONF                   February 2021
        description
          "Returned by the CORECONF server when no nodes exist in a
           mandatory choice.";
+
+
+
+Veillette, et al.         Expires 8 August 2021                [Page 48]
+
+Internet-Draft                  CORECONF                   February 2021
+
+
      }
 
      rc:yang-data coreconf-error {
@@ -2626,14 +2700,6 @@ Internet-Draft                  CORECONF                   February 2021
          leaf error-tag {
            type identityref {
              base error-tag;
-
-
-
-Veillette, et al.         Expires 8 August 2021                [Page 47]
-
-Internet-Draft                  CORECONF                   February 2021
-
-
            }
            mandatory true;
            description
@@ -2667,6 +2733,19 @@ Internet-Draft                  CORECONF                   February 2021
 
 Appendix B.  ietf-coreconf .sid file
 
+
+
+
+
+
+
+
+
+Veillette, et al.         Expires 8 August 2021                [Page 49]
+
+Internet-Draft                  CORECONF                   February 2021
+
+
    {
      "assignment-ranges": [
        {
@@ -2682,14 +2761,6 @@ Appendix B.  ietf-coreconf .sid file
          "identifier": "ietf-coreconf",
          "sid": 1000
        },
-
-
-
-Veillette, et al.         Expires 8 August 2021                [Page 48]
-
-Internet-Draft                  CORECONF                   February 2021
-
-
        {
          "namespace": "identity",
          "identifier": "bad-element",
@@ -2723,6 +2794,14 @@ Internet-Draft                  CORECONF                   February 2021
        {
          "namespace": "identity",
          "identifier": "error-tag",
+
+
+
+Veillette, et al.         Expires 8 August 2021                [Page 50]
+
+Internet-Draft                  CORECONF                   February 2021
+
+
          "sid": 1007
        },
        {
@@ -2738,14 +2817,6 @@ Internet-Draft                  CORECONF                   February 2021
        {
          "namespace": "identity",
          "identifier": "invalid-length",
-
-
-
-Veillette, et al.         Expires 8 August 2021                [Page 49]
-
-Internet-Draft                  CORECONF                   February 2021
-
-
          "sid": 1010
        },
        {
@@ -2779,6 +2850,14 @@ Internet-Draft                  CORECONF                   February 2021
          "sid": 1016
        },
        {
+
+
+
+Veillette, et al.         Expires 8 August 2021                [Page 51]
+
+Internet-Draft                  CORECONF                   February 2021
+
+
          "namespace": "identity",
          "identifier": "must-violation",
          "sid": 1017
@@ -2794,14 +2873,6 @@ Internet-Draft                  CORECONF                   February 2021
          "sid": 1019
        },
        {
-
-
-
-Veillette, et al.         Expires 8 August 2021                [Page 50]
-
-Internet-Draft                  CORECONF                   February 2021
-
-
          "namespace": "identity",
          "identifier": "pattern-test-failed",
          "sid": 1020
@@ -2835,6 +2906,14 @@ Internet-Draft                  CORECONF                   February 2021
          "namespace": "data",
          "identifier": "/ietf-coreconf:error/error-app-tag",
          "sid": 1025
+
+
+
+Veillette, et al.         Expires 8 August 2021                [Page 52]
+
+Internet-Draft                  CORECONF                   February 2021
+
+
        },
        {
          "namespace": "data",
@@ -2850,14 +2929,6 @@ Internet-Draft                  CORECONF                   February 2021
          "namespace": "data",
          "identifier": "/ietf-coreconf:error/error-tag",
          "sid": 1028
-
-
-
-Veillette, et al.         Expires 8 August 2021                [Page 51]
-
-Internet-Draft                  CORECONF                   February 2021
-
-
        }
      ]
    }
@@ -2890,6 +2961,15 @@ Authors' Addresses
    Email: a@ackl.io
 
 
+
+
+
+
+Veillette, et al.         Expires 8 August 2021                [Page 53]
+
+Internet-Draft                  CORECONF                   February 2021
+
+
    Andy Bierman
    YumaWorks
    685 Cochran St.
@@ -2905,14 +2985,6 @@ Authors' Addresses
    1137A avenue des Champs Blancs
    35510 Cesson-Sevigne
    France
-
-
-
-
-Veillette, et al.         Expires 8 August 2021                [Page 52]
-
-Internet-Draft                  CORECONF                   February 2021
-
 
    Email: ivaylo@ackl.io
 
@@ -2949,20 +3021,4 @@ Internet-Draft                  CORECONF                   February 2021
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Veillette, et al.         Expires 8 August 2021                [Page 53]
+Veillette, et al.         Expires 8 August 2021                [Page 54]
