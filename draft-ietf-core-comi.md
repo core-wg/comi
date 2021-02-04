@@ -1,8 +1,9 @@
 ---
 stand_alone: true
 ipr: trust200902
-docname: draft-ietf-core-comi-11
+docname: draft-ietf-core-comi-12
 cat: std
+consensus: yes
 pi:
   toc: 'yes'
   symrefs: 'yes'
@@ -27,7 +28,7 @@ author:
   org: consultant
   abbrev: consultant
   phone: "+31-492474673 (Netherlands), +33-966015248 (France)"
-  email: consultancy@vanderstok.org
+  email: stokcons@bbhmail.nl
   uri: www.vanderstok.org
 - ins: A. P. Pelov
   name: Alexander Pelov
@@ -46,7 +47,6 @@ author:
   - 'Suite #160'
   city: Simi Valley
   region: CA
-  code: '93065'
   code: '93065'
   country: USA
   email: andy@yumaworks.com
