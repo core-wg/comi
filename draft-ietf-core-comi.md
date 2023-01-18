@@ -1,12 +1,10 @@
 ---
-stand_alone: true
-ipr: trust200902
+v: 3
+
 docname: draft-ietf-core-comi-12
 cat: std
 consensus: yes
-pi:
-  toc: 'yes'
-  symrefs: 'yes'
+stream: IETF
 title: CoAP Management Interface (CORECONF)
 abbrev: CORECONF
 area: Applications
@@ -24,7 +22,7 @@ author:
   email: michel.veillette@trilliant.com
 - ins: P. van der Stok
   role: editor
-  name: Peter van der Stok
+  name: Peter | van der Stok
   org: consultant
   abbrev: consultant
   phone: "+31-492474673 (Netherlands), +33-966015248 (France)"
@@ -35,7 +33,7 @@ author:
   org: Acklio
   street: 2bis rue de la Chataigneraie
   city: Cesson-Sevigne
-  region: Bretagne
+#  region: Bretagne
   code: '35510'
   country: France
   email: a@ackl.io
@@ -57,7 +55,7 @@ author:
   street: 1137A avenue des Champs Blancs
   code: '35510'
   city: Cesson-Sevigne
-  region: Bretagne
+#  region: Bretagne
   country: France
   email: ivaylo@ackl.io
 normative:
@@ -75,17 +73,18 @@ normative:
   RFC7641:
   RFC8132:
   RFC8040:
-  I-D.ietf-core-yang-cbor:
+  RFC9254: yang-cbor
   I-D.ietf-core-sid:
   I-D.ietf-core-yang-library:
 informative:
-  RFC6347:
+  RFC6347: dtls12
   RFC6690:
   RFC8343:
   RFC7317:
-  RFC8342:
-  RFC8613:
-  I-D.ietf-ace-oauth-authz:
+  RFC8342: nmda
+  RFC8613: oscore
+  RFC9147: dtls13
+  RFC9200: ace-oauth
 
 --- abstract
 
@@ -131,7 +130,7 @@ They use a single round-trip to complete a single editing transaction, where
 NETCONF needs multiple round trips.
 
 To promote small messages, CORECONF uses a YANG to CBOR mapping
-{{I-D.ietf-core-yang-cbor}} and numeric identifiers {{I-D.ietf-core-sid}}
+{{-yang-cbor}} and numeric identifiers {{I-D.ietf-core-sid}}
 to minimize CBOR payloads and URI length.
 
 ## Terminology {#terminology}
@@ -181,7 +180,7 @@ instance-identifier:
 
 instance-value:
 : The value assigned to a data node instance. Instance-values are serialized into
-  the payload according to the rules defined in {{Section 4 of I-D.ietf-core-yang-cbor}}.
+  the payload according to the rules defined in {{Section 4 of -yang-cbor}}.
 
 
 # CORECONF Architecture {#comi-architecture}
@@ -248,7 +247,7 @@ architecture. The different numbered components of {{archit}} are discussed acco
 
 (7) Security:
 : The server MUST prevent unauthorized users from reading or writing any CORECONF
-  resources. CORECONF relies on security protocols such as DTLS {{RFC6347}} or OSCORE {{RFC8613}} to secure CoAP communications.
+  resources. CORECONF relies on security protocols such as DTLS {{RFC6347}}{{-dtls13}} or OSCORE {{RFC8613}} to secure CoAP communications.
 
 
 ## Major differences between RESTCONF and CORECONF {#major-differences}
@@ -262,7 +261,7 @@ but differs more significantly from RESTCONF.
 ### Differences due to CoAP and its efficient usage {#major-differences-coap}
 
 * CORECONF uses CoAP/UDP as transport protocol and CBOR as payload format
-  {{I-D.ietf-core-yang-cbor}}. RESTCONF uses HTTP/TCP as transport
+  {{-yang-cbor}}. RESTCONF uses HTTP/TCP as transport
   protocol and JSON or XML as payload formats.
 
 * CORECONF uses the methods FETCH and iPATCH to access multiple data nodes.
@@ -331,13 +330,13 @@ The resulting base64 representation of SID 1721 is the two-character string "a5"
 
 Instance-identifiers are used to uniquely identify data node instances within a datastore. This YANG built-in type is defined in {{Section 9.13 of RFC7950}}. An instance-identifier is composed of the data node identifier (i.e. a SID) and for data nodes within list(s) the keys used to index within these list(s).
 
-When part of a payload, instance-identifiers are encoded in CBOR based on the rules defined in {{Section 6.13.1 of I-D.ietf-core-yang-cbor}}. When part of a URI, the SID is appended to the URI of the targeted datastore, the keys are specified using the 'k' query parameter as defined in {{query}}.
+When part of a payload, instance-identifiers are encoded in CBOR based on the rules defined in {{Section 6.13.1 of -yang-cbor}}. When part of a URI, the SID is appended to the URI of the targeted datastore, the keys are specified using the 'k' query parameter as defined in {{query}}.
 
 
 ## Media-Types {#media-type}
 
 CORECONF uses Media-Types based on the YANG to CBOR mapping specified
-in {{I-D.ietf-core-yang-cbor}}.
+in {{-yang-cbor}}.
 
 The following Media-Type is used as defined in {{I-D.ietf-core-sid}}.
 
@@ -352,7 +351,7 @@ application/yang-identifiers+cbor:
 : FORMAT: CBOR array of instance-identifier
 
 : The message payload of Media-Type 'application/yang-identifiers+cbor' is encoded using a CBOR array.
-  Each entry of this CBOR array contain an instance-identifier encoded as defined in {{Section 6.13.1 of I-D.ietf-core-yang-cbor}}.
+  Each entry of this CBOR array contain an instance-identifier encoded as defined in {{Section 6.13.1 of -yang-cbor}}.
 
 application/yang-instances+cbor:
 
@@ -363,7 +362,7 @@ application/yang-instances+cbor:
 
 : The message payload of Media-Type 'application/yang-instances+cbor' is encoded using a CBOR array.
   Each entry within this CBOR array contains a CBOR map carrying an instance-identifier and associated instance-value.
-  Instance-identifiers are encoded using the rules defined in {{Section 6.13.1 of I-D.ietf-core-yang-cbor}}, instance-values are encoded using the rules defined in {{Section 4 of I-D.ietf-core-yang-cbor}}.
+  Instance-identifiers are encoded using the rules defined in {{Section 6.13.1 of -yang-cbor}}, instance-values are encoded using the rules defined in {{Section 4 of -yang-cbor}}.
 
 : When present in an iPATCH request payload, this Media-Type carry a list of data node instances to be replaced, created, or deleted.
   For each data node instance D, for which the instance-identifier is the same as a data node instance I, in the targeted datastore resource: the value of D replaces the value of I.  When the value of D is null, the data node instance I is removed.  When the targeted datastore resource does not contain a data node instance with the same instance-identifier as D, a new instance is created with the same instance-identifier and value as D.
@@ -408,7 +407,7 @@ Characteristics of the unified datastore are summarized in the table below:
 # Example syntax {#example-syntax}
 
 CBOR is used to encode CORECONF request and response payloads. The CBOR syntax
-of the YANG payloads is specified in {{I-D.ietf-core-yang-cbor}}, based on {{RFC8949}}.
+of the YANG payloads is specified in {{-yang-cbor}}, based on {{RFC8949}}.
 The payload examples are
 notated in Diagnostic notation (defined in {{Section 8 of RFC8949}}) that
 can be automatically converted to CBOR.
@@ -500,7 +499,7 @@ In this table:
   * The method int2str() is used to convert an unsigned integer value to a decimal string. For example, int2str(0x0123) return the three-character string "291".
   * The boolean values false and true are represented as the single-character strings "0" and "1" respectively.
   * The method urlSafeBase64() is used to convert a binary string to base64 using the URL and Filename safe alphabet as defined by {{Section 5 of RFC4648}}, without padding. For example, urlSafeBase64(0xF956A13C) return the six-character string "-VahPA".
-  * The method CBORencode() is used to convert a YANG value to CBOR as specified in {{Section 6 of I-D.ietf-core-yang-cbor}}.
+  * The method CBORencode() is used to convert a YANG value to CBOR as specified in {{Section 6 of -yang-cbor}}.
 
 The resulting key strings are joined using commas between every two consecutive
 key values to produce the value of the 'k' parameter.
@@ -590,7 +589,7 @@ Using, for example, the current-datetime leaf from module ietf-system {{RFC7317}
 retrieve the value of 'system-state/clock/current-datetime'.
 The SID of 'system-state/clock/current-datetime' is 1723, encoded in base64 according to {{id-compression}},
 yields a7. The response to the request returns the CBOR map with the key set to the SID of the requested
-data node (i.e. 1723) and the value encoded using a 'text string' as defined in {{Section 4 of I-D.ietf-core-yang-cbor}}. The datastore resource path /c is an example location discovered with a request similar to {{discovery-ex-ds}}.
+data node (i.e. 1723) and the value encoded using a 'text string' as defined in {{Section 4 of -yang-cbor}}. The datastore resource path /c is an example location discovered with a request similar to {{discovery-ex-ds}}.
 
 ~~~~
 REQ: GET </c/a7>
@@ -605,7 +604,7 @@ RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
 The next example represents the retrieval of a YANG container. In this
 case, the CORECONF client performs a GET request on the clock container
 (SID = 1721; base64: a5). The container returned is encoded using a
-CBOR map as specified by {{Section 4.2 of I-D.ietf-core-yang-cbor}}.
+CBOR map as specified by {{Section 4.2 of -yang-cbor}}.
 
 ~~~~
 REQ: GET </c/a5>
@@ -622,7 +621,7 @@ RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
 
 This example shows the retrieval of the /interfaces/interface YANG list
 accessed using SID 1533 (base64: X9). The return payload is encoded using
-a CBOR array as specified by {{Section 4.4.1 of I-D.ietf-core-yang-cbor}}
+a CBOR array as specified by {{Section 4.4.1 of -yang-cbor}}
 containing 2 instances.
 
 ~~~~
@@ -653,7 +652,7 @@ RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
 To retrieve a specific instance within the /interfaces/interface YANG list,
 the CORECONF client adds the key of the targeted instance in its CoAP request
 using the 'k' query parameter. The return payload containing the instance requested
-is encoded using a CBOR array as specified by {{Section 4.4.1 of I-D.ietf-core-yang-cbor}} containing the requested instance.
+is encoded using a CBOR array as specified by {{Section 4.4.1 of -yang-cbor}} containing the requested instance.
 
 ~~~~
 REQ: GET </c/X9?k=eth0>
@@ -677,7 +676,7 @@ It is equally possible to select a leaf of a specific instance of a list.
 The example below requests the description leaf (SID 1534, base64: X-)
 within the interface list corresponding to the interface name "eth0".
 The returned value is encoded in CBOR based on the rules
-specified by {{Section 6.4 of I-D.ietf-core-yang-cbor}}.
+specified by {{Section 6.4 of -yang-cbor}}.
 
 ~~~~
 REQ: GET </c/X-?k=eth0>
@@ -1054,8 +1053,8 @@ described in {{block}}.
 
 The format of notification without any content is a null value. The format of
 single notification is defined in {{Section
-4.2.1 of I-D.ietf-core-yang-cbor}}. For multiple notifications the format is an array where each element is
-a single notification as described in {{Section 4.2.1 of I-D.ietf-core-yang-cbor}}.
+4.2.1 of -yang-cbor}}. For multiple notifications the format is an array where each element is
+a single notification as described in {{Section 4.2.1 of -yang-cbor}}.
 
 ~~~~
 FORMAT:
@@ -1151,7 +1150,7 @@ an "Action" or "RPC" resource instance.
 The request payload contains the values assigned to the input container when specified.
 The response payload contains the values of the output container when specified.
 Both the input and output containers are encoded in CBOR using the rules defined in
-{{Section 4.2.1 of I-D.ietf-core-yang-cbor}}.
+{{Section 4.2.1 of -yang-cbor}}.
 
 The returned success response code is 2.05 Content.
 
@@ -1402,7 +1401,7 @@ The following list of common CoAP errors should be implemented by CORECONF serve
 * Error 4.15 (Unsupported Content-Format) is returned by the CORECONF server when the Content-Format used in the request does not match those specified in {{media-type}}.
 
 
-The CORECONF server MUST also enforce the different constraints associated with the YANG data models implemented. These constraints are described in {{Section 8 of RFC7950}}. These errors are reported using the CoAP error code 4.00 (Bad Request) and may have the following error container as payload. The YANG definition and associated .sid file are available in {{ietf-coreconf-yang}} and {{ietf-coreconf-sid}}. The error container is encoded using the encoding rules of a YANG data template as defined in {{Section 5 of I-D.ietf-core-yang-cbor}}.
+The CORECONF server MUST also enforce the different constraints associated with the YANG data models implemented. These constraints are described in {{Section 8 of RFC7950}}. These errors are reported using the CoAP error code 4.00 (Bad Request) and may have the following error container as payload. The YANG definition and associated .sid file are available in {{ietf-coreconf-yang}} and {{ietf-coreconf-sid}}. The error container is encoded using the encoding rules of a YANG data template as defined in {{Section 5 of -yang-cbor}}.
 
 ~~~~
 +--rw error!
@@ -1480,9 +1479,9 @@ RES:  4.00 Bad Request (Content-Format: application/yang-data+cbor; id=sid)
 
 For secure network management, it is important to restrict access to configuration variables
 only to authorized parties. CORECONF re-uses the security mechanisms already available to CoAP,
-this includes DTLS {{RFC6347}} and OSCORE {{RFC8613}} for protected access to
+this includes DTLS {{RFC6347}}{{-dtls13}} and OSCORE {{RFC8613}} for protected access to
 resources, as well as suitable authentication and authorization mechanisms, for
-example those defined in ACE OAuth {{I-D.ietf-ace-oauth-authz}}.
+example those defined in ACE OAuth {{RFC9200}}.
 
 All the security considerations of {{RFC7252}}, {{RFC7959}}, {{RFC8132}} and
 {{RFC7641}} apply to this document as well. The use of NoSec ({{Section 9 of RFC7252}}), when OSCORE
@@ -1491,7 +1490,7 @@ is not used, is NOT RECOMMENDED.
 In addition, mechanisms for authentication and authorization may need to be
 selected if not provided with the CoAP security mode.
 
-As {{I-D.ietf-core-yang-cbor}} and {{RFC4648}} are used for payload and SID
+As {{-yang-cbor}} and {{RFC4648}} are used for payload and SID
 encoding, the security considerations of those documents also need to be
 well-understood.
 
