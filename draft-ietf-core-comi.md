@@ -80,6 +80,7 @@ normative:
   RFC6241: netconf
   RFC6243: nc-wd
   RFC8949: cbor
+  RFC8742: seq
   RFC7252: coap
   RFC7950: yang
   RFC7959: blockwise
@@ -347,26 +348,26 @@ The following Media-Type is used as defined in {{I-D.ietf-core-sid}}.
 
 * application/yang-data+cbor; id=sid
 
-The following new Media-Types are defined in this document:
+The following new Media-Types based on CBOR sequences {{-seq}} are defined in this document:
 
 application/yang-identifiers+cbor:
 
 : This Media-Type represents a CBOR YANG document containing a list of instance-identifiers used to target specific data node instances within a datastore.
 
-: FORMAT: CBOR array of instance-identifier
+: FORMAT: CBOR sequence of instance-identifiers
 
-: The message payload of Media-Type 'application/yang-identifiers+cbor' is encoded using a CBOR array.
-  Each entry of this CBOR array contain an instance-identifier encoded as defined in {{Section 6.13.1 of -yang-cbor}}.
+: The message payload of Media-Type 'application/yang-identifiers+cbor' is encoded using a CBOR sequence.
+  Each item of this CBOR sequence contains an instance-identifier encoded as defined in {{Section 6.13.1 of -yang-cbor}}.
 
 application/yang-instances+cbor:
 
 : This Media-Type represents a CBOR YANG document containing a list of data node instances.
   Each data node instance is identified by its associated instance-identifier.
 
-: FORMAT: CBOR array of CBOR map of instance-identifier, instance-value
+: FORMAT: CBOR sequence of CBOR maps of instance-identifier, instance-value
 
-: The message payload of Media-Type 'application/yang-instances+cbor' is encoded using a CBOR array.
-  Each entry within this CBOR array contains a CBOR map carrying an instance-identifier and associated instance-value.
+: The message payload of Media-Type 'application/yang-instances+cbor' is encoded using a CBOR sequence.
+  Each item within this CBOR sequence contains a CBOR map carrying an instance-identifier and associated instance-value.
   Instance-identifiers are encoded using the rules defined in {{Section 6.13.1 of -yang-cbor}}, instance-values are encoded using the rules defined in {{Section 4 of -yang-cbor}}.
 
 : When present in an iPATCH request payload, this Media-Type carry a list of data node instances to be replaced, created, or deleted.
@@ -404,7 +405,7 @@ Characteristics of the unified datastore are summarized in the table below:
 | YANG modules  | all modules                                       |
 | YANG nodes    | all data nodes ("config true" and "config false") |
 | Access        | read-write                                        |
-| How applied   | changes applied in place immediately or with a  minimal delay |
+| How applied   | changes applied in place immediately or with a minimal delay  |
 | Protocols     | CORECONF                                              |
 | Defined in    | "ietf-coreconf"                                       |
 {: align="left"}
@@ -412,7 +413,8 @@ Characteristics of the unified datastore are summarized in the table below:
 # Example syntax {#example-syntax}
 
 CBOR is used to encode CORECONF request and response payloads. The CBOR syntax
-of the YANG payloads is specified in {{-yang-cbor}}, based on {{RFC8949}}.
+of the YANG payloads is specified in {{-yang-cbor}}, based on {{RFC8949}}
+and {{-seq}}.
 The payload examples are
 notated in Diagnostic notation (defined in {{Section 8 of RFC8949}}) that
 can be automatically converted to CBOR.
@@ -627,9 +629,9 @@ RES: 2.05 Content
 {: #Fig-get-system-current-datetime title='GET current datatime" artwork-align="left"}
 
 This example shows the retrieval of the /interfaces/interface YANG list
-accessed using SID 1533 (base64: X9). The return payload is encoded using
-a CBOR array as specified by {{Section 4.4.1 of -yang-cbor}}
-containing 2 instances.
+accessed using SID 1533 (base64: X9). The return payload is encoded
+employing a CBOR array as specified by {{Section 4.4.1 of -yang-cbor}}
+containing 2 list entries.
 
 ~~~~
 REQ: GET </c/X9>
@@ -657,10 +659,10 @@ RES: 2.05 Content
 ~~~~
 {: artwork-align="left"}
 
-To retrieve a specific instance within the /interfaces/interface YANG list,
+To retrieve a specific entry within the /interfaces/interface YANG list,
 the CORECONF client adds the key of the targeted instance in its CoAP request
 using the 'k' query parameter. The return payload containing the instance requested
-is encoded using a CBOR array as specified by {{Section 4.4.1 of -yang-cbor}} containing the requested instance.
+is encoded using a CBOR array as specified by {{Section 4.4.1 of -yang-cbor}} containing the requested entry.
 
 ~~~~
 REQ: GET </c/X9?k=eth0>
@@ -681,7 +683,7 @@ RES: 2.05 Content
 ~~~~
 {: artwork-align="left"}
 
-It is equally possible to select a leaf of a specific instance of a list.
+It is equally possible to select a leaf of a specific entry of a list.
 The example below requests the description leaf (SID 1534, base64: X-)
 within the interface list corresponding to the interface name "eth0".
 The returned value is encoded in CBOR based on the rules
@@ -708,16 +710,16 @@ The return response payload contains a list of data node instance-values in the 
 A CBOR null is returned for each data node requested by the client, not supported by the server or not currently instantiated.
 
 For compactness, indexes of the list instance identifiers returned by the FETCH response SHOULD be elided, only the SID is provided.
-This approach may also help reducing implementation complexity since the format of each entry within the CBOR array of the FETCH response is identical to the format of the corresponding GET response.
+This approach may also help reducing implementation complexity since the format of each entry within the CBOR sequence of the FETCH response is identical to the format of the corresponding GET response.
 
 ~~~~
 FORMAT:
   FETCH <datastore resource>
         (Content-Format: application/yang-identifiers+cbor)
-  CBOR array of instance-identifier
+  CBOR sequence of instance-identifiers
 
   2.05 Content (Content-Format: application/yang-instances+cbor)
-  CBOR array of CBOR map of SID, instance-value
+  CBOR sequence of CBOR maps of SID, instance-value
 ~~~~
 {: artwork-align="left"}
 
@@ -733,27 +735,25 @@ list (SID 1533) instance identified with name="eth0" are queried.
 ~~~~
 REQ: FETCH </c>
      (Content-Format: application/yang-identifiers+cbor)
-[
-  1723,            / current-datetime (SID 1723) /
-  [1533, "eth0"]   / interface (SID 1533) with name = "eth0" /
-]
+1723,            / current-datetime (SID 1723) /
+[1533, "eth0"]   / interface (SID 1533) with name = "eth0" /
 
 RES: 2.05 Content (Content-Format: application/yang-instances+cbor)
-[
-  {
-    1723 : "2014-10-26T12:16:31Z" / current-datetime (SID 1723) /
-  },
-  {
-    1533 : {
-       4 : "eth0",              / name (SID 1537) /
-       1 : "Ethernet adaptor",  / description (SID 1534) /
-       5 : 1880,                / type (SID 1538), identity /
-                                / ethernetCsmacd (SID 1880) /
-       2 : true,                / enabled (SID 1535) /
-      11 : 3             / oper-status (SID 1544), value is testing /
-    }
+
+{
+  1723 : "2014-10-26T12:16:31Z" / current-datetime (SID 1723) /
+},
+{
+  1533 : {
+     4 : "eth0",              / name (SID 1537) /
+     1 : "Ethernet adaptor",  / description (SID 1534) /
+     5 : 1880,                / type (SID 1538), identity /
+                              / ethernetCsmacd (SID 1880) /
+     2 : true,                / enabled (SID 1535) /
+    11 : 3             / oper-status (SID 1544), value is testing /
   }
-]
+}
+
 ~~~~
 {: artwork-align="left"}
 
@@ -766,10 +766,9 @@ CoAP methods.
 ### Data Ordering {#DataOrdering}
 
 A CORECONF server MUST preserve the relative order of all user-ordered list
-and leaf-list entries that are received in a single edit request.  These YANG
-data node types are encoded as CBOR arrays so messages will preserve their
-order.
-
+and leaf-list entries that are received in a single edit request.
+As per {{-yang-cbor}}, these YANG data node types are encoded as CBOR
+arrays, so messages will preserve their order.
 
 ### POST {#post-operation}
 
@@ -886,7 +885,7 @@ A null value indicates the removal of an existing data node instance.
 FORMAT:
   iPATCH <datastore resource>
          (Content-Format: application/yang-instances+cbor)
-  CBOR array of CBOR map of instance-identifier, instance-value
+  CBOR sequence of CBOR maps of instance-identifier, instance-value
 
   2.04 Changed
 ~~~~
@@ -905,23 +904,21 @@ In this example, a CORECONF client requests the following operations:
 ~~~~
 REQ: iPATCH </c>
      (Content-Format: application/yang-instances+cbor)
-[
-  {
-    1755 : true                   / enabled (SID 1755) /
-  },
-  {
-    [1756, "tac.nrc.ca"] : null   / server (SID 1756) /
-  },
-  {
-    1756 : {                      / server (SID 1756) /
-      3 : "tic.nrc.ca",           / name (SID 1759) /
-      4 : true,                   / prefer (SID 1760) /
-      5 : {                       / udp (SID 1761) /
-        1 : "132.246.11.231"      / address (SID 1762) /
-      }
+{
+  1755 : true                   / enabled (SID 1755) /
+},
+{
+  [1756, "tac.nrc.ca"] : null   / server (SID 1756) /
+},
+{
+  1756 : {                      / server (SID 1756) /
+    3 : "tic.nrc.ca",           / name (SID 1759) /
+    4 : true,                   / prefer (SID 1760) /
+    5 : {                       / udp (SID 1761) /
+      1 : "132.246.11.231"      / address (SID 1762) /
     }
   }
-]
+}
 
 RES: 2.04 Changed
 ~~~~
@@ -1062,21 +1059,22 @@ exceed the MTU of a single CoAP packet. If such cases could arise, implementers
 should make sure appropriate fragmentation is available - for example the one
 described in {{block}}.
 
-The format of notification without any content is a null value. The format of
-single notification is defined in {{Section
-4.2.1 of -yang-cbor}}. For multiple notifications the format is an array where each element is
-a single notification as described in {{Section 4.2.1 of -yang-cbor}}.
+The format of notifications is a CBOR sequence, where each item in
+the sequence is a single notification as described in {{Section 4.2.1
+of -yang-cbor}}.
+(Accordingly, a notification without any content is an empty CBOR
+sequence, i.e., zero bytes.)
 
 ~~~~
 FORMAT:
   GET <stream-resource> Observe(0)
 
   2.05 Content (Content-Format: application/yang-instances+cbor)
-  CBOR array of CBOR map of instance-identifier, instance-value
+  CBOR sequence of CBOR maps of instance-identifier, instance-value
 ~~~~
 {: artwork-align="left"}
 
-The array of data node instances may contain identical entries which have
+The sequence of data node instances may contain identical items which have
 been generated at different times.
 
 An example implementation is:
@@ -1116,22 +1114,22 @@ following response:
 ~~~~
 REQ:  GET </s> Observe(0)
 
-RES:  2.05 Content (Content-Format: application/yang-tree+cbor)
+RES:  2.05 Content (Content-Format: application/yang-instances+cbor)
       Observe(12)
-[
-  {
-    60010 : {             / example-port-fault (SID 60010) /
-      1 : "0/4/21",       / port-name (SID 60011) /
-      2 : "Open pin 2"    / port-fault (SID 60012) /
-    }
-  },
-  {
-    60010 : {             / example-port-fault (SID 60010) /
-      1 : "1/4/21",       / port-name (SID 60011) /
-      2 : "Open pin 5"    / port-fault (SID 60012) /
-    }
+
+{
+  60010 : {             / example-port-fault (SID 60010) /
+    1 : "0/4/21",       / port-name (SID 60011) /
+    2 : "Open pin 2"    / port-fault (SID 60012) /
   }
-]
+},
+{
+  60010 : {             / example-port-fault (SID 60010) /
+    1 : "1/4/21",       / port-name (SID 60011) /
+    2 : "Open pin 5"    / port-fault (SID 60012) /
+  }
+}
+
 ~~~~
 {: artwork-align="left"}
 
@@ -1265,6 +1263,9 @@ a state having occurred in the server; or worse the returned values are inconsis
 For example: array length does not correspond with the actual number of items.
 It may be advisable to use Indefinite-length CBOR arrays and maps,
 which are foreseen for data streaming purposes.
+(Note that the outer structure of yang-identifiers and yang-instances
+is a CBOR sequence, which already behaves similar to an
+indefinite-length encoded array.)
 
 
 # Application Discovery {#discovery}
