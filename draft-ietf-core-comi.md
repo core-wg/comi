@@ -1608,19 +1608,6 @@ Reference:    RFC XXXX
 
 // RFC Ed.: please replace XXXX with RFC number and remove this note
 
-# Acknowledgments
-
-We are very grateful to Bert Greevenbosch who was one of the original authors
-of the CORECONF specification.
-
-Mehmet Ersue and Bert Wijnen explained the encoding aspects of PDUs transported
-under SNMP. Carsten Bormann has given feedback on the use of CBOR.
-
-The draft has benefited from comments (alphabetical order) by Rodney Cummings,
-Dee Denteneer, Esko Dijk, Klaus Hartke, Michael van Hartskamp, Tanguy
-Ropitault, Juergen Schoenwaelder, Anuj Sehgal, Zach Shelby, Hannes Tschofenig,
-Michael Verschoor, and Thomas Watteyne.
-
 
 --- back
 
@@ -2080,4 +2067,28 @@ module ietf-coreconf {
 {: artwork-align="left"}
 
 
+# Acknowledgments
+{:unnumbered}
 
+We are very grateful to {{{Bert Greevenbosch}}} who was one of the original authors
+of the CORECONF specification.
+
+{{{Mehmet Ersue}}} and {{{Bert Wijnen}}} explained the encoding aspects of PDUs transported
+under SNMP.
+{{{Koen Zandberg}}}'s implementation input motivated massively simplifying
+(and fixing) the URI construction for GET/PUT/POST requests.
+
+The draft has further benefited from comments (alphabetical order) by
+{{{Rodney Cummings}}},
+{{{Dee Denteneer}}},
+{{{Esko Dijk}}},
+{{{Klaus Hartke}}},
+{{{Michael van Hartskamp}}},
+{{{Tanguy Ropitault}}},
+{{{Jürgen Schönwälder}}},
+{{{Anuj Sehgal}}},
+{{{Zach Shelby}}},
+{{{Hannes Tschofenig}}},
+{{{Michael Verschoor}}},
+and
+{{{Thomas Watteyne}}}.
