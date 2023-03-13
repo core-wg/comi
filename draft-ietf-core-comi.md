@@ -294,7 +294,7 @@ to significantly reduce the size of identifiers used in CORECONF, numeric
  identifiers called YANG Schema Item iDentifier (YANG SID or simply SID) are used instead.
 
 When used in a URI, SIDs are encoded using base64 encoding of the SID bytes. The base64 encoding is using the URL and Filename safe
-alphabet as defined by {{Section 5 of RFC4648}}, without padding. The last 6 bits encoded is always aligned
+alphabet as defined by {{Section 5 of -base}}, without padding. The last 6 bits encoded is always aligned
 with the least significant 6 bits of the SID represented using an unsigned integer.
 'A' characters (value 0) at the start of the resulting string are removed. See {{Fig-sid-encoding}} for complete illustration.
 
@@ -334,9 +334,24 @@ The resulting base64 representation of SID 1721 is the two-character string "a5"
 
 ## Instance-identifier {#instance-identifier}
 
-Instance-identifiers are used to uniquely identify data node instances within a datastore. This YANG built-in type is defined in {{Section 9.13 of RFC7950}}. An instance-identifier is composed of the data node identifier (i.e. a SID) and for data nodes within list(s) the keys used to index within these list(s).
+Instance-identifiers are used to uniquely identify data node instances within a datastore. This YANG built-in type is defined in {{Section 9.13 of RFC7950}}. An instance-identifier is composed of the data node identifier (i.e. a SID) and, for data nodes within list(s), the keys used to index within these list(s).
 
-When part of a payload, instance-identifiers are encoded in CBOR based on the rules defined in {{Section 6.13.1 of -yang-cbor}}. When part of a URI, the SID is appended to the URI of the targeted datastore, the keys are specified using the 'k' query parameter as defined in {{query}}.
+When part of a payload, instance-identifiers are encoded in CBOR
+based on the rules defined in {{Section 6.13.1 of -yang-cbor}}.
+When a (single) instance identifier is part of a URI, the SID is
+appended as another URI Path component to the URI of the targeted
+datastore; any keys (further elements of the array specified in
+{{Section 6.13.1 of -yang-cbor}}) are represented using a query
+parameter as defined in {{query}}.
+[^simpler]
+
+[^simpler]: It would be even simpler to just put the entire 6.13.1
+    encoding of an instance identifier, base64url-encoded, into a path
+    component of the URI.  This would allow FETCH and GET
+    implementations to share almost all of the code.  It also would
+    get rid of the {{id-compression}} innovation.  It would make less
+    obvious which SID is being addressed by a GET during debugging,
+    just as with a FETCH.
 
 
 ## Media-Types {#media-type}
@@ -461,7 +476,8 @@ The methods used by CORECONF are:
 | DELETE    | Delete a datastore resource or a data node resource                                         |
 {: align="left"}
 
-There is at most one instance of the 'k' query parameter for YANG list element
+There is at most one instance of the query parameter for instance
+identifier keys {{query}} for YANG list element
 selection for the GET, PUT, POST, and DELETE methods. Having multiple instances
 of that query parameter shall be treated as an error.
 
@@ -473,11 +489,12 @@ This parameter is not used for FETCH and iPATCH, because their request payloads
 support list instance selection.
 
 
-## Using the 'k' query parameter {#query}
+## Using a query parameter for instance identifier keys {#query}
 
-The 'k' (key) parameter specifies a specific instance of a data node.
-The SID in the URI is followed by the (?k=key1,key2,...). Where SID identifies
-a data node, and key1, key2 are the values of the key leaves that specify
+A query parameter in a URI that does not contain an equals sign
+specifies a specific instance of a data node.
+The SID in the URI path is followed by a question mark and the query
+parameter, which is built from the values of the key leaves that specify
 an instance. Lists can have multiple keys, and lists can be part
 of lists. The order of key value generation is given recursively by:
 
@@ -485,31 +502,17 @@ of lists. The order of key value generation is given recursively by:
 
 * For a given list, generate key values in the order specified in the YANG module.
 
-Key values are encoded using the rules defined in the following table.
-
-| YANG datatype                 | Uri-Query text content         |
-| uint8, uint16, uint32, uint64 | int2str(key)                   |
-| int8, int16, int32, int64     | urlSafeBase64(CBORencode(key)) |
-| decimal64                     | urlSafeBase64(CBORencode(key)) |
-| string                        | key                            |
-| boolean                       | "0" or "1"                     |
-| enumeration                   | int2str(key)                   |
-| bits                          | urlSafeBase64(CBORencode(key)) |
-| binary                        | urlSafeBase64(key)             |
-| identityref                   | int2str(key)                   |
-| union                         | urlSafeBase64(CBORencode(key)) |
-| instance-identifier           | urlSafeBase64(CBORencode(key)) |
-{: align="left"}
-
-In this table:
-
-  * The method int2str() is used to convert an unsigned integer value to a decimal string. For example, int2str(0x0123) return the three-character string "291".
-  * The boolean values false and true are represented as the single-character strings "0" and "1" respectively.
-  * The method urlSafeBase64() is used to convert a binary string to base64 using the URL and Filename safe alphabet as defined by {{Section 5 of RFC4648}}, without padding. For example, urlSafeBase64(0xF956A13C) return the six-character string "-VahPA".
-  * The method CBORencode() is used to convert a YANG value to CBOR as specified in {{Section 6 of -yang-cbor}}.
-
-The resulting key strings are joined using commas between every two consecutive
-key values to produce the value of the 'k' parameter.
+Key values are first encoded as a CBOR sequence {{-seq}}, taking the
+items defined as array elements for the "following" elements as per
+the rules of encoding the instance identifier {{Section 6.13.1 of
+-yang-cbor}}.
+[^simpler]
+The CBOR sequence is then base64-encoded, using the URL and Filename
+safe alphabet as defined by {{Section 5 of -base}}, without padding
+(base64url encoding).
+The encoder MUST ensure, and the decoder MUST check, that any unused
+bits in the last character of that encoding are zero, as per the
+third sentence of the paragraph after Table 1 in {{Section 4 of -base}}.
 
 ## Data Retrieval {#data-retrieval}
 
@@ -576,12 +579,12 @@ added for readability, but they are not part of the payload).
 
 A request to read the value of a data node instance is sent with a
 CoAP GET message. The URI is set to the data node resource requested,
-the 'k' query parameter is added if any of the parents of the requested data node
+the query parameter for instance identifier keys {{query}} is added if any of the parents of the requested data node
 is a list node.
 
 ~~~~
 FORMAT:
-  GET <data node resource> ['k' Uri-Query option]
+  GET <data node resource> [Uri-Query option]
 
   2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
   CBOR map of SID, instance-value
@@ -661,11 +664,11 @@ RES: 2.05 Content
 
 To retrieve a specific entry within the /interfaces/interface YANG list,
 the CORECONF client adds the key of the targeted instance in its CoAP request
-using the 'k' query parameter. The return payload containing the instance requested
+using the query parameter for instance identifier keys {{query}}. The return payload containing the instance requested
 is encoded using a CBOR array as specified by {{Section 4.4.1 of -yang-cbor}} containing the requested entry.
 
 ~~~~
-REQ: GET </c/X9?k=eth0>
+REQ: GET </c/X9?ZGV0aDA>        [1533, "eth0"]
 
 RES: 2.05 Content
      (Content-Format: application/yang-data+cbor; id=sid)
@@ -690,7 +693,7 @@ The returned value is encoded in CBOR based on the rules
 specified by {{Section 6.4 of -yang-cbor}}.
 
 ~~~~
-REQ: GET </c/X-?k=eth0>
+REQ: GET </c/X-?ZGV0aDA>        [1534, "eth0"]
 
 RES: 2.05 Content
      (Content-Format: application/yang-data+cbor; id=sid)
@@ -829,7 +832,7 @@ CoAP PUT message.
 
 ~~~~
 FORMAT:
-  PUT <data node resource> ['k' Uri-Query option]
+  PUT <data node resource> [Uri-Query option]
       (Content-Format: application/yang-data+cbor; id=sid)
   CBOR map of SID, instance-value
 
@@ -847,7 +850,7 @@ using a request similar to {{discovery-ex-ds}}.
 
 
 ~~~~
-REQ: PUT </c/X9?k=eth0>
+REQ: PUT </c/X9?ZGV0aDA>       [1533, "eth0"]
      (Content-Format: application/yang-data+cbor; id=sid)
 {
   1533 : [
@@ -933,7 +936,7 @@ A data node resource is deleted with the DELETE method.
 
 ~~~~
 FORMAT:
-  Delete <data node resource> ['k' Uri-Query option]
+  Delete <data node resource> [Uri-Query option]
 
   2.02 Deleted
 ~~~~
@@ -947,7 +950,7 @@ This example deletes an instance of the interface list (SID = 1533):
 
 
 ~~~~
-REQ:   DELETE </c/X9?k=eth0>
+REQ:   DELETE </c/X9?ZGV0aDA>        [1533, "eth0"]
 
 RES:   2.02 Deleted
 ~~~~
@@ -1166,7 +1169,7 @@ The returned success response code is 2.05 Content.
 
 ~~~~
 FORMAT:
-  POST <data node resource> ['k' Uri-Query option]
+  POST <data node resource> [Uri-Query option]
        (Content-Format: application/yang-data+cbor; id=sid)
   CBOR map of SID, instance-value
 
@@ -1221,7 +1224,7 @@ of the server instance with name equal to "myserver".
 
 
 ~~~~
-REQ:  POST </c/Opq?k=myserver>
+REQ:  POST </c/Opq?aG15c2VydmVy>     [60002, "myserver"]
       (Content-Format: application/yang-data+cbor; id=sid)
 {
   60002 : {
