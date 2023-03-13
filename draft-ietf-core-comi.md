@@ -9,6 +9,10 @@ title: CoAP Management Interface (CORECONF)
 abbrev: CORECONF
 area: Applications
 wg: CoRE
+venue:
+  mail: core@ietf.org
+  github: core-wg/comi
+
 author:
 - ins: M. V. Veillette
   role: editor
@@ -48,8 +52,18 @@ author:
   code: '93065'
   country: USA
   email: andy@yumaworks.com
-- role: editor
-  ins: I. I. Petrov
+- name: Carsten Bormann
+  role: editor
+  org: Universität Bremen TZI
+  street: Postfach 330440
+  city: Bremen
+  code: D-28359
+  country: Germany
+  phone: +49-421-218-63921
+  email: cabo@tzi.org
+
+contributor:
+- ins: I. I. Petrov
   name: Ivaylo Petrov
   org: Acklio
   street: 1137A avenue des Champs Blancs
@@ -58,21 +72,21 @@ author:
 #  region: Bretagne
   country: France
   email: ivaylo@ackl.io
+
 normative:
-  RFC2119:
-  RFC3688:
-  RFC8174:
-  RFC4648:
-  RFC5277:
-  RFC6241:
-  RFC6243:
-  RFC8949:
-  RFC7252:
-  RFC7950:
-  RFC7959:
-  RFC7641:
-  RFC8132:
-  RFC8040:
+  RFC3688: xmlreg
+  RFC4648: base
+  RFC5277: nc-notif
+  RFC6241: netconf
+  RFC6243: nc-wd
+  RFC8949: cbor
+  RFC8742: seq
+  RFC7252: coap
+  RFC7950: yang
+  RFC7959: blockwise
+  RFC7641: observe
+  RFC8132: etch
+  RFC8040: restconf
   RFC9254: yang-cbor
   I-D.ietf-core-sid:
   I-D.ietf-core-yang-library:
@@ -96,12 +110,6 @@ YANG identifier strings to numeric identifiers for payload size reduction.
 CORECONF extends the set of YANG based
 protocols, NETCONF and RESTCONF, with the capability to manage constrained devices
 and networks.
-
---- note_Note
-
-
-Discussion and suggestions for improvement are requested,
-and should be sent to yot@ietf.org.
 
 --- middle
 
@@ -135,16 +143,11 @@ to minimize CBOR payloads and URI length.
 
 ## Terminology {#terminology}
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
-"SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this
-document are to be interpreted as described in BCP 14 {{RFC2119}} {{RFC8174}}
-when, and only when, they appear in all capitals, as shown here.
-
 The following terms are defined in the YANG data modeling language {{RFC7950}}: action, anydata, anyxml, client, container, data model, data node, identity, instance identifier, leaf, leaf-list, list, module, RPC, schema node, server, submodule.
 
 The following terms are defined in {{RFC6241}}: configuration data, datastore, state data.
 
-The following term is defined in {{I-D.ietf-core-sid}}: YANG schema item identifier (YANG SID, often shorten to simply SID).
+The following term is defined in {{I-D.ietf-core-sid}}: YANG schema item identifier (YANG SID, often shortened to simply SID).
 
 The following terms are defined in the CoAP protocol {{RFC7252}}: Confirmable Message, Content-Format, Endpoint.
 
@@ -182,6 +185,8 @@ instance-value:
 : The value assigned to a data node instance. Instance-values are serialized into
   the payload according to the rules defined in {{Section 4 of -yang-cbor}}.
 
+{::boilerplate bcp14-tagged}
+
 
 # CORECONF Architecture {#comi-architecture}
 
@@ -190,28 +195,29 @@ modifying the content of datastore(s) used for the management of the instrumente
 node.
 
 
-~~~~
+~~~~ aasvg
 +----------------------------------------------------------------+
 |                SMIv2 specification (optional) (2)              |
-+----------------------------------------------------------------+
++------------------------------+---------------------------------+
                                |
-                               V
+                               v
 +----------------------------------------------------------------+
 |                     YANG specification  (1)                    |
-+----------------------------------------------------------------+
++--------+--------------------------------------------+----------+
          |                                            |
-Client   V                               Server       V
-+----------------+                       +-----------------------+
-|        Request |--> CoAP request(3) -->| Indication            |
-|        Confirm |<-- CoAP response(3)<--| Response          (4) |
-|                |                       |                       |
-|                |<==== Security (7) ===>|+---------------------+|
-+----------------+                       || Datastore(s)    (5) ||
-                                         |+---------------------+|
-                                         |+---------------------+|
-                                         || Event stream(s) (6) ||
-                                         |+---------------------+|
-                                         +-----------------------+
+ Client  v                              Server        v
++--------------+                       +-------------------------+
+|      Request +--> CoAP request(3) -->|  Indication             |
+|      Confirm |<-- CoAP response(3)<--+  Response         (4)   |
+|              |                       |                         |
+|              |<==== Security (7) ===>| +---------------------+ |
++--------------+                       | | Datastore(s)    (5) | |
+                                       | +---------------------+ |
+                                       |                         |
+                                       | +---------------------+ |
+                                       | | Event stream(s) (6) | |
+                                       | +---------------------+ |
+                                       +-------------------------+
 ~~~~
 {: #archit title='Abstract CORECONF architecture' artwork-align="left"}
 
@@ -288,22 +294,22 @@ to significantly reduce the size of identifiers used in CORECONF, numeric
  identifiers called YANG Schema Item iDentifier (YANG SID or simply SID) are used instead.
 
 When used in a URI, SIDs are encoded using base64 encoding of the SID bytes. The base64 encoding is using the URL and Filename safe
-alphabet as defined by {{Section 5 of RFC4648}}, without padding. The last 6 bits encoded is always aligned
+alphabet as defined by {{Section 5 of -base}}, without padding. The last 6 bits encoded is always aligned
 with the least significant 6 bits of the SID represented using an unsigned integer.
 'A' characters (value 0) at the start of the resulting string are removed. See {{Fig-sid-encoding}} for complete illustration.
 
 ~~~~
 SID in base64 = URLsafeChar[SID >> 60 & 0x3F] |
-                 URLsafeChar[SID >> 54 & 0x3F] |
-                 URLsafeChar[SID >> 48 & 0x3F] |
-                 URLsafeChar[SID >> 42 & 0x3F] |
-                 URLsafeChar[SID >> 36 & 0x3F] |
-                 URLsafeChar[SID >> 30 & 0x3F] |
-                 URLsafeChar[SID >> 24 & 0x3F] |
-                 URLsafeChar[SID >> 18 & 0x3F] |
-                 URLsafeChar[SID >> 12 & 0x3F] |
-                 URLsafeChar[SID >> 6 & 0x3F] |
-                 URLsafeChar[SID & 0x3F]
+                URLsafeChar[SID >> 54 & 0x3F] |
+                URLsafeChar[SID >> 48 & 0x3F] |
+                URLsafeChar[SID >> 42 & 0x3F] |
+                URLsafeChar[SID >> 36 & 0x3F] |
+                URLsafeChar[SID >> 30 & 0x3F] |
+                URLsafeChar[SID >> 24 & 0x3F] |
+                URLsafeChar[SID >> 18 & 0x3F] |
+                URLsafeChar[SID >> 12 & 0x3F] |
+                URLsafeChar[SID >> 6 & 0x3F]  |
+                URLsafeChar[SID & 0x3F]
 ~~~~
 {: #Fig-sid-encoding artwork-align="left"}
 
@@ -328,9 +334,24 @@ The resulting base64 representation of SID 1721 is the two-character string "a5"
 
 ## Instance-identifier {#instance-identifier}
 
-Instance-identifiers are used to uniquely identify data node instances within a datastore. This YANG built-in type is defined in {{Section 9.13 of RFC7950}}. An instance-identifier is composed of the data node identifier (i.e. a SID) and for data nodes within list(s) the keys used to index within these list(s).
+Instance-identifiers are used to uniquely identify data node instances within a datastore. This YANG built-in type is defined in {{Section 9.13 of RFC7950}}. An instance-identifier is composed of the data node identifier (i.e. a SID) and, for data nodes within list(s), the keys used to index within these list(s).
 
-When part of a payload, instance-identifiers are encoded in CBOR based on the rules defined in {{Section 6.13.1 of -yang-cbor}}. When part of a URI, the SID is appended to the URI of the targeted datastore, the keys are specified using the 'k' query parameter as defined in {{query}}.
+When part of a payload, instance-identifiers are encoded in CBOR
+based on the rules defined in {{Section 6.13.1 of -yang-cbor}}.
+When a (single) instance identifier is part of a URI, the SID is
+appended as another URI Path component to the URI of the targeted
+datastore; any keys (further elements of the array specified in
+{{Section 6.13.1 of -yang-cbor}}) are represented using a query
+parameter as defined in {{query}}.
+[^simpler]
+
+[^simpler]: It would be even simpler to just put the entire 6.13.1
+    encoding of an instance identifier, base64url-encoded, into a path
+    component of the URI.  This would allow FETCH and GET
+    implementations to share almost all of the code.  It also would
+    get rid of the {{id-compression}} innovation.  It would make less
+    obvious which SID is being addressed by a GET during debugging,
+    just as with a FETCH.
 
 
 ## Media-Types {#media-type}
@@ -342,26 +363,26 @@ The following Media-Type is used as defined in {{I-D.ietf-core-sid}}.
 
 * application/yang-data+cbor; id=sid
 
-The following new Media-Types are defined in this document:
+The following new Media-Types based on CBOR sequences {{-seq}} are defined in this document:
 
 application/yang-identifiers+cbor:
 
 : This Media-Type represents a CBOR YANG document containing a list of instance-identifiers used to target specific data node instances within a datastore.
 
-: FORMAT: CBOR array of instance-identifier
+: FORMAT: CBOR sequence of instance-identifiers
 
-: The message payload of Media-Type 'application/yang-identifiers+cbor' is encoded using a CBOR array.
-  Each entry of this CBOR array contain an instance-identifier encoded as defined in {{Section 6.13.1 of -yang-cbor}}.
+: The message payload of Media-Type 'application/yang-identifiers+cbor' is encoded using a CBOR sequence.
+  Each item of this CBOR sequence contains an instance-identifier encoded as defined in {{Section 6.13.1 of -yang-cbor}}.
 
 application/yang-instances+cbor:
 
 : This Media-Type represents a CBOR YANG document containing a list of data node instances.
   Each data node instance is identified by its associated instance-identifier.
 
-: FORMAT: CBOR array of CBOR map of instance-identifier, instance-value
+: FORMAT: CBOR sequence of CBOR maps of instance-identifier, instance-value
 
-: The message payload of Media-Type 'application/yang-instances+cbor' is encoded using a CBOR array.
-  Each entry within this CBOR array contains a CBOR map carrying an instance-identifier and associated instance-value.
+: The message payload of Media-Type 'application/yang-instances+cbor' is encoded using a CBOR sequence.
+  Each item within this CBOR sequence contains a CBOR map carrying an instance-identifier and associated instance-value.
   Instance-identifiers are encoded using the rules defined in {{Section 6.13.1 of -yang-cbor}}, instance-values are encoded using the rules defined in {{Section 4 of -yang-cbor}}.
 
 : When present in an iPATCH request payload, this Media-Type carry a list of data node instances to be replaced, created, or deleted.
@@ -399,7 +420,7 @@ Characteristics of the unified datastore are summarized in the table below:
 | YANG modules  | all modules                                       |
 | YANG nodes    | all data nodes ("config true" and "config false") |
 | Access        | read-write                                        |
-| How applied   | changes applied in place immediately or with a  minimal delay |
+| How applied   | changes applied in place immediately or with a minimal delay  |
 | Protocols     | CORECONF                                              |
 | Defined in    | "ietf-coreconf"                                       |
 {: align="left"}
@@ -407,7 +428,8 @@ Characteristics of the unified datastore are summarized in the table below:
 # Example syntax {#example-syntax}
 
 CBOR is used to encode CORECONF request and response payloads. The CBOR syntax
-of the YANG payloads is specified in {{-yang-cbor}}, based on {{RFC8949}}.
+of the YANG payloads is specified in {{-yang-cbor}}, based on {{RFC8949}}
+and {{-seq}}.
 The payload examples are
 notated in Diagnostic notation (defined in {{Section 8 of RFC8949}}) that
 can be automatically converted to CBOR.
@@ -454,7 +476,8 @@ The methods used by CORECONF are:
 | DELETE    | Delete a datastore resource or a data node resource                                         |
 {: align="left"}
 
-There is at most one instance of the 'k' query parameter for YANG list element
+There is at most one instance of the query parameter for instance
+identifier keys {{query}} for YANG list element
 selection for the GET, PUT, POST, and DELETE methods. Having multiple instances
 of that query parameter shall be treated as an error.
 
@@ -466,11 +489,12 @@ This parameter is not used for FETCH and iPATCH, because their request payloads
 support list instance selection.
 
 
-## Using the 'k' query parameter {#query}
+## Using a query parameter for instance identifier keys {#query}
 
-The 'k' (key) parameter specifies a specific instance of a data node.
-The SID in the URI is followed by the (?k=key1,key2,...). Where SID identifies
-a data node, and key1, key2 are the values of the key leaves that specify
+A query parameter in a URI that does not contain an equals sign
+specifies a specific instance of a data node.
+The SID in the URI path is followed by a question mark and the query
+parameter, which is built from the values of the key leaves that specify
 an instance. Lists can have multiple keys, and lists can be part
 of lists. The order of key value generation is given recursively by:
 
@@ -478,31 +502,17 @@ of lists. The order of key value generation is given recursively by:
 
 * For a given list, generate key values in the order specified in the YANG module.
 
-Key values are encoded using the rules defined in the following table.
-
-| YANG datatype                 | Uri-Query text content         |
-| uint8, uint16, uint32, uint64 | int2str(key)                   |
-| int8, int16, int32, int64     | urlSafeBase64(CBORencode(key)) |
-| decimal64                     | urlSafeBase64(CBORencode(key)) |
-| string                        | key                            |
-| boolean                       | "0" or "1"                     |
-| enumeration                   | int2str(key)                   |
-| bits                          | urlSafeBase64(CBORencode(key)) |
-| binary                        | urlSafeBase64(key)             |
-| identityref                   | int2str(key)                   |
-| union                         | urlSafeBase64(CBORencode(key)) |
-| instance-identifier           | urlSafeBase64(CBORencode(key)) |
-{: align="left"}
-
-In this table:
-
-  * The method int2str() is used to convert an unsigned integer value to a decimal string. For example, int2str(0x0123) return the three-character string "291".
-  * The boolean values false and true are represented as the single-character strings "0" and "1" respectively.
-  * The method urlSafeBase64() is used to convert a binary string to base64 using the URL and Filename safe alphabet as defined by {{Section 5 of RFC4648}}, without padding. For example, urlSafeBase64(0xF956A13C) return the six-character string "-VahPA".
-  * The method CBORencode() is used to convert a YANG value to CBOR as specified in {{Section 6 of -yang-cbor}}.
-
-The resulting key strings are joined using commas between every two consecutive
-key values to produce the value of the 'k' parameter.
+Key values are first encoded as a CBOR sequence {{-seq}}, taking the
+items defined as array elements for the "following" elements as per
+the rules of encoding the instance identifier {{Section 6.13.1 of
+-yang-cbor}}.
+[^simpler]
+The CBOR sequence is then base64-encoded, using the URL and Filename
+safe alphabet as defined by {{Section 5 of -base}}, without padding
+(base64url encoding).
+The encoder MUST ensure, and the decoder MUST check, that any unused
+bits in the last character of that encoding are zero, as per the
+third sentence of the paragraph after Table 1 in {{Section 4 of -base}}.
 
 ## Data Retrieval {#data-retrieval}
 
@@ -569,12 +579,12 @@ added for readability, but they are not part of the payload).
 
 A request to read the value of a data node instance is sent with a
 CoAP GET message. The URI is set to the data node resource requested,
-the 'k' query parameter is added if any of the parents of the requested data node
+the query parameter for instance identifier keys {{query}} is added if any of the parents of the requested data node
 is a list node.
 
 ~~~~
 FORMAT:
-  GET <data node resource> ['k' Uri-Query option]
+  GET <data node resource> [Uri-Query option]
 
   2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
   CBOR map of SID, instance-value
@@ -594,7 +604,8 @@ data node (i.e. 1723) and the value encoded using a 'text string' as defined in 
 ~~~~
 REQ: GET </c/a7>
 
-RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
+RES: 2.05 Content
+     (Content-Format: application/yang-data+cbor; id=sid)
 {
   1723 : "2014-10-26T12:16:31Z"
 }
@@ -609,7 +620,8 @@ CBOR map as specified by {{Section 4.2 of -yang-cbor}}.
 ~~~~
 REQ: GET </c/a5>
 
-RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
+RES: 2.05 Content
+     (Content-Format: application/yang-data+cbor; id=sid)
 {
   1721 : {
     2 : "2014-10-26T12:16:51Z",    / current-datetime (SID 1723) /
@@ -620,14 +632,15 @@ RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
 {: #Fig-get-system-current-datetime title='GET current datatime" artwork-align="left"}
 
 This example shows the retrieval of the /interfaces/interface YANG list
-accessed using SID 1533 (base64: X9). The return payload is encoded using
-a CBOR array as specified by {{Section 4.4.1 of -yang-cbor}}
-containing 2 instances.
+accessed using SID 1533 (base64: X9). The return payload is encoded
+employing a CBOR array as specified by {{Section 4.4.1 of -yang-cbor}}
+containing 2 list entries.
 
 ~~~~
 REQ: GET </c/X9>
 
-RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
+RES: 2.05 Content
+     (Content-Format: application/yang-data+cbor; id=sid)
 {
   1533 : [
     {
@@ -649,15 +662,16 @@ RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
 ~~~~
 {: artwork-align="left"}
 
-To retrieve a specific instance within the /interfaces/interface YANG list,
+To retrieve a specific entry within the /interfaces/interface YANG list,
 the CORECONF client adds the key of the targeted instance in its CoAP request
-using the 'k' query parameter. The return payload containing the instance requested
-is encoded using a CBOR array as specified by {{Section 4.4.1 of -yang-cbor}} containing the requested instance.
+using the query parameter for instance identifier keys {{query}}. The return payload containing the instance requested
+is encoded using a CBOR array as specified by {{Section 4.4.1 of -yang-cbor}} containing the requested entry.
 
 ~~~~
-REQ: GET </c/X9?k=eth0>
+REQ: GET </c/X9?ZGV0aDA>        [1533, "eth0"]
 
-RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
+RES: 2.05 Content
+     (Content-Format: application/yang-data+cbor; id=sid)
 {
   1533 : [
     {
@@ -672,16 +686,17 @@ RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
 ~~~~
 {: artwork-align="left"}
 
-It is equally possible to select a leaf of a specific instance of a list.
+It is equally possible to select a leaf of a specific entry of a list.
 The example below requests the description leaf (SID 1534, base64: X-)
 within the interface list corresponding to the interface name "eth0".
 The returned value is encoded in CBOR based on the rules
 specified by {{Section 6.4 of -yang-cbor}}.
 
 ~~~~
-REQ: GET </c/X-?k=eth0>
+REQ: GET </c/X-?ZGV0aDA>        [1534, "eth0"]
 
-RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
+RES: 2.05 Content
+     (Content-Format: application/yang-data+cbor; id=sid)
 {
   1534 : "Ethernet adaptor"
 }
@@ -698,16 +713,16 @@ The return response payload contains a list of data node instance-values in the 
 A CBOR null is returned for each data node requested by the client, not supported by the server or not currently instantiated.
 
 For compactness, indexes of the list instance identifiers returned by the FETCH response SHOULD be elided, only the SID is provided.
-This approach may also help reducing implementation complexity since the format of each entry within the CBOR array of the FETCH response is identical to the format of the corresponding GET response.
+This approach may also help reducing implementation complexity since the format of each entry within the CBOR sequence of the FETCH response is identical to the format of the corresponding GET response.
 
 ~~~~
 FORMAT:
   FETCH <datastore resource>
         (Content-Format: application/yang-identifiers+cbor)
-  CBOR array of instance-identifier
+  CBOR sequence of instance-identifiers
 
   2.05 Content (Content-Format: application/yang-instances+cbor)
-  CBOR array of CBOR map of SID, instance-value
+  CBOR sequence of CBOR maps of SID, instance-value
 ~~~~
 {: artwork-align="left"}
 
@@ -723,27 +738,25 @@ list (SID 1533) instance identified with name="eth0" are queried.
 ~~~~
 REQ: FETCH </c>
      (Content-Format: application/yang-identifiers+cbor)
-[
-  1723,            / current-datetime (SID 1723) /
-  [1533, "eth0"]   / interface (SID 1533) with name = "eth0" /
-]
+1723,            / current-datetime (SID 1723) /
+[1533, "eth0"]   / interface (SID 1533) with name = "eth0" /
 
 RES: 2.05 Content (Content-Format: application/yang-instances+cbor)
-[
-  {
-    1723 : "2014-10-26T12:16:31Z" / current-datetime (SID 1723) /
-  },
-  {
-    1533 : {
-       4 : "eth0",                 / name (SID 1537) /
-       1 : "Ethernet adaptor",     / description (SID 1534) /
-       5 : 1880,                   / type (SID 1538), identity /
-                                   / ethernetCsmacd (SID 1880) /
-       2 : true,                   / enabled (SID 1535) /
-      11 : 3                       / oper-status (SID 1544), value is testing /
-    }
+
+{
+  1723 : "2014-10-26T12:16:31Z" / current-datetime (SID 1723) /
+},
+{
+  1533 : {
+     4 : "eth0",              / name (SID 1537) /
+     1 : "Ethernet adaptor",  / description (SID 1534) /
+     5 : 1880,                / type (SID 1538), identity /
+                              / ethernetCsmacd (SID 1880) /
+     2 : true,                / enabled (SID 1535) /
+    11 : 3             / oper-status (SID 1544), value is testing /
   }
-]
+}
+
 ~~~~
 {: artwork-align="left"}
 
@@ -756,10 +769,9 @@ CoAP methods.
 ### Data Ordering {#DataOrdering}
 
 A CORECONF server MUST preserve the relative order of all user-ordered list
-and leaf-list entries that are received in a single edit request.  These YANG
-data node types are encoded as CBOR arrays so messages will preserve their
-order.
-
+and leaf-list entries that are received in a single edit request.
+As per {{-yang-cbor}}, these YANG data node types are encoded as CBOR
+arrays, so messages will preserve their order.
 
 ### POST {#post-operation}
 
@@ -820,7 +832,7 @@ CoAP PUT message.
 
 ~~~~
 FORMAT:
-  PUT <data node resource> ['k' Uri-Query option]
+  PUT <data node resource> [Uri-Query option]
       (Content-Format: application/yang-data+cbor; id=sid)
   CBOR map of SID, instance-value
 
@@ -838,7 +850,7 @@ using a request similar to {{discovery-ex-ds}}.
 
 
 ~~~~
-REQ: PUT </c/X9?k=eth0>
+REQ: PUT </c/X9?ZGV0aDA>       [1533, "eth0"]
      (Content-Format: application/yang-data+cbor; id=sid)
 {
   1533 : [
@@ -876,7 +888,7 @@ A null value indicates the removal of an existing data node instance.
 FORMAT:
   iPATCH <datastore resource>
          (Content-Format: application/yang-instances+cbor)
-  CBOR array of CBOR map of instance-identifier, instance-value
+  CBOR sequence of CBOR maps of instance-identifier, instance-value
 
   2.04 Changed
 ~~~~
@@ -895,23 +907,21 @@ In this example, a CORECONF client requests the following operations:
 ~~~~
 REQ: iPATCH </c>
      (Content-Format: application/yang-instances+cbor)
-[
-  {
-    1755 : true                   / enabled (SID 1755) /
-  },
-  {
-    [1756, "tac.nrc.ca"] : null   / server (SID 1756) /
-  },
-  {
-    1756 : {                      / server (SID 1756) /
-      3 : "tic.nrc.ca",           / name (SID 1759) /
-      4 : true,                   / prefer (SID 1760) /
-      5 : {                       / udp (SID 1761) /
-        1 : "132.246.11.231"      / address (SID 1762) /
-      }
+{
+  1755 : true                   / enabled (SID 1755) /
+},
+{
+  [1756, "tac.nrc.ca"] : null   / server (SID 1756) /
+},
+{
+  1756 : {                      / server (SID 1756) /
+    3 : "tic.nrc.ca",           / name (SID 1759) /
+    4 : true,                   / prefer (SID 1760) /
+    5 : {                       / udp (SID 1761) /
+      1 : "132.246.11.231"      / address (SID 1762) /
     }
   }
-]
+}
 
 RES: 2.04 Changed
 ~~~~
@@ -926,7 +936,7 @@ A data node resource is deleted with the DELETE method.
 
 ~~~~
 FORMAT:
-  Delete <data node resource> ['k' Uri-Query option]
+  Delete <data node resource> [Uri-Query option]
 
   2.02 Deleted
 ~~~~
@@ -940,7 +950,7 @@ This example deletes an instance of the interface list (SID = 1533):
 
 
 ~~~~
-REQ:   DELETE </c/X9?k=eth0>
+REQ:   DELETE </c/X9?ZGV0aDA>        [1533, "eth0"]
 
 RES:   2.02 Deleted
 ~~~~
@@ -1007,20 +1017,21 @@ CBOR map with data nodes from these two modules is returned:
 ~~~~
 REQ:  GET </c>
 
-RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
+RES: 2.05 Content
+     (Content-Format: application/yang-data+cbor; id=sid)
 {
-  1721 : {                       / Clock (SID 1721) /
-    2: "2016-10-26T12:16:31Z",   / current-datetime (SID 1723) /
-    1: "2014-10-05T09:00:00Z"    / boot-datetime (SID 1722) /
+  1721 : {                      / Clock (SID 1721) /
+    2: "2016-10-26T12:16:31Z",  / current-datetime (SID 1723) /
+    1: "2014-10-05T09:00:00Z"   / boot-datetime (SID 1722) /
   },
   1533 : [
-    {                              / interface (SID 1533) /
-       4 : "eth0",                 / name (SID 1537) /
-       1 : "Ethernet adaptor",     / description (SID 1534) /
-       5 : 1880,                   / type (SID 1538), identity: /
-                                   / ethernetCsmacd (SID 1880) /
-       2 : true,                   / enabled (SID 1535) /
-      11 : 3                       / oper-status (SID 1544), value is testing /
+    {                           / interface (SID 1533) /
+       4 : "eth0",              / name (SID 1537) /
+       1 : "Ethernet adaptor",  / description (SID 1534) /
+       5 : 1880,                / type (SID 1538), identity: /
+                                / ethernetCsmacd (SID 1880) /
+       2 : true,                / enabled (SID 1535) /
+      11 : 3             / oper-status (SID 1544), value is testing /
     }
   ]
 }
@@ -1051,21 +1062,22 @@ exceed the MTU of a single CoAP packet. If such cases could arise, implementers
 should make sure appropriate fragmentation is available - for example the one
 described in {{block}}.
 
-The format of notification without any content is a null value. The format of
-single notification is defined in {{Section
-4.2.1 of -yang-cbor}}. For multiple notifications the format is an array where each element is
-a single notification as described in {{Section 4.2.1 of -yang-cbor}}.
+The format of notifications is a CBOR sequence, where each item in
+the sequence is a single notification as described in {{Section 4.2.1
+of -yang-cbor}}.
+(Accordingly, a notification without any content is an empty CBOR
+sequence, i.e., zero bytes.)
 
 ~~~~
 FORMAT:
   GET <stream-resource> Observe(0)
 
   2.05 Content (Content-Format: application/yang-instances+cbor)
-  CBOR array of CBOR map of instance-identifier, instance-value
+  CBOR sequence of CBOR maps of instance-identifier, instance-value
 ~~~~
 {: artwork-align="left"}
 
-The array of data node instances may contain identical entries which have
+The sequence of data node instances may contain identical items which have
 been generated at different times.
 
 An example implementation is:
@@ -1105,22 +1117,22 @@ following response:
 ~~~~
 REQ:  GET </s> Observe(0)
 
-RES:  2.05 Content (Content-Format: application/yang-tree+cbor)
+RES:  2.05 Content (Content-Format: application/yang-instances+cbor)
       Observe(12)
-[
-  {
-    60010 : {             / example-port-fault (SID 60010) /
-      1 : "0/4/21",       / port-name (SID 60011) /
-      2 : "Open pin 2"    / port-fault (SID 60012) /
-    }
-  },
-  {
-    60010 : {             / example-port-fault (SID 60010) /
-      1 : "1/4/21",       / port-name (SID 60011) /
-      2 : "Open pin 5"    / port-fault (SID 60012) /
-    }
+
+{
+  60010 : {             / example-port-fault (SID 60010) /
+    1 : "0/4/21",       / port-name (SID 60011) /
+    2 : "Open pin 2"    / port-fault (SID 60012) /
   }
-]
+},
+{
+  60010 : {             / example-port-fault (SID 60010) /
+    1 : "1/4/21",       / port-name (SID 60011) /
+    2 : "Open pin 5"    / port-fault (SID 60012) /
+  }
+}
+
 ~~~~
 {: artwork-align="left"}
 
@@ -1157,7 +1169,7 @@ The returned success response code is 2.05 Content.
 
 ~~~~
 FORMAT:
-  POST <data node resource> ['k' Uri-Query option]
+  POST <data node resource> [Uri-Query option]
        (Content-Format: application/yang-data+cbor; id=sid)
   CBOR map of SID, instance-value
 
@@ -1212,7 +1224,7 @@ of the server instance with name equal to "myserver".
 
 
 ~~~~
-REQ:  POST </c/Opq?k=myserver>
+REQ:  POST </c/Opq?aG15c2VydmVy>     [60002, "myserver"]
       (Content-Format: application/yang-data+cbor; id=sid)
 {
   60002 : {
@@ -1220,7 +1232,8 @@ REQ:  POST </c/Opq?k=myserver>
   }
 }
 
-RES:  2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
+RES:  2.05 Content
+      (Content-Format: application/yang-data+cbor; id=sid)
 {
   60002 : {
     2 : "2016-02-08T14:10:08Z09:18" / reset-finished-at (SID 60004)/
@@ -1253,6 +1266,9 @@ a state having occurred in the server; or worse the returned values are inconsis
 For example: array length does not correspond with the actual number of items.
 It may be advisable to use Indefinite-length CBOR arrays and maps,
 which are foreseen for data streaming purposes.
+(Note that the outer structure of yang-identifiers and yang-instances
+is a CBOR sequence, which already behaves similar to an
+indefinite-length encoded array.)
 
 
 # Application Discovery {#discovery}
@@ -1459,7 +1475,8 @@ The following 'error-tag' and 'error-app-tag' are defined by the ietf-coreconf Y
 For example, the CORECONF server might return the following error.
 
 ~~~~
-RES:  4.00 Bad Request (Content-Format: application/yang-data+cbor; id=sid)
+RES:  4.00 Bad Request
+     (Content-Format: application/yang-data+cbor; id=sid)
 {
   1024 : {
     4 : 1011,        / error-tag (SID 1028) /
@@ -1591,26 +1608,13 @@ Reference:    RFC XXXX
 
 // RFC Ed.: please replace XXXX with RFC number and remove this note
 
-# Acknowledgments
-
-We are very grateful to Bert Greevenbosch who was one of the original authors
-of the CORECONF specification.
-
-Mehmet Ersue and Bert Wijnen explained the encoding aspects of PDUs transported
-under SNMP. Carsten Bormann has given feedback on the use of CBOR.
-
-The draft has benefited from comments (alphabetical order) by Rodney Cummings,
-Dee Denteneer, Esko Dijk, Klaus Hartke, Michael van Hartskamp, Tanguy
-Ropitault, Juergen Schoenwaelder, Anuj Sehgal, Zach Shelby, Hannes Tschofenig,
-Michael Verschoor, and Thomas Watteyne.
-
 
 --- back
 
 # ietf-coreconf YANG module {#ietf-coreconf-yang}
 
 ~~~~
-<CODE BEGINS> file "ietf-coreconf@2019-03-28.yang"
+<CODE BEGINS> file "ietf-coreconf@2023-03-13.yang"
 module ietf-coreconf {
   yang-version 1.1;
 
@@ -1662,7 +1666,7 @@ module ietf-coreconf {
      This version of this YANG module is part of RFC XXXX;
      see the RFC itself for full legal notices.";
 
-  revision 2019-03-28 {
+  revision 2023-03-13 {
      description
       "Initial revision.";
     reference
@@ -1691,8 +1695,8 @@ module ietf-coreconf {
   identity invalid-value {
     base error-tag;
     description
-      "Returned by the CORECONF server when the CORECONF client tries to
-       update or create a leaf with a value encoded using an
+      "Returned by the CORECONF server when the CORECONF client tries
+       to update or create a leaf with a value encoded using an
        invalid CBOR datatype or if the 'range', 'length',
        'pattern' or 'require-instance' constrain is not
        fulfilled.";
@@ -1712,8 +1716,8 @@ module ietf-coreconf {
   identity unknown-element {
     base error-tag;
     description
-      "Returned by the CORECONF server when the CORECONF client tries to
-       access a data node of a YANG module not supported, of a
+      "Returned by the CORECONF server when the CORECONF client tries
+       to access a data node of a YANG module not supported, of a
        data node associated with an 'if-feature' expression
        evaluated to 'false' or to a 'when' condition evaluated
        to 'false'.";
@@ -1722,8 +1726,8 @@ module ietf-coreconf {
   identity bad-element {
     base error-tag;
     description
-      "Returned by the CORECONF server when the CORECONF client tries to
-       create data nodes for more than one case in a choice.";
+      "Returned by the CORECONF server when the CORECONF client tries
+       to create data nodes for more than one case in a choice.";
   }
 
   identity data-missing {
@@ -1905,7 +1909,7 @@ module ietf-coreconf {
     }
   ],
   "module-name": "ietf-coreconf",
-  "module-revision": "2019-03-28",
+  "module-revision": "2023-03-13",
   "items": [
     {
       "namespace": "module",
@@ -2063,4 +2067,28 @@ module ietf-coreconf {
 {: artwork-align="left"}
 
 
+# Acknowledgments
+{:unnumbered}
 
+We are very grateful to {{{Bert Greevenbosch}}} who was one of the original authors
+of the CORECONF specification.
+
+{{{Mehmet Ersue}}} and {{{Bert Wijnen}}} explained the encoding aspects of PDUs transported
+under SNMP.
+{{{Koen Zandberg}}}'s implementation input motivated massively simplifying
+(and fixing) the URI construction for GET/PUT/POST requests.
+
+The draft has further benefited from comments (alphabetical order) by
+{{{Rodney Cummings}}},
+{{{Dee Denteneer}}},
+{{{Esko Dijk}}},
+{{{Klaus Hartke}}},
+{{{Michael van Hartskamp}}},
+{{{Tanguy Ropitault}}},
+{{{Jürgen Schönwälder}}},
+{{{Anuj Sehgal}}},
+{{{Zach Shelby}}},
+{{{Hannes Tschofenig}}},
+{{{Michael Verschoor}}},
+and
+{{{Thomas Watteyne}}}.
