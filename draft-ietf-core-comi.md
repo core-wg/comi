@@ -296,7 +296,10 @@ to significantly reduce the size of identifiers used in CORECONF, numeric
 When used in a URI, SIDs are encoded using base64 encoding of the SID bytes. The base64 encoding is using the URL and Filename safe
 alphabet as defined by {{Section 5 of -base}}, without padding. The last 6 bits encoded is always aligned
 with the least significant 6 bits of the SID represented using an unsigned integer.
-'A' characters (value 0) at the start of the resulting string are removed. See {{Fig-sid-encoding}} for complete illustration.
+'A' characters (which are essentially leading zeros) at the start of the resulting string are removed. See {{Fig-sid-encoding}} for complete illustration.
+(Note that the last paragraph of {{Section 3.2 of -yang-cbor}} ensures that SID values being
+interchanged never can be zero, so at least one base64 "digit" will
+always remain.)
 
 ~~~~
 SID in base64 = URLsafeChar[SID >> 60 & 0x3F] |
