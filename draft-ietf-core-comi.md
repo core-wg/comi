@@ -9,6 +9,10 @@ title: CoAP Management Interface (CORECONF)
 abbrev: CORECONF
 area: Applications
 wg: CoRE
+venue:
+  mail: core@ietf.org
+  github: core-wg/comi
+
 author:
 - ins: M. V. Veillette
   role: editor
@@ -48,8 +52,18 @@ author:
   code: '93065'
   country: USA
   email: andy@yumaworks.com
-- role: editor
-  ins: I. I. Petrov
+- name: Carsten Bormann
+  role: editor
+  org: Universität Bremen TZI
+  street: Postfach 330440
+  city: Bremen
+  code: D-28359
+  country: Germany
+  phone: +49-421-218-63921
+  email: cabo@tzi.org
+
+contributor:
+- ins: I. I. Petrov
   name: Ivaylo Petrov
   org: Acklio
   street: 1137A avenue des Champs Blancs
@@ -58,21 +72,20 @@ author:
 #  region: Bretagne
   country: France
   email: ivaylo@ackl.io
+
 normative:
-  RFC2119:
-  RFC3688:
-  RFC8174:
-  RFC4648:
-  RFC5277:
-  RFC6241:
-  RFC6243:
-  RFC8949:
-  RFC7252:
-  RFC7950:
-  RFC7959:
-  RFC7641:
-  RFC8132:
-  RFC8040:
+  RFC3688: xmlreg
+  RFC4648: base
+  RFC5277: nc-notif
+  RFC6241: netconf
+  RFC6243: nc-wd
+  RFC8949: cbor
+  RFC7252: coap
+  RFC7950: yang
+  RFC7959: blockwise
+  RFC7641: observe
+  RFC8132: etch
+  RFC8040: restconf
   RFC9254: yang-cbor
   I-D.ietf-core-sid:
   I-D.ietf-core-yang-library:
@@ -96,12 +109,6 @@ YANG identifier strings to numeric identifiers for payload size reduction.
 CORECONF extends the set of YANG based
 protocols, NETCONF and RESTCONF, with the capability to manage constrained devices
 and networks.
-
---- note_Note
-
-
-Discussion and suggestions for improvement are requested,
-and should be sent to yot@ietf.org.
 
 --- middle
 
@@ -135,16 +142,11 @@ to minimize CBOR payloads and URI length.
 
 ## Terminology {#terminology}
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
-"SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this
-document are to be interpreted as described in BCP 14 {{RFC2119}} {{RFC8174}}
-when, and only when, they appear in all capitals, as shown here.
-
 The following terms are defined in the YANG data modeling language {{RFC7950}}: action, anydata, anyxml, client, container, data model, data node, identity, instance identifier, leaf, leaf-list, list, module, RPC, schema node, server, submodule.
 
 The following terms are defined in {{RFC6241}}: configuration data, datastore, state data.
 
-The following term is defined in {{I-D.ietf-core-sid}}: YANG schema item identifier (YANG SID, often shorten to simply SID).
+The following term is defined in {{I-D.ietf-core-sid}}: YANG schema item identifier (YANG SID, often shortened to simply SID).
 
 The following terms are defined in the CoAP protocol {{RFC7252}}: Confirmable Message, Content-Format, Endpoint.
 
@@ -181,6 +183,8 @@ instance-identifier:
 instance-value:
 : The value assigned to a data node instance. Instance-values are serialized into
   the payload according to the rules defined in {{Section 4 of -yang-cbor}}.
+
+{::boilerplate bcp14-tagged}
 
 
 # CORECONF Architecture {#comi-architecture}
@@ -594,7 +598,8 @@ data node (i.e. 1723) and the value encoded using a 'text string' as defined in 
 ~~~~
 REQ: GET </c/a7>
 
-RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
+RES: 2.05 Content
+     (Content-Format: application/yang-data+cbor; id=sid)
 {
   1723 : "2014-10-26T12:16:31Z"
 }
@@ -609,7 +614,8 @@ CBOR map as specified by {{Section 4.2 of -yang-cbor}}.
 ~~~~
 REQ: GET </c/a5>
 
-RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
+RES: 2.05 Content
+     (Content-Format: application/yang-data+cbor; id=sid)
 {
   1721 : {
     2 : "2014-10-26T12:16:51Z",    / current-datetime (SID 1723) /
@@ -627,7 +633,8 @@ containing 2 instances.
 ~~~~
 REQ: GET </c/X9>
 
-RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
+RES: 2.05 Content
+     (Content-Format: application/yang-data+cbor; id=sid)
 {
   1533 : [
     {
@@ -657,7 +664,8 @@ is encoded using a CBOR array as specified by {{Section 4.4.1 of -yang-cbor}} co
 ~~~~
 REQ: GET </c/X9?k=eth0>
 
-RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
+RES: 2.05 Content
+     (Content-Format: application/yang-data+cbor; id=sid)
 {
   1533 : [
     {
@@ -681,7 +689,8 @@ specified by {{Section 6.4 of -yang-cbor}}.
 ~~~~
 REQ: GET </c/X-?k=eth0>
 
-RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
+RES: 2.05 Content
+     (Content-Format: application/yang-data+cbor; id=sid)
 {
   1534 : "Ethernet adaptor"
 }
@@ -735,12 +744,12 @@ RES: 2.05 Content (Content-Format: application/yang-instances+cbor)
   },
   {
     1533 : {
-       4 : "eth0",                 / name (SID 1537) /
-       1 : "Ethernet adaptor",     / description (SID 1534) /
-       5 : 1880,                   / type (SID 1538), identity /
-                                   / ethernetCsmacd (SID 1880) /
-       2 : true,                   / enabled (SID 1535) /
-      11 : 3                       / oper-status (SID 1544), value is testing /
+       4 : "eth0",              / name (SID 1537) /
+       1 : "Ethernet adaptor",  / description (SID 1534) /
+       5 : 1880,                / type (SID 1538), identity /
+                                / ethernetCsmacd (SID 1880) /
+       2 : true,                / enabled (SID 1535) /
+      11 : 3             / oper-status (SID 1544), value is testing /
     }
   }
 ]
@@ -1007,20 +1016,21 @@ CBOR map with data nodes from these two modules is returned:
 ~~~~
 REQ:  GET </c>
 
-RES: 2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
+RES: 2.05 Content
+     (Content-Format: application/yang-data+cbor; id=sid)
 {
-  1721 : {                       / Clock (SID 1721) /
-    2: "2016-10-26T12:16:31Z",   / current-datetime (SID 1723) /
-    1: "2014-10-05T09:00:00Z"    / boot-datetime (SID 1722) /
+  1721 : {                      / Clock (SID 1721) /
+    2: "2016-10-26T12:16:31Z",  / current-datetime (SID 1723) /
+    1: "2014-10-05T09:00:00Z"   / boot-datetime (SID 1722) /
   },
   1533 : [
-    {                              / interface (SID 1533) /
-       4 : "eth0",                 / name (SID 1537) /
-       1 : "Ethernet adaptor",     / description (SID 1534) /
-       5 : 1880,                   / type (SID 1538), identity: /
-                                   / ethernetCsmacd (SID 1880) /
-       2 : true,                   / enabled (SID 1535) /
-      11 : 3                       / oper-status (SID 1544), value is testing /
+    {                           / interface (SID 1533) /
+       4 : "eth0",              / name (SID 1537) /
+       1 : "Ethernet adaptor",  / description (SID 1534) /
+       5 : 1880,                / type (SID 1538), identity: /
+                                / ethernetCsmacd (SID 1880) /
+       2 : true,                / enabled (SID 1535) /
+      11 : 3             / oper-status (SID 1544), value is testing /
     }
   ]
 }
@@ -1220,7 +1230,8 @@ REQ:  POST </c/Opq?k=myserver>
   }
 }
 
-RES:  2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
+RES:  2.05 Content
+      (Content-Format: application/yang-data+cbor; id=sid)
 {
   60002 : {
     2 : "2016-02-08T14:10:08Z09:18" / reset-finished-at (SID 60004)/
@@ -1459,7 +1470,8 @@ The following 'error-tag' and 'error-app-tag' are defined by the ietf-coreconf Y
 For example, the CORECONF server might return the following error.
 
 ~~~~
-RES:  4.00 Bad Request (Content-Format: application/yang-data+cbor; id=sid)
+RES:  4.00 Bad Request
+     (Content-Format: application/yang-data+cbor; id=sid)
 {
   1024 : {
     4 : 1011,        / error-tag (SID 1028) /
@@ -1610,7 +1622,7 @@ Michael Verschoor, and Thomas Watteyne.
 # ietf-coreconf YANG module {#ietf-coreconf-yang}
 
 ~~~~
-<CODE BEGINS> file "ietf-coreconf@2019-03-28.yang"
+<CODE BEGINS> file "ietf-coreconf@2023-03-13.yang"
 module ietf-coreconf {
   yang-version 1.1;
 
@@ -1662,7 +1674,7 @@ module ietf-coreconf {
      This version of this YANG module is part of RFC XXXX;
      see the RFC itself for full legal notices.";
 
-  revision 2019-03-28 {
+  revision 2023-03-13 {
      description
       "Initial revision.";
     reference
@@ -1691,8 +1703,8 @@ module ietf-coreconf {
   identity invalid-value {
     base error-tag;
     description
-      "Returned by the CORECONF server when the CORECONF client tries to
-       update or create a leaf with a value encoded using an
+      "Returned by the CORECONF server when the CORECONF client tries
+       to update or create a leaf with a value encoded using an
        invalid CBOR datatype or if the 'range', 'length',
        'pattern' or 'require-instance' constrain is not
        fulfilled.";
@@ -1712,8 +1724,8 @@ module ietf-coreconf {
   identity unknown-element {
     base error-tag;
     description
-      "Returned by the CORECONF server when the CORECONF client tries to
-       access a data node of a YANG module not supported, of a
+      "Returned by the CORECONF server when the CORECONF client tries
+       to access a data node of a YANG module not supported, of a
        data node associated with an 'if-feature' expression
        evaluated to 'false' or to a 'when' condition evaluated
        to 'false'.";
@@ -1722,8 +1734,8 @@ module ietf-coreconf {
   identity bad-element {
     base error-tag;
     description
-      "Returned by the CORECONF server when the CORECONF client tries to
-       create data nodes for more than one case in a choice.";
+      "Returned by the CORECONF server when the CORECONF client tries
+       to create data nodes for more than one case in a choice.";
   }
 
   identity data-missing {
@@ -1905,7 +1917,7 @@ module ietf-coreconf {
     }
   ],
   "module-name": "ietf-coreconf",
-  "module-revision": "2019-03-28",
+  "module-revision": "2023-03-13",
   "items": [
     {
       "namespace": "module",
