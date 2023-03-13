@@ -194,28 +194,29 @@ modifying the content of datastore(s) used for the management of the instrumente
 node.
 
 
-~~~~
+~~~~ aasvg
 +----------------------------------------------------------------+
 |                SMIv2 specification (optional) (2)              |
-+----------------------------------------------------------------+
++------------------------------+---------------------------------+
                                |
-                               V
+                               v
 +----------------------------------------------------------------+
 |                     YANG specification  (1)                    |
-+----------------------------------------------------------------+
++--------+--------------------------------------------+----------+
          |                                            |
-Client   V                               Server       V
-+----------------+                       +-----------------------+
-|        Request |--> CoAP request(3) -->| Indication            |
-|        Confirm |<-- CoAP response(3)<--| Response          (4) |
-|                |                       |                       |
-|                |<==== Security (7) ===>|+---------------------+|
-+----------------+                       || Datastore(s)    (5) ||
-                                         |+---------------------+|
-                                         |+---------------------+|
-                                         || Event stream(s) (6) ||
-                                         |+---------------------+|
-                                         +-----------------------+
+ Client  v                              Server        v
++--------------+                       +-------------------------+
+|      Request +--> CoAP request(3) -->|  Indication             |
+|      Confirm |<-- CoAP response(3)<--+  Response         (4)   |
+|              |                       |                         |
+|              |<==== Security (7) ===>| +---------------------+ |
++--------------+                       | | Datastore(s)    (5) | |
+                                       | +---------------------+ |
+                                       |                         |
+                                       | +---------------------+ |
+                                       | | Event stream(s) (6) | |
+                                       | +---------------------+ |
+                                       +-------------------------+
 ~~~~
 {: #archit title='Abstract CORECONF architecture' artwork-align="left"}
 
@@ -298,16 +299,16 @@ with the least significant 6 bits of the SID represented using an unsigned integ
 
 ~~~~
 SID in base64 = URLsafeChar[SID >> 60 & 0x3F] |
-                 URLsafeChar[SID >> 54 & 0x3F] |
-                 URLsafeChar[SID >> 48 & 0x3F] |
-                 URLsafeChar[SID >> 42 & 0x3F] |
-                 URLsafeChar[SID >> 36 & 0x3F] |
-                 URLsafeChar[SID >> 30 & 0x3F] |
-                 URLsafeChar[SID >> 24 & 0x3F] |
-                 URLsafeChar[SID >> 18 & 0x3F] |
-                 URLsafeChar[SID >> 12 & 0x3F] |
-                 URLsafeChar[SID >> 6 & 0x3F] |
-                 URLsafeChar[SID & 0x3F]
+                URLsafeChar[SID >> 54 & 0x3F] |
+                URLsafeChar[SID >> 48 & 0x3F] |
+                URLsafeChar[SID >> 42 & 0x3F] |
+                URLsafeChar[SID >> 36 & 0x3F] |
+                URLsafeChar[SID >> 30 & 0x3F] |
+                URLsafeChar[SID >> 24 & 0x3F] |
+                URLsafeChar[SID >> 18 & 0x3F] |
+                URLsafeChar[SID >> 12 & 0x3F] |
+                URLsafeChar[SID >> 6 & 0x3F]  |
+                URLsafeChar[SID & 0x3F]
 ~~~~
 {: #Fig-sid-encoding artwork-align="left"}
 
