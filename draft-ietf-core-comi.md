@@ -1,7 +1,7 @@
 ---
 v: 3
 
-docname: draft-ietf-core-comi-12
+docname: draft-ietf-core-comi-latest
 cat: std
 consensus: yes
 stream: IETF
