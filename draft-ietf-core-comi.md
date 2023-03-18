@@ -391,18 +391,21 @@ The description of the CORECONF management interface is shown in the table below
 | CoAP resource                | Example path  | rt          |
 | Datastore resource           | /c            | core.c.ds   |
 | Default event stream resource | /s            | core.c.ev   |
-{: align="left"}
+{: #tbl-resources align="left" title="Resources, example paths, and resource types (rt)"}
 
 The path values in the table are example ones. On discovery, the server makes
 the actual path values known for these resources.
 
 The methods used by CORECONF are:
 
-| Operation | Description                                                                                |
-| FETCH     | Retrieve specific data nodes within a datastore resource                                   |
-| POST      | invoke an RPC or action                                                                    |
-| iPATCH    | Idempotently create, replace, and delete data node resource(s) within a datastore resource |
-{: align="left"}
+| Operation | Description                                                                       |
+| FETCH     | Retrieve specific data nodes within a datastore resource                          |
+| iPATCH    | Idempotently create, replace, and delete data node(s) within a datastore resource |
+| POST      | Invoke an RPC or action                                                           |
+| GET       | Retrieve the datastore resource or event stream resource                          |
+| PUT       | Create or replace a datastore resource                                            |
+| DELETE    | Delete a datastore resource                                                       |
+{: #tbl-methods align="left" title="CoAP Methods in CORECONF"}
 
 
 ## Data Retrieval {#data-retrieval}
@@ -428,7 +431,7 @@ The allowed values are:
 |  c    |  Return only configuration descendant data nodes |
 |  n    |  Return only non-configuration descendant data nodes  |
 |  a    |  Return all descendant data nodes  |
-{: align="left"}
+{: #tbl-c-values align="left" title="Values for the 'c' query parameter"}
 
 This option is only allowed for GET and FETCH methods on datastore and
 data node resources.  A 4.02 (Bad Option) error is returned if used for other
@@ -448,7 +451,7 @@ The allowed values are:
 | Value | Description                                                                                           |
 | a     | All data nodes are reported. Defined as 'report-all' in {{Section 3.1 of RFC6243}}.                   |
 | t     | Data nodes set to the YANG default are not reported. Defined as 'trim' in {{Section 3.2 of RFC6243}}.     |
-{: align="left"}
+{: #tbl-d-values align="left" title="Values for the 'd' query parameter"}
 
 If the target of a GET or FETCH method is a data node that represents a leaf
 that has a default value, and the leaf has not been given a value by any
