@@ -1,13 +1,23 @@
-# CoAP Management Interface
+# CoAP Management Interface (CORECONF)
 
-This is the working area for the Working Group internet-draft, "CoAP Management Interface".
+This is the working area for the IETF [CORE Working Group](https://datatracker.ietf.org/wg/core/documents/) Internet-Draft, "CoAP Management Interface (CORECONF)".
 
-* [Editor's copy](https://core-wg.github.io/comi/)    [![Build Status](https://travis-ci.org/core-wg/comi.svg?branch=master)](https://travis-ci.org/core-wg/comi)
-* [Working Group Draft](https://tools.ietf.org/html/draft-ietf-core-comi)
-* [Compare Working Group Draft and Editor's copy](https://tools.ietf.org/rfcdiff?url1=https://tools.ietf.org/id/draft-ietf-core-comi.txt&url2=https://core-wg.github.io/comi/draft-ietf-core-comi.txt)
+* [Editor's Copy](https://core-wg.github.io/comi/#go.draft-ietf-core-comi.html)
+* [Datatracker Page](https://datatracker.ietf.org/doc/draft-ietf-core-comi)
+* [Working Group Draft](https://datatracker.ietf.org/doc/html/draft-ietf-core-comi)
+* [Compare Editor's Copy to Working Group Draft](https://core-wg.github.io/comi/#go.draft-ietf-core-comi.diff)
 
 
-## Building the Draft
+## Contributing
+
+See the
+[guidelines for contributions](https://github.com/core-wg/comi/blob/master/CONTRIBUTING.md).
+
+Contributions can be made by creating pull requests.
+The GitHub interface supports creating pull requests using the Edit (✏) button.
+
+
+## Command Line Usage
 
 Formatted text and HTML versions of the draft can be built using `make`.
 
@@ -15,11 +25,6 @@ Formatted text and HTML versions of the draft can be built using `make`.
 $ make
 ```
 
-This requires that you have the necessary software installed.  See
-[the instructions](https://github.com/martinthomson/i-d-template/blob/master/doc/SETUP.md).
+Command line usage requires that you have the necessary software installed.  See
+[the instructions](https://github.com/martinthomson/i-d-template/blob/main/doc/SETUP.md).
 
-
-## Contributing
-
-See the
-[guidelines for contributions](https://github.com/core-wg/comi/blob/master/CONTRIBUTING.md).
