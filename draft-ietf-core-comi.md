@@ -12,6 +12,7 @@ wg: CoRE
 venue:
   mail: core@ietf.org
   github: core-wg/comi
+  latest: "https://core-wg.github.io/comi/draft-ietf-core-comi.html"
 
 author:
 - ins: M. V. Veillette
