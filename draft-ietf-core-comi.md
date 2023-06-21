@@ -478,7 +478,7 @@ The return response payload contains a list of data node instance-values in the 
 A CBOR null is returned for each data node requested by the client, not supported by the server or not currently instantiated.
 
 For compactness, indexes of the list instance identifiers returned by the FETCH response SHOULD be elided, only the SID is provided.
-This approach may also help reducing implementation complexity since the format of each entry within the CBOR sequence of the FETCH response is identical to the format of the corresponding GET response.
+This approach may also help reduce implementation complexity since the format of each entry within the CBOR sequence of the FETCH response is identical to the format of the corresponding GET response.
 
 ~~~~
 FORMAT:
