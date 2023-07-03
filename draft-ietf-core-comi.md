@@ -845,24 +845,24 @@ module example-server-farm {
       type string;
     }
     action reset {                     // SID 60002
-      input {
+      input {                          // SID 6000*
         leaf reset-at {                // SID 60003
           type yang:date-and-time;
           mandatory true;
-         }
-       }
-       output {
-         leaf reset-finished-at {      // SID 60004
-           type yang:date-and-time;
-           mandatory true;
-         }
-       }
-     }
-   }
- }
+        }
+      }
+      output {                        // SID 6000*
+        leaf reset-finished-at {      // SID 60004
+          type yang:date-and-time;
+          mandatory true;
+        }
+      }
+    }
+  }
+}
 ~~~~
 
-This example invokes the 'reset' action  (SID 60002, base64: Opq),
+This example invokes the 'reset' action  (SID 60002),
 of the server instance with name equal to "myserver".
 
 
