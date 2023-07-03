@@ -822,6 +822,10 @@ FORMAT:
 
 ### RPC Example {#rpc-example}
 
+TBD
+
+### Action Example {#action-example}
+
 The example is based on the YANG action "reset" as defined in {{Section 7.15.3 of RFC7950}}
 and annotated below with SIDs.
 
