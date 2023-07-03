@@ -311,23 +311,23 @@ in {{-yang-cbor}}.
 
 The following new Media-Types based on CBOR sequences {{-seq}} are defined in this document:
 
-application/yang-identifiers+cbor:
+application/yang-identifiers+cborseq:
 
 : This Media-Type represents a CBOR YANG document containing a list of instance-identifiers used to target specific data node instances within a datastore.
 
 : FORMAT: CBOR sequence of instance-identifiers
 
-: The message payload of Media-Type 'application/yang-identifiers+cbor' is encoded using a CBOR sequence.
+: The message payload of Media-Type 'application/yang-identifiers+cborseq' is encoded using a CBOR sequence.
   Each item of this CBOR sequence contains an instance-identifier encoded as defined in {{Section 6.13.1 of -yang-cbor}}.
 
-application/yang-instances+cbor:
+application/yang-instances+cborseq:
 
 : This Media-Type represents a CBOR YANG document containing a list of data node instances.
   Each data node instance is identified by its associated instance-identifier.
 
 : FORMAT: CBOR sequence of CBOR maps of instance-identifier, instance-value
 
-: The message payload of Media-Type 'application/yang-instances+cbor' is encoded using a CBOR sequence.
+: The message payload of Media-Type 'application/yang-instances+cborseq' is encoded using a CBOR sequence.
   Each item within this CBOR sequence contains a CBOR map carrying an instance-identifier and associated instance-value.
   Instance-identifiers are encoded using the rules defined in {{Section 6.13.1 of -yang-cbor}}, instance-values are encoded using the rules defined in {{Section 4 of -yang-cbor}}.
 
@@ -337,13 +337,13 @@ application/yang-instances+cbor:
 
 The different Media-Type usages are summarized in the table below:
 
-| Method         | Resource     | Media-Type                         |
-| FETCH request  | datastore    | application/yang-identifiers+cbor  |
-| FETCH response | datastore    | application/yang-instances+cbor    |
-| iPATCH request | datastore    | application/yang-instances+cbor    |
-| GET response   | event stream | application/yang-instances+cbor    |
-| POST request   | rpc, action  | application/yang-instances+cbor     |
-| POST response  | rpc, action  | application/yang-instances+cbor |
+| Method         | Resource     | Media-Type                           |
+| FETCH request  | datastore    | application/yang-identifiers+cborseq |
+| FETCH response | datastore    | application/yang-instances+cborseq   |
+| iPATCH request | datastore    | application/yang-instances+cborseq   |
+| GET response   | event stream | application/yang-instances+cborseq   |
+| POST request   | rpc, action  | application/yang-instances+cborseq   |
+| POST response  | rpc, action  | application/yang-instances+cborseq   |
 {: align="left"}
 
 ## Unified datastore {#unified-datastore}
@@ -483,10 +483,10 @@ This approach may also help reduce implementation complexity since the format of
 ~~~~
 FORMAT:
   FETCH <datastore resource>
-        (Content-Format: application/yang-identifiers+cbor)
+        (Content-Format: application/yang-identifiers+cborseq)
   CBOR sequence of instance-identifiers
 
-  2.05 Content (Content-Format: application/yang-instances+cbor)
+  2.05 Content (Content-Format: application/yang-instances+cborseq)
   CBOR sequence of CBOR maps of SID, instance-value
 ~~~~
 
@@ -501,11 +501,11 @@ list (SID 1533) instance identified with name="eth0" are queried.
 
 ~~~~
 REQ: FETCH </c>
-     (Content-Format: application/yang-identifiers+cbor)
+     (Content-Format: application/yang-identifiers+cborseq)
 1723,            / current-datetime (SID 1723) /
 [1533, "eth0"]   / interface (SID 1533) with name = "eth0" /
 
-RES: 2.05 Content (Content-Format: application/yang-instances+cbor)
+RES: 2.05 Content (Content-Format: application/yang-instances+cborseq)
 
 {
   1723 : "2014-10-26T12:16:31Z" / current-datetime (SID 1723) /
@@ -550,7 +550,7 @@ CoAP iPATCH method {{RFC8132}}.
 
 There are no query parameters for the iPATCH method.
 
-The processing of the iPATCH command is specified by Media-Type 'application/yang-instances+cbor'.
+The processing of the iPATCH command is specified by Media-Type 'application/yang-instances+cborseq'.
 In summary, if the CBOR patch payload contains a data node instance that is not present
 in the target, this instance is added. If the target contains the specified instance,
 the content of this instance is replaced with the value of the payload.
@@ -560,7 +560,7 @@ A null value indicates the removal of an existing data node instance.
 ~~~~
 FORMAT:
   iPATCH <datastore resource>
-         (Content-Format: application/yang-instances+cbor)
+         (Content-Format: application/yang-instances+cborseq)
   CBOR sequence of CBOR maps of instance-identifier, instance-value
 
   2.04 Changed
@@ -578,7 +578,7 @@ In this example, a CORECONF client requests the following operations:
 
 ~~~~
 REQ: iPATCH </c>
-     (Content-Format: application/yang-instances+cbor)
+     (Content-Format: application/yang-instances+cborseq)
 {
   1755 : true                   / enabled (SID 1755) /
 },
@@ -713,7 +713,7 @@ sequence, i.e., zero bytes.)
 FORMAT:
   GET <stream-resource> Observe(0)
 
-  2.05 Content (Content-Format: application/yang-instances+cbor)
+  2.05 Content (Content-Format: application/yang-instances+cborseq)
   CBOR sequence of CBOR maps of instance-identifier, instance-value
 ~~~~
 
@@ -756,7 +756,7 @@ following response:
 ~~~~
 REQ:  GET </s> Observe(0)
 
-RES:  2.05 Content (Content-Format: application/yang-instances+cbor)
+RES:  2.05 Content (Content-Format: application/yang-instances+cborseq)
       Observe(12)
 
 {
@@ -812,10 +812,10 @@ The returned success response code is 2.05 Content.
 ~~~~
 FORMAT:
   POST <datastore resource>
-         (Content-Format: application/yang-instances+cbor)
+         (Content-Format: application/yang-instances+cborseq)
   CBOR sequence of CBOR maps of instance-identifier, instance-value
 
-  2.05 (Content-Format: application/yang-instances+cbor)
+  2.05 (Content-Format: application/yang-instances+cborseq)
   CBOR sequence of CBOR maps of instance-identifier, instance-value
 ~~~~
 
@@ -864,7 +864,7 @@ of the server instance with name equal to "myserver".
 
 ~~~~
 REQ:  POST </c>
-         (Content-Format: application/yang-instances+cbor)
+         (Content-Format: application/yang-instances+cborseq)
 
 [60002, "myserver"],
 {
@@ -874,7 +874,7 @@ REQ:  POST </c>
 }
 
 RES:  2.05 Content
-         (Content-Format: application/yang-instances+cbor)
+         (Content-Format: application/yang-instances+cborseq)
 
 [60002, "myserver"],
 {
@@ -1130,7 +1130,7 @@ RES:  4.00 Bad Request
 
 [^simplify2]
 
-[^simplify2]: I don't quite know how to use application/yang-instances+cbor here, if we don't have an instance?
+[^simplify2]: I don't quite know how to use application/yang-instances+cborseq here, if we don't have an instance?
 
 # Security Considerations
 
@@ -1170,9 +1170,9 @@ This document adds the following resource type to the "Resource Type (rt=) Link 
 
 This document adds the following Content-Format to the "CoAP Content-Formats", within the "Constrained RESTful Environments (CoRE) Parameters" registry.
 
-| Media Type                        | Content Coding | ID   | Reference |
-| application/yang-identifiers+cbor |                | TBD2 | RFC XXXX  |
-| application/yang-instances+cbor   |                | TBD3 | RFC XXXX  |
+| Media Type                           | Content Coding | ID   | Reference |
+| application/yang-identifiers+cborseq |                | TBD2 | RFC XXXX  |
+| application/yang-instances+cborseq   |                | TBD3 | RFC XXXX  |
 {: align="left"}
 
 // RFC Ed.: replace TBD1, TBD2 and TBD3 with assigned IDs and remove this note.
@@ -1182,11 +1182,9 @@ This document adds the following Content-Format to the "CoAP Content-Formats", w
 
 This document adds the following media types to the "Media Types" registry.
 
-| Name                  | Template                    | Reference |
-| yang-identifiers+cbor | application/                | RFC XXXX  |
-|                       | yang-identifiers+cbor       |           |
-| yang-instances+cbor   | application/                | RFC XXXX  |
-|                       | yang-instances+cbor         |           |
+| Name                     | Template                             | Reference |
+| yang-identifiers+cborseq | application/yang-identifiers+cborseq | RFC XXXX  |
+| yang-instances+cborseq   | application/yang-instances+cborseq   | RFC XXXX  |
 {: align="left"}
 
 Each of these media types share the following information:
