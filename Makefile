@@ -1,3 +1,4 @@
+TEXT_PAGINATION := true
 include lib/main.mk
 
 lib/main.mk:
