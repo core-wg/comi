@@ -299,7 +299,7 @@ to significantly reduce the size of identifiers used in CORECONF, numeric
 
 ## Instance-identifier {#instance-identifier}
 
-Instance-identifiers are used to uniquely identify data node instances within a datastore. This YANG built-in type is defined in {{Section 9.13 of RFC7950}}. An instance-identifier is composed of the data node identifier (i.e. a SID) and, for data nodes within list(s), the keys used to index within these list(s).
+Instance-identifiers are used to uniquely identify data node instances within a datastore. This YANG built-in type is defined in {{Section 9.13 of RFC7950}}. An instance-identifier is composed of the data node identifier (i.e., a SID) and, for data nodes within list(s), the keys used to index within these list(s).
 
 In CORECONF, instance-identifiers are carried in the payload of FETCH
 and PATCH requests.
@@ -1053,13 +1053,13 @@ Errors returned by a CORECONF server can be broken into two categories, those as
 
 The following list of common CoAP errors should be implemented by CORECONF servers. This list is not exhaustive, other errors defined by CoAP and associated RFCs may be applicable.
 
-* Error 4.01 (Unauthorized) is returned by the CORECONF server when the CORECONF client is not authorized to perform the requested action on the targeted resource (i.e. data node, datastore, rpc, action or event stream).
+* Error 4.01 (Unauthorized) is returned by the CORECONF server when the CORECONF client is not authorized to perform the requested action on the targeted resource (i.e., data node, datastore, rpc, action or event stream).
 
 * Error 4.02 (Bad Option) is returned by the CORECONF server when one or more CoAP options are unknown or malformed.
 
-* Error 4.04 (Not Found) is returned by the CORECONF server when the CORECONF client is requesting a non-instantiated resource (i.e. data node, datastore, rpc, action or event stream).
+* Error 4.04 (Not Found) is returned by the CORECONF server when the CORECONF client is requesting a non-instantiated resource (i.e., data node, datastore, rpc, action or event stream).
 
-* Error 4.05 (Method Not Allowed) is returned by the CORECONF server when the CORECONF client is requesting a method not supported on the targeted resource. (e.g. GET on an rpc, PUT or POST on a data node with "config" set to false).
+* Error 4.05 (Method Not Allowed) is returned by the CORECONF server when the CORECONF client is requesting a method not supported on the targeted resource. (e.g., GET on an rpc, PUT or POST on a data node with "config" set to false).
 
 * Error 4.08 (Request Entity Incomplete) is returned by the CORECONF server if one or multiple blocks of a block transfer request is missing, see {{RFC7959}} for more details.
 
@@ -1096,7 +1096,7 @@ The following 'error-tag' and 'error-app-tag' are defined by the ietf-coreconf Y
 
 * error-tag 'invalid-value' is returned by the CORECONF server when the CORECONF client tries to update or create a leaf with a value encoded using an invalid CBOR datatype or if the 'range', 'length', 'pattern' or 'require-instance' constrain is not fulfilled.
 
-  * error-app-tag 'invalid-datatype' is returned by the CORECONF server when CBOR encoding does not follow the rules set by the YANG Build-In type or when the value is incompatible with it (e.g. a value greater than 127 for an int8, undefined enumeration).
+  * error-app-tag 'invalid-datatype' is returned by the CORECONF server when CBOR encoding does not follow the rules set by the YANG Build-In type or when the value is incompatible with it (e.g., a value greater than 127 for an int8, undefined enumeration).
 
   * error-app-tag 'not-in-range' is returned by the CORECONF server when the validation of the 'range' property fails.
 
@@ -1264,7 +1264,7 @@ Reference:    RFC XXXX
 # ietf-coreconf YANG module {#ietf-coreconf-yang}
 
 ~~~~
-<CODE BEGINS> file "ietf-coreconf@2023-03-13.yang"
+<CODE BEGINS> file "ietf-coreconf@2023-07-05.yang"
 module ietf-coreconf {
   yang-version 1.1;
 
@@ -1316,7 +1316,7 @@ module ietf-coreconf {
      This version of this YANG module is part of RFC XXXX;
      see the RFC itself for full legal notices.";
 
-  revision 2023-03-13 {
+  revision 2023-07-05 {
      description
       "Initial revision.";
     reference
@@ -1449,7 +1449,7 @@ module ietf-coreconf {
     description
       "Returned by the CORECONF server when CBOR encoding is
        incorect or when the value encoded is incompatible with
-       the YANG Built-In type. (e.g. value greater than 127
+       the YANG Built-In type. (e.g., value greater than 127
        for an int8, undefined enumeration).";
   }
 
@@ -1558,7 +1558,7 @@ module ietf-coreconf {
     }
   ],
   "module-name": "ietf-coreconf",
-  "module-revision": "2023-03-13",
+  "module-revision": "2023-07-05",
   "items": [
     {
       "namespace": "module",
