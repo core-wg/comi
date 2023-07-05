@@ -185,6 +185,9 @@ instance-identifier:
 instance-value:
 : The value assigned to a data node instance. Instance-values are serialized into
   the payload according to the rules defined in {{Section 4 of -yang-cbor}}.
+  In a yang-instances data item, the reference SID applying to the
+  instance-value is provided by the SID in the corresponding instance-identifier.
+
 
 {::boilerplate bcp14-tagged}
 
@@ -329,7 +332,11 @@ application/yang-instances+cbor-seq:
 
 : The message payload of Media-Type 'application/yang-instances+cbor-seq' is encoded using a CBOR sequence.
   Each item within this CBOR sequence contains a CBOR map carrying an instance-identifier and associated instance-value.
-  Instance-identifiers are encoded using the rules defined in {{Section 6.13.1 of -yang-cbor}}, instance-values are encoded using the rules defined in {{Section 4 of -yang-cbor}}.
+  Instance-identifiers are encoded using the rules defined in {{Section
+  6.13.1 of -yang-cbor}}, instance-values are encoded using the rules
+  defined in {{Section 4 of -yang-cbor}}.
+  The reference SID applying to the instance-value is provided by the
+  SID in the instance-identifier.
 
 : When present in an iPATCH request payload, this Media-Type carry a list of data node instances to be replaced, created, or deleted.
   For each data node instance D, for which the instance-identifier is the same as a data node instance I, in the targeted datastore resource: the value of D replaces the value of I.  When the value of D is null, the data node instance I is removed.  When the targeted datastore resource does not contain a data node instance with the same instance-identifier as D, a new instance is created with the same instance-identifier and value as D (unless the value of D is null).
