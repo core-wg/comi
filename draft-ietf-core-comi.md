@@ -297,7 +297,7 @@ In the YANG specification, items are identified with a name string. In order
 to significantly reduce the size of identifiers used in CORECONF, numeric
  identifiers called YANG Schema Item iDentifier (YANG SID or simply SID) are used instead.
 
-## Instance-identifier {#instance-identifier}
+### Instance-identifiers {#instance-identifier}
 
 Instance-identifiers are used to uniquely identify data node instances within a datastore. This YANG built-in type is defined in {{Section 9.13 of RFC7950}}. An instance-identifier is composed of the data node identifier (i.e., a SID) and, for data nodes within list(s), the keys used to index within these list(s).
 
