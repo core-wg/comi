@@ -515,7 +515,8 @@ REQ: FETCH </c>
 1723,            / current-datetime (SID 1723) /
 [1533, "eth0"]   / interface (SID 1533) with name = "eth0" /
 
-RES: 2.05 Content (Content-Format: application/yang-instances+cbor-seq)
+RES: 2.05 Content
+     (Content-Format: application/yang-instances+cbor-seq)
 
 {
   1723 : "2014-10-26T12:16:31Z" / current-datetime (SID 1723) /
@@ -769,7 +770,8 @@ following response:
 ~~~~
 REQ:  GET </s> Observe(0)
 
-RES:  2.05 Content (Content-Format: application/yang-instances+cbor-seq)
+RES:  2.05 Content
+      (Content-Format: application/yang-instances+cbor-seq)
       Observe(12)
 
 {
@@ -867,7 +869,7 @@ of the server instance with name equal to "myserver".
 
 ~~~~
 REQ:  POST </c>
-         (Content-Format: application/yang-instances+cbor-seq)
+      (Content-Format: application/yang-instances+cbor-seq)
 
 { 61000:
   {
@@ -875,7 +877,7 @@ REQ:  POST </c>
   }
 }
 RES:  2.04 Changed
-         (Content-Format: application/yang-instances+cbor-seq)
+      (Content-Format: application/yang-instances+cbor-seq)
 
 { 61000:
   null
@@ -932,7 +934,7 @@ of the server instance with name equal to "myserver".
 
 ~~~~
 REQ:  POST </c>
-         (Content-Format: application/yang-instances+cbor-seq)
+      (Content-Format: application/yang-instances+cbor-seq)
 
 { [60002, "myserver"]:
   {
@@ -947,7 +949,7 @@ RES:  2.04 Changed
 { [60002, "myserver"]:
   {
     0 : { / SID 60002 XXX does this need to be output? /
-      2 : "2016-02-08T14:10:08Z09:18" / reset-finished-at (SID 60004)/
+      2 : "2016-02-08T14:10:08Z" / reset-finished-at (SID 60004)/
     }
   }
 }
