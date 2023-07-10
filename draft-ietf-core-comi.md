@@ -478,7 +478,7 @@ added for readability, but they are not part of the payload).
 
 ### FETCH {#fetch}
 
-The FETCH is used to retrieve one or more instance-values.
+The FETCH method is used to retrieve one or more instance-values.
 The FETCH request payload contains the list of instance-identifiers of the data node instances requested.
 
 The return response payload contains a list of data node instance-values in the same order as requested.
@@ -822,7 +822,7 @@ FORMAT:
          (Content-Format: application/yang-instances+cbor-seq)
   CBOR sequence of CBOR maps of instance-identifier, instance-value
 
-  2.05 (Content-Format: application/yang-instances+cbor-seq)
+  2.04 (Content-Format: application/yang-instances+cbor-seq)
   CBOR sequence of CBOR maps of instance-identifier, instance-value
 ~~~~
 
@@ -884,7 +884,7 @@ REQ:  POST </c>
     }
   }
 }
-RES:  2.05 Content
+RES:  2.04 Changed
          (Content-Format: application/yang-instances+cbor-seq)
 
 { [60002, "myserver"]:
