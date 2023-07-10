@@ -192,6 +192,17 @@ instance-value:
 
 {::boilerplate bcp14-tagged}
 
+## Example syntax {#example-syntax}
+
+CBOR is used to encode CORECONF request and response payloads. The CBOR syntax
+of the YANG payloads is specified in {{-yang-cbor}}, based on {{RFC8949}}
+and {{-seq}}.
+The payload examples are
+notated in Diagnostic notation (defined in {{Section 8 of RFC8949}} and
+{{Appendix G of RFC8610}}), which
+can be automatically converted to CBOR.
+
+
 
 # CORECONF Architecture {#comi-architecture}
 
@@ -371,16 +382,6 @@ Characteristics of the unified datastore are summarized in the table below:
 | Protocols     | CORECONF                                              |
 | Defined in    | "ietf-coreconf"                                       |
 {: align="left" title="Characteristics of the Unified Datastore"}
-
-# Example syntax {#example-syntax}
-
-CBOR is used to encode CORECONF request and response payloads. The CBOR syntax
-of the YANG payloads is specified in {{-yang-cbor}}, based on {{RFC8949}}
-and {{-seq}}.
-The payload examples are
-notated in Diagnostic notation (defined in {{Section 8 of RFC8949}} and
-{{Appendix G of RFC8610}}), which
-can be automatically converted to CBOR.
 
 # CoAP Interface {#coap-interface}
 
