@@ -1270,7 +1270,7 @@ Reference:    RFC XXXX
 # ietf-coreconf YANG module {#ietf-coreconf-yang}
 
 ~~~~
-<CODE BEGINS> file "ietf-coreconf@2023-07-05.yang"
+<CODE BEGINS> file "ietf-coreconf@2023-07-10.yang"
 module ietf-coreconf {
   yang-version 1.1;
 
@@ -1322,7 +1322,7 @@ module ietf-coreconf {
      This version of this YANG module is part of RFC XXXX;
      see the RFC itself for full legal notices.";
 
-  revision 2023-07-05 {
+  revision 2023-07-10 {
      description
       "Initial revision.";
     reference
@@ -1564,7 +1564,7 @@ module ietf-coreconf {
     }
   ],
   "module-name": "ietf-coreconf",
-  "module-revision": "2023-07-05",
+  "module-revision": "2023-07-10",
   "items": [
     {
       "namespace": "module",
