@@ -981,8 +981,8 @@ When a unified datastore is implemented, the ds attribute is set to 1029 as
 specified in {{ietf-coreconf-sid}}.
 For other examples of datastores, see the Network Management Datastore Architecture (NMDA) {{RFC7950}}.
 
-~~~~
-link-extension    = ( "ds" "=" sid ) )
+~~~~ abnf
+link-extension    = ( "ds" "=" sid )
                     ; SID assigned to the datastore identity
 sid               = 1*DIGIT
 ~~~~
