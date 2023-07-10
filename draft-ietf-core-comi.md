@@ -81,6 +81,7 @@ normative:
   RFC6241: netconf
   RFC6243: nc-wd
   RFC8949: cbor
+  RFC8610: cddl
   RFC8742: seq
   RFC7252: coap
   RFC7950: yang
@@ -185,8 +186,22 @@ instance-identifier:
 instance-value:
 : The value assigned to a data node instance. Instance-values are serialized into
   the payload according to the rules defined in {{Section 4 of -yang-cbor}}.
+  In a yang-instances data item, the reference SID applying to the
+  instance-value is provided by the SID in the corresponding instance-identifier.
+
 
 {::boilerplate bcp14-tagged}
+
+## Example syntax {#example-syntax}
+
+CBOR is used to encode CORECONF request and response payloads. The CBOR syntax
+of the YANG payloads is specified in {{-yang-cbor}}, based on {{RFC8949}}
+and {{-seq}}.
+The payload examples are
+notated in Diagnostic notation (defined in {{Section 8 of RFC8949}} and
+{{Appendix G of RFC8610}}), which
+can be automatically converted to CBOR.
+
 
 
 # CORECONF Architecture {#comi-architecture}
@@ -294,9 +309,9 @@ In the YANG specification, items are identified with a name string. In order
 to significantly reduce the size of identifiers used in CORECONF, numeric
  identifiers called YANG Schema Item iDentifier (YANG SID or simply SID) are used instead.
 
-## Instance-identifier {#instance-identifier}
+### Instance-identifiers {#instance-identifier}
 
-Instance-identifiers are used to uniquely identify data node instances within a datastore. This YANG built-in type is defined in {{Section 9.13 of RFC7950}}. An instance-identifier is composed of the data node identifier (i.e. a SID) and, for data nodes within list(s), the keys used to index within these list(s).
+Instance-identifiers are used to uniquely identify data node instances within a datastore. This YANG built-in type is defined in {{Section 9.13 of RFC7950}}. An instance-identifier is composed of the data node identifier (i.e., a SID) and, for data nodes within list(s), the keys used to index within these list(s).
 
 In CORECONF, instance-identifiers are carried in the payload of FETCH
 and PATCH requests.
@@ -311,25 +326,29 @@ in {{-yang-cbor}}.
 
 The following new Media-Types based on CBOR sequences {{-seq}} are defined in this document:
 
-application/yang-identifiers+cbor:
+application/yang-identifiers+cbor-seq:
 
 : This Media-Type represents a CBOR YANG document containing a list of instance-identifiers used to target specific data node instances within a datastore.
 
 : FORMAT: CBOR sequence of instance-identifiers
 
-: The message payload of Media-Type 'application/yang-identifiers+cbor' is encoded using a CBOR sequence.
+: The message payload of Media-Type 'application/yang-identifiers+cbor-seq' is encoded using a CBOR sequence.
   Each item of this CBOR sequence contains an instance-identifier encoded as defined in {{Section 6.13.1 of -yang-cbor}}.
 
-application/yang-instances+cbor:
+application/yang-instances+cbor-seq:
 
 : This Media-Type represents a CBOR YANG document containing a list of data node instances.
   Each data node instance is identified by its associated instance-identifier.
 
 : FORMAT: CBOR sequence of CBOR maps of instance-identifier, instance-value
 
-: The message payload of Media-Type 'application/yang-instances+cbor' is encoded using a CBOR sequence.
+: The message payload of Media-Type 'application/yang-instances+cbor-seq' is encoded using a CBOR sequence.
   Each item within this CBOR sequence contains a CBOR map carrying an instance-identifier and associated instance-value.
-  Instance-identifiers are encoded using the rules defined in {{Section 6.13.1 of -yang-cbor}}, instance-values are encoded using the rules defined in {{Section 4 of -yang-cbor}}.
+  Instance-identifiers are encoded using the rules defined in {{Section
+  6.13.1 of -yang-cbor}}, instance-values are encoded using the rules
+  defined in {{Section 4 of -yang-cbor}}.
+  The reference SID applying to the instance-value is provided by the
+  SID in the instance-identifier.
 
 : When present in an iPATCH request payload, this Media-Type carry a list of data node instances to be replaced, created, or deleted.
   For each data node instance D, for which the instance-identifier is the same as a data node instance I, in the targeted datastore resource: the value of D replaces the value of I.  When the value of D is null, the data node instance I is removed.  When the targeted datastore resource does not contain a data node instance with the same instance-identifier as D, a new instance is created with the same instance-identifier and value as D (unless the value of D is null).
@@ -337,14 +356,14 @@ application/yang-instances+cbor:
 
 The different Media-Type usages are summarized in the table below:
 
-| Method         | Resource     | Media-Type                         |
-| FETCH request  | datastore    | application/yang-identifiers+cbor  |
-| FETCH response | datastore    | application/yang-instances+cbor    |
-| iPATCH request | datastore    | application/yang-instances+cbor    |
-| GET response   | event stream | application/yang-instances+cbor    |
-| POST request   | rpc, action  | application/yang-instances+cbor     |
-| POST response  | rpc, action  | application/yang-instances+cbor |
-{: align="left"}
+| Method         | Resource     | Media-Type                           |
+| FETCH request  | datastore    | application/yang-identifiers+cbor-seq |
+| FETCH response | datastore    | application/yang-instances+cbor-seq   |
+| iPATCH request | datastore    | application/yang-instances+cbor-seq   |
+| GET response   | event stream | application/yang-instances+cbor-seq   |
+| POST request   | rpc, action  | application/yang-instances+cbor-seq   |
+| POST response  | rpc, action  | application/yang-instances+cbor-seq   |
+{: align="left" title="Summary of Media-Type Usages"}
 
 ## Unified datastore {#unified-datastore}
 
@@ -362,16 +381,7 @@ Characteristics of the unified datastore are summarized in the table below:
 | How applied   | changes applied in place immediately or with a minimal delay  |
 | Protocols     | CORECONF                                              |
 | Defined in    | "ietf-coreconf"                                       |
-{: align="left"}
-
-# Example syntax {#example-syntax}
-
-CBOR is used to encode CORECONF request and response payloads. The CBOR syntax
-of the YANG payloads is specified in {{-yang-cbor}}, based on {{RFC8949}}
-and {{-seq}}.
-The payload examples are
-notated in Diagnostic notation (defined in {{Section 8 of RFC8949}}) that
-can be automatically converted to CBOR.
+{: align="left" title="Characteristics of the Unified Datastore"}
 
 # CoAP Interface {#coap-interface}
 
@@ -471,7 +481,7 @@ added for readability, but they are not part of the payload).
 
 ### FETCH {#fetch}
 
-The FETCH is used to retrieve one or more instance-values.
+The FETCH method is used to retrieve one or more instance-values.
 The FETCH request payload contains the list of instance-identifiers of the data node instances requested.
 
 The return response payload contains a list of data node instance-values in the same order as requested.
@@ -483,10 +493,10 @@ This approach may also help reduce implementation complexity since the format of
 ~~~~
 FORMAT:
   FETCH <datastore resource>
-        (Content-Format: application/yang-identifiers+cbor)
+        (Content-Format: application/yang-identifiers+cbor-seq)
   CBOR sequence of instance-identifiers
 
-  2.05 Content (Content-Format: application/yang-instances+cbor)
+  2.05 Content (Content-Format: application/yang-instances+cbor-seq)
   CBOR sequence of CBOR maps of SID, instance-value
 ~~~~
 
@@ -501,11 +511,11 @@ list (SID 1533) instance identified with name="eth0" are queried.
 
 ~~~~
 REQ: FETCH </c>
-     (Content-Format: application/yang-identifiers+cbor)
+     (Content-Format: application/yang-identifiers+cbor-seq)
 1723,            / current-datetime (SID 1723) /
 [1533, "eth0"]   / interface (SID 1533) with name = "eth0" /
 
-RES: 2.05 Content (Content-Format: application/yang-instances+cbor)
+RES: 2.05 Content (Content-Format: application/yang-instances+cbor-seq)
 
 {
   1723 : "2014-10-26T12:16:31Z" / current-datetime (SID 1723) /
@@ -550,7 +560,7 @@ CoAP iPATCH method {{RFC8132}}.
 
 There are no query parameters for the iPATCH method.
 
-The processing of the iPATCH command is specified by Media-Type 'application/yang-instances+cbor'.
+The processing of the iPATCH command is specified by Media-Type 'application/yang-instances+cbor-seq'.
 In summary, if the CBOR patch payload contains a data node instance that is not present
 in the target, this instance is added. If the target contains the specified instance,
 the content of this instance is replaced with the value of the payload.
@@ -560,7 +570,7 @@ A null value indicates the removal of an existing data node instance.
 ~~~~
 FORMAT:
   iPATCH <datastore resource>
-         (Content-Format: application/yang-instances+cbor)
+         (Content-Format: application/yang-instances+cbor-seq)
   CBOR sequence of CBOR maps of instance-identifier, instance-value
 
   2.04 Changed
@@ -578,7 +588,7 @@ In this example, a CORECONF client requests the following operations:
 
 ~~~~
 REQ: iPATCH </c>
-     (Content-Format: application/yang-instances+cbor)
+     (Content-Format: application/yang-instances+cbor-seq)
 {
   1755 : true                   / enabled (SID 1755) /
 },
@@ -713,7 +723,7 @@ sequence, i.e., zero bytes.)
 FORMAT:
   GET <stream-resource> Observe(0)
 
-  2.05 Content (Content-Format: application/yang-instances+cbor)
+  2.05 Content (Content-Format: application/yang-instances+cbor-seq)
   CBOR sequence of CBOR maps of instance-identifier, instance-value
 ~~~~
 
@@ -732,9 +742,12 @@ An example implementation is:
 
 Let suppose the server generates the example-port-fault event as defined below.
 
-~~~~
+~~~~ yang
 module example-port {
-  ...
+  yang-version 1.1;
+  namespace "https://example.com/ns/example-port";
+  prefix "port";
+
   notification example-port-fault {   // SID 60010
     description
       "Event generated if a hardware fault is detected";
@@ -756,7 +769,7 @@ following response:
 ~~~~
 REQ:  GET </s> Observe(0)
 
-RES:  2.05 Content (Content-Format: application/yang-instances+cbor)
+RES:  2.05 Content (Content-Format: application/yang-instances+cbor-seq)
       Observe(12)
 
 {
@@ -812,20 +825,75 @@ The returned success response code is 2.05 Content.
 ~~~~
 FORMAT:
   POST <datastore resource>
-         (Content-Format: application/yang-instances+cbor)
+         (Content-Format: application/yang-instances+cbor-seq)
   CBOR sequence of CBOR maps of instance-identifier, instance-value
 
-  2.05 (Content-Format: application/yang-instances+cbor)
+  2.04 (Content-Format: application/yang-instances+cbor-seq)
   CBOR sequence of CBOR maps of instance-identifier, instance-value
 ~~~~
 
 
 ### RPC Example {#rpc-example}
 
+This example is based on {{Section 3.6.1 of -restconf}}, abbreviated and
+annotated with SIDs as follows:
+
+
+~~~~ yang
+module example-ops {
+  yang-version 1.1;
+  namespace "https://example.com/ns/example-ops";
+  prefix "ops";
+
+  rpc reboot {                          // SID 61000
+    description "Reboot operation.";
+    input {                             // SID 61009
+      leaf delay {                      // SID 61001
+        type uint32;
+        units "seconds";
+        default 0;
+        description
+          "Number of seconds to wait before initiating the
+           reboot operation.";
+      }
+    }
+  }
+}
+~~~~
+
+This example invokes the 'reboot' RPC  (SID 61000),
+of the server instance with name equal to "myserver".
+
+
+~~~~
+REQ:  POST </c>
+         (Content-Format: application/yang-instances+cbor-seq)
+
+{ 61000:
+  {
+    1 : 77
+  }
+}
+RES:  2.04 Changed
+         (Content-Format: application/yang-instances+cbor-seq)
+
+{ 61000:
+  null
+}
+~~~~
+
+[^empty-correct]
+
+[^empty-correct]: Is this the correct empty return for an RPC without output?
+    Note that we always have to send a yang-instances (or at least a
+    yang-identifiers) for the input side to find the right RPC.
+
+### Action Example {#action-example}
+
 The example is based on the YANG action "reset" as defined in {{Section 7.15.3 of RFC7950}}
 and annotated below with SIDs.
 
-~~~~
+~~~~ yang
 module example-server-farm {
   yang-version 1.1;
   namespace "urn:example:server-farm";
@@ -841,45 +909,46 @@ module example-server-farm {
       type string;
     }
     action reset {                     // SID 60002
-      input {
+      input {                          // SID 60008
         leaf reset-at {                // SID 60003
           type yang:date-and-time;
           mandatory true;
-         }
-       }
-       output {
-         leaf reset-finished-at {      // SID 60004
-           type yang:date-and-time;
-           mandatory true;
-         }
-       }
-     }
-   }
- }
+        }
+      }
+      output {                         // SID 60009
+        leaf reset-finished-at {       // SID 60004
+          type yang:date-and-time;
+          mandatory true;
+        }
+      }
+    }
+  }
+}
 ~~~~
 
-This example invokes the 'reset' action  (SID 60002, base64: Opq),
+This example invokes the 'reset' action  (SID 60002),
 of the server instance with name equal to "myserver".
 
 
 ~~~~
 REQ:  POST </c>
-         (Content-Format: application/yang-instances+cbor)
+         (Content-Format: application/yang-instances+cbor-seq)
 
-[60002, "myserver"],
-{
-  60002 : {
-    1 : "2016-02-08T14:10:08Z09:00" / reset-at (SID 60003) /
+{ [60002, "myserver"]:
+  {
+    0 : { / SID 60002 XXX does this need to be input? /
+      1 : "2016-02-08T14:10:08Z09:00" / reset-at (SID 60003) /
+    }
   }
 }
+RES:  2.04 Changed
+         (Content-Format: application/yang-instances+cbor-seq)
 
-RES:  2.05 Content
-         (Content-Format: application/yang-instances+cbor)
-
-[60002, "myserver"],
-{
-  60002 : {
-    2 : "2016-02-08T14:10:08Z09:18" / reset-finished-at (SID 60004)/
+{ [60002, "myserver"]:
+  {
+    0 : { / SID 60002 XXX does this need to be output? /
+      2 : "2016-02-08T14:10:08Z09:18" / reset-finished-at (SID 60004)/
+    }
   }
 }
 ~~~~
@@ -966,8 +1035,8 @@ When a unified datastore is implemented, the ds attribute is set to 1029 as
 specified in {{ietf-coreconf-sid}}.
 For other examples of datastores, see the Network Management Datastore Architecture (NMDA) {{RFC7950}}.
 
-~~~~
-link-extension    = ( "ds" "=" sid ) )
+~~~~ abnf
+link-extension    = ( "ds" "=" sid )
                     ; SID assigned to the datastore identity
 sid               = 1*DIGIT
 ~~~~
@@ -1041,13 +1110,13 @@ Errors returned by a CORECONF server can be broken into two categories, those as
 
 The following list of common CoAP errors should be implemented by CORECONF servers. This list is not exhaustive, other errors defined by CoAP and associated RFCs may be applicable.
 
-* Error 4.01 (Unauthorized) is returned by the CORECONF server when the CORECONF client is not authorized to perform the requested action on the targeted resource (i.e. data node, datastore, rpc, action or event stream).
+* Error 4.01 (Unauthorized) is returned by the CORECONF server when the CORECONF client is not authorized to perform the requested action on the targeted resource (i.e., data node, datastore, rpc, action or event stream).
 
 * Error 4.02 (Bad Option) is returned by the CORECONF server when one or more CoAP options are unknown or malformed.
 
-* Error 4.04 (Not Found) is returned by the CORECONF server when the CORECONF client is requesting a non-instantiated resource (i.e. data node, datastore, rpc, action or event stream).
+* Error 4.04 (Not Found) is returned by the CORECONF server when the CORECONF client is requesting a non-instantiated resource (i.e., data node, datastore, rpc, action or event stream).
 
-* Error 4.05 (Method Not Allowed) is returned by the CORECONF server when the CORECONF client is requesting a method not supported on the targeted resource. (e.g. GET on an rpc, PUT or POST on a data node with "config" set to false).
+* Error 4.05 (Method Not Allowed) is returned by the CORECONF server when the CORECONF client is requesting a method not supported on the targeted resource. (e.g., GET on an rpc, PUT or POST on a data node with "config" set to false).
 
 * Error 4.08 (Request Entity Incomplete) is returned by the CORECONF server if one or multiple blocks of a block transfer request is missing, see {{RFC7959}} for more details.
 
@@ -1084,7 +1153,7 @@ The following 'error-tag' and 'error-app-tag' are defined by the ietf-coreconf Y
 
 * error-tag 'invalid-value' is returned by the CORECONF server when the CORECONF client tries to update or create a leaf with a value encoded using an invalid CBOR datatype or if the 'range', 'length', 'pattern' or 'require-instance' constrain is not fulfilled.
 
-  * error-app-tag 'invalid-datatype' is returned by the CORECONF server when CBOR encoding does not follow the rules set by the YANG Build-In type or when the value is incompatible with it (e.g. a value greater than 127 for an int8, undefined enumeration).
+  * error-app-tag 'invalid-datatype' is returned by the CORECONF server when CBOR encoding does not follow the rules set by the YANG Build-In type or when the value is incompatible with it (e.g., a value greater than 127 for an int8, undefined enumeration).
 
   * error-app-tag 'not-in-range' is returned by the CORECONF server when the validation of the 'range' property fails.
 
@@ -1130,7 +1199,7 @@ RES:  4.00 Bad Request
 
 [^simplify2]
 
-[^simplify2]: I don't quite know how to use application/yang-instances+cbor here, if we don't have an instance?
+[^simplify2]: I don't quite know how to use application/yang-instances+cbor-seq here, if we don't have an instance?
 
 # Security Considerations
 
@@ -1170,9 +1239,9 @@ This document adds the following resource type to the "Resource Type (rt=) Link 
 
 This document adds the following Content-Format to the "CoAP Content-Formats", within the "Constrained RESTful Environments (CoRE) Parameters" registry.
 
-| Media Type                        | Content Coding | ID   | Reference |
-| application/yang-identifiers+cbor |                | TBD2 | RFC XXXX  |
-| application/yang-instances+cbor   |                | TBD3 | RFC XXXX  |
+| Media Type                           | Content Coding | ID   | Reference |
+| application/yang-identifiers+cbor-seq |                | TBD2 | RFC XXXX  |
+| application/yang-instances+cbor-seq   |                | TBD3 | RFC XXXX  |
 {: align="left"}
 
 // RFC Ed.: replace TBD1, TBD2 and TBD3 with assigned IDs and remove this note.
@@ -1182,11 +1251,9 @@ This document adds the following Content-Format to the "CoAP Content-Formats", w
 
 This document adds the following media types to the "Media Types" registry.
 
-| Name                  | Template                    | Reference |
-| yang-identifiers+cbor | application/                | RFC XXXX  |
-|                       | yang-identifiers+cbor       |           |
-| yang-instances+cbor   | application/                | RFC XXXX  |
-|                       | yang-instances+cbor         |           |
+| Name                     | Template                             | Reference |
+| yang-identifiers+cbor-seq | application/yang-identifiers+cbor-seq | RFC XXXX  |
+| yang-instances+cbor-seq   | application/yang-instances+cbor-seq   | RFC XXXX  |
 {: align="left"}
 
 Each of these media types share the following information:
@@ -1254,7 +1321,7 @@ Reference:    RFC XXXX
 # ietf-coreconf YANG module {#ietf-coreconf-yang}
 
 ~~~~
-<CODE BEGINS> file "ietf-coreconf@2023-03-13.yang"
+<CODE BEGINS> file "ietf-coreconf@2023-07-10.yang"
 module ietf-coreconf {
   yang-version 1.1;
 
@@ -1306,7 +1373,7 @@ module ietf-coreconf {
      This version of this YANG module is part of RFC XXXX;
      see the RFC itself for full legal notices.";
 
-  revision 2023-03-13 {
+  revision 2023-07-10 {
      description
       "Initial revision.";
     reference
@@ -1439,7 +1506,7 @@ module ietf-coreconf {
     description
       "Returned by the CORECONF server when CBOR encoding is
        incorect or when the value encoded is incompatible with
-       the YANG Built-In type. (e.g. value greater than 127
+       the YANG Built-In type. (e.g., value greater than 127
        for an int8, undefined enumeration).";
   }
 
@@ -1548,7 +1615,7 @@ module ietf-coreconf {
     }
   ],
   "module-name": "ietf-coreconf",
-  "module-revision": "2023-03-13",
+  "module-revision": "2023-07-10",
   "items": [
     {
       "namespace": "module",
