@@ -351,7 +351,7 @@ The different Media-Type usages are summarized in the table below:
 | GET response   | event stream | application/yang-instances+cbor-seq   |
 | POST request   | rpc, action  | application/yang-instances+cbor-seq   |
 | POST response  | rpc, action  | application/yang-instances+cbor-seq   |
-{: align="left"}
+{: align="left" title="Summary of Media-Type Usages"}
 
 ## Unified datastore {#unified-datastore}
 
@@ -369,7 +369,7 @@ Characteristics of the unified datastore are summarized in the table below:
 | How applied   | changes applied in place immediately or with a minimal delay  |
 | Protocols     | CORECONF                                              |
 | Defined in    | "ietf-coreconf"                                       |
-{: align="left"}
+{: align="left" title="Characteristics of the Unified Datastore"}
 
 # Example syntax {#example-syntax}
 
