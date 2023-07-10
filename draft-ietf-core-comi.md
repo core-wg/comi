@@ -852,14 +852,14 @@ module example-server-farm {
       type string;
     }
     action reset {                     // SID 60002
-      input {                          // SID 6000*
+      input {                          // SID 60008
         leaf reset-at {                // SID 60003
           type yang:date-and-time;
           mandatory true;
         }
       }
-      output {                        // SID 6000*
-        leaf reset-finished-at {      // SID 60004
+      output {                         // SID 60009
+        leaf reset-finished-at {       // SID 60004
           type yang:date-and-time;
           mandatory true;
         }
