@@ -742,9 +742,12 @@ An example implementation is:
 
 Let suppose the server generates the example-port-fault event as defined below.
 
-~~~~
+~~~~ yang
 module example-port {
-  ...
+  yang-version 1.1;
+  namespace "https://example.com/ns/example-port";
+  prefix "port";
+
   notification example-port-fault {   // SID 60010
     description
       "Event generated if a hardware fault is detected";
@@ -839,7 +842,7 @@ TBD
 The example is based on the YANG action "reset" as defined in {{Section 7.15.3 of RFC7950}}
 and annotated below with SIDs.
 
-~~~~
+~~~~ yang
 module example-server-farm {
   yang-version 1.1;
   namespace "urn:example:server-farm";
