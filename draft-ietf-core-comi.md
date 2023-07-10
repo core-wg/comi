@@ -835,7 +835,58 @@ FORMAT:
 
 ### RPC Example {#rpc-example}
 
-TBD
+This example is based on {{Section 3.6.1 of -restconf}}, abbreviated and
+annotated with SIDs as follows:
+
+
+~~~~ yang
+module example-ops {
+  yang-version 1.1;
+  namespace "https://example.com/ns/example-ops";
+  prefix "ops";
+
+  rpc reboot {                          // SID 61000
+    description "Reboot operation.";
+    input {                             // SID 61009
+      leaf delay {                      // SID 61001
+        type uint32;
+        units "seconds";
+        default 0;
+        description
+          "Number of seconds to wait before initiating the
+           reboot operation.";
+      }
+    }
+  }
+}
+~~~~
+
+This example invokes the 'reboot' RPC  (SID 61000),
+of the server instance with name equal to "myserver".
+
+
+~~~~
+REQ:  POST </c>
+         (Content-Format: application/yang-instances+cbor-seq)
+
+{ 61000:
+  {
+    1 : 77
+  }
+}
+RES:  2.04 Changed
+         (Content-Format: application/yang-instances+cbor-seq)
+
+{ 61000:
+  null
+}
+~~~~
+
+[^empty-correct]
+
+[^empty-correct]: Is this the correct empty return for an RPC without output?
+    Note that we always have to send a yang-instances (or at least a
+    yang-identifiers) for the input side to find the right RPC.
 
 ### Action Example {#action-example}
 
