@@ -81,6 +81,7 @@ normative:
   RFC6241: netconf
   RFC6243: nc-wd
   RFC8949: cbor
+  RFC8610: cddl
   RFC8742: seq
   RFC7252: coap
   RFC7950: yang
@@ -377,7 +378,8 @@ CBOR is used to encode CORECONF request and response payloads. The CBOR syntax
 of the YANG payloads is specified in {{-yang-cbor}}, based on {{RFC8949}}
 and {{-seq}}.
 The payload examples are
-notated in Diagnostic notation (defined in {{Section 8 of RFC8949}}) that
+notated in Diagnostic notation (defined in {{Section 8 of RFC8949}} and
+{{Appendix G of RFC8610}}), which
 can be automatically converted to CBOR.
 
 # CoAP Interface {#coap-interface}
