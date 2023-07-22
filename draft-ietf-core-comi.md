@@ -76,6 +76,7 @@ contributor:
 
 normative:
   RFC3688: xmlreg
+  RFC6020: yang10
   RFC4648: base
   RFC5277: nc-notif
   RFC6241: netconf
@@ -1296,13 +1297,13 @@ Each of these media types share the following information:
 
   *  Author: Michel Veillette
 
-  *  Change Controller: IESG
+  *  Change Controller: IETF
 
   *  Provisional registration?  No
 
 // RFC Ed.: replace RFC XXXX with this RFC number and remove this note.
 
-## YANG Namespace Registration
+## YANG Namespace and Module Name Registration
 
 This document registers the following XML namespace URN in the "IETF XML
 Registry", following the format defined in {{RFC3688}}:
@@ -1314,6 +1315,16 @@ Registrant Contact: The IESG.
 XML: N/A, the requested URI is an XML namespace.
 
 Reference:    RFC XXXX
+
+IANA is requested to register the following YANG module in the "YANG Module Names" registry {{RFC6020}}:
+
+Name: ietf-coreconf
+
+Namespace: urn:ietf:params:xml:ns:yang:ietf-coreconf
+
+Prefix: coreconf
+
+Reference: RFC XXXX
 
 // RFC Ed.: please replace XXXX with RFC number and remove this note
 
