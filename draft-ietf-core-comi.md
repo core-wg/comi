@@ -885,12 +885,12 @@ RES:  2.04 Changed
 }
 ~~~~
 
-[^empty-correct]
-
-[^empty-correct]: Is this the correct empty return for an RPC without output?
+<!-- 
+We now believe this is the correct empty return for an RPC without output.
     Note that we always have to send a yang-instances (or at least a
     yang-identifiers) for the input side to find the right RPC.
-
+ -->
+ 
 ### Action Example {#action-example}
 
 The example is based on the YANG action "reset" as defined in {{Section 7.15.3 of RFC7950}}
@@ -1200,10 +1200,10 @@ RES:  4.00 Bad Request
 }
 ~~~~
 
-[^simplify2]
-
-[^simplify2]: I don't quite know how to use application/yang-instances+cbor-seq here, if we don't have an instance?
-
+<!-- Note that we do not
+use application/yang-instances+cbor-seq here, as we don't have an instance.
+-->
+ 
 # Security Considerations
 
 For secure network management, it is important to restrict access to configuration variables
