@@ -739,6 +739,26 @@ An example implementation is:
 > limited by the maximum number of notifications supported,
 > the content of the instance is sent to all clients observing the modified stream.
 
+### Filtering Notifications
+
+If only a subset of all possible notifications is of interest, a FETCH
+operation can be performed with a request payload of type
+application/yang-identifiers+cbor-seq that indicates which subset.
+
+~~~~
+FORMAT:
+  FETCH <stream-resource> Observe(0)
+        (Content-Format: application/yang-identifiers+cbor-seq)
+  CBOR sequence of instance-identifiers
+
+  2.05 Content (Content-Format: application/yang-instances+cbor-seq)
+  CBOR sequence of CBOR maps of instance-identifier, instance-value
+~~~~
+
+When filtering is not supported by a CORECONF server, the request
+payload can be ignored: all event notifications are then reported
+independently of the presence and content of the request payload.
+
 
 ### Notify Examples {#event-stream-example}
 
@@ -794,21 +814,36 @@ In the example, the request returns a success response with the contents
 of the last two generated events. Consecutively the server will regularly
 notify the client when a new event is generated.
 
-### The 'f' query parameter
-
-The 'f' (filter) option is used to indicate which subset of all possible notifications is of interest.  If not present, all notifications supported by the event stream are reported.
-
-When not supported by a CORECONF server, this option shall be ignored, all events notifications are reported independently of the presence and content of the 'f' (filter) option.
-
-When present, this option contains a comma-separated list of notification SIDs. For example, the following request returns notifications 60010 and 60020.
+A client that wants to filter notifications can use a FETCH payload:
 
 ~~~~
-REQ:  GET </s?f=60010,60020> Observe(0)
+REQ:  FETCH </s> Observe(0)
+      (Content-Format: application/yang-identifiers+cbor-seq)
+
+60010, 60020 /CBOR sequence with two notification identifiers/
+
+RES:  2.05 Content
+      (Content-Format: application/yang-instances+cbor-seq)
+      Observe(12)
+
+{
+  60010 : {             / example-port-fault (SID 60010) /
+    1 : "0/4/21",       / port-name (SID 60011) /
+    2 : "Open pin 2"    / port-fault (SID 60012) /
+  }
+},
+{
+  60010 : {             / example-port-fault (SID 60010) /
+    1 : "1/4/21",       / port-name (SID 60011) /
+    2 : "Open pin 5"    / port-fault (SID 60012) /
+  }
+}
+
 ~~~~
 
-[^simplify1]
-
-[^simplify1]: This is one place where SIDs are used in the URI.  Do we want to replace this with FETCH as well?
+Note that the notifications in this example are identical to the
+unfiltered example as they are all using identifier SID 60010 and this
+included in the filter.
 
 
 ## RPC statements {#rpc}
