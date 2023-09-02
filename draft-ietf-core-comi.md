@@ -1621,166 +1621,168 @@ module ietf-coreconf {
 
 ~~~~
 {
-  "assignment-ranges": [
-    {
-      "entry-point": 1000,
-      "size": 100
-    }
-  ],
-  "module-name": "ietf-coreconf",
-  "module-revision": "2023-07-10",
-  "items": [
-    {
-      "namespace": "module",
-      "identifier": "ietf-coreconf",
-      "sid": 1000
-    },
-    {
-      "namespace": "identity",
-      "identifier": "bad-element",
-      "sid": 1001
-    },
-    {
-      "namespace": "identity",
-      "identifier": "data-missing",
-      "sid": 1002
-    },
-    {
-      "namespace": "identity",
-      "identifier": "data-not-unique",
-      "sid": 1003
-    },
-    {
-      "namespace": "identity",
-      "identifier": "duplicate",
-      "sid": 1004
-    },
-    {
-      "namespace": "identity",
-      "identifier": "error",
-      "sid": 1005
-    },
-    {
-      "namespace": "identity",
-      "identifier": "error-app-tag",
-      "sid": 1006
-    },
-    {
-      "namespace": "identity",
-      "identifier": "error-tag",
-      "sid": 1007
-    },
-    {
-      "namespace": "identity",
-      "identifier": "instance-required",
-      "sid": 1008
-    },
-    {
-      "namespace": "identity",
-      "identifier": "invalid-datatype",
-      "sid": 1009
-    },
-    {
-      "namespace": "identity",
-      "identifier": "invalid-length",
-      "sid": 1010
-    },
-    {
-      "namespace": "identity",
-      "identifier": "invalid-value",
-      "sid": 1011
-    },
-    {
-      "namespace": "identity",
-      "identifier": "malformed-message",
-      "sid": 1012
-    },
-    {
-      "namespace": "identity",
-      "identifier": "missing-choice",
-      "sid": 1013
-    },
-    {
-      "namespace": "identity",
-      "identifier": "missing-element",
-      "sid": 1014
-    },
-    {
-      "namespace": "identity",
-      "identifier": "missing-input-parameter",
-      "sid": 1015
-    },
-    {
-      "namespace": "identity",
-      "identifier": "missing-key",
-      "sid": 1016
-    },
-    {
-      "namespace": "identity",
-      "identifier": "must-violation",
-      "sid": 1017
-    },
-    {
-      "namespace": "identity",
-      "identifier": "not-in-range",
-      "sid": 1018
-    },
-    {
-      "namespace": "identity",
-      "identifier": "operation-failed",
-      "sid": 1019
-    },
-    {
-      "namespace": "identity",
-      "identifier": "pattern-test-failed",
-      "sid": 1020
-    },
-    {
-      "namespace": "identity",
-      "identifier": "too-few-elements",
-      "sid": 1021
-    },
-    {
-      "namespace": "identity",
-      "identifier": "too-many-elements",
-      "sid": 1022
-    },
-    {
-      "namespace": "identity",
-      "identifier": "unified",
-      "sid": 1029
-    },
-    {
-      "namespace": "identity",
-      "identifier": "unknown-element",
-      "sid": 1023
-    },
-    {
-      "namespace": "data",
-      "identifier": "/ietf-coreconf:error",
-      "sid": 1024
-    },
-    {
-      "namespace": "data",
-      "identifier": "/ietf-coreconf:error/error-app-tag",
-      "sid": 1025
-    },
-    {
-      "namespace": "data",
-      "identifier": "/ietf-coreconf:error/error-data-node",
-      "sid": 1026
-    },
-    {
-      "namespace": "data",
-      "identifier": "/ietf-coreconf:error/error-message",
-      "sid": 1027
-    },
-    {
-      "namespace": "data",
-      "identifier": "/ietf-coreconf:error/error-tag",
-      "sid": 1028
-    }
-  ]
+  "ietf-sid-file:sid-file": {
+    "module-name": "ietf-coreconf",
+    "module-revision": "2023-07-10",
+    "assignment-range": [
+      {
+        "entry-point": "1000",
+        "size": "100"
+      }
+    ],
+    "item": [
+      {
+        "namespace": "module",
+        "identifier": "ietf-coreconf",
+        "sid": "1000"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "bad-element",
+        "sid": "1001"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "data-missing",
+        "sid": "1002"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "data-not-unique",
+        "sid": "1003"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "duplicate",
+        "sid": "1004"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "error",
+        "sid": "1005"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "error-app-tag",
+        "sid": "1006"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "error-tag",
+        "sid": "1007"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "instance-required",
+        "sid": "1008"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "invalid-datatype",
+        "sid": "1009"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "invalid-length",
+        "sid": "1010"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "invalid-value",
+        "sid": "1011"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "malformed-message",
+        "sid": "1012"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "missing-choice",
+        "sid": "1013"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "missing-element",
+        "sid": "1014"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "missing-input-parameter",
+        "sid": "1015"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "missing-key",
+        "sid": "1016"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "must-violation",
+        "sid": "1017"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "not-in-range",
+        "sid": "1018"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "operation-failed",
+        "sid": "1019"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "pattern-test-failed",
+        "sid": "1020"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "too-few-elements",
+        "sid": "1021"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "too-many-elements",
+        "sid": "1022"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "unified",
+        "sid": "1029"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "unknown-element",
+        "sid": "1023"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-coreconf:error",
+        "sid": "1024"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-coreconf:error/error-app-tag",
+        "sid": "1025"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-coreconf:error/error-data-node",
+        "sid": "1026"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-coreconf:error/error-message",
+        "sid": "1027"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-coreconf:error/error-tag",
+        "sid": "1028"
+      }
+    ]
+  }
 }
 ~~~~
 
