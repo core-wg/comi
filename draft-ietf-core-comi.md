@@ -562,7 +562,7 @@ CoAP iPATCH method {{RFC8132}}.
 
 There are no query parameters for the iPATCH method.
 
-The processing of the iPATCH command is specified by Media-Type 'application/yang-instances+cbor-seq'.
+The processing of the iPATCH command is specified by Media-Type application/yang-instances+cbor-seq.
 In summary, if the CBOR patch payload contains a data node instance that is not present
 in the target, this instance is added. If the target contains the specified instance,
 the content of this instance is replaced with the value of the payload.
@@ -1166,13 +1166,13 @@ The following 'error-tag' and 'error-app-tag' are defined by the ietf-coreconf Y
 
 * error-tag 'missing-element' is returned by the CORECONF server when the operation requested by a CORECONF client fails to comply with the 'mandatory' constraint defined. The 'mandatory' constraint is enforced for leafs and choices, unless the node or any of its ancestors have a 'when' condition or 'if-feature' expression that evaluates to 'false'.
 
-  * error-app-tag 'missing-key' is returned by the CORECONF server to further qualify a missing-element error. This error is returned when the CORECONF client  tries to create or list instance, without all the 'key' specified or when the CORECONF client  tries to delete a leaf listed as a 'key'.
+  * error-app-tag 'missing-key' is returned by the CORECONF server to further qualify a missing-element error. This error is returned when the CORECONF client tries to create or list instance, without all the 'key' specified or when the CORECONF client tries to delete a leaf listed as a 'key'.
 
   * error-app-tag 'missing-input-parameter' is returned by the CORECONF server when the input parameters of an RPC or action are incomplete.
 
-* error-tag 'unknown-element' is returned by the CORECONF server when the CORECONF client  tries to access a data node of a YANG module not supported, of a data node associated with an 'if-feature' expression evaluated to 'false' or to a 'when' condition evaluated to 'false'.
+* error-tag 'unknown-element' is returned by the CORECONF server when the CORECONF client tries to access a data node of a YANG module not supported, of a data node associated with an 'if-feature' expression evaluated to 'false' or to a 'when' condition evaluated to 'false'.
 
-* error-tag 'bad-element' is returned by the CORECONF server when the CORECONF client  tries to create data nodes for more than one case in a choice.
+* error-tag 'bad-element' is returned by the CORECONF server when the CORECONF client tries to create data nodes for more than one case in a choice.
 
 * error-tag 'data-missing' is returned by the CORECONF server when a data node required to accept the request is not present.
 
