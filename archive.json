@@ -1,0 +1,196 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2023-03-19T01:39:04.876354+00:00",
+  "repo": "core-wg/comi",
+  "labels": [
+    {
+      "name": "bug",
+      "description": null,
+      "color": "ee0701"
+    },
+    {
+      "name": "duplicate",
+      "description": null,
+      "color": "cccccc"
+    },
+    {
+      "name": "enhancement",
+      "description": null,
+      "color": "84b6eb"
+    },
+    {
+      "name": "help wanted",
+      "description": null,
+      "color": "128A0C"
+    },
+    {
+      "name": "invalid",
+      "description": null,
+      "color": "e6e6e6"
+    },
+    {
+      "name": "question",
+      "description": null,
+      "color": "cc317c"
+    },
+    {
+      "name": "wontfix",
+      "description": null,
+      "color": "ffffff"
+    }
+  ],
+  "issues": [
+    {
+      "number": 3,
+      "id": "I_kwDOBM6Qn85AO-fR",
+      "title": "Add text in 2.2 that explains we don't need to worry about SID 0 ",
+      "url": "https://github.com/core-wg/comi/issues/3",
+      "state": "CLOSED",
+      "author": "cabo",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "(Should that be \"A\" or \"\"? We don't need to say, as SID 0 is not for interchange.)\r\n",
+      "createdAt": "2021-12-11T22:45:47Z",
+      "updatedAt": "2023-03-13T20:19:50Z",
+      "closedAt": "2023-03-13T20:19:50Z",
+      "comments": [
+        {
+          "author": "abierman",
+          "authorAssociation": "NONE",
+          "body": "SID 0 cannot show up as a CBOR key.\r\nNot as an absolute or a delta. (Impossible as a delta).\r\n\r\nSID as a value can be 0.  The sid typedef starts at 0.\r\n",
+          "createdAt": "2021-12-11T23:20:29Z",
+          "updatedAt": "2021-12-11T23:20:29Z"
+        }
+      ]
+    }
+  ],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTY3MzE5Njg5",
+      "title": "Nits from shepherd review",
+      "url": "https://github.com/core-wg/comi/pull/1",
+      "state": "MERGED",
+      "author": "cabo",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-02-04T04:14:07Z",
+      "updatedAt": "2021-02-20T08:16:00Z",
+      "baseRepository": "core-wg/comi",
+      "baseRefName": "master",
+      "baseRefOid": "e0b7ed0a53c9fe98e1eb77d21020add03238b835",
+      "headRepository": "core-wg/comi",
+      "headRefName": "shepherd-nits",
+      "headRefOid": "90e9b4cc12eeb26569469f5eb6c87c378bc4270a",
+      "closedAt": "2021-02-20T08:15:59Z",
+      "mergedAt": "2021-02-20T08:15:59Z",
+      "mergedBy": "ivajloip",
+      "mergeCommit": {
+        "oid": "26edf0810019ff7166c6395c8a92648d4df14c6c"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 2,
+      "id": "MDExOlB1bGxSZXF1ZXN0NjkyMDgzMTI2",
+      "title": "Nits preparing for 12",
+      "url": "https://github.com/core-wg/comi/pull/2",
+      "state": "MERGED",
+      "author": "cabo",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-07-18T12:42:02Z",
+      "updatedAt": "2023-03-13T11:45:45Z",
+      "baseRepository": "core-wg/comi",
+      "baseRefName": "master",
+      "baseRefOid": "26edf0810019ff7166c6395c8a92648d4df14c6c",
+      "headRepository": "core-wg/comi",
+      "headRefName": "nits-12",
+      "headRefOid": "48eeae7da78f12477b964ebaf2ccfb81073ef07e",
+      "closedAt": "2023-03-13T11:45:44Z",
+      "mergedAt": "2023-03-13T11:45:44Z",
+      "mergedBy": "cabo",
+      "mergeCommit": {
+        "oid": "69393b3c37783f1bb045278e5679bd50b657c4ae"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzE0MzE5NTA1",
+          "commit": {
+            "abbreviatedOid": "48eeae7"
+          },
+          "author": "ivajloip",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2021-07-25T13:53:14Z",
+          "updatedAt": "2021-07-25T13:53:14Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "PR_kwDOBM6Qn85L4rsg",
+      "title": "Housekeeping",
+      "url": "https://github.com/core-wg/comi/pull/4",
+      "state": "MERGED",
+      "author": "cabo",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-03-13T11:51:37Z",
+      "updatedAt": "2023-03-13T11:57:23Z",
+      "baseRepository": "core-wg/comi",
+      "baseRefName": "master",
+      "baseRefOid": "69393b3c37783f1bb045278e5679bd50b657c4ae",
+      "headRepository": "core-wg/comi",
+      "headRefName": "simplify-k",
+      "headRefOid": "9013a245bc46d8c3cf6b7d71a28e2c28478df08a",
+      "closedAt": "2023-03-13T11:57:22Z",
+      "mergedAt": "2023-03-13T11:57:22Z",
+      "mergedBy": "cabo",
+      "mergeCommit": {
+        "oid": "054776879094a42dd89b7027487dc3d6033238f8"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOBM6Qn85L6C0y",
+      "title": "Changes from IETF 115 Hackathon",
+      "url": "https://github.com/core-wg/comi/pull/5",
+      "state": "MERGED",
+      "author": "cabo",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR reflects the discussions at the IETF 115 Hackathon and at the [2023-01-18 CoRE interim][1].\r\n\r\n- Simplifies the outer arrays to CBOR sequences (RFC 8742).\r\n- Fixes the comma-separation ambiguity in the URI Query parameter.\r\n- Gets rid of the complexity of (old) Table 6.\r\n\r\n[1]: https://datatracker.ietf.org/doc/minutes-interim-2023-core-01-202301181500/#coap-management-interface-comi\r\n\r\nThis PR is planned to be submitted as -12, for further discussion in the WG.",
+      "createdAt": "2023-03-13T15:29:28Z",
+      "updatedAt": "2023-03-13T20:13:23Z",
+      "baseRepository": "core-wg/comi",
+      "baseRefName": "master",
+      "baseRefOid": "054776879094a42dd89b7027487dc3d6033238f8",
+      "headRepository": "core-wg/comi",
+      "headRefName": "changes-115",
+      "headRefOid": "81e2c0c05faecaa28b582d23d956c34cc97c3b79",
+      "closedAt": "2023-03-13T20:13:23Z",
+      "mergedAt": "2023-03-13T20:13:23Z",
+      "mergedBy": "cabo",
+      "mergeCommit": {
+        "oid": "622d28175430f91789603cdc101616a19b398e8d"
+      },
+      "comments": [],
+      "reviews": []
+    }
+  ]
+}
