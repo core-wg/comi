@@ -562,7 +562,7 @@ CoAP iPATCH method {{RFC8132}}.
 
 There are no query parameters for the iPATCH method.
 
-The processing of the iPATCH command is specified by Media-Type 'application/yang-instances+cbor-seq'.
+The processing of the iPATCH command is specified by Media-Type application/yang-instances+cbor-seq.
 In summary, if the CBOR patch payload contains a data node instance that is not present
 in the target, this instance is added. If the target contains the specified instance,
 the content of this instance is replaced with the value of the payload.
@@ -739,6 +739,26 @@ An example implementation is:
 > limited by the maximum number of notifications supported,
 > the content of the instance is sent to all clients observing the modified stream.
 
+### Filtering Notifications
+
+If only a subset of all possible notifications is of interest, a FETCH
+operation can be performed with a request payload of type
+application/yang-identifiers+cbor-seq that indicates which subset.
+
+~~~~
+FORMAT:
+  FETCH <stream-resource> Observe(0)
+        (Content-Format: application/yang-identifiers+cbor-seq)
+  CBOR sequence of instance-identifiers
+
+  2.05 Content (Content-Format: application/yang-instances+cbor-seq)
+  CBOR sequence of CBOR maps of instance-identifier, instance-value
+~~~~
+
+When filtering is not supported by a CORECONF server, the request
+payload can be ignored: all event notifications are then reported
+independently of the presence and content of the request payload.
+
 
 ### Notify Examples {#event-stream-example}
 
@@ -794,21 +814,36 @@ In the example, the request returns a success response with the contents
 of the last two generated events. Consecutively the server will regularly
 notify the client when a new event is generated.
 
-### The 'f' query parameter
-
-The 'f' (filter) option is used to indicate which subset of all possible notifications is of interest.  If not present, all notifications supported by the event stream are reported.
-
-When not supported by a CORECONF server, this option shall be ignored, all events notifications are reported independently of the presence and content of the 'f' (filter) option.
-
-When present, this option contains a comma-separated list of notification SIDs. For example, the following request returns notifications 60010 and 60020.
+A client that wants to filter notifications can use a FETCH payload:
 
 ~~~~
-REQ:  GET </s?f=60010,60020> Observe(0)
+REQ:  FETCH </s> Observe(0)
+      (Content-Format: application/yang-identifiers+cbor-seq)
+
+60010, 60020 /CBOR sequence with two notification identifiers/
+
+RES:  2.05 Content
+      (Content-Format: application/yang-instances+cbor-seq)
+      Observe(12)
+
+{
+  60010 : {             / example-port-fault (SID 60010) /
+    1 : "0/4/21",       / port-name (SID 60011) /
+    2 : "Open pin 2"    / port-fault (SID 60012) /
+  }
+},
+{
+  60010 : {             / example-port-fault (SID 60010) /
+    1 : "1/4/21",       / port-name (SID 60011) /
+    2 : "Open pin 5"    / port-fault (SID 60012) /
+  }
+}
+
 ~~~~
 
-[^simplify1]
-
-[^simplify1]: This is one place where SIDs are used in the URI.  Do we want to replace this with FETCH as well?
+Note that the notifications in this example are identical to the
+unfiltered example as they are all using identifier SID 60010 and this
+is included in the filter.
 
 
 ## RPC statements {#rpc}
@@ -885,11 +920,11 @@ RES:  2.04 Changed
 }
 ~~~~
 
-[^empty-correct]
-
-[^empty-correct]: Is this the correct empty return for an RPC without output?
+<!--
+We now believe this is the correct empty return for an RPC without output.
     Note that we always have to send a yang-instances (or at least a
     yang-identifiers) for the input side to find the right RPC.
+ -->
 
 ### Action Example {#action-example}
 
@@ -1166,13 +1201,13 @@ The following 'error-tag' and 'error-app-tag' are defined by the ietf-coreconf Y
 
 * error-tag 'missing-element' is returned by the CORECONF server when the operation requested by a CORECONF client fails to comply with the 'mandatory' constraint defined. The 'mandatory' constraint is enforced for leafs and choices, unless the node or any of its ancestors have a 'when' condition or 'if-feature' expression that evaluates to 'false'.
 
-  * error-app-tag 'missing-key' is returned by the CORECONF server to further qualify a missing-element error. This error is returned when the CORECONF client  tries to create or list instance, without all the 'key' specified or when the CORECONF client  tries to delete a leaf listed as a 'key'.
+  * error-app-tag 'missing-key' is returned by the CORECONF server to further qualify a missing-element error. This error is returned when the CORECONF client tries to create or list instance, without all the 'key' specified or when the CORECONF client tries to delete a leaf listed as a 'key'.
 
   * error-app-tag 'missing-input-parameter' is returned by the CORECONF server when the input parameters of an RPC or action are incomplete.
 
-* error-tag 'unknown-element' is returned by the CORECONF server when the CORECONF client  tries to access a data node of a YANG module not supported, of a data node associated with an 'if-feature' expression evaluated to 'false' or to a 'when' condition evaluated to 'false'.
+* error-tag 'unknown-element' is returned by the CORECONF server when the CORECONF client tries to access a data node of a YANG module not supported, of a data node associated with an 'if-feature' expression evaluated to 'false' or to a 'when' condition evaluated to 'false'.
 
-* error-tag 'bad-element' is returned by the CORECONF server when the CORECONF client  tries to create data nodes for more than one case in a choice.
+* error-tag 'bad-element' is returned by the CORECONF server when the CORECONF client tries to create data nodes for more than one case in a choice.
 
 * error-tag 'data-missing' is returned by the CORECONF server when a data node required to accept the request is not present.
 
@@ -1200,9 +1235,9 @@ RES:  4.00 Bad Request
 }
 ~~~~
 
-[^simplify2]
-
-[^simplify2]: I don't quite know how to use application/yang-instances+cbor-seq here, if we don't have an instance?
+<!-- Note that we do not
+use application/yang-instances+cbor-seq here, as we don't have an instance.
+-->
 
 # Security Considerations
 
