@@ -411,7 +411,7 @@ the actual path values known for these resources.
 The methods used by CORECONF are:
 
 | Operation | Description                                                                       |
-| FETCH     | Retrieve specific data nodes within a datastore resource                          |
+| FETCH     | Retrieve specific data nodes within a datastore resource or event stream resource |
 | iPATCH    | Idempotently create, replace, and delete data node(s) within a datastore resource |
 | POST      | Invoke an RPC or action                                                           |
 | GET       | Retrieve the datastore resource or event stream resource                          |
