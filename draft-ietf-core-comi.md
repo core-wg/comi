@@ -843,7 +843,7 @@ RES:  2.05 Content
 
 Note that the notifications in this example are identical to the
 unfiltered example as they are all using identifier SID 60010 and this
-included in the filter.
+is included in the filter.
 
 
 ## RPC statements {#rpc}
