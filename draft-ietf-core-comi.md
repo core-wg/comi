@@ -846,7 +846,7 @@ unfiltered example as they are all using identifier SID 60010 and this
 is included in the filter.
 
 
-## RPC statements {#rpc}
+## RPC and Action statements {#rpc}
 
 The YANG "action" and "RPC" statements specify the execution of a Remote
 Procedure Call (RPC) in the server.  It is invoked using a POST method to
@@ -857,7 +857,7 @@ The response payload contains the values of the output container when specified.
 Both the input and output containers are encoded in CBOR using the rules defined in
 {{Section 4.2.1 of -yang-cbor}}.
 
-The returned success response code is 2.05 Content.
+The returned success response code is 2.04 Changed.
 
 
 ~~~~
