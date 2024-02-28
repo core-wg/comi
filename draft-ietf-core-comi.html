@@ -20,23 +20,23 @@ CORECONF extends the set of YANG based
 protocols, NETCONF and RESTCONF, with the capability to manage constrained devices
 and networks. 
     " name="description">
-<meta content="xml2rfc 3.18.0" name="generator">
+<meta content="xml2rfc 3.19.4" name="generator">
 <meta content="draft-ietf-core-comi-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.18.0
-    Python 3.11.5
-    ConfigArgParse 1.5.3
+  xml2rfc 3.19.4
+    Python 3.11.6
+    ConfigArgParse 1.7
     google-i18n-address 3.1.0
     intervaltree 3.1.0
     Jinja2 3.1.2
     lxml 4.9.3
-    platformdirs 3.10.0
+    platformdirs 4.2.0
     pycountry 22.3.5
-    PyYAML 6.0
+    PyYAML 6.0.1
     requests 2.31.0
-    setuptools 67.7.2
+    setuptools 68.2.2
     six 1.16.0
-    wcwidth 0.2.6
+    wcwidth 0.2.13
 -->
 <link href="draft-ietf-core-comi.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1057,11 +1057,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">CORECONF</td>
-<td class="right">September 2023</td>
+<td class="right">February 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Veillette, et al.</td>
-<td class="center">Expires 7 March 2024</td>
+<td class="center">Expires 31 August 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1074,12 +1074,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-core-comi-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-09-04" class="published">4 September 2023</time>
+<time datetime="2024-02-28" class="published">28 February 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-03-07">7 March 2024</time></dd>
+<dd class="expires"><time datetime="2024-08-31">31 August 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1155,7 +1155,7 @@ and networks.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 7 March 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 31 August 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1164,7 +1164,7 @@ and networks.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2023 IETF Trust and the persons identified as the
+            Copyright (c) 2024 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1624,20 +1624,25 @@ but differs more significantly from RESTCONF.<a href="#section-2.1-1" class="pil
 <a href="#section-2.1.1" class="section-number selfRef">2.1.1. </a><a href="#name-differences-due-to-coap-and" class="section-name selfRef">Differences due to CoAP and its efficient usage</a>
           </h4>
 <ul class="normal">
-<li class="normal" id="section-2.1.1-1.1">CORECONF uses CoAP/UDP as transport protocol and CBOR as payload format
+<li class="normal" id="section-2.1.1-1.1">
+              <p id="section-2.1.1-1.1.1">CORECONF uses CoAP/UDP as transport protocol and CBOR as payload format
 <span>[<a href="#RFC9254" class="cite xref">RFC9254</a>]</span>. RESTCONF uses HTTP/TCP as transport
-protocol and JSON or XML as payload formats.<a href="#section-2.1.1-1.1" class="pilcrow">¶</a>
+protocol and JSON or XML as payload formats.<a href="#section-2.1.1-1.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-2.1.1-1.2">CORECONF uses the methods FETCH and iPATCH to access data nodes.
-RESTCONF uses instead the HTTP method PATCH and the HTTP method GET with the "fields" Query parameter.<a href="#section-2.1.1-1.2" class="pilcrow">¶</a>
+            <li class="normal" id="section-2.1.1-1.2">
+              <p id="section-2.1.1-1.2.1">CORECONF uses the methods FETCH and iPATCH to access data nodes.
+RESTCONF uses instead the HTTP method PATCH and the HTTP method GET with the "fields" Query parameter.<a href="#section-2.1.1-1.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-2.1.1-1.3">RESTCONF uses the HTTP methods HEAD, and OPTIONS, which are not supported by CoAP.<a href="#section-2.1.1-1.3" class="pilcrow">¶</a>
+            <li class="normal" id="section-2.1.1-1.3">
+              <p id="section-2.1.1-1.3.1">RESTCONF uses the HTTP methods HEAD, and OPTIONS, which are not supported by CoAP.<a href="#section-2.1.1-1.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-2.1.1-1.4">CORECONF does not support "insert" query parameter (first, last, before, after)
-and the "point" query parameter which are supported by RESTCONF.<a href="#section-2.1.1-1.4" class="pilcrow">¶</a>
+            <li class="normal" id="section-2.1.1-1.4">
+              <p id="section-2.1.1-1.4.1">CORECONF does not support "insert" query parameter (first, last, before, after)
+and the "point" query parameter which are supported by RESTCONF.<a href="#section-2.1.1-1.4.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-2.1.1-1.5">CORECONF does not support the "start-time" and "stop-time" query parameters
-to retrieve past notifications.<a href="#section-2.1.1-1.5" class="pilcrow">¶</a>
+            <li class="normal" id="section-2.1.1-1.5">
+              <p id="section-2.1.1-1.5.1">CORECONF does not support the "start-time" and "stop-time" query parameters
+to retrieve past notifications.<a href="#section-2.1.1-1.5.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -1648,9 +1653,11 @@ to retrieve past notifications.<a href="#section-2.1.1-1.5" class="pilcrow">¶</
 <a href="#section-2.1.2" class="section-number selfRef">2.1.2. </a><a href="#name-differences-due-to-the-use-" class="section-name selfRef">Differences due to the use of CBOR</a>
           </h4>
 <ul class="normal">
-<li class="normal" id="section-2.1.2-1.1">CORECONF encodes YANG identifier strings as numbers, where RESTCONF does not.<a href="#section-2.1.2-1.1" class="pilcrow">¶</a>
+<li class="normal" id="section-2.1.2-1.1">
+              <p id="section-2.1.2-1.1.1">CORECONF encodes YANG identifier strings as numbers, where RESTCONF does not.<a href="#section-2.1.2-1.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-2.1.2-1.2">CORECONF also differs in the handling of default values, only 'report-all' and 'trim' options are supported.<a href="#section-2.1.2-1.2" class="pilcrow">¶</a>
+            <li class="normal" id="section-2.1.2-1.2">
+              <p id="section-2.1.2-1.2.1">CORECONF also differs in the handling of default values, only 'report-all' and 'trim' options are supported.<a href="#section-2.1.2-1.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -1894,7 +1901,7 @@ the actual path values known for these resources.<a href="#section-3-6" class="p
         <tbody>
           <tr>
             <td class="text-left" rowspan="1" colspan="1">FETCH</td>
-            <td class="text-left" rowspan="1" colspan="1">Retrieve specific data nodes within a datastore resource</td>
+            <td class="text-left" rowspan="1" colspan="1">Retrieve specific data nodes within a datastore resource or event stream resource</td>
           </tr>
           <tr>
             <td class="text-left" rowspan="1" colspan="1">iPATCH</td>
@@ -2164,11 +2171,14 @@ FORMAT:
             </h5>
 <p id="section-3.2.3.1-1">In this example, a CORECONF client requests the following operations:<a href="#section-3.2.3.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.2.3.1-2.1">Set "/ietf-system:system/ntp/enabled" (SID 1755) to true.<a href="#section-3.2.3.1-2.1" class="pilcrow">¶</a>
+<li class="normal" id="section-3.2.3.1-2.1">
+                <p id="section-3.2.3.1-2.1.1">Set "/ietf-system:system/ntp/enabled" (SID 1755) to true.<a href="#section-3.2.3.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-3.2.3.1-2.2">Remove the server "tac.nrc.ca" from the "/ietf-system:system/ntp/server" (SID 1756) list.<a href="#section-3.2.3.1-2.2" class="pilcrow">¶</a>
+              <li class="normal" id="section-3.2.3.1-2.2">
+                <p id="section-3.2.3.1-2.2.1">Remove the server "tac.nrc.ca" from the "/ietf-system:system/ntp/server" (SID 1756) list.<a href="#section-3.2.3.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-3.2.3.1-2.3">Add/set the server "NTP Pool server 2" to the list "/ietf-system:system/ntp/server" (SID 1756).<a href="#section-3.2.3.1-2.3" class="pilcrow">¶</a>
+              <li class="normal" id="section-3.2.3.1-2.3">
+                <p id="section-3.2.3.1-2.3.1">Add/set the server "NTP Pool server 2" to the list "/ietf-system:system/ntp/server" (SID 1756).<a href="#section-3.2.3.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 <div class="alignLeft art-text artwork" id="section-3.2.3.1-3">
@@ -2777,19 +2787,26 @@ RES: 2.05 Content (Content-Format: application/link-format)
 <p id="section-6-2">Errors returned by a CORECONF server can be broken into two categories, those associated with the CoAP protocol itself and those generated during the validation of the YANG data model constraints as described in <span><a href="https://rfc-editor.org/rfc/rfc7950#section-8" class="relref">Section 8</a> of [<a href="#RFC7950" class="cite xref">RFC7950</a>]</span>.<a href="#section-6-2" class="pilcrow">¶</a></p>
 <p id="section-6-3">The following list of common CoAP errors should be implemented by CORECONF servers. This list is not exhaustive, other errors defined by CoAP and associated RFCs may be applicable.<a href="#section-6-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-6-4.1">Error 4.01 (Unauthorized) is returned by the CORECONF server when the CORECONF client is not authorized to perform the requested action on the targeted resource (i.e., data node, datastore, rpc, action or event stream).<a href="#section-6-4.1" class="pilcrow">¶</a>
+<li class="normal" id="section-6-4.1">
+          <p id="section-6-4.1.1">Error 4.01 (Unauthorized) is returned by the CORECONF server when the CORECONF client is not authorized to perform the requested action on the targeted resource (i.e., data node, datastore, rpc, action or event stream).<a href="#section-6-4.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-6-4.2">Error 4.02 (Bad Option) is returned by the CORECONF server when one or more CoAP options are unknown or malformed.<a href="#section-6-4.2" class="pilcrow">¶</a>
+        <li class="normal" id="section-6-4.2">
+          <p id="section-6-4.2.1">Error 4.02 (Bad Option) is returned by the CORECONF server when one or more CoAP options are unknown or malformed.<a href="#section-6-4.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-6-4.3">Error 4.04 (Not Found) is returned by the CORECONF server when the CORECONF client is requesting a non-instantiated resource (i.e., data node, datastore, rpc, action or event stream).<a href="#section-6-4.3" class="pilcrow">¶</a>
+        <li class="normal" id="section-6-4.3">
+          <p id="section-6-4.3.1">Error 4.04 (Not Found) is returned by the CORECONF server when the CORECONF client is requesting a non-instantiated resource (i.e., data node, datastore, rpc, action or event stream).<a href="#section-6-4.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-6-4.4">Error 4.05 (Method Not Allowed) is returned by the CORECONF server when the CORECONF client is requesting a method not supported on the targeted resource. (e.g., GET on an rpc, PUT or POST on a data node with "config" set to false).<a href="#section-6-4.4" class="pilcrow">¶</a>
+        <li class="normal" id="section-6-4.4">
+          <p id="section-6-4.4.1">Error 4.05 (Method Not Allowed) is returned by the CORECONF server when the CORECONF client is requesting a method not supported on the targeted resource. (e.g., GET on an rpc, PUT or POST on a data node with "config" set to false).<a href="#section-6-4.4.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-6-4.5">Error 4.08 (Request Entity Incomplete) is returned by the CORECONF server if one or multiple blocks of a block transfer request is missing, see <span>[<a href="#RFC7959" class="cite xref">RFC7959</a>]</span> for more details.<a href="#section-6-4.5" class="pilcrow">¶</a>
+        <li class="normal" id="section-6-4.5">
+          <p id="section-6-4.5.1">Error 4.08 (Request Entity Incomplete) is returned by the CORECONF server if one or multiple blocks of a block transfer request is missing, see <span>[<a href="#RFC7959" class="cite xref">RFC7959</a>]</span> for more details.<a href="#section-6-4.5.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-6-4.6">Error 4.13 (Request Entity Too Large) may be returned by the CORECONF server during a block transfer request, see <span>[<a href="#RFC7959" class="cite xref">RFC7959</a>]</span> for more details.<a href="#section-6-4.6" class="pilcrow">¶</a>
+        <li class="normal" id="section-6-4.6">
+          <p id="section-6-4.6.1">Error 4.13 (Request Entity Too Large) may be returned by the CORECONF server during a block transfer request, see <span>[<a href="#RFC7959" class="cite xref">RFC7959</a>]</span> for more details.<a href="#section-6-4.6.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-6-4.7">Error 4.15 (Unsupported Content-Format) is returned by the CORECONF server when the Content-Format used in the request does not match those specified in <a href="#media-type" class="auto internal xref">Section 2.3</a>.<a href="#section-6-4.7" class="pilcrow">¶</a>
+        <li class="normal" id="section-6-4.7">
+          <p id="section-6-4.7.1">Error 4.15 (Unsupported Content-Format) is returned by the CORECONF server when the Content-Format used in the request does not match those specified in <a href="#media-type" class="auto internal xref">Section 2.3</a>.<a href="#section-6-4.7.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="section-6-5">The CORECONF server <span class="bcp14">MUST</span> also enforce the different constraints associated with the YANG data models implemented. These constraints are described in <span><a href="https://rfc-editor.org/rfc/rfc7950#section-8" class="relref">Section 8</a> of [<a href="#RFC7950" class="cite xref">RFC7950</a>]</span>. These errors are reported using the CoAP error code 4.00 (Bad Request) and may have the following error container as payload. The YANG definition and associated .sid file are available in <a href="#ietf-coreconf-yang" class="auto internal xref">Appendix A</a> and <a href="#ietf-coreconf-sid" class="auto internal xref">Appendix B</a>. The error container is encoded using the encoding rules of a YANG data template as defined in <span><a href="https://rfc-editor.org/rfc/rfc9254#section-5" class="relref">Section 5</a> of [<a href="#RFC9254" class="cite xref">RFC9254</a>]</span>.<a href="#section-6-5" class="pilcrow">¶</a></p>
@@ -2807,56 +2824,73 @@ RES: 2.05 Content (Content-Format: application/link-format)
 <li class="normal" id="section-6-8.1">
           <p id="section-6-8.1.1">error-tag 'operation-failed' is returned by the CORECONF server when the operation request cannot be processed successfully.<a href="#section-6-8.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-6-8.1.2.1">error-app-tag 'malformed-message' is returned by the CORECONF server when the payload received from the CORECONF client does not contain a well-formed CBOR content as defined in <span>[<a href="#RFC8949" class="cite xref">RFC8949</a>]</span> or does not comply with the CBOR structure defined within this document.<a href="#section-6-8.1.2.1" class="pilcrow">¶</a>
+<li class="normal" id="section-6-8.1.2.1">
+              <p id="section-6-8.1.2.1.1">error-app-tag 'malformed-message' is returned by the CORECONF server when the payload received from the CORECONF client does not contain a well-formed CBOR content as defined in <span>[<a href="#RFC8949" class="cite xref">RFC8949</a>]</span> or does not comply with the CBOR structure defined within this document.<a href="#section-6-8.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-6-8.1.2.2">error-app-tag 'data-not-unique' is returned by the CORECONF server when the validation of the 'unique' constraint of a list or leaf-list fails.<a href="#section-6-8.1.2.2" class="pilcrow">¶</a>
+            <li class="normal" id="section-6-8.1.2.2">
+              <p id="section-6-8.1.2.2.1">error-app-tag 'data-not-unique' is returned by the CORECONF server when the validation of the 'unique' constraint of a list or leaf-list fails.<a href="#section-6-8.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-6-8.1.2.3">error-app-tag 'too-many-elements' is returned by the CORECONF server when the validation of the 'max-elements' constraint of a list or leaf-list fails.<a href="#section-6-8.1.2.3" class="pilcrow">¶</a>
+            <li class="normal" id="section-6-8.1.2.3">
+              <p id="section-6-8.1.2.3.1">error-app-tag 'too-many-elements' is returned by the CORECONF server when the validation of the 'max-elements' constraint of a list or leaf-list fails.<a href="#section-6-8.1.2.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-6-8.1.2.4">error-app-tag 'too-few-elements' is returned by the CORECONF server when the validation of the 'min-elements' constraint of a list or leaf-list fails.<a href="#section-6-8.1.2.4" class="pilcrow">¶</a>
+            <li class="normal" id="section-6-8.1.2.4">
+              <p id="section-6-8.1.2.4.1">error-app-tag 'too-few-elements' is returned by the CORECONF server when the validation of the 'min-elements' constraint of a list or leaf-list fails.<a href="#section-6-8.1.2.4.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-6-8.1.2.5">error-app-tag 'must-violation' is returned by the CORECONF server when the restrictions imposed by a 'must' statement are violated.<a href="#section-6-8.1.2.5" class="pilcrow">¶</a>
+            <li class="normal" id="section-6-8.1.2.5">
+              <p id="section-6-8.1.2.5.1">error-app-tag 'must-violation' is returned by the CORECONF server when the restrictions imposed by a 'must' statement are violated.<a href="#section-6-8.1.2.5.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-6-8.1.2.6">error-app-tag 'duplicate' is returned by the CORECONF server when a client tries to create a duplicate list or leaf-list entry.<a href="#section-6-8.1.2.6" class="pilcrow">¶</a>
+            <li class="normal" id="section-6-8.1.2.6">
+              <p id="section-6-8.1.2.6.1">error-app-tag 'duplicate' is returned by the CORECONF server when a client tries to create a duplicate list or leaf-list entry.<a href="#section-6-8.1.2.6.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </li>
         <li class="normal" id="section-6-8.2">
           <p id="section-6-8.2.1">error-tag 'invalid-value' is returned by the CORECONF server when the CORECONF client tries to update or create a leaf with a value encoded using an invalid CBOR datatype or if the 'range', 'length', 'pattern' or 'require-instance' constrain is not fulfilled.<a href="#section-6-8.2.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-6-8.2.2.1">error-app-tag 'invalid-datatype' is returned by the CORECONF server when CBOR encoding does not follow the rules set by the YANG Build-In type or when the value is incompatible with it (e.g., a value greater than 127 for an int8, undefined enumeration).<a href="#section-6-8.2.2.1" class="pilcrow">¶</a>
+<li class="normal" id="section-6-8.2.2.1">
+              <p id="section-6-8.2.2.1.1">error-app-tag 'invalid-datatype' is returned by the CORECONF server when CBOR encoding does not follow the rules set by the YANG Build-In type or when the value is incompatible with it (e.g., a value greater than 127 for an int8, undefined enumeration).<a href="#section-6-8.2.2.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-6-8.2.2.2">error-app-tag 'not-in-range' is returned by the CORECONF server when the validation of the 'range' property fails.<a href="#section-6-8.2.2.2" class="pilcrow">¶</a>
+            <li class="normal" id="section-6-8.2.2.2">
+              <p id="section-6-8.2.2.2.1">error-app-tag 'not-in-range' is returned by the CORECONF server when the validation of the 'range' property fails.<a href="#section-6-8.2.2.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-6-8.2.2.3">error-app-tag 'invalid-length' is returned by the CORECONF server when the validation of the 'length' property fails.<a href="#section-6-8.2.2.3" class="pilcrow">¶</a>
+            <li class="normal" id="section-6-8.2.2.3">
+              <p id="section-6-8.2.2.3.1">error-app-tag 'invalid-length' is returned by the CORECONF server when the validation of the 'length' property fails.<a href="#section-6-8.2.2.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-6-8.2.2.4">error-app-tag 'pattern-test-failed' is returned by the CORECONF server when the validation of the 'pattern' property fails.<a href="#section-6-8.2.2.4" class="pilcrow">¶</a>
+            <li class="normal" id="section-6-8.2.2.4">
+              <p id="section-6-8.2.2.4.1">error-app-tag 'pattern-test-failed' is returned by the CORECONF server when the validation of the 'pattern' property fails.<a href="#section-6-8.2.2.4.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </li>
         <li class="normal" id="section-6-8.3">
           <p id="section-6-8.3.1">error-tag 'missing-element' is returned by the CORECONF server when the operation requested by a CORECONF client fails to comply with the 'mandatory' constraint defined. The 'mandatory' constraint is enforced for leafs and choices, unless the node or any of its ancestors have a 'when' condition or 'if-feature' expression that evaluates to 'false'.<a href="#section-6-8.3.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-6-8.3.2.1">error-app-tag 'missing-key' is returned by the CORECONF server to further qualify a missing-element error. This error is returned when the CORECONF client tries to create or list instance, without all the 'key' specified or when the CORECONF client tries to delete a leaf listed as a 'key'.<a href="#section-6-8.3.2.1" class="pilcrow">¶</a>
+<li class="normal" id="section-6-8.3.2.1">
+              <p id="section-6-8.3.2.1.1">error-app-tag 'missing-key' is returned by the CORECONF server to further qualify a missing-element error. This error is returned when the CORECONF client tries to create or list instance, without all the 'key' specified or when the CORECONF client tries to delete a leaf listed as a 'key'.<a href="#section-6-8.3.2.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-6-8.3.2.2">error-app-tag 'missing-input-parameter' is returned by the CORECONF server when the input parameters of an RPC or action are incomplete.<a href="#section-6-8.3.2.2" class="pilcrow">¶</a>
+            <li class="normal" id="section-6-8.3.2.2">
+              <p id="section-6-8.3.2.2.1">error-app-tag 'missing-input-parameter' is returned by the CORECONF server when the input parameters of an RPC or action are incomplete.<a href="#section-6-8.3.2.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </li>
-        <li class="normal" id="section-6-8.4">error-tag 'unknown-element' is returned by the CORECONF server when the CORECONF client tries to access a data node of a YANG module not supported, of a data node associated with an 'if-feature' expression evaluated to 'false' or to a 'when' condition evaluated to 'false'.<a href="#section-6-8.4" class="pilcrow">¶</a>
+        <li class="normal" id="section-6-8.4">
+          <p id="section-6-8.4.1">error-tag 'unknown-element' is returned by the CORECONF server when the CORECONF client tries to access a data node of a YANG module not supported, of a data node associated with an 'if-feature' expression evaluated to 'false' or to a 'when' condition evaluated to 'false'.<a href="#section-6-8.4.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-6-8.5">error-tag 'bad-element' is returned by the CORECONF server when the CORECONF client tries to create data nodes for more than one case in a choice.<a href="#section-6-8.5" class="pilcrow">¶</a>
+        <li class="normal" id="section-6-8.5">
+          <p id="section-6-8.5.1">error-tag 'bad-element' is returned by the CORECONF server when the CORECONF client tries to create data nodes for more than one case in a choice.<a href="#section-6-8.5.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-6-8.6">
           <p id="section-6-8.6.1">error-tag 'data-missing' is returned by the CORECONF server when a data node required to accept the request is not present.<a href="#section-6-8.6.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-6-8.6.2.1">error-app-tag 'instance-required' is returned by the CORECONF server when a leaf of type 'instance-identifier' or 'leafref' marked with require-instance set to 'true' refers to an instance that does not exist.<a href="#section-6-8.6.2.1" class="pilcrow">¶</a>
+<li class="normal" id="section-6-8.6.2.1">
+              <p id="section-6-8.6.2.1.1">error-app-tag 'instance-required' is returned by the CORECONF server when a leaf of type 'instance-identifier' or 'leafref' marked with require-instance set to 'true' refers to an instance that does not exist.<a href="#section-6-8.6.2.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-6-8.6.2.2">error-app-tag 'missing-choice' is returned by the CORECONF server when no nodes exist in a mandatory choice.<a href="#section-6-8.6.2.2" class="pilcrow">¶</a>
+            <li class="normal" id="section-6-8.6.2.2">
+              <p id="section-6-8.6.2.2.1">error-app-tag 'missing-choice' is returned by the CORECONF server when no nodes exist in a mandatory choice.<a href="#section-6-8.6.2.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </li>
-        <li class="normal" id="section-6-8.7">error-tag 'error' is returned by the CORECONF server when an unspecified error has occurred.<a href="#section-6-8.7" class="pilcrow">¶</a>
+        <li class="normal" id="section-6-8.7">
+          <p id="section-6-8.7.1">error-tag 'error' is returned by the CORECONF server when an unspecified error has occurred.<a href="#section-6-8.7.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="section-6-9">For example, the CORECONF server might return the following error.<a href="#section-6-9" class="pilcrow">¶</a></p>
@@ -3010,25 +3044,35 @@ well-understood.<a href="#section-7-4" class="pilcrow">¶</a></p>
         </table>
 <p id="section-8.3-3">Each of these media types share the following information:<a href="#section-8.3-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-8.3-4.1">Subtype name: &lt;as listed in table&gt;<a href="#section-8.3-4.1" class="pilcrow">¶</a>
+<li class="normal" id="section-8.3-4.1">
+            <p id="section-8.3-4.1.1">Subtype name: &lt;as listed in table&gt;<a href="#section-8.3-4.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-8.3-4.2">Required parameters: N/A<a href="#section-8.3-4.2" class="pilcrow">¶</a>
+          <li class="normal" id="section-8.3-4.2">
+            <p id="section-8.3-4.2.1">Required parameters: N/A<a href="#section-8.3-4.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-8.3-4.3">Optional parameters: N/A<a href="#section-8.3-4.3" class="pilcrow">¶</a>
+          <li class="normal" id="section-8.3-4.3">
+            <p id="section-8.3-4.3.1">Optional parameters: N/A<a href="#section-8.3-4.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-8.3-4.4">Encoding considerations: binary<a href="#section-8.3-4.4" class="pilcrow">¶</a>
+          <li class="normal" id="section-8.3-4.4">
+            <p id="section-8.3-4.4.1">Encoding considerations: binary<a href="#section-8.3-4.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-8.3-4.5">Security considerations: See the Security Considerations section of RFC XXXX<a href="#section-8.3-4.5" class="pilcrow">¶</a>
+          <li class="normal" id="section-8.3-4.5">
+            <p id="section-8.3-4.5.1">Security considerations: See the Security Considerations section of RFC XXXX<a href="#section-8.3-4.5.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-8.3-4.6">Interoperability considerations: N/A<a href="#section-8.3-4.6" class="pilcrow">¶</a>
+          <li class="normal" id="section-8.3-4.6">
+            <p id="section-8.3-4.6.1">Interoperability considerations: N/A<a href="#section-8.3-4.6.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-8.3-4.7">Published specification: RFC XXXX<a href="#section-8.3-4.7" class="pilcrow">¶</a>
+          <li class="normal" id="section-8.3-4.7">
+            <p id="section-8.3-4.7.1">Published specification: RFC XXXX<a href="#section-8.3-4.7.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-8.3-4.8">Applications that use this media type: CORECONF<a href="#section-8.3-4.8" class="pilcrow">¶</a>
+          <li class="normal" id="section-8.3-4.8">
+            <p id="section-8.3-4.8.1">Applications that use this media type: CORECONF<a href="#section-8.3-4.8.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-8.3-4.9">Fragment identifier considerations: N/A<a href="#section-8.3-4.9" class="pilcrow">¶</a>
+          <li class="normal" id="section-8.3-4.9">
+            <p id="section-8.3-4.9.1">Fragment identifier considerations: N/A<a href="#section-8.3-4.9.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-8.3-4.10">Additional information:<a href="#section-8.3-4.10" class="pilcrow">¶</a>
+          <li class="normal" id="section-8.3-4.10">
+            <p id="section-8.3-4.10.1">Additional information:<a href="#section-8.3-4.10.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <div class="alignLeft art-text artwork" id="section-8.3-5">
@@ -3043,17 +3087,23 @@ well-understood.<a href="#section-7-4" class="pilcrow">¶</a></p>
 </pre><a href="#section-8.3-5" class="pilcrow">¶</a>
 </div>
 <ul class="normal">
-<li class="normal" id="section-8.3-6.1">Person &amp; email address to contact for further information: iesg&amp;ietf.org<a href="#section-8.3-6.1" class="pilcrow">¶</a>
+<li class="normal" id="section-8.3-6.1">
+            <p id="section-8.3-6.1.1">Person &amp; email address to contact for further information: iesg&amp;ietf.org<a href="#section-8.3-6.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-8.3-6.2">Intended usage: COMMON<a href="#section-8.3-6.2" class="pilcrow">¶</a>
+          <li class="normal" id="section-8.3-6.2">
+            <p id="section-8.3-6.2.1">Intended usage: COMMON<a href="#section-8.3-6.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-8.3-6.3">Restrictions on usage: N/A<a href="#section-8.3-6.3" class="pilcrow">¶</a>
+          <li class="normal" id="section-8.3-6.3">
+            <p id="section-8.3-6.3.1">Restrictions on usage: N/A<a href="#section-8.3-6.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-8.3-6.4">Author: Michel Veillette<a href="#section-8.3-6.4" class="pilcrow">¶</a>
+          <li class="normal" id="section-8.3-6.4">
+            <p id="section-8.3-6.4.1">Author: Michel Veillette<a href="#section-8.3-6.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-8.3-6.5">Change Controller: IETF<a href="#section-8.3-6.5" class="pilcrow">¶</a>
+          <li class="normal" id="section-8.3-6.5">
+            <p id="section-8.3-6.5.1">Change Controller: IETF<a href="#section-8.3-6.5.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-8.3-6.6">Provisional registration?  No<a href="#section-8.3-6.6" class="pilcrow">¶</a>
+          <li class="normal" id="section-8.3-6.6">
+            <p id="section-8.3-6.6.1">Provisional registration?  No<a href="#section-8.3-6.6.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-8.3-7">// RFC Ed.: replace RFC XXXX with this RFC number and remove this note.<a href="#section-8.3-7" class="pilcrow">¶</a></p>
@@ -3084,6 +3134,7 @@ Registry", following the format defined in <span>[<a href="#RFC3688" class="cite
       <h2 id="name-references">
 <a href="#section-9" class="section-number selfRef">9. </a><a href="#name-references" class="section-name selfRef">References</a>
       </h2>
+<div id="sec-normative-references">
 <section id="section-9.1">
         <h3 id="name-normative-references">
 <a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
@@ -3091,7 +3142,7 @@ Registry", following the format defined in <span>[<a href="#RFC3688" class="cite
 <dl class="references">
 <dt id="I-D.ietf-core-sid">[I-D.ietf-core-sid]</dt>
         <dd>
-<span class="refAuthor">Veillette, M.</span>, <span class="refAuthor">Pelov, A.</span>, <span class="refAuthor">Petrov, I.</span>, <span class="refAuthor">Bormann, C.</span>, and <span class="refAuthor">M. Richardson</span>, <span class="refTitle">"YANG Schema Item iDentifier (YANG SID)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-sid-21</span>, <time datetime="2023-08-29" class="refDate">29 August 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-sid-21">https://datatracker.ietf.org/doc/html/draft-ietf-core-sid-21</a>&gt;</span>. </dd>
+<span class="refAuthor">Veillette, M.</span>, <span class="refAuthor">Pelov, A.</span>, <span class="refAuthor">Petrov, I.</span>, <span class="refAuthor">Bormann, C.</span>, and <span class="refAuthor">M. Richardson</span>, <span class="refTitle">"YANG Schema Item iDentifier (YANG SID)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-sid-24</span>, <time datetime="2023-12-22" class="refDate">22 December 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-sid-24">https://datatracker.ietf.org/doc/html/draft-ietf-core-sid-24</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-core-yang-library">[I-D.ietf-core-yang-library]</dt>
         <dd>
@@ -3171,6 +3222,8 @@ Registry", following the format defined in <span>[<a href="#RFC3688" class="cite
 <dd class="break"></dd>
 </dl>
 </section>
+</div>
+<div id="sec-informative-references">
 <section id="section-9.2">
         <h3 id="name-informative-references">
 <a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
@@ -3210,6 +3263,7 @@ Registry", following the format defined in <span>[<a href="#RFC3688" class="cite
 <dd class="break"></dd>
 </dl>
 </section>
+</div>
 </section>
 <div id="ietf-coreconf-yang">
 <section id="appendix-A">
