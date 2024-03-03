@@ -25,14 +25,12 @@ author:
   code: J2J 2V2
   country: Canada
   email: michel.veillette@trilliant.com
-- ins: P. van der Stok
-  role: editor
+- role: editor
   name: Peter | van der Stok
   org: consultant
-  abbrev: consultant
-  phone: "+31-492474673 (Netherlands), +33-966015248 (France)"
-  email: stokcons@bbhmail.nl
-  uri: www.vanderstok.org
+  phone: "+31625097806"
+  email: stokcons@kpnmail.nl
+  uri: https://vanderstok.tech
 - ins: A. P. Pelov
   name: Alexander Pelov
   org: Acklio
@@ -42,8 +40,7 @@ author:
   code: '35510'
   country: France
   email: a@ackl.io
-- ins: A. Bierman
-  name: Andy Bierman
+- name: Andy Bierman
   org: YumaWorks
   street:
   - 685 Cochran St.
