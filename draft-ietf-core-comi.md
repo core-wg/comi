@@ -25,14 +25,12 @@ author:
   code: J2J 2V2
   country: Canada
   email: michel.veillette@trilliant.com
-- ins: P. van der Stok
-  role: editor
+- role: editor
   name: Peter | van der Stok
   org: consultant
-  abbrev: consultant
-  phone: "+31-492474673 (Netherlands), +33-966015248 (France)"
-  email: stokcons@bbhmail.nl
-  uri: www.vanderstok.org
+  phone: "+31625097806"
+  email: stokcons@kpnmail.nl
+  uri: https://vanderstok.tech
 - ins: A. P. Pelov
   name: Alexander Pelov
   org: Acklio
@@ -42,8 +40,7 @@ author:
   code: '35510'
   country: France
   email: a@ackl.io
-- ins: A. Bierman
-  name: Andy Bierman
+- name: Andy Bierman
   org: YumaWorks
   street:
   - 685 Cochran St.
@@ -846,7 +843,7 @@ unfiltered example as they are all using identifier SID 60010 and this
 is included in the filter.
 
 
-## RPC statements {#rpc}
+## RPC and Action statements {#rpc}
 
 The YANG "action" and "RPC" statements specify the execution of a Remote
 Procedure Call (RPC) in the server.  It is invoked using a POST method to
@@ -857,7 +854,7 @@ The response payload contains the values of the output container when specified.
 Both the input and output containers are encoded in CBOR using the rules defined in
 {{Section 4.2.1 of -yang-cbor}}.
 
-The returned success response code is 2.05 Content.
+The returned success response code is 2.04 Changed.
 
 
 ~~~~
