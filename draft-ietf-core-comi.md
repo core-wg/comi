@@ -258,8 +258,11 @@ architecture. The different numbered components of {{archit}} are discussed acco
 
 
 (5) Datastore:
-: A resource used to access configuration data, state data, RPCs, and actions. A CORECONF server may support a single unified datastore or multiple datastores as those defined by Network Management Datastore Architecture (NMDA) {{RFC8342}}.
-
+: A resource used to access configuration data, state data, RPCs, and
+ actions. A CORECONF server supports a single unified datastore.
+ Multiple datastores, for instance as those defined by Network
+ Management Datastore Architecture (NMDA) {{RFC8342}}, are out of scope
+ of this specification.
 
 (6) Event stream:
 : A resource used to get real-time notifications. A CORECONF server may support multiple Event streams serving different purposes such as normal monitoring, diagnostic, syslog, security monitoring.
@@ -367,7 +370,9 @@ The different Media-Type usages are summarized in the table below:
 
 CORECONF supports a simple datastore model consisting of a single unified datastore. This datastore provides access to both configuration and operational data. Configuration updates performed on this datastore are reflected immediately or with a minimal delay as operational data.
 
-Alternatively, CORECONF servers MAY implement a more complex datastore model such as the Network Management Datastore Architecture (NMDA) as defined by {{RFC8342}}. Each datastore supported is implemented as a datastore resource.
+More complex datastore models such as the Network Management Datastore
+Architecture (NMDA) as defined by {{RFC8342}} are out of scope of the
+present specification.
 
 Characteristics of the unified datastore are summarized in the table below:
 
