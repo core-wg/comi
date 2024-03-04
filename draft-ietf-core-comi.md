@@ -1148,6 +1148,8 @@ RES: 2.05 Content (Content-Format: application/link-format)
 # Error Handling {#error-handling}
 
 In case a request is received which cannot be processed properly, the CORECONF server MUST return an error response. This error response MUST contain a CoAP 4.xx or 5.xx response code.
+Requests that result in an error response MUST NOT have an effect on
+the datastore.
 
 Errors returned by a CORECONF server can be broken into two categories, those associated with the CoAP protocol itself and those generated during the validation of the YANG data model constraints as described in {{Section 8 of RFC7950}}.
 
