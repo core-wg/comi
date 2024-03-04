@@ -31,15 +31,15 @@ author:
   phone: "+31625097806"
   email: stokcons@kpnmail.nl
   uri: https://vanderstok.tech
-- ins: A. P. Pelov
+- role: editor
   name: Alexander Pelov
-  org: Acklio
-  street: 2bis rue de la Chataigneraie
-  city: Cesson-Sevigne
-#  region: Bretagne
+  org: IMT Atlantique
+  street: 2 rue de la Châtaigneraie
   code: '35510'
+  city: Cesson-Sevigne
+  region: Bretagne
   country: France
-  email: a@ackl.io
+  email: alexander.pelov@imt-atlantique.fr
 - name: Andy Bierman
   org: YumaWorks
   street:
@@ -63,13 +63,7 @@ author:
 contributor:
 - ins: I. I. Petrov
   name: Ivaylo Petrov
-  org: Acklio
-  street: 1137A avenue des Champs Blancs
-  code: '35510'
-  city: Cesson-Sevigne
-#  region: Bretagne
-  country: France
-  email: ivaylo@ackl.io
+  email: ivaylopetrov@google.com
 
 normative:
   RFC3688: xmlreg
@@ -1399,11 +1393,14 @@ module ietf-coreconf {
     "IETF Core Working Group";
 
   contact
-    "Michel Veillette
+    "WG Web:   <https://datatracker.ietf.org/wg/core/>
+     WG List:  <mailto:core@ietf.org>
+
+     Michel Veillette
      <mailto:michel.veillette@trilliantinc.com>
 
      Alexander Pelov
-     <mailto:alexander@ackl.io>
+     <mailto:alexander.pelov@imt-atlantique.fr>
 
      Peter van der Stok
      <mailto:stokcons@kpnmail.nl>
