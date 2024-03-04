@@ -5,14 +5,14 @@
 CoRE                                                M. V. Veillette, Ed.
 Internet-Draft                                   Trilliant Networks Inc.
 Intended status: Standards Track                    P. van der Stok, Ed.
-Expires: 4 September 2024                                     consultant
+Expires: 5 September 2024                                     consultant
                                                              A. P. Pelov
                                                                   Acklio
                                                               A. Bierman
                                                                YumaWorks
                                                          C. Bormann, Ed.
                                                   Universität Bremen TZI
-                                                            3 March 2024
+                                                            4 March 2024
 
 
                   CoAP Management Interface (CORECONF)
@@ -53,7 +53,7 @@ About This Document
 
 
 
-Veillette, et al.       Expires 4 September 2024                [Page 1]
+Veillette, et al.       Expires 5 September 2024                [Page 1]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -73,7 +73,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 September 2024.
+   This Internet-Draft will expire on 5 September 2024.
 
 Copyright Notice
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Veillette, et al.       Expires 4 September 2024                [Page 2]
+Veillette, et al.       Expires 5 September 2024                [Page 2]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -131,7 +131,7 @@ Internet-Draft                  CORECONF                      March 2024
    5.  Application Discovery . . . . . . . . . . . . . . . . . . . .  25
      5.1.  YANG library  . . . . . . . . . . . . . . . . . . . . . .  25
      5.2.  Resource Discovery  . . . . . . . . . . . . . . . . . . .  25
-       5.2.1.  Datastore Resource Discovery  . . . . . . . . . . . .  26
+       5.2.1.  Datastore Resource Discovery  . . . . . . . . . . . .  25
        5.2.2.  Data node Resource Discovery  . . . . . . . . . . . .  26
        5.2.3.  Event stream Resource Discovery . . . . . . . . . . .  27
    6.  Error Handling  . . . . . . . . . . . . . . . . . . . . . . .  27
@@ -165,7 +165,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 4 September 2024                [Page 3]
+Veillette, et al.       Expires 5 September 2024                [Page 3]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -221,7 +221,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 4 September 2024                [Page 4]
+Veillette, et al.       Expires 5 September 2024                [Page 4]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -277,7 +277,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 4 September 2024                [Page 5]
+Veillette, et al.       Expires 5 September 2024                [Page 5]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -327,16 +327,21 @@ Internet-Draft                  CORECONF                      March 2024
       the CORECONF clients and servers.
 
    (5) Datastore:  A resource used to access configuration data, state
-      data, RPCs, and actions.  A CORECONF server may support a single
-      unified datastore or multiple datastores as those defined by
-      Network Management Datastore Architecture (NMDA) [RFC8342].
 
 
 
-Veillette, et al.       Expires 4 September 2024                [Page 6]
+
+
+
+Veillette, et al.       Expires 5 September 2024                [Page 6]
 
 Internet-Draft                  CORECONF                      March 2024
 
+
+      data, RPCs, and actions.  A CORECONF server supports a single
+      unified datastore.  Multiple datastores, for instance as those
+      defined by Network Management Datastore Architecture (NMDA)
+      [RFC8342], are out of scope of this specification.
 
    (6) Event stream:  A resource used to get real-time notifications.  A
       CORECONF server may support multiple Event streams serving
@@ -381,18 +386,16 @@ Internet-Draft                  CORECONF                      March 2024
    *  CORECONF encodes YANG identifier strings as numbers, where
       RESTCONF does not.
 
-   *  CORECONF also differs in the handling of default values, only
-      'report-all' and 'trim' options are supported.
 
 
 
-
-
-
-Veillette, et al.       Expires 4 September 2024                [Page 7]
+Veillette, et al.       Expires 5 September 2024                [Page 7]
 
 Internet-Draft                  CORECONF                      March 2024
 
+
+   *  CORECONF also differs in the handling of default values, only
+      'report-all' and 'trim' options are supported.
 
 2.2.  Compression of YANG identifiers
 
@@ -440,16 +443,14 @@ Internet-Draft                  CORECONF                      March 2024
       FORMAT: CBOR sequence of CBOR maps of instance-identifier,
       instance-value
 
-      The message payload of Media-Type 'application/yang-
 
 
-
-
-Veillette, et al.       Expires 4 September 2024                [Page 8]
+Veillette, et al.       Expires 5 September 2024                [Page 8]
 
 Internet-Draft                  CORECONF                      March 2024
 
 
+      The message payload of Media-Type 'application/yang-
       instances+cbor-seq' is encoded using a CBOR sequence.  Each item
       within this CBOR sequence contains a CBOR map carrying an
       instance-identifier and associated instance-value.  Instance-
@@ -500,8 +501,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-
-Veillette, et al.       Expires 4 September 2024                [Page 9]
+Veillette, et al.       Expires 5 September 2024                [Page 9]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -514,10 +514,9 @@ Internet-Draft                  CORECONF                      March 2024
    on this datastore are reflected immediately or with a minimal delay
    as operational data.
 
-   Alternatively, CORECONF servers MAY implement a more complex
-   datastore model such as the Network Management Datastore Architecture
-   (NMDA) as defined by [RFC8342].  Each datastore supported is
-   implemented as a datastore resource.
+   More complex datastore models such as the Network Management
+   Datastore Architecture (NMDA) as defined by [RFC8342] are out of
+   scope of the present specification.
 
    Characteristics of the unified datastore are summarized in the table
    below:
@@ -557,7 +556,8 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 4 September 2024               [Page 10]
+
+Veillette, et al.       Expires 5 September 2024               [Page 10]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -613,7 +613,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 4 September 2024               [Page 11]
+Veillette, et al.       Expires 5 September 2024               [Page 11]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -669,7 +669,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 4 September 2024               [Page 12]
+Veillette, et al.       Expires 5 September 2024               [Page 12]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -715,17 +715,17 @@ Internet-Draft                  CORECONF                      March 2024
    or not currently instantiated.
 
    For compactness, indexes of the list instance identifiers returned by
-   the FETCH response SHOULD be elided, only the SID is provided.  This
-   approach may also help reduce implementation complexity since the
-   format of each entry within the CBOR sequence of the FETCH response
-   is identical to the format of the corresponding GET response.
+   the FETCH response SHOULD be elided, only the SID is provided.  That
+   means that the client is responsible for remembering the full
+   instance-identifiers in its request since no key values will be in
+   the response.  This approach may also help reduce implementation
+   complexity since the format of each entry within the CBOR sequence of
+   the FETCH response is identical to the format of the corresponding
+   GET response.
 
 
 
-
-
-
-Veillette, et al.       Expires 4 September 2024               [Page 13]
+Veillette, et al.       Expires 5 September 2024               [Page 13]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -781,7 +781,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 4 September 2024               [Page 14]
+Veillette, et al.       Expires 5 September 2024               [Page 14]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -837,7 +837,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 4 September 2024               [Page 15]
+Veillette, et al.       Expires 5 September 2024               [Page 15]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -893,7 +893,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 4 September 2024               [Page 16]
+Veillette, et al.       Expires 5 September 2024               [Page 16]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -949,7 +949,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 4 September 2024               [Page 17]
+Veillette, et al.       Expires 5 September 2024               [Page 17]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -1005,7 +1005,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 4 September 2024               [Page 18]
+Veillette, et al.       Expires 5 September 2024               [Page 18]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -1061,7 +1061,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 4 September 2024               [Page 19]
+Veillette, et al.       Expires 5 September 2024               [Page 19]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -1117,7 +1117,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 4 September 2024               [Page 20]
+Veillette, et al.       Expires 5 September 2024               [Page 20]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -1173,7 +1173,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 4 September 2024               [Page 21]
+Veillette, et al.       Expires 5 September 2024               [Page 21]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -1198,8 +1198,7 @@ Internet-Draft                  CORECONF                      March 2024
      }
    }
 
-   This example invokes the 'reboot' RPC (SID 61000), of the server
-   instance with name equal to "myserver".
+   This example invokes the 'reboot' RPC (SID 61000).
 
    REQ:  POST </c>
          (Content-Format: application/yang-instances+cbor-seq)
@@ -1229,7 +1228,8 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 4 September 2024               [Page 22]
+
+Veillette, et al.       Expires 5 September 2024               [Page 22]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -1285,7 +1285,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 4 September 2024               [Page 23]
+Veillette, et al.       Expires 5 September 2024               [Page 23]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -1295,9 +1295,7 @@ Internet-Draft                  CORECONF                      March 2024
 
    { [60002, "myserver"]:
      {
-       0 : { / SID 60002 XXX does this need to be input? /
-         1 : "2016-02-08T14:10:08Z09:00" / reset-at (SID 60003) /
-       }
+       1 : "2016-02-08T14:10:08Z" / reset-at (SID 60003) /
      }
    }
    RES:  2.04 Changed
@@ -1305,9 +1303,7 @@ Internet-Draft                  CORECONF                      March 2024
 
    { [60002, "myserver"]:
      {
-       0 : { / SID 60002 XXX does this need to be output? /
-         2 : "2016-02-08T14:10:08Z" / reset-finished-at (SID 60004)/
-       }
+       2 : "2016-02-08T14:10:11Z" / reset-finished-at (SID 60004)/
      }
    }
 
@@ -1338,17 +1334,17 @@ Internet-Draft                  CORECONF                      March 2024
    or worse the returned values are inconsistent.  For example: array
    length does not correspond with the actual number of items.  It may
    be advisable to use Indefinite-length CBOR arrays and maps, which are
-
-
-
-Veillette, et al.       Expires 4 September 2024               [Page 24]
-
-Internet-Draft                  CORECONF                      March 2024
-
-
    foreseen for data streaming purposes.  (Note that the outer structure
    of yang-identifiers and yang-instances is a CBOR sequence, which
    already behaves similar to an indefinite-length encoded array.)
+
+
+
+
+Veillette, et al.       Expires 5 September 2024               [Page 24]
+
+Internet-Draft                  CORECONF                      March 2024
+
 
 5.  Application Discovery
 
@@ -1390,24 +1386,21 @@ Internet-Draft                  CORECONF                      March 2024
    available resources using "/.well-known/core" as defined by
    [RFC6690].
 
-
-
-
-
-
-
-
-Veillette, et al.       Expires 4 September 2024               [Page 25]
-
-Internet-Draft                  CORECONF                      March 2024
-
-
 5.2.1.  Datastore Resource Discovery
 
    The presence and location of (path to) each datastore implemented by
    the CORECONF server can be discovered by sending a GET request to
    "/.well-known/core" including a resource type (RT) parameter with the
    value "core.c.ds".
+
+
+
+
+
+Veillette, et al.       Expires 5 September 2024               [Page 25]
+
+Internet-Draft                  CORECONF                      March 2024
+
 
    Upon success, the return payload contains the list of datastore
    resources.
@@ -1449,20 +1442,21 @@ Internet-Draft                  CORECONF                      March 2024
    datetime' (SID 1723) are returned.  The example assumes that the
    server uses /c as datastore resource path.
 
-
-
-
-
-Veillette, et al.       Expires 4 September 2024               [Page 26]
-
-Internet-Draft                  CORECONF                      March 2024
-
-
    REQ: GET </.well-known/core?rt=core.c.dn>
 
    RES: 2.05 Content (Content-Format: application/link-format)
    </c/a6>;rt="core.c.dn",
    </c/a7>;rt="core.c.dn"
+
+
+
+
+
+
+Veillette, et al.       Expires 5 September 2024               [Page 26]
+
+Internet-Draft                  CORECONF                      March 2024
+
 
    Without additional filtering, the list of data nodes may become
    prohibitively long.  If this is the case implementations SHOULD
@@ -1493,7 +1487,8 @@ Internet-Draft                  CORECONF                      March 2024
 
    In case a request is received which cannot be processed properly, the
    CORECONF server MUST return an error response.  This error response
-   MUST contain a CoAP 4.xx or 5.xx response code.
+   MUST contain a CoAP 4.xx or 5.xx response code.  Requests that result
+   in an error response MUST NOT have an effect on the datastore.
 
    Errors returned by a CORECONF server can be broken into two
    categories, those associated with the CoAP protocol itself and those
@@ -1504,16 +1499,6 @@ Internet-Draft                  CORECONF                      March 2024
    CORECONF servers.  This list is not exhaustive, other errors defined
    by CoAP and associated RFCs may be applicable.
 
-
-
-
-
-
-Veillette, et al.       Expires 4 September 2024               [Page 27]
-
-Internet-Draft                  CORECONF                      March 2024
-
-
    *  Error 4.01 (Unauthorized) is returned by the CORECONF server when
       the CORECONF client is not authorized to perform the requested
       action on the targeted resource (i.e., data node, datastore, rpc,
@@ -1521,6 +1506,13 @@ Internet-Draft                  CORECONF                      March 2024
 
    *  Error 4.02 (Bad Option) is returned by the CORECONF server when
       one or more CoAP options are unknown or malformed.
+
+
+
+Veillette, et al.       Expires 5 September 2024               [Page 27]
+
+Internet-Draft                  CORECONF                      March 2024
+
 
    *  Error 4.04 (Not Found) is returned by the CORECONF server when the
       CORECONF client is requesting a non-instantiated resource (i.e.,
@@ -1562,14 +1554,6 @@ Internet-Draft                  CORECONF                      March 2024
    ietf-coreconf YANG module, these tags are implemented as YANG
    identity and can be extended as needed.
 
-
-
-
-Veillette, et al.       Expires 4 September 2024               [Page 28]
-
-Internet-Draft                  CORECONF                      March 2024
-
-
    *  error-tag 'operation-failed' is returned by the CORECONF server
       when the operation request cannot be processed successfully.
 
@@ -1578,6 +1562,13 @@ Internet-Draft                  CORECONF                      March 2024
          not contain a well-formed CBOR content as defined in [RFC8949]
          or does not comply with the CBOR structure defined within this
          document.
+
+
+
+Veillette, et al.       Expires 5 September 2024               [Page 28]
+
+Internet-Draft                  CORECONF                      March 2024
+
 
       -  error-app-tag 'data-not-unique' is returned by the CORECONF
          server when the validation of the 'unique' constraint of a list
@@ -1617,15 +1608,6 @@ Internet-Draft                  CORECONF                      March 2024
       -  error-app-tag 'invalid-length' is returned by the CORECONF
          server when the validation of the 'length' property fails.
 
-
-
-
-
-Veillette, et al.       Expires 4 September 2024               [Page 29]
-
-Internet-Draft                  CORECONF                      March 2024
-
-
       -  error-app-tag 'pattern-test-failed' is returned by the CORECONF
          server when the validation of the 'pattern' property fails.
 
@@ -1635,6 +1617,14 @@ Internet-Draft                  CORECONF                      March 2024
       constraint is enforced for leafs and choices, unless the node or
       any of its ancestors have a 'when' condition or 'if-feature'
       expression that evaluates to 'false'.
+
+
+
+
+Veillette, et al.       Expires 5 September 2024               [Page 29]
+
+Internet-Draft                  CORECONF                      March 2024
+
 
       -  error-app-tag 'missing-key' is returned by the CORECONF server
          to further qualify a missing-element error.  This error is
@@ -1677,7 +1667,17 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 4 September 2024               [Page 30]
+
+
+
+
+
+
+
+
+
+
+Veillette, et al.       Expires 5 September 2024               [Page 30]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -1733,7 +1733,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 4 September 2024               [Page 31]
+Veillette, et al.       Expires 5 September 2024               [Page 31]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -1789,7 +1789,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 4 September 2024               [Page 32]
+Veillette, et al.       Expires 5 September 2024               [Page 32]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -1845,7 +1845,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 4 September 2024               [Page 33]
+Veillette, et al.       Expires 5 September 2024               [Page 33]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -1901,7 +1901,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 4 September 2024               [Page 34]
+Veillette, et al.       Expires 5 September 2024               [Page 34]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -1957,7 +1957,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 4 September 2024               [Page 35]
+Veillette, et al.       Expires 5 September 2024               [Page 35]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -2013,7 +2013,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 4 September 2024               [Page 36]
+Veillette, et al.       Expires 5 September 2024               [Page 36]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -2053,7 +2053,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 Appendix A.  ietf-coreconf YANG module
 
-   <CODE BEGINS> file "ietf-coreconf@2023-07-10.yang"
+   This appendix is normative.
+
+   <CODE BEGINS> file "ietf-coreconf@2024-03-04.yang"
    module ietf-coreconf {
      yang-version 1.1;
 
@@ -2064,16 +2066,16 @@ Appendix A.  ietf-coreconf YANG module
        prefix ds;
      }
 
-     import ietf-restconf {
-       prefix rc;
 
 
 
-Veillette, et al.       Expires 4 September 2024               [Page 37]
+Veillette, et al.       Expires 5 September 2024               [Page 37]
 
 Internet-Draft                  CORECONF                      March 2024
 
 
+     import ietf-restconf {
+       prefix rc;
        description
          "This import statement is required to access
           the yang-data extension defined in RFC 8040.";
@@ -2091,7 +2093,7 @@ Internet-Draft                  CORECONF                      March 2024
         <mailto:alexander@ackl.io>
 
         Peter van der Stok
-        <mailto:consultancy@vanderstok.org>
+        <mailto:stokcons@kpnmail.nl>
 
         Andy Bierman
         <mailto:andy@yumaworks.com>";
@@ -2113,23 +2115,23 @@ Internet-Draft                  CORECONF                      March 2024
         This version of this YANG module is part of RFC XXXX;
         see the RFC itself for full legal notices.";
 
-     revision 2023-07-10 {
+     revision 2024-03-04 {
         description
          "Initial revision.";
        reference
          "[I-D.ietf-core-comi] CoAP Management Interface";
      }
 
-     identity unified {
-       base ds:datastore;
 
 
 
-Veillette, et al.       Expires 4 September 2024               [Page 38]
+Veillette, et al.       Expires 5 September 2024               [Page 38]
 
 Internet-Draft                  CORECONF                      March 2024
 
 
+     identity unified {
+       base ds:datastore;
        description
          "Identifier of the unified configuration and operational
           state datastore.";
@@ -2176,15 +2178,15 @@ Internet-Draft                  CORECONF                      March 2024
           data node associated with an 'if-feature' expression
           evaluated to 'false' or to a 'when' condition evaluated
           to 'false'.";
-     }
 
 
 
-
-Veillette, et al.       Expires 4 September 2024               [Page 39]
+Veillette, et al.       Expires 5 September 2024               [Page 39]
 
 Internet-Draft                  CORECONF                      March 2024
 
+
+     }
 
      identity bad-element {
        base error-tag;
@@ -2232,16 +2234,16 @@ Internet-Draft                  CORECONF                      March 2024
      identity too-many-elements {
        base error-app-tag;
        description
-         "Returned by the CORECONF server when the validation of the
-          'max-elements' constraint of a list or leaf-list fails.";
 
 
 
-Veillette, et al.       Expires 4 September 2024               [Page 40]
+Veillette, et al.       Expires 5 September 2024               [Page 40]
 
 Internet-Draft                  CORECONF                      March 2024
 
 
+         "Returned by the CORECONF server when the validation of the
+          'max-elements' constraint of a list or leaf-list fails.";
      }
 
      identity too-few-elements {
@@ -2288,16 +2290,16 @@ Internet-Draft                  CORECONF                      March 2024
           'length' property fails.";
      }
 
-     identity pattern-test-failed {
-       base error-app-tag;
 
 
 
-Veillette, et al.       Expires 4 September 2024               [Page 41]
+Veillette, et al.       Expires 5 September 2024               [Page 41]
 
 Internet-Draft                  CORECONF                      March 2024
 
 
+     identity pattern-test-failed {
+       base error-app-tag;
        description
          "Returned by the CORECONF server when the validation of the
           'pattern' property fails.";
@@ -2344,16 +2346,16 @@ Internet-Draft                  CORECONF                      March 2024
          leaf error-tag {
            type identityref {
              base error-tag;
-           }
-           mandatory true;
 
 
 
-Veillette, et al.       Expires 4 September 2024               [Page 42]
+Veillette, et al.       Expires 5 September 2024               [Page 42]
 
 Internet-Draft                  CORECONF                      March 2024
 
 
+           }
+           mandatory true;
            description
              "The enumerated error-tag.";
          }
@@ -2383,18 +2385,31 @@ Internet-Draft                  CORECONF                      March 2024
    }
    <CODE ENDS>
 
+                    Figure 4: ietf-coreconf YANG module
+
 Appendix B.  ietf-coreconf .sid file
 
+   This appendix is normative.
+
+   <CODE BEGINS> file "ietf-coreconf@2024-03-04.sid"
    {
      "ietf-sid-file:sid-file": {
        "module-name": "ietf-coreconf",
-       "module-revision": "2023-07-10",
+       "module-revision": "2024-03-04",
        "assignment-range": [
          {
            "entry-point": "1000",
            "size": "100"
          }
        ],
+
+
+
+Veillette, et al.       Expires 5 September 2024               [Page 43]
+
+Internet-Draft                  CORECONF                      March 2024
+
+
        "item": [
          {
            "namespace": "module",
@@ -2402,14 +2417,6 @@ Appendix B.  ietf-coreconf .sid file
            "sid": "1000"
          },
          {
-
-
-
-Veillette, et al.       Expires 4 September 2024               [Page 43]
-
-Internet-Draft                  CORECONF                      March 2024
-
-
            "namespace": "identity",
            "identifier": "bad-element",
            "sid": "1001"
@@ -2451,6 +2458,14 @@ Internet-Draft                  CORECONF                      March 2024
          },
          {
            "namespace": "identity",
+
+
+
+Veillette, et al.       Expires 5 September 2024               [Page 44]
+
+Internet-Draft                  CORECONF                      March 2024
+
+
            "identifier": "invalid-datatype",
            "sid": "1009"
          },
@@ -2458,14 +2473,6 @@ Internet-Draft                  CORECONF                      March 2024
            "namespace": "identity",
            "identifier": "invalid-length",
            "sid": "1010"
-
-
-
-Veillette, et al.       Expires 4 September 2024               [Page 44]
-
-Internet-Draft                  CORECONF                      March 2024
-
-
          },
          {
            "namespace": "identity",
@@ -2507,6 +2514,14 @@ Internet-Draft                  CORECONF                      March 2024
            "identifier": "not-in-range",
            "sid": "1018"
          },
+
+
+
+Veillette, et al.       Expires 5 September 2024               [Page 45]
+
+Internet-Draft                  CORECONF                      March 2024
+
+
          {
            "namespace": "identity",
            "identifier": "operation-failed",
@@ -2514,14 +2529,6 @@ Internet-Draft                  CORECONF                      March 2024
          },
          {
            "namespace": "identity",
-
-
-
-Veillette, et al.       Expires 4 September 2024               [Page 45]
-
-Internet-Draft                  CORECONF                      March 2024
-
-
            "identifier": "pattern-test-failed",
            "sid": "1020"
          },
@@ -2563,6 +2570,14 @@ Internet-Draft                  CORECONF                      March 2024
          {
            "namespace": "data",
            "identifier": "/ietf-coreconf:error/error-message",
+
+
+
+Veillette, et al.       Expires 5 September 2024               [Page 46]
+
+Internet-Draft                  CORECONF                      March 2024
+
+
            "sid": "1027"
          },
          {
@@ -2570,17 +2585,12 @@ Internet-Draft                  CORECONF                      March 2024
            "identifier": "/ietf-coreconf:error/error-tag",
            "sid": "1028"
          }
-
-
-
-Veillette, et al.       Expires 4 September 2024               [Page 46]
-
-Internet-Draft                  CORECONF                      March 2024
-
-
        ]
      }
    }
+   <CODE ENDS>
+
+                      Figure 5: ietf-coreconf SID file
 
 Acknowledgments
 
@@ -2617,21 +2627,18 @@ Authors' Addresses
    Email: michel.veillette@trilliant.com
 
 
+
+
+Veillette, et al.       Expires 5 September 2024               [Page 47]
+
+Internet-Draft                  CORECONF                      March 2024
+
+
    Peter van der Stok (editor)
    consultant
    Phone: +31625097806
    Email: stokcons@kpnmail.nl
    URI:   https://vanderstok.tech
-
-
-
-
-
-
-
-Veillette, et al.       Expires 4 September 2024               [Page 47]
-
-Internet-Draft                  CORECONF                      March 2024
 
 
    Alexander Pelov
@@ -2678,11 +2685,4 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-
-
-
-
-
-
-
-Veillette, et al.       Expires 4 September 2024               [Page 48]
+Veillette, et al.       Expires 5 September 2024               [Page 48]

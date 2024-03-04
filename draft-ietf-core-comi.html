@@ -1061,7 +1061,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Veillette, et al.</td>
-<td class="center">Expires 4 September 2024</td>
+<td class="center">Expires 5 September 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1074,12 +1074,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-core-comi-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-03-03" class="published">3 March 2024</time>
+<time datetime="2024-03-04" class="published">4 March 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-09-04">4 September 2024</time></dd>
+<dd class="expires"><time datetime="2024-09-05">5 September 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1155,7 +1155,7 @@ and networks.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 4 September 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 5 September 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1593,7 +1593,11 @@ from the CORECONF server.<a href="#section-2-4.6.1" class="pilcrow">¶</a></p>
         <dd class="break"></dd>
 <dt id="section-2-4.9">(5) Datastore:</dt>
         <dd style="margin-left: 1.5em" id="section-2-4.10">
-          <p id="section-2-4.10.1">A resource used to access configuration data, state data, RPCs, and actions. A CORECONF server may support a single unified datastore or multiple datastores as those defined by Network Management Datastore Architecture (NMDA) <span>[<a href="#RFC8342" class="cite xref">RFC8342</a>]</span>.<a href="#section-2-4.10.1" class="pilcrow">¶</a></p>
+          <p id="section-2-4.10.1">A resource used to access configuration data, state data, RPCs, and
+ actions. A CORECONF server supports a single unified datastore.
+ Multiple datastores, for instance as those defined by Network
+ Management Datastore Architecture (NMDA) <span>[<a href="#RFC8342" class="cite xref">RFC8342</a>]</span>, are out of scope
+ of this specification.<a href="#section-2-4.10.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 <dt id="section-2-4.11">(6) Event stream:</dt>
@@ -1793,7 +1797,9 @@ For each data node instance D, for which the instance-identifier is the same as 
 <a href="#section-2.4" class="section-number selfRef">2.4. </a><a href="#name-unified-datastore" class="section-name selfRef">Unified datastore</a>
         </h3>
 <p id="section-2.4-1">CORECONF supports a simple datastore model consisting of a single unified datastore. This datastore provides access to both configuration and operational data. Configuration updates performed on this datastore are reflected immediately or with a minimal delay as operational data.<a href="#section-2.4-1" class="pilcrow">¶</a></p>
-<p id="section-2.4-2">Alternatively, CORECONF servers <span class="bcp14">MAY</span> implement a more complex datastore model such as the Network Management Datastore Architecture (NMDA) as defined by <span>[<a href="#RFC8342" class="cite xref">RFC8342</a>]</span>. Each datastore supported is implemented as a datastore resource.<a href="#section-2.4-2" class="pilcrow">¶</a></p>
+<p id="section-2.4-2">More complex datastore models such as the Network Management Datastore
+Architecture (NMDA) as defined by <span>[<a href="#RFC8342" class="cite xref">RFC8342</a>]</span> are out of scope of the
+present specification.<a href="#section-2.4-2" class="pilcrow">¶</a></p>
 <p id="section-2.4-3">Characteristics of the unified datastore are summarized in the table below:<a href="#section-2.4-3" class="pilcrow">¶</a></p>
 <span id="name-characteristics-of-the-unif"></span><table class="left" id="table-2">
           <caption>
@@ -2060,6 +2066,9 @@ The FETCH request payload contains the list of instance-identifiers of the data 
 <p id="section-3.1.3-2">The return response payload contains a list of data node instance-values in the same order as requested.
 A CBOR null is returned for each data node requested by the client, not supported by the server or not currently instantiated.<a href="#section-3.1.3-2" class="pilcrow">¶</a></p>
 <p id="section-3.1.3-3">For compactness, indexes of the list instance identifiers returned by the FETCH response <span class="bcp14">SHOULD</span> be elided, only the SID is provided.
+That means that the client is responsible for remembering the full
+instance-identifiers in its request since no key values will be in the
+response.
 This approach may also help reduce implementation complexity since the format of each entry within the CBOR sequence of the FETCH response is identical to the format of the corresponding GET response.<a href="#section-3.1.3-3" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-3.1.3-4">
 <pre>
@@ -2511,8 +2520,7 @@ module example-ops {
 }
 </pre><a href="#section-3.5.1-2" class="pilcrow">¶</a>
 </div>
-<p id="section-3.5.1-3">This example invokes the 'reboot' RPC  (SID 61000),
-of the server instance with name equal to "myserver".<a href="#section-3.5.1-3" class="pilcrow">¶</a></p>
+<p id="section-3.5.1-3">This example invokes the 'reboot' RPC  (SID 61000).<a href="#section-3.5.1-3" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-3.5.1-4">
 <pre>
 REQ:  POST &lt;/c&gt;
@@ -2583,9 +2591,7 @@ REQ:  POST &lt;/c&gt;
 
 { [60002, "myserver"]:
   {
-    0 : { / SID 60002 XXX does this need to be input? /
-      1 : "2016-02-08T14:10:08Z09:00" / reset-at (SID 60003) /
-    }
+    1 : "2016-02-08T14:10:08Z" / reset-at (SID 60003) /
   }
 }
 RES:  2.04 Changed
@@ -2593,9 +2599,7 @@ RES:  2.04 Changed
 
 { [60002, "myserver"]:
   {
-    0 : { / SID 60002 XXX does this need to be output? /
-      2 : "2016-02-08T14:10:08Z" / reset-finished-at (SID 60004)/
-    }
+    2 : "2016-02-08T14:10:11Z" / reset-finished-at (SID 60004)/
   }
 }
 </pre><a href="#section-3.5.2-4" class="pilcrow">¶</a>
@@ -2783,7 +2787,9 @@ RES: 2.05 Content (Content-Format: application/link-format)
       <h2 id="name-error-handling">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-error-handling" class="section-name selfRef">Error Handling</a>
       </h2>
-<p id="section-6-1">In case a request is received which cannot be processed properly, the CORECONF server <span class="bcp14">MUST</span> return an error response. This error response <span class="bcp14">MUST</span> contain a CoAP 4.xx or 5.xx response code.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-1">In case a request is received which cannot be processed properly, the CORECONF server <span class="bcp14">MUST</span> return an error response. This error response <span class="bcp14">MUST</span> contain a CoAP 4.xx or 5.xx response code.
+Requests that result in an error response <span class="bcp14">MUST NOT</span> have an effect on
+the datastore.<a href="#section-6-1" class="pilcrow">¶</a></p>
 <p id="section-6-2">Errors returned by a CORECONF server can be broken into two categories, those associated with the CoAP protocol itself and those generated during the validation of the YANG data model constraints as described in <span><a href="https://rfc-editor.org/rfc/rfc7950#section-8" class="relref">Section 8</a> of [<a href="#RFC7950" class="cite xref">RFC7950</a>]</span>.<a href="#section-6-2" class="pilcrow">¶</a></p>
 <p id="section-6-3">The following list of common CoAP errors should be implemented by CORECONF servers. This list is not exhaustive, other errors defined by CoAP and associated RFCs may be applicable.<a href="#section-6-3" class="pilcrow">¶</a></p>
 <ul class="normal">
@@ -3270,8 +3276,11 @@ Registry", following the format defined in <span>[<a href="#RFC3688" class="cite
       <h2 id="name-ietf-coreconf-yang-module">
 <a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-ietf-coreconf-yang-module" class="section-name selfRef">ietf-coreconf YANG module</a>
       </h2>
-<div class="breakable sourcecode" id="appendix-A-1">
-<pre>&lt;CODE BEGINS&gt; file "ietf-coreconf@2023-07-10.yang"
+<p id="appendix-A-1">This appendix is normative.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<span id="name-ietf-coreconf-yang-module-2"></span><div id="yang-ietf-coreconf">
+<figure id="figure-4">
+        <div class="breakable lang-yang sourcecode" id="appendix-A-2.1">
+<pre>&lt;CODE BEGINS&gt; file "ietf-coreconf@2024-03-04.yang"
 
 module ietf-coreconf {
   yang-version 1.1;
@@ -3302,7 +3311,7 @@ module ietf-coreconf {
      &lt;mailto:alexander@ackl.io&gt;
 
      Peter van der Stok
-     &lt;mailto:consultancy@vanderstok.org&gt;
+     &lt;mailto:stokcons@kpnmail.nl&gt;
 
      Andy Bierman
      &lt;mailto:andy@yumaworks.com&gt;";
@@ -3324,7 +3333,7 @@ module ietf-coreconf {
      This version of this YANG module is part of RFC XXXX;
      see the RFC itself for full legal notices.";
 
-  revision 2023-07-10 {
+  revision 2024-03-04 {
      description
       "Initial revision.";
     reference
@@ -3553,7 +3562,11 @@ module ietf-coreconf {
   }
 }
 
-&lt;CODE ENDS&gt;</pre><a href="#appendix-A-1" class="pilcrow">¶</a>
+&lt;CODE ENDS&gt;</pre>
+</div>
+<figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
+<a href="#name-ietf-coreconf-yang-module-2" class="selfRef">ietf-coreconf YANG module</a>
+        </figcaption></figure>
 </div>
 </section>
 </div>
@@ -3562,12 +3575,16 @@ module ietf-coreconf {
       <h2 id="name-ietf-coreconf-sid-file">
 <a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-ietf-coreconf-sid-file" class="section-name selfRef">ietf-coreconf .sid file</a>
       </h2>
-<div class="alignLeft art-text artwork" id="appendix-B-1">
-<pre>
+<p id="appendix-B-1">This appendix is normative.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
+<span id="name-ietf-coreconf-sid-file-2"></span><div id="yang-ietf-coreconf-sid">
+<figure id="figure-5">
+        <div class="breakable lang-yang sourcecode" id="appendix-B-2.1">
+<pre>&lt;CODE BEGINS&gt; file "ietf-coreconf@2024-03-04.sid"
+
 {
   "ietf-sid-file:sid-file": {
     "module-name": "ietf-coreconf",
-    "module-revision": "2023-07-10",
+    "module-revision": "2024-03-04",
     "assignment-range": [
       {
         "entry-point": "1000",
@@ -3728,7 +3745,12 @@ module ietf-coreconf {
     ]
   }
 }
-</pre><a href="#appendix-B-1" class="pilcrow">¶</a>
+
+&lt;CODE ENDS&gt;</pre>
+</div>
+<figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
+<a href="#name-ietf-coreconf-sid-file-2" class="selfRef">ietf-coreconf SID file</a>
+        </figcaption></figure>
 </div>
 </section>
 </div>
