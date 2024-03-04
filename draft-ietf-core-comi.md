@@ -1372,8 +1372,7 @@ Reference: RFC XXXX
 
 This appendix is normative.
 
-~~~~
-<CODE BEGINS> file "ietf-coreconf@2023-07-10.yang"
+~~~~ yang
 module ietf-coreconf {
   yang-version 1.1;
 
@@ -1403,7 +1402,7 @@ module ietf-coreconf {
      <mailto:alexander@ackl.io>
 
      Peter van der Stok
-     <mailto:consultancy@vanderstok.org>
+     <mailto:stokcons@kpnmail.nl>
 
      Andy Bierman
      <mailto:andy@yumaworks.com>";
@@ -1425,7 +1424,7 @@ module ietf-coreconf {
      This version of this YANG module is part of RFC XXXX;
      see the RFC itself for full legal notices.";
 
-  revision 2023-07-10 {
+  revision 2024-03-04 {
      description
       "Initial revision.";
     reference
@@ -1653,18 +1652,20 @@ module ietf-coreconf {
     }
   }
 }
-<CODE ENDS>
 ~~~~
+{: #yang-ietf-coreconf sourcecode-name="ietf-coreconf@2024-03-04.yang"
+sourcecode-markers="true" title="ietf-coreconf YANG module"}
+
 
 # ietf-coreconf .sid file {#ietf-coreconf-sid}
 
 This appendix is normative.
 
-~~~~
+~~~~ yang
 {
   "ietf-sid-file:sid-file": {
     "module-name": "ietf-coreconf",
-    "module-revision": "2023-07-10",
+    "module-revision": "2024-03-04",
     "assignment-range": [
       {
         "entry-point": "1000",
@@ -1826,6 +1827,8 @@ This appendix is normative.
   }
 }
 ~~~~
+{: #yang-ietf-coreconf-sid sourcecode-name="ietf-coreconf@2024-03-04.sid"
+sourcecode-markers="true" title="ietf-coreconf SID file"}
 
 
 # Acknowledgments
