@@ -978,9 +978,7 @@ REQ:  POST </c>
 
 { [60002, "myserver"]:
   {
-    0 : { / SID 60002 XXX does this need to be input? /
-      1 : "2016-02-08T14:10:08Z09:00" / reset-at (SID 60003) /
-    }
+    1 : "2016-02-08T14:10:08Z" / reset-at (SID 60003) /
   }
 }
 RES:  2.04 Changed
@@ -988,9 +986,7 @@ RES:  2.04 Changed
 
 { [60002, "myserver"]:
   {
-    0 : { / SID 60002 XXX does this need to be output? /
-      2 : "2016-02-08T14:10:08Z" / reset-finished-at (SID 60004)/
-    }
+    2 : "2016-02-08T14:10:11Z" / reset-finished-at (SID 60004)/
   }
 }
 ~~~~
