@@ -1370,6 +1370,8 @@ Reference: RFC XXXX
 
 # ietf-coreconf YANG module {#ietf-coreconf-yang}
 
+This appendix is normative.
+
 ~~~~
 <CODE BEGINS> file "ietf-coreconf@2023-07-10.yang"
 module ietf-coreconf {
@@ -1655,6 +1657,8 @@ module ietf-coreconf {
 ~~~~
 
 # ietf-coreconf .sid file {#ietf-coreconf-sid}
+
+This appendix is normative.
 
 ~~~~
 {
