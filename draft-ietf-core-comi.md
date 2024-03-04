@@ -1365,6 +1365,8 @@ Reference: RFC XXXX
 
 // RFC Ed.: please replace XXXX with RFC number and remove this note
 
+The YANG module and SID file are in {{ietf-coreconf-yang}} and
+{{ietf-coreconf-sid}}, respectively.
 
 --- back
 
