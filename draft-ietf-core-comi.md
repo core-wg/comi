@@ -90,12 +90,12 @@ normative:
   RFC9254: yang-cbor
   I-D.ietf-core-sid:
   I-D.ietf-core-yang-library:
+  RFC8342: nmda
 informative:
   RFC6347: dtls12
   RFC6690:
   RFC8343:
   RFC7317:
-  RFC8342: nmda
   RFC8613: oscore
   RFC9147: dtls13
   RFC9200: ace-oauth
@@ -1383,6 +1383,8 @@ module ietf-coreconf {
 
   import ietf-datastores {
     prefix ds;
+    reference
+      "RFC 8342: Network Management Datastore Architecture (NMDA)";
   }
 
   import ietf-restconf {
