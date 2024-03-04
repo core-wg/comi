@@ -1415,7 +1415,7 @@ module ietf-coreconf {
     "This module contains the different definitions required
      by the CORECONF protocol.
 
-     Copyright (c) 2019 IETF Trust and the persons identified as
+     Copyright (c) 2024 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
 
      Redistribution and use in source and binary forms, with or
