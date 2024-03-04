@@ -904,8 +904,7 @@ module example-ops {
 }
 ~~~~
 
-This example invokes the 'reboot' RPC  (SID 61000),
-of the server instance with name equal to "myserver".
+This example invokes the 'reboot' RPC  (SID 61000).
 
 
 ~~~~
