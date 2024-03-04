@@ -1588,7 +1588,7 @@ module ietf-coreconf {
     description
       "Returned by the CORECONF server to further qualify a
        missing-element error. This error is returned when the
-       CORECONF client tries to create or list instance, without all
+       CORECONF client tries to create a list instance, without all
        the 'key' specified or when the CORECONF client tries to
        delete a leaf listed as a 'key'.";
   }
