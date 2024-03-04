@@ -1093,8 +1093,9 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <div class="org">consultant</div>
 </div>
 <div class="author">
-      <div class="author-name">A. P. Pelov</div>
-<div class="org">Acklio</div>
+      <div class="author-name">A. Pelov, <span class="editor">Ed.</span>
+</div>
+<div class="org">IMT Atlantique</div>
 </div>
 <div class="author">
       <div class="author-name">A. Bierman</div>
@@ -1378,8 +1379,8 @@ the large quantities of devices that are expected in
 future installations. Messages between devices need to be as small and
 infrequent as possible. The implementation
 complexity and runtime resources need to be as small as possible.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">This draft describes the CoAP Management Interface (CORECONF) which uses CoAP methods
-to access structured data defined in YANG <span>[<a href="#RFC7950" class="cite xref">RFC7950</a>]</span>. This draft is
+<p id="section-1-2">This specification describes the CoAP Management Interface (CORECONF) which uses CoAP methods
+to access structured data defined in YANG <span>[<a href="#RFC7950" class="cite xref">RFC7950</a>]</span>. This specification is
 complementary to <span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span> which describes a REST-like interface
 called RESTCONF, which uses HTTP methods to access structured data
 defined in YANG.<a href="#section-1-2" class="pilcrow">¶</a></p>
@@ -3132,6 +3133,8 @@ Registry", following the format defined in <span>[<a href="#RFC3688" class="cite
 <p id="section-8.4-9">Prefix: coreconf<a href="#section-8.4-9" class="pilcrow">¶</a></p>
 <p id="section-8.4-10">Reference: RFC XXXX<a href="#section-8.4-10" class="pilcrow">¶</a></p>
 <p id="section-8.4-11">// RFC Ed.: please replace XXXX with RFC number and remove this note<a href="#section-8.4-11" class="pilcrow">¶</a></p>
+<p id="section-8.4-12">The YANG module and SID file are in <a href="#ietf-coreconf-yang" class="auto internal xref">Appendix A</a> and
+<a href="#ietf-coreconf-sid" class="auto internal xref">Appendix B</a>, respectively.<a href="#section-8.4-12" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -3210,6 +3213,10 @@ Registry", following the format defined in <span>[<a href="#RFC3688" class="cite
         <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC8342">[RFC8342]</dt>
+        <dd>
+<span class="refAuthor">Bjorklund, M.</span>, <span class="refAuthor">Schoenwaelder, J.</span>, <span class="refAuthor">Shafer, P.</span>, <span class="refAuthor">Watsen, K.</span>, and <span class="refAuthor">R. Wilton</span>, <span class="refTitle">"Network Management Datastore Architecture (NMDA)"</span>, <span class="seriesInfo">RFC 8342</span>, <span class="seriesInfo">DOI 10.17487/RFC8342</span>, <time datetime="2018-03" class="refDate">March 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8342">https://www.rfc-editor.org/rfc/rfc8342</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8610">[RFC8610]</dt>
         <dd>
 <span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Vigano, C.</span>, and <span class="refAuthor">C. Bormann</span>, <span class="refTitle">"Concise Data Definition Language (CDDL): A Notational Convention to Express Concise Binary Object Representation (CBOR) and JSON Data Structures"</span>, <span class="seriesInfo">RFC 8610</span>, <span class="seriesInfo">DOI 10.17487/RFC8610</span>, <time datetime="2019-06" class="refDate">June 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8610">https://www.rfc-editor.org/rfc/rfc8610</a>&gt;</span>. </dd>
@@ -3246,10 +3253,6 @@ Registry", following the format defined in <span>[<a href="#RFC3688" class="cite
 <dt id="RFC7317">[RFC7317]</dt>
         <dd>
 <span class="refAuthor">Bierman, A.</span> and <span class="refAuthor">M. Bjorklund</span>, <span class="refTitle">"A YANG Data Model for System Management"</span>, <span class="seriesInfo">RFC 7317</span>, <span class="seriesInfo">DOI 10.17487/RFC7317</span>, <time datetime="2014-08" class="refDate">August 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7317">https://www.rfc-editor.org/rfc/rfc7317</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC8342">[RFC8342]</dt>
-        <dd>
-<span class="refAuthor">Bjorklund, M.</span>, <span class="refAuthor">Schoenwaelder, J.</span>, <span class="refAuthor">Shafer, P.</span>, <span class="refAuthor">Watsen, K.</span>, and <span class="refAuthor">R. Wilton</span>, <span class="refTitle">"Network Management Datastore Architecture (NMDA)"</span>, <span class="seriesInfo">RFC 8342</span>, <span class="seriesInfo">DOI 10.17487/RFC8342</span>, <time datetime="2018-03" class="refDate">March 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8342">https://www.rfc-editor.org/rfc/rfc8342</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8343">[RFC8343]</dt>
         <dd>
@@ -3290,6 +3293,8 @@ module ietf-coreconf {
 
   import ietf-datastores {
     prefix ds;
+    reference
+      "RFC 8342: Network Management Datastore Architecture (NMDA)";
   }
 
   import ietf-restconf {
@@ -3304,11 +3309,14 @@ module ietf-coreconf {
     "IETF Core Working Group";
 
   contact
-    "Michel Veillette
+    "WG Web:   &lt;https://datatracker.ietf.org/wg/core/&gt;
+     WG List:  &lt;mailto:core@ietf.org&gt;
+
+     Michel Veillette
      &lt;mailto:michel.veillette@trilliantinc.com&gt;
 
      Alexander Pelov
-     &lt;mailto:alexander@ackl.io&gt;
+     &lt;mailto:alexander.pelov@imt-atlantique.fr&gt;
 
      Peter van der Stok
      &lt;mailto:stokcons@kpnmail.nl&gt;
@@ -3320,13 +3328,13 @@ module ietf-coreconf {
     "This module contains the different definitions required
      by the CORECONF protocol.
 
-     Copyright (c) 2019 IETF Trust and the persons identified as
+     Copyright (c) 2024 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
 
      Redistribution and use in source and binary forms, with or
-     without modification, is permitted pursuant to, and subject to
-     the license terms contained in, the Simplified BSD License set
-     forth in Section 4.c of the IETF Trust's Legal Provisions
+     without modification, is permitted pursuant to, and subject
+     to the license terms contained in, the Revised BSD License
+     set forth in Section 4.c of the IETF Trust's Legal Provisions
      Relating to IETF Documents
      (https://trustee.ietf.org/license-info).
 
@@ -3496,7 +3504,7 @@ module ietf-coreconf {
     description
       "Returned by the CORECONF server to further qualify a
        missing-element error. This error is returned when the
-       CORECONF client tries to create or list instance, without all
+       CORECONF client tries to create a list instance, without all
        the 'key' specified or when the CORECONF client tries to
        delete a leaf listed as a 'key'.";
   }
@@ -3765,7 +3773,7 @@ of the CORECONF specification.<a href="#appendix-C-1" class="pilcrow">¶</a></p>
 under SNMP.
 <span class="contact-name">Koen Zandberg</span>'s implementation input motivated massively simplifying
 (and fixing) the URI construction for GET/PUT/POST requests.<a href="#appendix-C-2" class="pilcrow">¶</a></p>
-<p id="appendix-C-3">The draft has further benefited from comments (alphabetical order) by
+<p id="appendix-C-3">The specification has further benefited from comments (alphabetical order) by
 <span class="contact-name">Rodney Cummings</span>,
 <span class="contact-name">Dee Denteneer</span>,
 <span class="contact-name">Esko Dijk</span>,
@@ -3788,15 +3796,9 @@ and
       </h2>
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Ivaylo Petrov</span></div>
-<div dir="auto" class="left"><span class="org">Acklio</span></div>
-<div dir="auto" class="left"><span class="street-address">1137A avenue des Champs Blancs</span></div>
-<div dir="auto" class="left">
-<span class="postal-code">35510</span> <span class="locality">Cesson-Sevigne</span>
-</div>
-<div dir="auto" class="left"><span class="country-name">France</span></div>
 <div class="email">
 <span>Email:</span>
-<a href="mailto:ivaylo@ackl.io" class="email">ivaylo@ackl.io</a>
+<a href="mailto:ivaylopetrov@google.com" class="email">ivaylopetrov@google.com</a>
 </div>
 </address>
 </section>
@@ -3836,16 +3838,16 @@ and
 </div>
 </address>
 <address class="vcard">
-        <div dir="auto" class="left"><span class="fn nameRole">Alexander Pelov</span></div>
-<div dir="auto" class="left"><span class="org">Acklio</span></div>
-<div dir="auto" class="left"><span class="street-address">2bis rue de la Chataigneraie</span></div>
+        <div dir="auto" class="left"><span class="fn nameRole">Alexander Pelov (<span class="role">editor</span>)</span></div>
+<div dir="auto" class="left"><span class="org">IMT Atlantique</span></div>
+<div dir="auto" class="left"><span class="street-address">2 rue de la Châtaigneraie</span></div>
 <div dir="auto" class="left">
 <span class="postal-code">35510</span> <span class="locality">Cesson-Sevigne</span>
 </div>
 <div dir="auto" class="left"><span class="country-name">France</span></div>
 <div class="email">
 <span>Email:</span>
-<a href="mailto:a@ackl.io" class="email">a@ackl.io</a>
+<a href="mailto:alexander.pelov@imt-atlantique.fr" class="email">alexander.pelov@imt-atlantique.fr</a>
 </div>
 </address>
 <address class="vcard">

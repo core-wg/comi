@@ -6,8 +6,8 @@ CoRE                                                M. V. Veillette, Ed.
 Internet-Draft                                   Trilliant Networks Inc.
 Intended status: Standards Track                    P. van der Stok, Ed.
 Expires: 5 September 2024                                     consultant
-                                                             A. P. Pelov
-                                                                  Acklio
+                                                           A. Pelov, Ed.
+                                                          IMT Atlantique
                                                               A. Bierman
                                                                YumaWorks
                                                          C. Bormann, Ed.
@@ -144,12 +144,12 @@ Internet-Draft                  CORECONF                      March 2024
      8.4.  YANG Namespace and Module Name Registration . . . . . . .  34
    9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  34
      9.1.  Normative References  . . . . . . . . . . . . . . . . . .  34
-     9.2.  Informative References  . . . . . . . . . . . . . . . . .  36
-   Appendix A.  ietf-coreconf YANG module  . . . . . . . . . . . . .  37
-   Appendix B.  ietf-coreconf .sid file  . . . . . . . . . . . . . .  43
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  37
+   Appendix A.  ietf-coreconf YANG module  . . . . . . . . . . . . .  38
+   Appendix B.  ietf-coreconf .sid file  . . . . . . . . . . . . . .  44
    Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  47
-   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  47
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  47
+   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  48
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  48
 
 1.  Introduction
 
@@ -170,11 +170,11 @@ Veillette, et al.       Expires 5 September 2024                [Page 3]
 Internet-Draft                  CORECONF                      March 2024
 
 
-   This draft describes the CoAP Management Interface (CORECONF) which
-   uses CoAP methods to access structured data defined in YANG
-   [RFC7950].  This draft is complementary to [RFC8040] which describes
-   a REST-like interface called RESTCONF, which uses HTTP methods to
-   access structured data defined in YANG.
+   This specification describes the CoAP Management Interface (CORECONF)
+   which uses CoAP methods to access structured data defined in YANG
+   [RFC7950].  This specification is complementary to [RFC8040] which
+   describes a REST-like interface called RESTCONF, which uses HTTP
+   methods to access structured data defined in YANG.
 
    The use of standardized data models specified in a standardized
    language, such as YANG, promotes interoperability between devices and
@@ -1887,16 +1887,16 @@ Internet-Draft                  CORECONF                      March 2024
 
    // RFC Ed.: please replace XXXX with RFC number and remove this note
 
+   The YANG module and SID file are in Appendix A and Appendix B,
+   respectively.
+
 9.  References
 
 9.1.  Normative References
 
-   [I-D.ietf-core-sid]
-              Veillette, M., Pelov, A., Petrov, I., Bormann, C., and M.
-              Richardson, "YANG Schema Item iDentifier (YANG SID)", Work
-              in Progress, Internet-Draft, draft-ietf-core-sid-24, 22
-              December 2023, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-core-sid-24>.
+
+
+
 
 
 
@@ -1905,6 +1905,13 @@ Veillette, et al.       Expires 5 September 2024               [Page 34]
 
 Internet-Draft                  CORECONF                      March 2024
 
+
+   [I-D.ietf-core-sid]
+              Veillette, M., Pelov, A., Petrov, I., Bormann, C., and M.
+              Richardson, "YANG Schema Item iDentifier (YANG SID)", Work
+              in Progress, Internet-Draft, draft-ietf-core-sid-24, 22
+              December 2023, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-core-sid-24>.
 
    [I-D.ietf-core-yang-library]
               Veillette, M. and I. Petrov, "Constrained YANG Module
@@ -1944,6 +1951,17 @@ Internet-Draft                  CORECONF                      March 2024
               NETCONF", RFC 6243, DOI 10.17487/RFC6243, June 2011,
               <https://www.rfc-editor.org/rfc/rfc6243>.
 
+
+
+
+
+
+
+Veillette, et al.       Expires 5 September 2024               [Page 35]
+
+Internet-Draft                  CORECONF                      March 2024
+
+
    [RFC7252]  Shelby, Z., Hartke, K., and C. Bormann, "The Constrained
               Application Protocol (CoAP)", RFC 7252,
               DOI 10.17487/RFC7252, June 2014,
@@ -1953,14 +1971,6 @@ Internet-Draft                  CORECONF                      March 2024
               Application Protocol (CoAP)", RFC 7641,
               DOI 10.17487/RFC7641, September 2015,
               <https://www.rfc-editor.org/rfc/rfc7641>.
-
-
-
-
-Veillette, et al.       Expires 5 September 2024               [Page 35]
-
-Internet-Draft                  CORECONF                      March 2024
-
 
    [RFC7950]  Bjorklund, M., Ed., "The YANG 1.1 Data Modeling Language",
               RFC 7950, DOI 10.17487/RFC7950, August 2016,
@@ -1984,6 +1994,11 @@ Internet-Draft                  CORECONF                      March 2024
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
+   [RFC8342]  Bjorklund, M., Schoenwaelder, J., Shafer, P., Watsen, K.,
+              and R. Wilton, "Network Management Datastore Architecture
+              (NMDA)", RFC 8342, DOI 10.17487/RFC8342, March 2018,
+              <https://www.rfc-editor.org/rfc/rfc8342>.
+
    [RFC8610]  Birkholz, H., Vigano, C., and C. Bormann, "Concise Data
               Definition Language (CDDL): A Notational Convention to
               Express Concise Binary Object Representation (CBOR) and
@@ -1993,6 +2008,15 @@ Internet-Draft                  CORECONF                      March 2024
    [RFC8742]  Bormann, C., "Concise Binary Object Representation (CBOR)
               Sequences", RFC 8742, DOI 10.17487/RFC8742, February 2020,
               <https://www.rfc-editor.org/rfc/rfc8742>.
+
+
+
+
+
+Veillette, et al.       Expires 5 September 2024               [Page 36]
+
+Internet-Draft                  CORECONF                      March 2024
+
 
    [RFC8949]  Bormann, C. and P. Hoffman, "Concise Binary Object
               Representation (CBOR)", STD 94, RFC 8949,
@@ -2011,13 +2035,6 @@ Internet-Draft                  CORECONF                      March 2024
               Security Version 1.2", RFC 6347, DOI 10.17487/RFC6347,
               January 2012, <https://www.rfc-editor.org/rfc/rfc6347>.
 
-
-
-Veillette, et al.       Expires 5 September 2024               [Page 36]
-
-Internet-Draft                  CORECONF                      March 2024
-
-
    [RFC6690]  Shelby, Z., "Constrained RESTful Environments (CoRE) Link
               Format", RFC 6690, DOI 10.17487/RFC6690, August 2012,
               <https://www.rfc-editor.org/rfc/rfc6690>.
@@ -2025,11 +2042,6 @@ Internet-Draft                  CORECONF                      March 2024
    [RFC7317]  Bierman, A. and M. Bjorklund, "A YANG Data Model for
               System Management", RFC 7317, DOI 10.17487/RFC7317, August
               2014, <https://www.rfc-editor.org/rfc/rfc7317>.
-
-   [RFC8342]  Bjorklund, M., Schoenwaelder, J., Shafer, P., Watsen, K.,
-              and R. Wilton, "Network Management Datastore Architecture
-              (NMDA)", RFC 8342, DOI 10.17487/RFC8342, March 2018,
-              <https://www.rfc-editor.org/rfc/rfc8342>.
 
    [RFC8343]  Bjorklund, M., "A YANG Data Model for Interface
               Management", RFC 8343, DOI 10.17487/RFC8343, March 2018,
@@ -2051,6 +2063,17 @@ Internet-Draft                  CORECONF                      March 2024
               (ACE-OAuth)", RFC 9200, DOI 10.17487/RFC9200, August 2022,
               <https://www.rfc-editor.org/rfc/rfc9200>.
 
+
+
+
+
+
+
+Veillette, et al.       Expires 5 September 2024               [Page 37]
+
+Internet-Draft                  CORECONF                      March 2024
+
+
 Appendix A.  ietf-coreconf YANG module
 
    This appendix is normative.
@@ -2064,15 +2087,9 @@ Appendix A.  ietf-coreconf YANG module
 
      import ietf-datastores {
        prefix ds;
+       reference
+         "RFC 8342: Network Management Datastore Architecture (NMDA)";
      }
-
-
-
-
-Veillette, et al.       Expires 5 September 2024               [Page 37]
-
-Internet-Draft                  CORECONF                      March 2024
-
 
      import ietf-restconf {
        prefix rc;
@@ -2086,11 +2103,14 @@ Internet-Draft                  CORECONF                      March 2024
        "IETF Core Working Group";
 
      contact
-       "Michel Veillette
+       "WG Web:   <https://datatracker.ietf.org/wg/core/>
+        WG List:  <mailto:core@ietf.org>
+
+        Michel Veillette
         <mailto:michel.veillette@trilliantinc.com>
 
         Alexander Pelov
-        <mailto:alexander@ackl.io>
+        <mailto:alexander.pelov@imt-atlantique.fr>
 
         Peter van der Stok
         <mailto:stokcons@kpnmail.nl>
@@ -2102,13 +2122,21 @@ Internet-Draft                  CORECONF                      March 2024
        "This module contains the different definitions required
         by the CORECONF protocol.
 
-        Copyright (c) 2019 IETF Trust and the persons identified as
+
+
+
+Veillette, et al.       Expires 5 September 2024               [Page 38]
+
+Internet-Draft                  CORECONF                      March 2024
+
+
+        Copyright (c) 2024 IETF Trust and the persons identified as
         authors of the code.  All rights reserved.
 
         Redistribution and use in source and binary forms, with or
-        without modification, is permitted pursuant to, and subject to
-        the license terms contained in, the Simplified BSD License set
-        forth in Section 4.c of the IETF Trust's Legal Provisions
+        without modification, is permitted pursuant to, and subject
+        to the license terms contained in, the Revised BSD License
+        set forth in Section 4.c of the IETF Trust's Legal Provisions
         Relating to IETF Documents
         (https://trustee.ietf.org/license-info).
 
@@ -2121,14 +2149,6 @@ Internet-Draft                  CORECONF                      March 2024
        reference
          "[I-D.ietf-core-comi] CoAP Management Interface";
      }
-
-
-
-
-Veillette, et al.       Expires 5 September 2024               [Page 38]
-
-Internet-Draft                  CORECONF                      March 2024
-
 
      identity unified {
        base ds:datastore;
@@ -2159,6 +2179,13 @@ Internet-Draft                  CORECONF                      March 2024
           fulfilled.";
      }
 
+
+
+Veillette, et al.       Expires 5 September 2024               [Page 39]
+
+Internet-Draft                  CORECONF                      March 2024
+
+
      identity missing-element {
        base error-tag;
        description
@@ -2178,14 +2205,6 @@ Internet-Draft                  CORECONF                      March 2024
           data node associated with an 'if-feature' expression
           evaluated to 'false' or to a 'when' condition evaluated
           to 'false'.";
-
-
-
-Veillette, et al.       Expires 5 September 2024               [Page 39]
-
-Internet-Draft                  CORECONF                      March 2024
-
-
      }
 
      identity bad-element {
@@ -2215,6 +2234,14 @@ Internet-Draft                  CORECONF                      March 2024
      }
 
      identity malformed-message {
+
+
+
+Veillette, et al.       Expires 5 September 2024               [Page 40]
+
+Internet-Draft                  CORECONF                      March 2024
+
+
        base error-app-tag;
        description
          "Returned by the CORECONF server when the payload received
@@ -2234,14 +2261,6 @@ Internet-Draft                  CORECONF                      March 2024
      identity too-many-elements {
        base error-app-tag;
        description
-
-
-
-Veillette, et al.       Expires 5 September 2024               [Page 40]
-
-Internet-Draft                  CORECONF                      March 2024
-
-
          "Returned by the CORECONF server when the validation of the
           'max-elements' constraint of a list or leaf-list fails.";
      }
@@ -2271,6 +2290,14 @@ Internet-Draft                  CORECONF                      March 2024
        base error-app-tag;
        description
          "Returned by the CORECONF server when CBOR encoding is
+
+
+
+Veillette, et al.       Expires 5 September 2024               [Page 41]
+
+Internet-Draft                  CORECONF                      March 2024
+
+
           incorect or when the value encoded is incompatible with
           the YANG Built-In type. (e.g., value greater than 127
           for an int8, undefined enumeration).";
@@ -2290,14 +2317,6 @@ Internet-Draft                  CORECONF                      March 2024
           'length' property fails.";
      }
 
-
-
-
-Veillette, et al.       Expires 5 September 2024               [Page 41]
-
-Internet-Draft                  CORECONF                      March 2024
-
-
      identity pattern-test-failed {
        base error-app-tag;
        description
@@ -2310,7 +2329,7 @@ Internet-Draft                  CORECONF                      March 2024
        description
          "Returned by the CORECONF server to further qualify a
           missing-element error. This error is returned when the
-          CORECONF client tries to create or list instance, without all
+          CORECONF client tries to create a list instance, without all
           the 'key' specified or when the CORECONF client tries to
           delete a leaf listed as a 'key'.";
      }
@@ -2327,6 +2346,14 @@ Internet-Draft                  CORECONF                      March 2024
        description
          "Returned by the CORECONF server when a leaf of type
           'instance-identifier' or 'leafref' marked with
+
+
+
+Veillette, et al.       Expires 5 September 2024               [Page 42]
+
+Internet-Draft                  CORECONF                      March 2024
+
+
           require-instance set to 'true' refers to an instance
           that does not exist.";
      }
@@ -2346,14 +2373,6 @@ Internet-Draft                  CORECONF                      March 2024
          leaf error-tag {
            type identityref {
              base error-tag;
-
-
-
-Veillette, et al.       Expires 5 September 2024               [Page 42]
-
-Internet-Draft                  CORECONF                      March 2024
-
-
            }
            mandatory true;
            description
@@ -2383,6 +2402,14 @@ Internet-Draft                  CORECONF                      March 2024
        }
      }
    }
+
+
+
+Veillette, et al.       Expires 5 September 2024               [Page 43]
+
+Internet-Draft                  CORECONF                      March 2024
+
+
    <CODE ENDS>
 
                     Figure 4: ietf-coreconf YANG module
@@ -2402,14 +2429,6 @@ Appendix B.  ietf-coreconf .sid file
            "size": "100"
          }
        ],
-
-
-
-Veillette, et al.       Expires 5 September 2024               [Page 43]
-
-Internet-Draft                  CORECONF                      March 2024
-
-
        "item": [
          {
            "namespace": "module",
@@ -2439,6 +2458,14 @@ Internet-Draft                  CORECONF                      March 2024
          {
            "namespace": "identity",
            "identifier": "error",
+
+
+
+Veillette, et al.       Expires 5 September 2024               [Page 44]
+
+Internet-Draft                  CORECONF                      March 2024
+
+
            "sid": "1005"
          },
          {
@@ -2458,14 +2485,6 @@ Internet-Draft                  CORECONF                      March 2024
          },
          {
            "namespace": "identity",
-
-
-
-Veillette, et al.       Expires 5 September 2024               [Page 44]
-
-Internet-Draft                  CORECONF                      March 2024
-
-
            "identifier": "invalid-datatype",
            "sid": "1009"
          },
@@ -2495,6 +2514,14 @@ Internet-Draft                  CORECONF                      March 2024
            "sid": "1014"
          },
          {
+
+
+
+Veillette, et al.       Expires 5 September 2024               [Page 45]
+
+Internet-Draft                  CORECONF                      March 2024
+
+
            "namespace": "identity",
            "identifier": "missing-input-parameter",
            "sid": "1015"
@@ -2514,14 +2541,6 @@ Internet-Draft                  CORECONF                      March 2024
            "identifier": "not-in-range",
            "sid": "1018"
          },
-
-
-
-Veillette, et al.       Expires 5 September 2024               [Page 45]
-
-Internet-Draft                  CORECONF                      March 2024
-
-
          {
            "namespace": "identity",
            "identifier": "operation-failed",
@@ -2551,6 +2570,14 @@ Internet-Draft                  CORECONF                      March 2024
            "namespace": "identity",
            "identifier": "unknown-element",
            "sid": "1023"
+
+
+
+Veillette, et al.       Expires 5 September 2024               [Page 46]
+
+Internet-Draft                  CORECONF                      March 2024
+
+
          },
          {
            "namespace": "data",
@@ -2570,14 +2597,6 @@ Internet-Draft                  CORECONF                      March 2024
          {
            "namespace": "data",
            "identifier": "/ietf-coreconf:error/error-message",
-
-
-
-Veillette, et al.       Expires 5 September 2024               [Page 46]
-
-Internet-Draft                  CORECONF                      March 2024
-
-
            "sid": "1027"
          },
          {
@@ -2602,19 +2621,23 @@ Acknowledgments
    motivated massively simplifying (and fixing) the URI construction for
    GET/PUT/POST requests.
 
-   The draft has further benefited from comments (alphabetical order) by
-   Rodney Cummings, Dee Denteneer, Esko Dijk, Klaus Hartke, Michael van
-   Hartskamp, Tanguy Ropitault, Jürgen Schönwälder, Anuj Sehgal, Zach
-   Shelby, Hannes Tschofenig, Michael Verschoor, and Thomas Watteyne.
+   The specification has further benefited from comments (alphabetical
+   order) by Rodney Cummings, Dee Denteneer, Esko Dijk, Klaus Hartke,
+   Michael van Hartskamp, Tanguy Ropitault, Jürgen Schönwälder, Anuj
+   Sehgal, Zach Shelby, Hannes Tschofenig, Michael Verschoor, and Thomas
+   Watteyne.
+
+
+
+Veillette, et al.       Expires 5 September 2024               [Page 47]
+
+Internet-Draft                  CORECONF                      March 2024
+
 
 Contributors
 
    Ivaylo Petrov
-   Acklio
-   1137A avenue des Champs Blancs
-   35510 Cesson-Sevigne
-   France
-   Email: ivaylo@ackl.io
+   Email: ivaylopetrov@google.com
 
 
 Authors' Addresses
@@ -2627,13 +2650,6 @@ Authors' Addresses
    Email: michel.veillette@trilliant.com
 
 
-
-
-Veillette, et al.       Expires 5 September 2024               [Page 47]
-
-Internet-Draft                  CORECONF                      March 2024
-
-
    Peter van der Stok (editor)
    consultant
    Phone: +31625097806
@@ -2641,12 +2657,12 @@ Internet-Draft                  CORECONF                      March 2024
    URI:   https://vanderstok.tech
 
 
-   Alexander Pelov
-   Acklio
-   2bis rue de la Chataigneraie
+   Alexander Pelov (editor)
+   IMT Atlantique
+   2 rue de la Châtaigneraie
    35510 Cesson-Sevigne
    France
-   Email: a@ackl.io
+   Email: alexander.pelov@imt-atlantique.fr
 
 
    Andy Bierman
@@ -2665,22 +2681,6 @@ Internet-Draft                  CORECONF                      March 2024
    Germany
    Phone: +49-421-218-63921
    Email: cabo@tzi.org
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
