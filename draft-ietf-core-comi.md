@@ -123,8 +123,8 @@ future installations. Messages between devices need to be as small and
 infrequent as possible. The implementation
 complexity and runtime resources need to be as small as possible.
 
-This draft describes the CoAP Management Interface (CORECONF) which uses CoAP methods
-to access structured data defined in YANG {{RFC7950}}. This draft is
+This specification describes the CoAP Management Interface (CORECONF) which uses CoAP methods
+to access structured data defined in YANG {{RFC7950}}. This specification is
 complementary to {{RFC8040}} which describes a REST-like interface
 called RESTCONF, which uses HTTP methods to access structured data
 defined in YANG.
@@ -1844,7 +1844,7 @@ under SNMP.
 {{{Koen Zandberg}}}'s implementation input motivated massively simplifying
 (and fixing) the URI construction for GET/PUT/POST requests.
 
-The draft has further benefited from comments (alphabetical order) by
+The specification has further benefited from comments (alphabetical order) by
 {{{Rodney Cummings}}},
 {{{Dee Denteneer}}},
 {{{Esko Dijk}}},
