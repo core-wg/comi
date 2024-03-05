@@ -37,7 +37,7 @@ author:
   street: 2 rue de la Châtaigneraie
   code: '35510'
   city: Cesson-Sevigne
-  region: Bretagne
+#  region: Bretagne
   country: France
   email: alexander.pelov@imt-atlantique.fr
 - name: Andy Bierman
@@ -61,9 +61,9 @@ author:
   email: cabo@tzi.org
 
 contributor:
-- ins: I. I. Petrov
-  name: Ivaylo Petrov
+- name: Ivaylo Petrov
   email: ivaylopetrov@google.com
+  org: Google
 
 normative:
   RFC3688: xmlreg
