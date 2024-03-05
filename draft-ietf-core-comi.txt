@@ -5,14 +5,14 @@
 CoRE                                                M. V. Veillette, Ed.
 Internet-Draft                                   Trilliant Networks Inc.
 Intended status: Standards Track                    P. van der Stok, Ed.
-Expires: 5 September 2024                                     consultant
+Expires: 6 September 2024                                     consultant
                                                            A. Pelov, Ed.
                                                           IMT Atlantique
                                                               A. Bierman
                                                                YumaWorks
                                                          C. Bormann, Ed.
                                                   Universität Bremen TZI
-                                                            4 March 2024
+                                                            5 March 2024
 
 
                   CoAP Management Interface (CORECONF)
@@ -53,7 +53,7 @@ About This Document
 
 
 
-Veillette, et al.       Expires 5 September 2024                [Page 1]
+Veillette, et al.       Expires 6 September 2024                [Page 1]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -73,7 +73,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 September 2024.
+   This Internet-Draft will expire on 6 September 2024.
 
 Copyright Notice
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Veillette, et al.       Expires 5 September 2024                [Page 2]
+Veillette, et al.       Expires 6 September 2024                [Page 2]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -165,7 +165,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024                [Page 3]
+Veillette, et al.       Expires 6 September 2024                [Page 3]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -221,7 +221,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024                [Page 4]
+Veillette, et al.       Expires 6 September 2024                [Page 4]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -277,7 +277,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024                [Page 5]
+Veillette, et al.       Expires 6 September 2024                [Page 5]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -333,7 +333,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024                [Page 6]
+Veillette, et al.       Expires 6 September 2024                [Page 6]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -389,7 +389,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024                [Page 7]
+Veillette, et al.       Expires 6 September 2024                [Page 7]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -445,7 +445,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024                [Page 8]
+Veillette, et al.       Expires 6 September 2024                [Page 8]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -501,7 +501,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024                [Page 9]
+Veillette, et al.       Expires 6 September 2024                [Page 9]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -557,7 +557,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 10]
+Veillette, et al.       Expires 6 September 2024               [Page 10]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -613,7 +613,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 11]
+Veillette, et al.       Expires 6 September 2024               [Page 11]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -669,7 +669,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 12]
+Veillette, et al.       Expires 6 September 2024               [Page 12]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -725,7 +725,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 13]
+Veillette, et al.       Expires 6 September 2024               [Page 13]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -781,7 +781,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 14]
+Veillette, et al.       Expires 6 September 2024               [Page 14]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -837,7 +837,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 15]
+Veillette, et al.       Expires 6 September 2024               [Page 15]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -893,7 +893,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 16]
+Veillette, et al.       Expires 6 September 2024               [Page 16]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -949,7 +949,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 17]
+Veillette, et al.       Expires 6 September 2024               [Page 17]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -1005,7 +1005,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 18]
+Veillette, et al.       Expires 6 September 2024               [Page 18]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -1061,7 +1061,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 19]
+Veillette, et al.       Expires 6 September 2024               [Page 19]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -1117,7 +1117,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 20]
+Veillette, et al.       Expires 6 September 2024               [Page 20]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -1173,7 +1173,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 21]
+Veillette, et al.       Expires 6 September 2024               [Page 21]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -1229,7 +1229,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 22]
+Veillette, et al.       Expires 6 September 2024               [Page 22]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -1285,7 +1285,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 23]
+Veillette, et al.       Expires 6 September 2024               [Page 23]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -1341,7 +1341,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 24]
+Veillette, et al.       Expires 6 September 2024               [Page 24]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -1397,7 +1397,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 25]
+Veillette, et al.       Expires 6 September 2024               [Page 25]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -1453,7 +1453,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 26]
+Veillette, et al.       Expires 6 September 2024               [Page 26]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -1509,7 +1509,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 27]
+Veillette, et al.       Expires 6 September 2024               [Page 27]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -1565,7 +1565,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 28]
+Veillette, et al.       Expires 6 September 2024               [Page 28]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -1621,7 +1621,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 29]
+Veillette, et al.       Expires 6 September 2024               [Page 29]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -1677,7 +1677,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 30]
+Veillette, et al.       Expires 6 September 2024               [Page 30]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -1733,7 +1733,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 31]
+Veillette, et al.       Expires 6 September 2024               [Page 31]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -1789,7 +1789,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 32]
+Veillette, et al.       Expires 6 September 2024               [Page 32]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -1845,7 +1845,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 33]
+Veillette, et al.       Expires 6 September 2024               [Page 33]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -1901,7 +1901,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 34]
+Veillette, et al.       Expires 6 September 2024               [Page 34]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -1957,7 +1957,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 35]
+Veillette, et al.       Expires 6 September 2024               [Page 35]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -2013,7 +2013,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 36]
+Veillette, et al.       Expires 6 September 2024               [Page 36]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -2069,7 +2069,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 37]
+Veillette, et al.       Expires 6 September 2024               [Page 37]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -2125,7 +2125,7 @@ Appendix A.  ietf-coreconf YANG module
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 38]
+Veillette, et al.       Expires 6 September 2024               [Page 38]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -2181,7 +2181,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 39]
+Veillette, et al.       Expires 6 September 2024               [Page 39]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -2237,7 +2237,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 40]
+Veillette, et al.       Expires 6 September 2024               [Page 40]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -2293,7 +2293,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 41]
+Veillette, et al.       Expires 6 September 2024               [Page 41]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -2349,7 +2349,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 42]
+Veillette, et al.       Expires 6 September 2024               [Page 42]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -2405,7 +2405,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 43]
+Veillette, et al.       Expires 6 September 2024               [Page 43]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -2461,7 +2461,7 @@ Appendix B.  ietf-coreconf .sid file
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 44]
+Veillette, et al.       Expires 6 September 2024               [Page 44]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -2517,7 +2517,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 45]
+Veillette, et al.       Expires 6 September 2024               [Page 45]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -2573,7 +2573,7 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 46]
+Veillette, et al.       Expires 6 September 2024               [Page 46]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -2629,7 +2629,7 @@ Acknowledgments
 
 
 
-Veillette, et al.       Expires 5 September 2024               [Page 47]
+Veillette, et al.       Expires 6 September 2024               [Page 47]
 
 Internet-Draft                  CORECONF                      March 2024
 
@@ -2637,6 +2637,7 @@ Internet-Draft                  CORECONF                      March 2024
 Contributors
 
    Ivaylo Petrov
+   Google
    Email: ivaylopetrov@google.com
 
 
@@ -2684,5 +2685,4 @@ Authors' Addresses
 
 
 
-
-Veillette, et al.       Expires 5 September 2024               [Page 48]
+Veillette, et al.       Expires 6 September 2024               [Page 48]
