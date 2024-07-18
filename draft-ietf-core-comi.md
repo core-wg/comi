@@ -15,8 +15,7 @@ venue:
   latest: "https://core-wg.github.io/comi/draft-ietf-core-comi.html"
 
 author:
-- ins: M. V. Veillette
-  role: editor
+- role: editor
   name: Michel Veillette
   org: Trilliant Networks Inc.
   street: 610 Rue du Luxembourg
