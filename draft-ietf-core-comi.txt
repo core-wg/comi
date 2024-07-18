@@ -2,17 +2,17 @@
 
 
 
-CoRE                                                M. V. Veillette, Ed.
+CoRE                                                   M. Veillette, Ed.
 Internet-Draft                                   Trilliant Networks Inc.
 Intended status: Standards Track                    P. van der Stok, Ed.
-Expires: 6 September 2024                                     consultant
+Expires: 19 January 2025                                      consultant
                                                            A. Pelov, Ed.
                                                           IMT Atlantique
                                                               A. Bierman
                                                                YumaWorks
                                                          C. Bormann, Ed.
                                                   Universität Bremen TZI
-                                                            5 March 2024
+                                                            18 July 2024
 
 
                   CoAP Management Interface (CORECONF)
@@ -53,9 +53,9 @@ About This Document
 
 
 
-Veillette, et al.       Expires 6 September 2024                [Page 1]
+Veillette, et al.        Expires 19 January 2025                [Page 1]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
 Status of This Memo
@@ -73,7 +73,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 September 2024.
+   This Internet-Draft will expire on 19 January 2025.
 
 Copyright Notice
 
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Veillette, et al.       Expires 6 September 2024                [Page 2]
+Veillette, et al.        Expires 19 January 2025                [Page 2]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
        3.1.3.  FETCH . . . . . . . . . . . . . . . . . . . . . . . .  13
@@ -165,9 +165,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024                [Page 3]
+Veillette, et al.        Expires 19 January 2025                [Page 3]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
    This specification describes the CoAP Management Interface (CORECONF)
@@ -221,9 +221,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024                [Page 4]
+Veillette, et al.        Expires 19 January 2025                [Page 4]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
    list instance identifier:  Handle used to identify a YANG data node
@@ -277,9 +277,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024                [Page 5]
+Veillette, et al.        Expires 19 January 2025                [Page 5]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
    +----------------------------------------------------------------+
@@ -333,9 +333,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024                [Page 6]
+Veillette, et al.        Expires 19 January 2025                [Page 6]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
       data, RPCs, and actions.  A CORECONF server supports a single
@@ -389,9 +389,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024                [Page 7]
+Veillette, et al.        Expires 19 January 2025                [Page 7]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
    *  CORECONF also differs in the handling of default values, only
@@ -445,9 +445,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024                [Page 8]
+Veillette, et al.        Expires 19 January 2025                [Page 8]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
       The message payload of Media-Type 'application/yang-
@@ -501,9 +501,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024                [Page 9]
+Veillette, et al.        Expires 19 January 2025                [Page 9]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
 2.4.  Unified datastore
@@ -557,9 +557,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 10]
+Veillette, et al.        Expires 19 January 2025               [Page 10]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
    CORECONF also supports event stream resources used to observe
@@ -613,9 +613,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 11]
+Veillette, et al.        Expires 19 January 2025               [Page 11]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
    There are two additional query parameters for the FETCH method:
@@ -669,9 +669,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 12]
+Veillette, et al.        Expires 19 January 2025               [Page 12]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
    +=======+======================================================+
@@ -725,9 +725,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 13]
+Veillette, et al.        Expires 19 January 2025               [Page 13]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
    FORMAT:
@@ -781,9 +781,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 14]
+Veillette, et al.        Expires 19 January 2025               [Page 14]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
 3.2.1.  Data Ordering
@@ -837,9 +837,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 15]
+Veillette, et al.        Expires 19 January 2025               [Page 15]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
    REQ: iPATCH </c>
@@ -893,9 +893,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 16]
+Veillette, et al.        Expires 19 January 2025               [Page 16]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
    FORMAT:
@@ -949,9 +949,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 17]
+Veillette, et al.        Expires 19 January 2025               [Page 17]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
    Reception of notification instances is enabled with the CoAP Observe
@@ -1005,9 +1005,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 18]
+Veillette, et al.        Expires 19 January 2025               [Page 18]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
    FORMAT:
@@ -1061,9 +1061,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 19]
+Veillette, et al.        Expires 19 January 2025               [Page 19]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
    REQ:  GET </s> Observe(0)
@@ -1117,9 +1117,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 20]
+Veillette, et al.        Expires 19 January 2025               [Page 20]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
    Note that the notifications in this example are identical to the
@@ -1173,9 +1173,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 21]
+Veillette, et al.        Expires 19 January 2025               [Page 21]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
    module example-ops {
@@ -1229,9 +1229,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 22]
+Veillette, et al.        Expires 19 January 2025               [Page 22]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
    module example-server-farm {
@@ -1285,9 +1285,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 23]
+Veillette, et al.        Expires 19 January 2025               [Page 23]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
    REQ:  POST </c>
@@ -1341,9 +1341,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 24]
+Veillette, et al.        Expires 19 January 2025               [Page 24]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
 5.  Application Discovery
@@ -1397,9 +1397,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 25]
+Veillette, et al.        Expires 19 January 2025               [Page 25]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
    Upon success, the return payload contains the list of datastore
@@ -1453,9 +1453,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 26]
+Veillette, et al.        Expires 19 January 2025               [Page 26]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
    Without additional filtering, the list of data nodes may become
@@ -1509,9 +1509,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 27]
+Veillette, et al.        Expires 19 January 2025               [Page 27]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
    *  Error 4.04 (Not Found) is returned by the CORECONF server when the
@@ -1565,9 +1565,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 28]
+Veillette, et al.        Expires 19 January 2025               [Page 28]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
       -  error-app-tag 'data-not-unique' is returned by the CORECONF
@@ -1621,9 +1621,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 29]
+Veillette, et al.        Expires 19 January 2025               [Page 29]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
       -  error-app-tag 'missing-key' is returned by the CORECONF server
@@ -1677,9 +1677,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 30]
+Veillette, et al.        Expires 19 January 2025               [Page 30]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
    RES:  4.00 Bad Request
@@ -1733,9 +1733,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 31]
+Veillette, et al.        Expires 19 January 2025               [Page 31]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
    +===========+=====================+===========+
@@ -1789,9 +1789,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 32]
+Veillette, et al.        Expires 19 January 2025               [Page 32]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
    +===========================+===========================+=========+
@@ -1845,9 +1845,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 33]
+Veillette, et al.        Expires 19 January 2025               [Page 33]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
    *  Restrictions on usage: N/A
@@ -1901,9 +1901,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 34]
+Veillette, et al.        Expires 19 January 2025               [Page 34]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
    [I-D.ietf-core-sid]
@@ -1957,9 +1957,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 35]
+Veillette, et al.        Expires 19 January 2025               [Page 35]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
    [RFC7252]  Shelby, Z., Hartke, K., and C. Bormann, "The Constrained
@@ -2013,9 +2013,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 36]
+Veillette, et al.        Expires 19 January 2025               [Page 36]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
    [RFC8949]  Bormann, C. and P. Hoffman, "Concise Binary Object
@@ -2069,9 +2069,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 37]
+Veillette, et al.        Expires 19 January 2025               [Page 37]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
 Appendix A.  ietf-coreconf YANG module
@@ -2125,9 +2125,9 @@ Appendix A.  ietf-coreconf YANG module
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 38]
+Veillette, et al.        Expires 19 January 2025               [Page 38]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
         Copyright (c) 2024 IETF Trust and the persons identified as
@@ -2181,9 +2181,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 39]
+Veillette, et al.        Expires 19 January 2025               [Page 39]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
      identity missing-element {
@@ -2237,9 +2237,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 40]
+Veillette, et al.        Expires 19 January 2025               [Page 40]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
        base error-app-tag;
@@ -2293,9 +2293,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 41]
+Veillette, et al.        Expires 19 January 2025               [Page 41]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
           incorect or when the value encoded is incompatible with
@@ -2349,9 +2349,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 42]
+Veillette, et al.        Expires 19 January 2025               [Page 42]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
           require-instance set to 'true' refers to an instance
@@ -2405,9 +2405,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 43]
+Veillette, et al.        Expires 19 January 2025               [Page 43]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
    <CODE ENDS>
@@ -2461,9 +2461,9 @@ Appendix B.  ietf-coreconf .sid file
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 44]
+Veillette, et al.        Expires 19 January 2025               [Page 44]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
            "sid": "1005"
@@ -2517,9 +2517,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 45]
+Veillette, et al.        Expires 19 January 2025               [Page 45]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
            "namespace": "identity",
@@ -2573,9 +2573,9 @@ Internet-Draft                  CORECONF                      March 2024
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 46]
+Veillette, et al.        Expires 19 January 2025               [Page 46]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
          },
@@ -2629,9 +2629,9 @@ Acknowledgments
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 47]
+Veillette, et al.        Expires 19 January 2025               [Page 47]
 
-Internet-Draft                  CORECONF                      March 2024
+Internet-Draft                  CORECONF                       July 2024
 
 
 Contributors
@@ -2685,4 +2685,4 @@ Authors' Addresses
 
 
 
-Veillette, et al.       Expires 6 September 2024               [Page 48]
+Veillette, et al.        Expires 19 January 2025               [Page 48]
