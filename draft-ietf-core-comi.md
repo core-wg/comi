@@ -1270,14 +1270,15 @@ This document adds the following resource type to the "Resource Type (rt=) Link 
 
 ## CoAP Content-Formats Registry
 
-This document adds the following Content-Format to the "CoAP Content-Formats", within the "Constrained RESTful Environments (CoRE) Parameters" registry.
+This document adds the following Content-Formats from the Expert
+Review range (0-255) to the "CoAP Content-Formats", within the "Constrained RESTful Environments (CoRE) Parameters" registry.
 
-| Media Type                           | Content Coding | ID   | Reference |
+| Media Type                            | Content Coding | ID   | Reference |
 | application/yang-identifiers+cbor-seq |                | TBD2 | RFC XXXX  |
 | application/yang-instances+cbor-seq   |                | TBD3 | RFC XXXX  |
 {: align="left"}
 
-// RFC Ed.: replace TBD1, TBD2 and TBD3 with assigned IDs and remove this note.
+// RFC Ed.: replace TBD2 (suggested: 141) and TBD3 (suggested: 142) with assigned IDs and remove this note.  (There is no TBD1, that was already defined in RFC 9254.)
 // RFC Ed.: replace RFC XXXX with this RFC number and remove this note.
 
 ## Media Types Registry
