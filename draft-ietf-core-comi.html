@@ -20,21 +20,21 @@ CORECONF extends the set of YANG based
 protocols, NETCONF and RESTCONF, with the capability to manage constrained devices
 and networks. 
     " name="description">
-<meta content="xml2rfc 3.22.0" name="generator">
+<meta content="xml2rfc 3.28.1" name="generator">
 <meta content="draft-ietf-core-comi-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.22.0
-    Python 3.12.3
+  xml2rfc 3.28.1
+    Python 3.12.10
     ConfigArgParse 1.7
-    google-i18n-address 3.1.0
+    google-i18n-address 3.1.1
     intervaltree 3.1.0
-    Jinja2 3.1.4
-    lxml 4.9.4
-    platformdirs 4.2.2
-    pycountry 22.3.5
-    PyYAML 6.0.1
+    Jinja2 3.1.6
+    lxml 5.3.0
+    platformdirs 4.3.7
+    pycountry 24.6.1
+    PyYAML 6.0.2
     requests 2.32.3
-    setuptools 69.5.1
+    setuptools 70.3.0
     wcwidth 0.2.13
 -->
 <link href="draft-ietf-core-comi.xml" rel="alternate" type="application/rfc+xml">
@@ -171,31 +171,6 @@ and networks.
 }
 
 @font-face {
-  font-family: 'Cabin Condensed';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-vietnamese.woff2') format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
-}
-@font-face {
-  font-family: 'Cabin Condensed';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-latin-ext.woff2') format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-@font-face {
-  font-family: 'Cabin Condensed';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-@font-face {
   font-family: 'Oxygen Mono';
   font-style: normal;
   font-weight: 400;
@@ -212,6 +187,77 @@ and networks.
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-greek.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-greek.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
   color-scheme: light dark;
   --background-color: #fff;
@@ -224,6 +270,7 @@ and networks.
   --pilcrow-strong: #bbb;
   --small-font-size: 14.5px;
   --font-mono: 'Oxygen Mono', monospace;
+  --font-title: "Sofia Sans Semi Condensed", sans-serif;
   scrollbar-color: #bbb #eee;
 }
 body {
@@ -241,9 +288,15 @@ body {
 }
 
 /* headings */
+section {
+  clear: both;
+}
+.section-number {
+  padding-right: 0.5em;
+}
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Cabin Condensed", sans-serif;
-  font-weight: 600;
+  font-family: var(--font-title);
+  font-weight: 680;
   margin: 0.8em 0 0.3em;
   font-size-adjust: 0.5;
   color: var(--title-color);
@@ -272,6 +325,7 @@ h4, h5, h6 {
 /* general structure */
 .author {
   padding-bottom: 0.3em;
+  vertical-align: top;
 }
 #abstract+p {
   font-size: 18px;
@@ -349,25 +403,26 @@ svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
 ol, ul {
   padding: 0;
   margin: 0 0 0.5em 2em;
-}
-:is(ol, ul) :is(ol, ul) {
-  margin-left: 1em;
+  & :is(ol, ul) {
+    margin-left: 1em;
+  }
 }
 li {
   margin: 0 0 0.25em 0;
 }
-.ulCompact li {
-  margin: 0;
-}
 ul.empty, .ulEmpty {
   list-style-type: none;
-}
-ul.empty li, .ulEmpty li {
-  margin-top: 0.5em;
+  & li {
+    margin-top: 0.5em;
+  }
 }
 :is(ul, ol).compact, .ulCompact, .olCompact {
-  line-height: 1;
   margin: 0 0 0 2em;
+  & li {
+    margin: 0;
+    & :first-child { margin-top: 0; }
+    & :last-child { margin-bottom: 0; }
+  }
 }
 
 /* definition lists */
@@ -375,38 +430,39 @@ dl {
   clear: left;
   --indent: 3ch;
   /* --indent: attr(indent ch); not supported in any browser, but we can dream */
+  &.olPercent {
+    --indent: 5ch;
+    & > dt {
+      min-width: calc(var(--indent) - 2ch);
+    }
+  }
+  &.olPercent > dt {
+    float: none;
+  }
+
+  dl > dd > & {
+    margin-top: 0.5em;
+    margin-bottom: 0;
+  }
 }
-dl.olPercent {
-  --indent: 5ch;
-}
-dl > dt {
+dl:not(.dlNewline) > dt {
   float: left;
   margin-right: 2ch;
   min-width: 8ch;
-}
-dl.dlNewline > dt {
-  float: none;
 }
 dl > dd {
   margin-bottom: .8em;
   margin-left: var(--indent) !important; /* stupid element overrides */
   min-height: 2ex;
 }
-dl.olPercent > dt {
-  min-width: calc(var(--indent) - 2ch);
-}
 :is(dl.compact, .dlCompact) > dd {
   margin-bottom: 0;
-}
-:is(dl.compact, .dlCompact) > dd > :is(:first-child, .break:first-child + *) {
-  margin-top: 0;
-}
-:is(dl.compact, .dlCompact) > dd > :is(:last-child) {
-  margin-bottom: 0;
-}
-dl > dd > dl {
-  margin-top: 0.5em;
-  margin-bottom: 0;
+  & > :is(:first-child, .break:first-child + *) {
+    margin-top: 0;
+  }
+  & > :is(:last-child) {
+    margin-bottom: 0;
+  }
 }
 :is(dd, span).break {
   display: none;
@@ -470,6 +526,7 @@ figcaption, caption {
   font-style: italic;
   margin: 0.5em 1.5em;
   text-align: left;
+  caption-side: bottom;
 }
 @media screen {
   /* Auto-collapse boilerplate. */
@@ -487,7 +544,11 @@ figcaption, caption {
   }
   pre, svg {
     display: inline-block;
-    overflow-x: auto;
+    /* In the horizontal direction, sometimes people make over-sized figures.
+       Scrollbars for those is therefore necessary: auto adds them as necessary..
+       In the vertical direction, the line-height can combine with the font
+       asender/descender height to produce scrollbars: hidden avoids that. */
+    overflow: auto hidden;
   }
   pre {
     max-width: 100%;
@@ -524,6 +585,7 @@ cite {
 
 /* tables */
 table {
+  width: auto;
   max-width: 100%;
   margin: 0 0 1em;
   border-collapse: collapse;
@@ -538,6 +600,16 @@ table.center {
 table.left {
   margin-right: auto;
 }
+table .text-left {
+  text-align: left;
+}
+table .text-center {
+  text-align: center;
+}
+table .text-right {
+  text-align: right;
+}
+
 thead, tbody {
   border: 1px solid var(--line-color);
 }
@@ -568,9 +640,11 @@ a.pilcrow {
   margin-left: 3px;
   opacity: 0.2;
   user-select: none;
+  &[href] {
+    color: var(--pilcrow-weak);
+    &:hover { text-decoration: none; }
+  }
 }
-a.pilcrow[href] { color: var(--pilcrow-weak); }
-a.pilcrow[href]:hover { text-decoration: none; }
 @media not print {
   :hover > a.pilcrow {
     opacity: 1;
@@ -610,26 +684,28 @@ sub, sup {
   font-size: var(--small-font-size);
   line-height: 18px;
   --identifier-width: 15ch;
-}
-#identifiers dt {
-  width: var(--identifier-width);
-  min-width: var(--identifier-width);
-  clear: left;
-  float: left;
-  text-align: right;
-  margin-right: 1ch;
-}
-#identifiers dd {
-  margin: 0;
-  margin-left: calc(1em + var(--identifier-width)) !important;
-  min-width: 5em;
-}
-#identifiers .authors .author {
-  display: inline-block;
-  margin-right: 1.5em;
-}
-#identifiers .authors .org {
-  font-style: italic;
+  & dt {
+    width: var(--identifier-width);
+    min-width: var(--identifier-width);
+    clear: left;
+    float: left;
+    text-align: right;
+    margin-right: 1ch;
+  }
+  & dd {
+    margin: 0;
+    margin-left: calc(1em + var(--identifier-width)) !important;
+    min-width: 5em;
+  }
+  & .authors {
+    & .author {
+      display: inline-block;
+      margin-right: 1.5em;
+    }
+    & .org {
+      font-style: italic;
+    }
+  }
 }
 
 /* The prepared/rendered info at the very bottom of the page */
@@ -640,9 +716,6 @@ sub, sup {
   margin-top: 2em;
 }
 .docInfo .prepared {
-  float: left;
-}
-.docInfo .prepared {
   float: right;
 }
 
@@ -650,47 +723,48 @@ sub, sup {
 #toc {
   padding: 0.75em 0 2em 0;
   margin-bottom: 1em;
-}
-#toc nav ul {
-  margin: 0 0.5em 0 0;
-  padding: 0;
-  list-style: none;
-}
-#toc nav li {
-  line-height: 1.3em;
-  margin: 0.75em 0;
-  padding-left: 1.2em;
-  text-indent: -1.2em;
-}
-#toc a.xref {
-  white-space: normal;
-}
-/* references */
-.references dt {
-  text-align: right;
-  font-weight: bold;
-  min-width: 10ch;
-  margin-right: 1.5ch;
-}
-.references dt:target::before {
-  content: "⇒";
-  width: 15px;
-  margin: 0 10px 0 -25px;
-}
-.references dd {
-  margin-left: 12ch !important;
-  overflow: auto;
+
+  & nav {
+    & ul {
+      margin: 0 0.5em 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    & li {
+      line-height: 1.3em;
+      margin: 2px 0;
+      padding-left: 1.2em;
+      text-indent: -1.2em;
+    }
+  }
+  & a.xref {
+    white-space: normal;
+  }
 }
 
-.refInstance {
-  margin-bottom: 1.25em;
+.references {
+  & > dt {
+    text-align: right;
+    font-weight: bold;
+    min-width: 10ch;
+    margin-right: 1.5ch;
+    &:target::before {
+      content: "⇒";
+      margin: 0 10px 0 -25px;
+    }
+  }
+  & > dd {
+    margin-left: 12ch !important;
+    overflow: visible;
+    & .refInstance {
+      margin-bottom: 0.8em;
+    }
+    & .ascii {
+      margin-bottom: 0.25em;
+    }
+  }
 }
 
-.references .ascii {
-  margin-bottom: 0.25em;
-}
-
-/* index */
 #rfc\.index\.index + ul {
   margin-left: 0;
 }
@@ -698,21 +772,33 @@ sub, sup {
 /* authors */
 address.vcard {
   font-style: normal;
-  margin: 1em 0;
+  max-width: 20em;
+  margin: 1em auto 1em 0;
+
+  & .nameRole {
+    font-weight: 700;
+    margin-left: 0;
+  }
+  & .label {
+    margin: 0.5em 0;
+  }
+  & .type {
+    display: none;
+  }
+  & .alternative-contact {
+    margin: 0.5em 0 0.25em 0;
+  }
+  & .non-ascii {
+    margin: 0 0 0 2em;
+  }
+  & div.left {
+    text-align: left;
+  }
+  & div.right {
+    text-align: right;
+  }
 }
-address.vcard .nameRole {
-  font-weight: 700;
-  margin-left: 0;
-}
-address.vcard .label {
-  margin: 0.5em 0;
-}
-address.vcard .type {
-  display: none;
-}
-.alternative-contact {
-  margin: 1.5em 0 1em;
-}
+
 hr.addr {
   border-top: 1px dashed;
   margin: 0;
@@ -734,6 +820,7 @@ hr.addr {
   }
 }
 
+/* Comments */
 .rfcEditorRemove p:first-of-type {
   font-style: italic;
 }
@@ -744,20 +831,41 @@ hr.addr {
 .crefSource {
   font-style: italic;
 }
-/* alternative layout for smaller screens */
+
+@media screen {
+  #toc nav {
+    font-family: var(--font-title);
+    font-weight: 360;
+    & > ul { margin-bottom: 2em; }
+    & ul {
+      margin: 0 0 0 4px;
+      & :is(p, li) {
+        margin: 2px 0;
+      }
+    }
+  }
+  #toc a.toplink {
+    float: right;
+  }
+}
+@media not screen {
+  #toc a.toplink {
+    display: none;
+  }
+}
+
+
+/* TOC layout for smaller screens */
 @media screen and (max-width: 929px) {
   #toc {
     position: fixed;
     z-index: 2;
     top: 0;
     right: 0;
-    padding: 0;
+    padding: 1px 0 0 0;
     margin: 0;
     border-bottom: 1px solid #ccc;
     opacity: 0.6;
-  }
-  #toc.active {
-      opacity: 1;
   }
   #toc h2 {
     margin: 0;
@@ -770,17 +878,17 @@ hr.addr {
     background-color: #444;
     color: white;
     cursor: pointer;
-  }
-  #toc h2::before { /* css hamburger */
-    float: right;
-    position: relative;
-    width: 1em;
-    height: 1px;
-    left: -164px;
-    margin: 8px 0 0 0;
-    background: white none repeat scroll 0 0;
-    box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
-    content: "";
+    &::before { /* css hamburger */
+      float: right;
+      position: relative;
+      width: 1em;
+      height: 1px;
+      left: -164px;
+      margin: 8px 0 0 0;
+      background: white none repeat scroll 0 0;
+      box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+      content: "";
+    }
   }
   #toc nav {
     display: none;
@@ -791,14 +899,13 @@ hr.addr {
     height: calc(100vh - 48px);
     border-left: 1px solid #ddd;
   }
-  #toc.active nav {
-    display: block;
+  #toc.active {
+    opacity: 1;
+    & nav { display: block; }
   }
   /* Make the collapsed ToC header render white on gray also when it's a link */
   #toc h2 a,
-  #toc h2 a:link,
-  #toc h2 a:focus,
-  #toc h2 a:hover,
+  #toc h2 a:is(:link, :focus, :hover),
   #toc a.toplink,
   #toc a.toplink:hover {
     color: white;
@@ -806,11 +913,11 @@ hr.addr {
     text-decoration: none;
   }
   #toc a.toplink {
-    margin-top: 2px;
+    margin: 2px 0.5em 0;
   }
 }
 
-/* alternative layout for wide screens */
+/* TOC layout for wide screens */
 @media screen and (min-width: 930px) {
   body {
     padding-right: 360px;
@@ -839,20 +946,12 @@ hr.addr {
     overscroll-behavior: contain;
     scrollbar-width: thin;
   }
-  #toc nav > ul  {
-    margin-bottom: 2em;
-  }
-  #toc ul {
-    margin: 0 0 0 4px;
-    font-size: var(--small-font-size);
-  }
-  #toc ul :is(p, li) {
-    margin: 2px 0;
-    line-height: 22px;
-  }
   img { /* future proofing */
     max-width: 100%;
     height: auto;
+  }
+  #toc a.toplink {
+    margin: 8px 0.5em 0;
   }
 }
 
@@ -875,16 +974,13 @@ hr.addr {
     border-top: none;
     padding-top: 0;
   }
-  figure, pre {
+  figure, pre, .vcard {
     page-break-inside: avoid;
-  }
-  figure {
-    overflow: scroll;
   }
   h1, h2, h3, h4, h5, h6 {
     page-break-after: avoid;
   }
-  h2+*, h3+*, h4+*, h5+*, h6+* {
+  :is(h2, h3, h4, h5, h6)+*, dd {
     page-break-before: avoid;
   }
   pre {
@@ -920,104 +1016,6 @@ hr.addr {
   size: A4;
   margin-bottom: 45mm;
   padding-top: 20px;
-}
-
-/* Changes introduced to fix issues found during implementation */
-
-/* Separate body from document info even without intervening H1 */
-section {
-  clear: both;
-}
-
-/* Top align author divs, to avoid names without organization dropping level with org names */
-.author {
-  vertical-align: top;
-}
-
-/* Style section numbers with more space between number and title */
-.section-number {
-  padding-right: 0.5em;
-}
-
-/* Add styling for a link in the ToC that points to the top of the document */
-a.toplink {
-  float: right;
-  margin: 8px 0.5em 0;
-}
-
-/* Provide styling for table cell text alignment */
-table .text-left {
-  text-align: left;
-}
-table .text-center {
-  text-align: center;
-}
-table .text-right {
-  text-align: right;
-}
-
-/* Make the alternative author contact information look less like just another
-   author, and group it closer with the primary author contact information */
-.alternative-contact {
-  margin: 0.5em 0 0.25em 0;
-}
-address .non-ascii {
-  margin: 0 0 0 2em;
-}
-
-/* With it being possible to set tables with alignment
-  left, center, and right, { width: 100%; } does not make sense */
-table {
-  width: auto;
-}
-
-/* Avoid reference text that sits in a block with very wide left margin,
-   because of a long floating dt label.*/
-.references dd {
-  overflow: visible;
-}
-
-/* Control caption placement */
-caption {
-  caption-side: bottom;
-}
-
-/* Limit the width of the author address vcard, so names in right-to-left
-   script don't end up on the other side of the page. */
-
-address.vcard {
-  max-width: 20em;
-  margin-right: auto;
-}
-
-/* For address alignment dependent on LTR or RTL scripts */
-address div.left {
-  text-align: left;
-}
-address div.right {
-  text-align: right;
-}
-
-/* Give the table caption label the same styling as the figcaption */
-
-@media print {
-  .toplink {
-    display: none;
-  }
-
-  /* avoid overwriting the top border line with the ToC header */
-  #toc {
-    padding-top: 1px;
-  }
-
-  /* Avoid page breaks inside dl and author address entries */
-  dd {
-    page-break-before: avoid;
-  }
-  .vcard {
-    page-break-inside: avoid;
-  }
-
 }
 
 /* Dark mode. */
@@ -1056,11 +1054,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">CORECONF</td>
-<td class="right">July 2024</td>
+<td class="right">May 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Veillette, et al.</td>
-<td class="center">Expires 19 January 2025</td>
+<td class="center">Expires 7 November 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1073,12 +1071,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-core-comi-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-07-18" class="published">18 July 2024</time>
+<time datetime="2025-05-06" class="published">6 May 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-01-19">19 January 2025</time></dd>
+<dd class="expires"><time datetime="2025-11-07">7 November 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1155,7 +1153,7 @@ and networks.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 19 January 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 7 November 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1164,7 +1162,7 @@ and networks.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2024 IETF Trust and the persons identified as the
+            Copyright (c) 2025 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1354,13 +1352,19 @@ and networks.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
             <p id="section-toc.1-1.11.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-ietf-coreconf-sid-file" class="internal xref">ietf-coreconf .sid file</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
-            <p id="section-toc.1-1.12.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+            <p id="section-toc.1-1.12.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-list-of-figures" class="internal xref">List of Figures</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
-            <p id="section-toc.1-1.13.1"><a href="#appendix-D" class="auto internal xref"></a><a href="#name-contributors" class="internal xref">Contributors</a></p>
+            <p id="section-toc.1-1.13.1"><a href="#appendix-D" class="auto internal xref"></a><a href="#name-list-of-tables" class="internal xref">List of Tables</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14">
-            <p id="section-toc.1-1.14.1"><a href="#appendix-E" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.14.1"><a href="#appendix-E" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15">
+            <p id="section-toc.1-1.15.1"><a href="#appendix-F" class="auto internal xref"></a><a href="#name-contributors" class="internal xref">Contributors</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.16">
+            <p id="section-toc.1-1.16.1"><a href="#appendix-G" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1390,7 +1394,7 @@ different manufacturers.<a href="#section-1-3" class="pilcrow">¶</a></p>
 They use a single round-trip to complete a single editing transaction, where
 NETCONF needs multiple round trips.<a href="#section-1-4" class="pilcrow">¶</a></p>
 <p id="section-1-5">To promote small messages, CORECONF uses a YANG to CBOR mapping
-<span>[<a href="#RFC9254" class="cite xref">RFC9254</a>]</span> and numeric identifiers <span>[<a href="#I-D.ietf-core-sid" class="cite xref">I-D.ietf-core-sid</a>]</span>
+<span>[<a href="#RFC9254" class="cite xref">RFC9254</a>]</span> and numeric identifiers <span>[<a href="#RFC9595" class="cite xref">RFC9595</a>]</span>
 to minimize CBOR payloads and URI length.<a href="#section-1-5" class="pilcrow">¶</a></p>
 <div id="terminology">
 <section id="section-1.1">
@@ -1399,7 +1403,7 @@ to minimize CBOR payloads and URI length.<a href="#section-1-5" class="pilcrow">
         </h3>
 <p id="section-1.1-1">The following terms are defined in the YANG data modeling language <span>[<a href="#RFC7950" class="cite xref">RFC7950</a>]</span>: action, anydata, anyxml, client, container, data model, data node, identity, instance identifier, leaf, leaf-list, list, module, RPC, schema node, server, submodule.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
 <p id="section-1.1-2">The following terms are defined in <span>[<a href="#RFC6241" class="cite xref">RFC6241</a>]</span>: configuration data, datastore, state data.<a href="#section-1.1-2" class="pilcrow">¶</a></p>
-<p id="section-1.1-3">The following term is defined in <span>[<a href="#I-D.ietf-core-sid" class="cite xref">I-D.ietf-core-sid</a>]</span>: YANG schema item identifier (YANG SID, often shortened to simply SID).<a href="#section-1.1-3" class="pilcrow">¶</a></p>
+<p id="section-1.1-3">The following term is defined in <span>[<a href="#RFC9595" class="cite xref">RFC9595</a>]</span>: YANG schema item identifier (YANG SID, often shortened to simply SID).<a href="#section-1.1-3" class="pilcrow">¶</a></p>
 <p id="section-1.1-4">The following terms are defined in the CoAP protocol <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>: Confirmable Message, Content-Format, Endpoint.<a href="#section-1.1-4" class="pilcrow">¶</a></p>
 <p id="section-1.1-5">The following terms are defined in this document:<a href="#section-1.1-5" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-1.1-6">
@@ -1744,7 +1748,8 @@ For each data node instance D, for which the instance-identifier is the same as 
         <dd class="break"></dd>
 </dl>
 <p id="section-2.3-4">The different Media-Type usages are summarized in the table below:<a href="#section-2.3-4" class="pilcrow">¶</a></p>
-<span id="name-summary-of-media-type-usage"></span><table class="left" id="table-1">
+<span id="name-summary-of-media-type-usage"></span><div id="tbl-mt-uses">
+<table class="left" id="table-1">
           <caption>
 <a href="#table-1" class="selfRef">Table 1</a>:
 <a href="#name-summary-of-media-type-usage" class="selfRef">Summary of Media-Type Usages</a>
@@ -1789,6 +1794,7 @@ For each data node instance D, for which the instance-identifier is the same as 
             </tr>
           </tbody>
         </table>
+</div>
 </section>
 </div>
 <div id="unified-datastore">
@@ -1801,7 +1807,8 @@ For each data node instance D, for which the instance-identifier is the same as 
 Architecture (NMDA) as defined by <span>[<a href="#RFC8342" class="cite xref">RFC8342</a>]</span> are out of scope of the
 present specification.<a href="#section-2.4-2" class="pilcrow">¶</a></p>
 <p id="section-2.4-3">Characteristics of the unified datastore are summarized in the table below:<a href="#section-2.4-3" class="pilcrow">¶</a></p>
-<span id="name-characteristics-of-the-unif"></span><table class="left" id="table-2">
+<span id="name-characteristics-of-the-unif"></span><div id="tbl-ud">
+<table class="left" id="table-2">
           <caption>
 <a href="#table-2" class="selfRef">Table 2</a>:
 <a href="#name-characteristics-of-the-unif" class="selfRef">Characteristics of the Unified Datastore</a>
@@ -1843,6 +1850,7 @@ present specification.<a href="#section-2.4-2" class="pilcrow">¶</a></p>
             </tr>
           </tbody>
         </table>
+</div>
 </section>
 </div>
 </section>
@@ -1940,9 +1948,12 @@ the actual path values known for these resources.<a href="#section-3-6" class="p
 <p id="section-3.1-1">One or more data nodes can be retrieved by the client.
 The operation is mapped to the FETCH method defined in <span><a href="https://rfc-editor.org/rfc/rfc8132#section-2" class="relref">Section 2</a> of [<a href="#RFC8132" class="cite xref">RFC8132</a>]</span>.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2">There are two additional query parameters for the FETCH method:<a href="#section-3.1-2" class="pilcrow">¶</a></p>
-<div id="tbl-query-fetch">
+<span id="name-query-parameters-for-fetch"></span><div id="tbl-query-fetch">
 <table class="left" id="table-5">
-          <caption><a href="#table-5" class="selfRef">Table 5</a></caption>
+          <caption>
+<a href="#table-5" class="selfRef">Table 5</a>:
+<a href="#name-query-parameters-for-fetch" class="selfRef">Query Parameters for FETCH</a>
+          </caption>
 <thead>
             <tr>
               <th class="text-left" rowspan="1" colspan="1">query parameters</th>
@@ -2403,7 +2414,7 @@ module example-port {
 </pre><a href="#section-3.4.2-2" class="pilcrow">¶</a>
 </div>
 <p id="section-3.4.2-3">In this example the default event stream resource path /s is an example
-location discovered with a request similar to <a href="#discovery-ex-es" class="auto internal xref">Figure 3</a>. By executing a
+location discovered with a request similar to <a href="#discovery-ex-es" class="auto internal xref">Figure 4</a>. By executing a
 GET with Observe 0 on the default event stream resource the client receives the
 following response:<a href="#section-3.4.2-3" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-3.4.2-4">
@@ -2709,7 +2720,7 @@ sid               = 1*DIGIT
 </div>
 <p id="section-5.2.1-5">The following example assumes that the server uses /c as datastore resource
 path.<a href="#section-5.2.1-5" class="pilcrow">¶</a></p>
-<div id="discovery-ex-ds">
+<span id="name-discovery-example-data-stor"></span><div id="discovery-ex-ds">
 <figure id="figure-2">
             <div class="alignLeft art-text artwork" id="section-5.2.1-6.1">
 <pre>
@@ -2719,7 +2730,9 @@ RES: 2.05 Content (Content-Format: application/link-format)
 &lt;/c&gt;; rt="core.c.ds";ds=1029
 </pre>
 </div>
-<figcaption><a href="#figure-2" class="selfRef">Figure 2</a></figcaption></figure>
+<figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
+<a href="#name-discovery-example-data-stor" class="selfRef">Discovery Example: Data Store</a>
+            </figcaption></figure>
 </div>
 </section>
 </div>
@@ -2738,14 +2751,20 @@ and their location.<a href="#section-5.2.2-2" class="pilcrow">¶</a></p>
 data nodes. Data nodes '/ietf-system:system-state/clock/boot-datetime' (SID 1722)
 and '/ietf-system:system-state/clock/current-datetime' (SID 1723) are returned.
 The example assumes that the server uses /c as datastore resource path.<a href="#section-5.2.2-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.2.2-4">
+<span id="name-discovery-example-data-node"></span><div id="discovery-ex-dn">
+<figure id="figure-3">
+            <div class="alignLeft art-text artwork" id="section-5.2.2-4.1">
 <pre>
 REQ: GET &lt;/.well-known/core?rt=core.c.dn&gt;
 
 RES: 2.05 Content (Content-Format: application/link-format)
 &lt;/c/a6&gt;;rt="core.c.dn",
 &lt;/c/a7&gt;;rt="core.c.dn"
-</pre><a href="#section-5.2.2-4" class="pilcrow">¶</a>
+</pre>
+</div>
+<figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
+<a href="#name-discovery-example-data-node" class="selfRef">Discovery Example: Data Node</a>
+            </figcaption></figure>
 </div>
 <p id="section-5.2.2-5">Without additional filtering, the list of data nodes may become prohibitively
 long. If this is the case implementations <span class="bcp14">SHOULD</span> support a way to obtain all
@@ -2764,8 +2783,8 @@ parameter with the value "core.c.es".<a href="#section-5.2.3-1" class="pilcrow">
 <p id="section-5.2.3-2">Upon success, the return payload contains the list of event stream resources.<a href="#section-5.2.3-2" class="pilcrow">¶</a></p>
 <p id="section-5.2.3-3">The following example assumes that the server uses /s as the default event stream
 resource.<a href="#section-5.2.3-3" class="pilcrow">¶</a></p>
-<div id="discovery-ex-es">
-<figure id="figure-3">
+<span id="name-discovery-example-event-str"></span><div id="discovery-ex-es">
+<figure id="figure-4">
             <div class="alignLeft art-text artwork" id="section-5.2.3-4.1">
 <pre>
 REQ: GET &lt;/.well-known/core?rt=core.c.es&gt;
@@ -2774,7 +2793,9 @@ RES: 2.05 Content (Content-Format: application/link-format)
 &lt;/s&gt;;rt="core.c.es"
 </pre>
 </div>
-<figcaption><a href="#figure-3" class="selfRef">Figure 3</a></figcaption></figure>
+<figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
+<a href="#name-discovery-example-event-str" class="selfRef">Discovery Example: Event Stream</a>
+            </figcaption></figure>
 </div>
 </section>
 </div>
@@ -2950,8 +2971,12 @@ well-understood.<a href="#section-7-4" class="pilcrow">¶</a></p>
 <a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-resource-type-rt-link-targe" class="section-name selfRef">Resource Type (rt=) Link Target Attribute Values Registry</a>
         </h3>
 <p id="section-8.1-1">This document adds the following resource type to the "Resource Type (rt=) Link Target Attribute Values", within the "Constrained RESTful Environments (CoRE) Parameters" registry.<a href="#section-8.1-1" class="pilcrow">¶</a></p>
+<span id="name-resource-types"></span><div id="tbl-rt">
 <table class="left" id="table-8">
-          <caption><a href="#table-8" class="selfRef">Table 8</a></caption>
+          <caption>
+<a href="#table-8" class="selfRef">Table 8</a>:
+<a href="#name-resource-types" class="selfRef">Resource Types</a>
+          </caption>
 <thead>
             <tr>
               <th class="text-left" rowspan="1" colspan="1">Value</th>
@@ -2982,6 +3007,7 @@ well-understood.<a href="#section-7-4" class="pilcrow">¶</a></p>
             </tr>
           </tbody>
         </table>
+</div>
 <p id="section-8.1-3">// RFC Ed.: replace RFC XXXX with this RFC number and remove this note.<a href="#section-8.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -2990,9 +3016,14 @@ well-understood.<a href="#section-7-4" class="pilcrow">¶</a></p>
         <h3 id="name-coap-content-formats-regist">
 <a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-coap-content-formats-regist" class="section-name selfRef">CoAP Content-Formats Registry</a>
         </h3>
-<p id="section-8.2-1">This document adds the following Content-Format to the "CoAP Content-Formats", within the "Constrained RESTful Environments (CoRE) Parameters" registry.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
+<p id="section-8.2-1">This document adds the following Content-Formats from the Expert
+Review range (0-255) to the "CoAP Content-Formats", within the "Constrained RESTful Environments (CoRE) Parameters" registry.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
+<span id="name-content-formats"></span><div id="tbl-ct">
 <table class="left" id="table-9">
-          <caption><a href="#table-9" class="selfRef">Table 9</a></caption>
+          <caption>
+<a href="#table-9" class="selfRef">Table 9</a>:
+<a href="#name-content-formats" class="selfRef">Content Formats</a>
+          </caption>
 <thead>
             <tr>
               <th class="text-left" rowspan="1" colspan="1">Media Type</th>
@@ -3016,7 +3047,8 @@ well-understood.<a href="#section-7-4" class="pilcrow">¶</a></p>
             </tr>
           </tbody>
         </table>
-<p id="section-8.2-3">// RFC Ed.: replace TBD1, TBD2 and TBD3 with assigned IDs and remove this note.
+</div>
+<p id="section-8.2-3">// RFC Ed.: replace TBD2 (suggested: 141) and TBD3 (suggested: 142) with assigned IDs and remove this note.  (There is no TBD1, that was already defined in RFC 9254.)
 // RFC Ed.: replace RFC XXXX with this RFC number and remove this note.<a href="#section-8.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -3026,8 +3058,12 @@ well-understood.<a href="#section-7-4" class="pilcrow">¶</a></p>
 <a href="#section-8.3" class="section-number selfRef">8.3. </a><a href="#name-media-types-registry" class="section-name selfRef">Media Types Registry</a>
         </h3>
 <p id="section-8.3-1">This document adds the following media types to the "Media Types" registry.<a href="#section-8.3-1" class="pilcrow">¶</a></p>
+<span id="name-media-types-2"></span><div id="tbl-mt">
 <table class="left" id="table-10">
-          <caption><a href="#table-10" class="selfRef">Table 10</a></caption>
+          <caption>
+<a href="#table-10" class="selfRef">Table 10</a>:
+<a href="#name-media-types-2" class="selfRef">Media Types</a>
+          </caption>
 <thead>
             <tr>
               <th class="text-left" rowspan="1" colspan="1">Name</th>
@@ -3048,6 +3084,7 @@ well-understood.<a href="#section-7-4" class="pilcrow">¶</a></p>
             </tr>
           </tbody>
         </table>
+</div>
 <p id="section-8.3-3">Each of these media types share the following information:<a href="#section-8.3-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-8.3-4.1">
@@ -3149,10 +3186,6 @@ Registry", following the format defined in <span>[<a href="#RFC3688" class="cite
 <a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
-<dt id="I-D.ietf-core-sid">[I-D.ietf-core-sid]</dt>
-        <dd>
-<span class="refAuthor">Veillette, M.</span>, <span class="refAuthor">Pelov, A.</span>, <span class="refAuthor">Petrov, I.</span>, <span class="refAuthor">Bormann, C.</span>, and <span class="refAuthor">M. Richardson</span>, <span class="refTitle">"YANG Schema Item iDentifier (YANG SID)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-sid-24</span>, <time datetime="2023-12-22" class="refDate">22 December 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-sid-24">https://datatracker.ietf.org/doc/html/draft-ietf-core-sid-24</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="I-D.ietf-core-yang-library">[I-D.ietf-core-yang-library]</dt>
         <dd>
 <span class="refAuthor">Veillette, M.</span> and <span class="refAuthor">I. Petrov</span>, <span class="refTitle">"Constrained YANG Module Library"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-yang-library-03</span>, <time datetime="2021-01-11" class="refDate">11 January 2021</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-yang-library-03">https://datatracker.ietf.org/doc/html/draft-ietf-core-yang-library-03</a>&gt;</span>. </dd>
@@ -3230,8 +3263,12 @@ Registry", following the format defined in <span>[<a href="#RFC3688" class="cite
 <span class="refAuthor">Bormann, C.</span> and <span class="refAuthor">P. Hoffman</span>, <span class="refTitle">"Concise Binary Object Representation (CBOR)"</span>, <span class="seriesInfo">STD 94</span>, <span class="seriesInfo">RFC 8949</span>, <span class="seriesInfo">DOI 10.17487/RFC8949</span>, <time datetime="2020-12" class="refDate">December 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8949">https://www.rfc-editor.org/rfc/rfc8949</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9254">[RFC9254]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Veillette, M., Ed.</span>, <span class="refAuthor">Petrov, I., Ed.</span>, <span class="refAuthor">Pelov, A.</span>, <span class="refAuthor">Bormann, C.</span>, and <span class="refAuthor">M. Richardson</span>, <span class="refTitle">"Encoding of Data Modeled with YANG in the Concise Binary Object Representation (CBOR)"</span>, <span class="seriesInfo">RFC 9254</span>, <span class="seriesInfo">DOI 10.17487/RFC9254</span>, <time datetime="2022-07" class="refDate">July 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9254">https://www.rfc-editor.org/rfc/rfc9254</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9595">[RFC9595]</dt>
+      <dd>
+<span class="refAuthor">Veillette, M., Ed.</span>, <span class="refAuthor">Pelov, A., Ed.</span>, <span class="refAuthor">Petrov, I., Ed.</span>, <span class="refAuthor">Bormann, C.</span>, and <span class="refAuthor">M. Richardson</span>, <span class="refTitle">"YANG Schema Item iDentifier (YANG SID)"</span>, <span class="seriesInfo">RFC 9595</span>, <span class="seriesInfo">DOI 10.17487/RFC9595</span>, <time datetime="2024-07" class="refDate">July 2024</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9595">https://www.rfc-editor.org/rfc/rfc9595</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -3282,7 +3319,7 @@ Registry", following the format defined in <span>[<a href="#RFC3688" class="cite
       </h2>
 <p id="appendix-A-1">This appendix is normative.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 <span id="name-ietf-coreconf-yang-module-2"></span><div id="yang-ietf-coreconf">
-<figure id="figure-4">
+<figure id="figure-5">
         <div class="breakable lang-yang sourcecode" id="appendix-A-2.1">
 <pre>&lt;CODE BEGINS&gt; file "ietf-coreconf@2024-03-04.yang"
 
@@ -3573,7 +3610,7 @@ module ietf-coreconf {
 
 &lt;CODE ENDS&gt;</pre>
 </div>
-<figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
+<figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
 <a href="#name-ietf-coreconf-yang-module-2" class="selfRef">ietf-coreconf YANG module</a>
         </figcaption></figure>
 </div>
@@ -3586,7 +3623,7 @@ module ietf-coreconf {
       </h2>
 <p id="appendix-B-1">This appendix is normative.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
 <span id="name-ietf-coreconf-sid-file-2"></span><div id="yang-ietf-coreconf-sid">
-<figure id="figure-5">
+<figure id="figure-6">
         <div class="breakable lang-yang sourcecode" id="appendix-B-2.1">
 <pre>&lt;CODE BEGINS&gt; file "ietf-coreconf@2024-03-04.sid"
 
@@ -3757,24 +3794,138 @@ module ietf-coreconf {
 
 &lt;CODE ENDS&gt;</pre>
 </div>
-<figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
+<figcaption><a href="#figure-6" class="selfRef">Figure 6</a>:
 <a href="#name-ietf-coreconf-sid-file-2" class="selfRef">ietf-coreconf SID file</a>
         </figcaption></figure>
 </div>
 </section>
 </div>
-<div id="acknowledgments">
+<div id="list-of-figures">
 <section id="appendix-C">
+      <h2 id="name-list-of-figures">
+<a href="#name-list-of-figures" class="section-name selfRef">List of Figures</a>
+      </h2>
+<span class="break"></span><dl class="dlCompact dlParallel" id="appendix-C-1">
+        <dt id="appendix-C-1.1">
+<a href="#archit" class="auto internal xref">Figure 1</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-C-1.2">
+          <p id="appendix-C-1.2.1"><a href="#archit" class="internal xref">Abstract CORECONF architecture</a><a href="#appendix-C-1.2.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="appendix-C-1.3">
+<a href="#discovery-ex-ds" class="auto internal xref">Figure 2</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-C-1.4">
+          <p id="appendix-C-1.4.1"><a href="#discovery-ex-ds" class="internal xref">Discovery Example: Data Store</a><a href="#appendix-C-1.4.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="appendix-C-1.5">
+<a href="#discovery-ex-dn" class="auto internal xref">Figure 3</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-C-1.6">
+          <p id="appendix-C-1.6.1"><a href="#discovery-ex-dn" class="internal xref">Discovery Example: Data Node</a><a href="#appendix-C-1.6.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="appendix-C-1.7">
+<a href="#discovery-ex-es" class="auto internal xref">Figure 4</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-C-1.8">
+          <p id="appendix-C-1.8.1"><a href="#discovery-ex-es" class="internal xref">Discovery Example: Event Stream</a><a href="#appendix-C-1.8.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="appendix-C-1.9">
+<a href="#yang-ietf-coreconf" class="auto internal xref">Figure 5</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-C-1.10">
+          <p id="appendix-C-1.10.1"><a href="#yang-ietf-coreconf" class="internal xref">ietf-coreconf YANG module</a><a href="#appendix-C-1.10.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="appendix-C-1.11">
+<a href="#yang-ietf-coreconf-sid" class="auto internal xref">Figure 6</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-C-1.12">
+          <p id="appendix-C-1.12.1"><a href="#yang-ietf-coreconf-sid" class="internal xref">ietf-coreconf SID file</a><a href="#appendix-C-1.12.1" class="pilcrow">¶</a></p>
+</dd>
+      <dd class="break"></dd>
+</dl>
+</section>
+</div>
+<div id="list-of-tables">
+<section id="appendix-D">
+      <h2 id="name-list-of-tables">
+<a href="#name-list-of-tables" class="section-name selfRef">List of Tables</a>
+      </h2>
+<span class="break"></span><dl class="dlCompact dlParallel" id="appendix-D-1">
+        <dt id="appendix-D-1.1">
+<a href="#tbl-mt-uses" class="auto internal xref">Table 1</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-D-1.2">
+          <p id="appendix-D-1.2.1"><a href="#tbl-mt-uses" class="internal xref">Summary of Media-Type Usages</a><a href="#appendix-D-1.2.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="appendix-D-1.3">
+<a href="#tbl-ud" class="auto internal xref">Table 2</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-D-1.4">
+          <p id="appendix-D-1.4.1"><a href="#tbl-ud" class="internal xref">Characteristics of the Unified Datastore</a><a href="#appendix-D-1.4.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="appendix-D-1.5">
+<a href="#tbl-resources" class="auto internal xref">Table 3</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-D-1.6">
+          <p id="appendix-D-1.6.1"><a href="#tbl-resources" class="internal xref">Resources, example paths, and resource types (rt)</a><a href="#appendix-D-1.6.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="appendix-D-1.7">
+<a href="#tbl-methods" class="auto internal xref">Table 4</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-D-1.8">
+          <p id="appendix-D-1.8.1"><a href="#tbl-methods" class="internal xref">CoAP Methods in CORECONF</a><a href="#appendix-D-1.8.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="appendix-D-1.9">
+<a href="#tbl-query-fetch" class="auto internal xref">Table 5</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-D-1.10">
+          <p id="appendix-D-1.10.1"><a href="#tbl-query-fetch" class="internal xref">Query Parameters for FETCH</a><a href="#appendix-D-1.10.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="appendix-D-1.11">
+<a href="#tbl-c-values" class="auto internal xref">Table 6</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-D-1.12">
+          <p id="appendix-D-1.12.1"><a href="#tbl-c-values" class="internal xref">Values for the 'c' query parameter</a><a href="#appendix-D-1.12.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="appendix-D-1.13">
+<a href="#tbl-d-values" class="auto internal xref">Table 7</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-D-1.14">
+          <p id="appendix-D-1.14.1"><a href="#tbl-d-values" class="internal xref">Values for the 'd' query parameter</a><a href="#appendix-D-1.14.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="appendix-D-1.15">
+<a href="#tbl-rt" class="auto internal xref">Table 8</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-D-1.16">
+          <p id="appendix-D-1.16.1"><a href="#tbl-rt" class="internal xref">Resource Types</a><a href="#appendix-D-1.16.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="appendix-D-1.17">
+<a href="#tbl-ct" class="auto internal xref">Table 9</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-D-1.18">
+          <p id="appendix-D-1.18.1"><a href="#tbl-ct" class="internal xref">Content Formats</a><a href="#appendix-D-1.18.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="appendix-D-1.19">
+<a href="#tbl-mt" class="auto internal xref">Table 10</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-D-1.20">
+          <p id="appendix-D-1.20.1"><a href="#tbl-mt" class="internal xref">Media Types</a><a href="#appendix-D-1.20.1" class="pilcrow">¶</a></p>
+</dd>
+      <dd class="break"></dd>
+</dl>
+</section>
+</div>
+<div id="acknowledgments">
+<section id="appendix-E">
       <h2 id="name-acknowledgments">
 <a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
-<p id="appendix-C-1">We are very grateful to <span class="contact-name">Bert Greevenbosch</span> who was one of the original authors
-of the CORECONF specification.<a href="#appendix-C-1" class="pilcrow">¶</a></p>
-<p id="appendix-C-2"><span class="contact-name">Mehmet Ersue</span> and <span class="contact-name">Bert Wijnen</span> explained the encoding aspects of PDUs transported
+<p id="appendix-E-1">We are very grateful to <span class="contact-name">Bert Greevenbosch</span> who was one of the original authors
+of the CORECONF specification.<a href="#appendix-E-1" class="pilcrow">¶</a></p>
+<p id="appendix-E-2"><span class="contact-name">Mehmet Ersue</span> and <span class="contact-name">Bert Wijnen</span> explained the encoding aspects of PDUs transported
 under SNMP.
 <span class="contact-name">Koen Zandberg</span>'s implementation input motivated massively simplifying
-(and fixing) the URI construction for GET/PUT/POST requests.<a href="#appendix-C-2" class="pilcrow">¶</a></p>
-<p id="appendix-C-3">The specification has further benefited from comments (alphabetical order) by
+(and fixing) the URI construction for GET/PUT/POST requests.<a href="#appendix-E-2" class="pilcrow">¶</a></p>
+<p id="appendix-E-3">The specification has further benefited from comments (alphabetical order) by
 <span class="contact-name">Rodney Cummings</span>,
 <span class="contact-name">Dee Denteneer</span>,
 <span class="contact-name">Esko Dijk</span>,
@@ -3787,11 +3938,11 @@ under SNMP.
 <span class="contact-name">Hannes Tschofenig</span>,
 <span class="contact-name">Michael Verschoor</span>,
 and
-<span class="contact-name">Thomas Watteyne</span>.<a href="#appendix-C-3" class="pilcrow">¶</a></p>
+<span class="contact-name">Thomas Watteyne</span>.<a href="#appendix-E-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="contributors">
-<section id="appendix-D">
+<section id="appendix-F">
       <h2 id="name-contributors">
 <a href="#name-contributors" class="section-name selfRef">Contributors</a>
       </h2>
@@ -3806,7 +3957,7 @@ and
 </section>
 </div>
 <div id="authors-addresses">
-<section id="appendix-E">
+<section id="appendix-G">
       <h2 id="name-authors-addresses">
 <a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
       </h2>

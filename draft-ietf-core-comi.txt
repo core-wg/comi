@@ -5,14 +5,14 @@
 CoRE                                                   M. Veillette, Ed.
 Internet-Draft                                   Trilliant Networks Inc.
 Intended status: Standards Track                    P. van der Stok, Ed.
-Expires: 19 January 2025                                      consultant
+Expires: 7 November 2025                                      consultant
                                                            A. Pelov, Ed.
                                                           IMT Atlantique
                                                               A. Bierman
                                                                YumaWorks
                                                          C. Bormann, Ed.
                                                   Universität Bremen TZI
-                                                            18 July 2024
+                                                              6 May 2025
 
 
                   CoAP Management Interface (CORECONF)
@@ -53,9 +53,9 @@ About This Document
 
 
 
-Veillette, et al.        Expires 19 January 2025                [Page 1]
+Veillette, et al.        Expires 7 November 2025                [Page 1]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
 
 Status of This Memo
@@ -73,11 +73,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 19 January 2025.
+   This Internet-Draft will expire on 7 November 2025.
 
 Copyright Notice
 
-   Copyright (c) 2024 IETF Trust and the persons identified as the
+   Copyright (c) 2025 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Veillette, et al.        Expires 19 January 2025                [Page 2]
+Veillette, et al.        Expires 7 November 2025                [Page 2]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
 
        3.1.3.  FETCH . . . . . . . . . . . . . . . . . . . . . . . .  13
@@ -145,9 +145,11 @@ Internet-Draft                  CORECONF                       July 2024
    9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  34
      9.1.  Normative References  . . . . . . . . . . . . . . . . . .  34
      9.2.  Informative References  . . . . . . . . . . . . . . . . .  37
-   Appendix A.  ietf-coreconf YANG module  . . . . . . . . . . . . .  38
+   Appendix A.  ietf-coreconf YANG module  . . . . . . . . . . . . .  37
    Appendix B.  ietf-coreconf .sid file  . . . . . . . . . . . . . .  44
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  47
+   List of Figures . . . . . . . . . . . . . . . . . . . . . . . . .  47
+   List of Tables  . . . . . . . . . . . . . . . . . . . . . . . . .  47
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  48
    Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  48
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  48
 
@@ -163,11 +165,9 @@ Internet-Draft                  CORECONF                       July 2024
 
 
 
-
-
-Veillette, et al.        Expires 19 January 2025                [Page 3]
+Veillette, et al.        Expires 7 November 2025                [Page 3]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
 
    This specification describes the CoAP Management Interface (CORECONF)
@@ -185,8 +185,8 @@ Internet-Draft                  CORECONF                       July 2024
    editing transaction, where NETCONF needs multiple round trips.
 
    To promote small messages, CORECONF uses a YANG to CBOR mapping
-   [RFC9254] and numeric identifiers [I-D.ietf-core-sid] to minimize
-   CBOR payloads and URI length.
+   [RFC9254] and numeric identifiers [RFC9595] to minimize CBOR payloads
+   and URI length.
 
 1.1.  Terminology
 
@@ -198,8 +198,8 @@ Internet-Draft                  CORECONF                       July 2024
    The following terms are defined in [RFC6241]: configuration data,
    datastore, state data.
 
-   The following term is defined in [I-D.ietf-core-sid]: YANG schema
-   item identifier (YANG SID, often shortened to simply SID).
+   The following term is defined in [RFC9595]: YANG schema item
+   identifier (YANG SID, often shortened to simply SID).
 
    The following terms are defined in the CoAP protocol [RFC7252]:
    Confirmable Message, Content-Format, Endpoint.
@@ -221,9 +221,9 @@ Internet-Draft                  CORECONF                       July 2024
 
 
 
-Veillette, et al.        Expires 19 January 2025                [Page 4]
+Veillette, et al.        Expires 7 November 2025                [Page 4]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
 
    list instance identifier:  Handle used to identify a YANG data node
@@ -277,9 +277,9 @@ Internet-Draft                  CORECONF                       July 2024
 
 
 
-Veillette, et al.        Expires 19 January 2025                [Page 5]
+Veillette, et al.        Expires 7 November 2025                [Page 5]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
 
    +----------------------------------------------------------------+
@@ -333,9 +333,9 @@ Internet-Draft                  CORECONF                       July 2024
 
 
 
-Veillette, et al.        Expires 19 January 2025                [Page 6]
+Veillette, et al.        Expires 7 November 2025                [Page 6]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
 
       data, RPCs, and actions.  A CORECONF server supports a single
@@ -389,9 +389,9 @@ Internet-Draft                  CORECONF                       July 2024
 
 
 
-Veillette, et al.        Expires 19 January 2025                [Page 7]
+Veillette, et al.        Expires 7 November 2025                [Page 7]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
 
    *  CORECONF also differs in the handling of default values, only
@@ -445,9 +445,9 @@ Internet-Draft                  CORECONF                       July 2024
 
 
 
-Veillette, et al.        Expires 19 January 2025                [Page 8]
+Veillette, et al.        Expires 7 November 2025                [Page 8]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
 
       The message payload of Media-Type 'application/yang-
@@ -501,9 +501,9 @@ Internet-Draft                  CORECONF                       July 2024
 
 
 
-Veillette, et al.        Expires 19 January 2025                [Page 9]
+Veillette, et al.        Expires 7 November 2025                [Page 9]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
 
 2.4.  Unified datastore
@@ -557,9 +557,9 @@ Internet-Draft                  CORECONF                       July 2024
 
 
 
-Veillette, et al.        Expires 19 January 2025               [Page 10]
+Veillette, et al.        Expires 7 November 2025               [Page 10]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
 
    CORECONF also supports event stream resources used to observe
@@ -613,9 +613,9 @@ Internet-Draft                  CORECONF                       July 2024
 
 
 
-Veillette, et al.        Expires 19 January 2025               [Page 11]
+Veillette, et al.        Expires 7 November 2025               [Page 11]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
 
    There are two additional query parameters for the FETCH method:
@@ -629,7 +629,7 @@ Internet-Draft                  CORECONF                       July 2024
    | d                | Control retrieval of default values.        |
    +------------------+---------------------------------------------+
 
-                                Table 5
+                  Table 5: Query Parameters for FETCH
 
 3.1.1.  Using the 'c' query parameter
 
@@ -669,9 +669,9 @@ Internet-Draft                  CORECONF                       July 2024
 
 
 
-Veillette, et al.        Expires 19 January 2025               [Page 12]
+Veillette, et al.        Expires 7 November 2025               [Page 12]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
 
    +=======+======================================================+
@@ -725,9 +725,9 @@ Internet-Draft                  CORECONF                       July 2024
 
 
 
-Veillette, et al.        Expires 19 January 2025               [Page 13]
+Veillette, et al.        Expires 7 November 2025               [Page 13]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
 
    FORMAT:
@@ -781,9 +781,9 @@ Internet-Draft                  CORECONF                       July 2024
 
 
 
-Veillette, et al.        Expires 19 January 2025               [Page 14]
+Veillette, et al.        Expires 7 November 2025               [Page 14]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
 
 3.2.1.  Data Ordering
@@ -837,9 +837,9 @@ Internet-Draft                  CORECONF                       July 2024
 
 
 
-Veillette, et al.        Expires 19 January 2025               [Page 15]
+Veillette, et al.        Expires 7 November 2025               [Page 15]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
 
    REQ: iPATCH </c>
@@ -893,9 +893,9 @@ Internet-Draft                  CORECONF                       July 2024
 
 
 
-Veillette, et al.        Expires 19 January 2025               [Page 16]
+Veillette, et al.        Expires 7 November 2025               [Page 16]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
 
    FORMAT:
@@ -949,9 +949,9 @@ Internet-Draft                  CORECONF                       July 2024
 
 
 
-Veillette, et al.        Expires 19 January 2025               [Page 17]
+Veillette, et al.        Expires 7 November 2025               [Page 17]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
 
    Reception of notification instances is enabled with the CoAP Observe
@@ -1005,9 +1005,9 @@ Internet-Draft                  CORECONF                       July 2024
 
 
 
-Veillette, et al.        Expires 19 January 2025               [Page 18]
+Veillette, et al.        Expires 7 November 2025               [Page 18]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
 
    FORMAT:
@@ -1045,7 +1045,7 @@ Internet-Draft                  CORECONF                       July 2024
    }
 
    In this example the default event stream resource path /s is an
-   example location discovered with a request similar to Figure 3.  By
+   example location discovered with a request similar to Figure 4.  By
    executing a GET with Observe 0 on the default event stream resource
    the client receives the following response:
 
@@ -1061,9 +1061,9 @@ Internet-Draft                  CORECONF                       July 2024
 
 
 
-Veillette, et al.        Expires 19 January 2025               [Page 19]
+Veillette, et al.        Expires 7 November 2025               [Page 19]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
 
    REQ:  GET </s> Observe(0)
@@ -1117,9 +1117,9 @@ Internet-Draft                  CORECONF                       July 2024
 
 
 
-Veillette, et al.        Expires 19 January 2025               [Page 20]
+Veillette, et al.        Expires 7 November 2025               [Page 20]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
 
    Note that the notifications in this example are identical to the
@@ -1173,9 +1173,9 @@ Internet-Draft                  CORECONF                       July 2024
 
 
 
-Veillette, et al.        Expires 19 January 2025               [Page 21]
+Veillette, et al.        Expires 7 November 2025               [Page 21]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
 
    module example-ops {
@@ -1229,9 +1229,9 @@ Internet-Draft                  CORECONF                       July 2024
 
 
 
-Veillette, et al.        Expires 19 January 2025               [Page 22]
+Veillette, et al.        Expires 7 November 2025               [Page 22]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
 
    module example-server-farm {
@@ -1285,9 +1285,9 @@ Internet-Draft                  CORECONF                       July 2024
 
 
 
-Veillette, et al.        Expires 19 January 2025               [Page 23]
+Veillette, et al.        Expires 7 November 2025               [Page 23]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
 
    REQ:  POST </c>
@@ -1341,9 +1341,9 @@ Internet-Draft                  CORECONF                       July 2024
 
 
 
-Veillette, et al.        Expires 19 January 2025               [Page 24]
+Veillette, et al.        Expires 7 November 2025               [Page 24]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
 
 5.  Application Discovery
@@ -1397,9 +1397,9 @@ Internet-Draft                  CORECONF                       July 2024
 
 
 
-Veillette, et al.        Expires 19 January 2025               [Page 25]
+Veillette, et al.        Expires 7 November 2025               [Page 25]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
 
    Upon success, the return payload contains the list of datastore
@@ -1424,7 +1424,7 @@ Internet-Draft                  CORECONF                       July 2024
    RES: 2.05 Content (Content-Format: application/link-format)
    </c>; rt="core.c.ds";ds=1029
 
-                                  Figure 2
+                  Figure 2: Discovery Example: Data Store
 
 5.2.2.  Data node Resource Discovery
 
@@ -1448,14 +1448,14 @@ Internet-Draft                  CORECONF                       July 2024
    </c/a6>;rt="core.c.dn",
    </c/a7>;rt="core.c.dn"
 
+                   Figure 3: Discovery Example: Data Node
 
 
 
 
-
-Veillette, et al.        Expires 19 January 2025               [Page 26]
+Veillette, et al.        Expires 7 November 2025               [Page 26]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
 
    Without additional filtering, the list of data nodes may become
@@ -1481,7 +1481,7 @@ Internet-Draft                  CORECONF                       July 2024
    RES: 2.05 Content (Content-Format: application/link-format)
    </s>;rt="core.c.es"
 
-                                  Figure 3
+                 Figure 4: Discovery Example: Event Stream
 
 6.  Error Handling
 
@@ -1509,9 +1509,9 @@ Internet-Draft                  CORECONF                       July 2024
 
 
 
-Veillette, et al.        Expires 19 January 2025               [Page 27]
+Veillette, et al.        Expires 7 November 2025               [Page 27]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
 
    *  Error 4.04 (Not Found) is returned by the CORECONF server when the
@@ -1565,9 +1565,9 @@ Internet-Draft                  CORECONF                       July 2024
 
 
 
-Veillette, et al.        Expires 19 January 2025               [Page 28]
+Veillette, et al.        Expires 7 November 2025               [Page 28]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
 
       -  error-app-tag 'data-not-unique' is returned by the CORECONF
@@ -1621,9 +1621,9 @@ Internet-Draft                  CORECONF                       July 2024
 
 
 
-Veillette, et al.        Expires 19 January 2025               [Page 29]
+Veillette, et al.        Expires 7 November 2025               [Page 29]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
 
       -  error-app-tag 'missing-key' is returned by the CORECONF server
@@ -1677,9 +1677,9 @@ Internet-Draft                  CORECONF                       July 2024
 
 
 
-Veillette, et al.        Expires 19 January 2025               [Page 30]
+Veillette, et al.        Expires 7 November 2025               [Page 30]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
 
    RES:  4.00 Bad Request
@@ -1733,9 +1733,9 @@ Internet-Draft                  CORECONF                       July 2024
 
 
 
-Veillette, et al.        Expires 19 January 2025               [Page 31]
+Veillette, et al.        Expires 7 November 2025               [Page 31]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
 
    +===========+=====================+===========+
@@ -1750,16 +1750,16 @@ Internet-Draft                  CORECONF                       July 2024
    | core.c.es | YANG event stream   | RFC XXXX  |
    +-----------+---------------------+-----------+
 
-                       Table 8
+               Table 8: Resource Types
 
    // RFC Ed.: replace RFC XXXX with this RFC number and remove this
    note.
 
 8.2.  CoAP Content-Formats Registry
 
-   This document adds the following Content-Format to the "CoAP Content-
-   Formats", within the "Constrained RESTful Environments (CoRE)
-   Parameters" registry.
+   This document adds the following Content-Formats from the Expert
+   Review range (0-255) to the "CoAP Content-Formats", within the
+   "Constrained RESTful Environments (CoRE) Parameters" registry.
 
    +===========================+================+======+===========+
    | Media Type                | Content Coding | ID   | Reference |
@@ -1771,11 +1771,12 @@ Internet-Draft                  CORECONF                       July 2024
    | instances+cbor-seq        |                |      |           |
    +---------------------------+----------------+------+-----------+
 
-                                Table 9
+                        Table 9: Content Formats
 
-   // RFC Ed.: replace TBD1, TBD2 and TBD3 with assigned IDs and remove
-   this note. // RFC Ed.: replace RFC XXXX with this RFC number and
-   remove this note.
+   // RFC Ed.: replace TBD2 (suggested: 141) and TBD3 (suggested: 142)
+   with assigned IDs and remove this note.  (There is no TBD1, that was
+   already defined in RFC 9254.) // RFC Ed.: replace RFC XXXX with this
+   RFC number and remove this note.
 
 8.3.  Media Types Registry
 
@@ -1788,10 +1789,9 @@ Internet-Draft                  CORECONF                       July 2024
 
 
 
-
-Veillette, et al.        Expires 19 January 2025               [Page 32]
+Veillette, et al.        Expires 7 November 2025               [Page 32]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
 
    +===========================+===========================+=========+
@@ -1804,7 +1804,7 @@ Internet-Draft                  CORECONF                       July 2024
    |                           | instances+cbor-seq        |         |
    +---------------------------+---------------------------+---------+
 
-                                 Table 10
+                          Table 10: Media Types
 
    Each of these media types share the following information:
 
@@ -1845,9 +1845,9 @@ Internet-Draft                  CORECONF                       July 2024
 
 
 
-Veillette, et al.        Expires 19 January 2025               [Page 33]
+Veillette, et al.        Expires 7 November 2025               [Page 33]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
 
    *  Restrictions on usage: N/A
@@ -1901,17 +1901,10 @@ Internet-Draft                  CORECONF                       July 2024
 
 
 
-Veillette, et al.        Expires 19 January 2025               [Page 34]
+Veillette, et al.        Expires 7 November 2025               [Page 34]
 
-Internet-Draft                  CORECONF                       July 2024
+Internet-Draft                  CORECONF                        May 2025
 
-
-   [I-D.ietf-core-sid]
-              Veillette, M., Pelov, A., Petrov, I., Bormann, C., and M.
-              Richardson, "YANG Schema Item iDentifier (YANG SID)", Work
-              in Progress, Internet-Draft, draft-ietf-core-sid-24, 22
-              December 2023, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-core-sid-24>.
 
    [I-D.ietf-core-yang-library]
               Veillette, M. and I. Petrov, "Constrained YANG Module
@@ -1951,17 +1944,6 @@ Internet-Draft                  CORECONF                       July 2024
               NETCONF", RFC 6243, DOI 10.17487/RFC6243, June 2011,
               <https://www.rfc-editor.org/rfc/rfc6243>.
 
-
-
-
-
-
-
-Veillette, et al.        Expires 19 January 2025               [Page 35]
-
-Internet-Draft                  CORECONF                       July 2024
-
-
    [RFC7252]  Shelby, Z., Hartke, K., and C. Bormann, "The Constrained
               Application Protocol (CoAP)", RFC 7252,
               DOI 10.17487/RFC7252, June 2014,
@@ -1971,6 +1953,14 @@ Internet-Draft                  CORECONF                       July 2024
               Application Protocol (CoAP)", RFC 7641,
               DOI 10.17487/RFC7641, September 2015,
               <https://www.rfc-editor.org/rfc/rfc7641>.
+
+
+
+
+Veillette, et al.        Expires 7 November 2025               [Page 35]
+
+Internet-Draft                  CORECONF                        May 2025
+
 
    [RFC7950]  Bjorklund, M., Ed., "The YANG 1.1 Data Modeling Language",
               RFC 7950, DOI 10.17487/RFC7950, August 2016,
@@ -2009,15 +1999,6 @@ Internet-Draft                  CORECONF                       July 2024
               Sequences", RFC 8742, DOI 10.17487/RFC8742, February 2020,
               <https://www.rfc-editor.org/rfc/rfc8742>.
 
-
-
-
-
-Veillette, et al.        Expires 19 January 2025               [Page 36]
-
-Internet-Draft                  CORECONF                       July 2024
-
-
    [RFC8949]  Bormann, C. and P. Hoffman, "Concise Binary Object
               Representation (CBOR)", STD 94, RFC 8949,
               DOI 10.17487/RFC8949, December 2020,
@@ -2028,6 +2009,19 @@ Internet-Draft                  CORECONF                       July 2024
               in the Concise Binary Object Representation (CBOR)",
               RFC 9254, DOI 10.17487/RFC9254, July 2022,
               <https://www.rfc-editor.org/rfc/rfc9254>.
+
+
+
+
+Veillette, et al.        Expires 7 November 2025               [Page 36]
+
+Internet-Draft                  CORECONF                        May 2025
+
+
+   [RFC9595]  Veillette, M., Ed., Pelov, A., Ed., Petrov, I., Ed.,
+              Bormann, C., and M. Richardson, "YANG Schema Item
+              iDentifier (YANG SID)", RFC 9595, DOI 10.17487/RFC9595,
+              July 2024, <https://www.rfc-editor.org/rfc/rfc9595>.
 
 9.2.  Informative References
 
@@ -2063,20 +2057,22 @@ Internet-Draft                  CORECONF                       July 2024
               (ACE-OAuth)", RFC 9200, DOI 10.17487/RFC9200, August 2022,
               <https://www.rfc-editor.org/rfc/rfc9200>.
 
-
-
-
-
-
-
-Veillette, et al.        Expires 19 January 2025               [Page 37]
-
-Internet-Draft                  CORECONF                       July 2024
-
-
 Appendix A.  ietf-coreconf YANG module
 
    This appendix is normative.
+
+
+
+
+
+
+
+
+
+Veillette, et al.        Expires 7 November 2025               [Page 37]
+
+Internet-Draft                  CORECONF                        May 2025
+
 
    <CODE BEGINS> file "ietf-coreconf@2024-03-04.yang"
    module ietf-coreconf {
@@ -2122,18 +2118,18 @@ Appendix A.  ietf-coreconf YANG module
        "This module contains the different definitions required
         by the CORECONF protocol.
 
-
-
-
-Veillette, et al.        Expires 19 January 2025               [Page 38]
-
-Internet-Draft                  CORECONF                       July 2024
-
-
         Copyright (c) 2024 IETF Trust and the persons identified as
         authors of the code.  All rights reserved.
 
         Redistribution and use in source and binary forms, with or
+
+
+
+Veillette, et al.        Expires 7 November 2025               [Page 38]
+
+Internet-Draft                  CORECONF                        May 2025
+
+
         without modification, is permitted pursuant to, and subject
         to the license terms contained in, the Revised BSD License
         set forth in Section 4.c of the IETF Trust's Legal Provisions
@@ -2179,16 +2175,17 @@ Internet-Draft                  CORECONF                       July 2024
           fulfilled.";
      }
 
-
-
-Veillette, et al.        Expires 19 January 2025               [Page 39]
-
-Internet-Draft                  CORECONF                       July 2024
-
-
      identity missing-element {
        base error-tag;
        description
+
+
+
+Veillette, et al.        Expires 7 November 2025               [Page 39]
+
+Internet-Draft                  CORECONF                        May 2025
+
+
          "Returned by the CORECONF server when the operation requested
           by a CORECONF client fails to comply with the 'mandatory'
           constraint defined. The 'mandatory' constraint is
@@ -2234,17 +2231,17 @@ Internet-Draft                  CORECONF                       July 2024
      }
 
      identity malformed-message {
-
-
-
-Veillette, et al.        Expires 19 January 2025               [Page 40]
-
-Internet-Draft                  CORECONF                       July 2024
-
-
        base error-app-tag;
        description
          "Returned by the CORECONF server when the payload received
+
+
+
+Veillette, et al.        Expires 7 November 2025               [Page 40]
+
+Internet-Draft                  CORECONF                        May 2025
+
+
           from the CORECONF client don't contain a well-formed CBOR
           content as defined in [RFC8949] or don't
           comply with the CBOR structure defined within this
@@ -2290,17 +2287,17 @@ Internet-Draft                  CORECONF                       July 2024
        base error-app-tag;
        description
          "Returned by the CORECONF server when CBOR encoding is
-
-
-
-Veillette, et al.        Expires 19 January 2025               [Page 41]
-
-Internet-Draft                  CORECONF                       July 2024
-
-
           incorect or when the value encoded is incompatible with
           the YANG Built-In type. (e.g., value greater than 127
           for an int8, undefined enumeration).";
+
+
+
+Veillette, et al.        Expires 7 November 2025               [Page 41]
+
+Internet-Draft                  CORECONF                        May 2025
+
+
      }
 
      identity not-in-range {
@@ -2346,17 +2343,16 @@ Internet-Draft                  CORECONF                       July 2024
        description
          "Returned by the CORECONF server when a leaf of type
           'instance-identifier' or 'leafref' marked with
-
-
-
-Veillette, et al.        Expires 19 January 2025               [Page 42]
-
-Internet-Draft                  CORECONF                       July 2024
-
-
           require-instance set to 'true' refers to an instance
           that does not exist.";
      }
+
+
+
+Veillette, et al.        Expires 7 November 2025               [Page 42]
+
+Internet-Draft                  CORECONF                        May 2025
+
 
      identity missing-choice {
        base error-app-tag;
@@ -2402,17 +2398,17 @@ Internet-Draft                  CORECONF                       July 2024
        }
      }
    }
-
-
-
-Veillette, et al.        Expires 19 January 2025               [Page 43]
-
-Internet-Draft                  CORECONF                       July 2024
-
-
    <CODE ENDS>
 
-                    Figure 4: ietf-coreconf YANG module
+                    Figure 5: ietf-coreconf YANG module
+
+
+
+
+Veillette, et al.        Expires 7 November 2025               [Page 43]
+
+Internet-Draft                  CORECONF                        May 2025
+
 
 Appendix B.  ietf-coreconf .sid file
 
@@ -2458,18 +2454,18 @@ Appendix B.  ietf-coreconf .sid file
          {
            "namespace": "identity",
            "identifier": "error",
-
-
-
-Veillette, et al.        Expires 19 January 2025               [Page 44]
-
-Internet-Draft                  CORECONF                       July 2024
-
-
            "sid": "1005"
          },
          {
            "namespace": "identity",
+
+
+
+Veillette, et al.        Expires 7 November 2025               [Page 44]
+
+Internet-Draft                  CORECONF                        May 2025
+
+
            "identifier": "error-app-tag",
            "sid": "1006"
          },
@@ -2514,18 +2510,18 @@ Internet-Draft                  CORECONF                       July 2024
            "sid": "1014"
          },
          {
-
-
-
-Veillette, et al.        Expires 19 January 2025               [Page 45]
-
-Internet-Draft                  CORECONF                       July 2024
-
-
            "namespace": "identity",
            "identifier": "missing-input-parameter",
            "sid": "1015"
          },
+
+
+
+Veillette, et al.        Expires 7 November 2025               [Page 45]
+
+Internet-Draft                  CORECONF                        May 2025
+
+
          {
            "namespace": "identity",
            "identifier": "missing-key",
@@ -2570,18 +2566,18 @@ Internet-Draft                  CORECONF                       July 2024
            "namespace": "identity",
            "identifier": "unknown-element",
            "sid": "1023"
-
-
-
-Veillette, et al.        Expires 19 January 2025               [Page 46]
-
-Internet-Draft                  CORECONF                       July 2024
-
-
          },
          {
            "namespace": "data",
            "identifier": "/ietf-coreconf:error",
+
+
+
+Veillette, et al.        Expires 7 November 2025               [Page 46]
+
+Internet-Draft                  CORECONF                        May 2025
+
+
            "sid": "1024"
          },
          {
@@ -2609,7 +2605,37 @@ Internet-Draft                  CORECONF                       July 2024
    }
    <CODE ENDS>
 
-                      Figure 5: ietf-coreconf SID file
+                      Figure 6: ietf-coreconf SID file
+
+List of Figures
+
+   Figure 1:  Abstract CORECONF architecture
+   Figure 2:  Discovery Example: Data Store
+   Figure 3:  Discovery Example: Data Node
+   Figure 4:  Discovery Example: Event Stream
+   Figure 5:  ietf-coreconf YANG module
+   Figure 6:  ietf-coreconf SID file
+
+List of Tables
+
+   Table 1:   Summary of Media-Type Usages
+   Table 2:   Characteristics of the Unified Datastore
+   Table 3:   Resources, example paths, and resource types (rt)
+   Table 4:   CoAP Methods in CORECONF
+   Table 5:   Query Parameters for FETCH
+   Table 6:   Values for the 'c' query parameter
+   Table 7:   Values for the 'd' query parameter
+   Table 8:   Resource Types
+
+
+
+Veillette, et al.        Expires 7 November 2025               [Page 47]
+
+Internet-Draft                  CORECONF                        May 2025
+
+
+   Table 9:   Content Formats
+   Table 10:  Media Types
 
 Acknowledgments
 
@@ -2626,13 +2652,6 @@ Acknowledgments
    Michael van Hartskamp, Tanguy Ropitault, Jürgen Schönwälder, Anuj
    Sehgal, Zach Shelby, Hannes Tschofenig, Michael Verschoor, and Thomas
    Watteyne.
-
-
-
-Veillette, et al.        Expires 19 January 2025               [Page 47]
-
-Internet-Draft                  CORECONF                       July 2024
-
 
 Contributors
 
@@ -2663,6 +2682,14 @@ Authors' Addresses
    2 rue de la Châtaigneraie
    35510 Cesson-Sevigne
    France
+
+
+
+Veillette, et al.        Expires 7 November 2025               [Page 48]
+
+Internet-Draft                  CORECONF                        May 2025
+
+
    Email: alexander.pelov@imt-atlantique.fr
 
 
@@ -2685,4 +2712,33 @@ Authors' Addresses
 
 
 
-Veillette, et al.        Expires 19 January 2025               [Page 48]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Veillette, et al.        Expires 7 November 2025               [Page 49]
