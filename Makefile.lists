@@ -1,0 +1,3 @@
+lists.md: draft-ietf-core-comi.xml
+	kramdown-rfc-extract-figures-tables -trfc $< >$@.new
+	if cmp $@.new $@; then rm -v $@.new; else mv -v $@.new $@; fi
