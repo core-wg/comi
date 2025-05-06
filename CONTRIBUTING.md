@@ -15,20 +15,6 @@ repository constitutes Contributions to the IETF Standards Process
 You agree to comply with all applicable IETF policies and procedures, including,
 BCP 78, 79, the TLP, and the TLP rules regarding code components (e.g. being
 subject to a Simplified BSD License) in Contributions.
-
-
-## Other Resources
-
-Discussion of this work occurs on the
-[core working group mailing list](https://mailarchive.ietf.org/arch/browse/core/)
-([subscribe](https://www.ietf.org/mailman/listinfo/core)).  In addition to
-contributions in github, you are encouraged to participate in discussions there.
-
-**Note**: Some working groups adopt a policy whereby substantive discussion of
-technical issues needs to occur on the mailing list.
-
-You might also like to familiarize yourself with other
-[working group documents](https://datatracker.ietf.org/wg/core/documents/).
 ## Working Group Information
 
 Discussion of this work occurs on the [Constrained RESTful Environments
