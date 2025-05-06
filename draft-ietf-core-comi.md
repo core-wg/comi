@@ -357,7 +357,7 @@ The different Media-Type usages are summarized in the table below:
 | GET response   | event stream | application/yang-instances+cbor-seq   |
 | POST request   | rpc, action  | application/yang-instances+cbor-seq   |
 | POST response  | rpc, action  | application/yang-instances+cbor-seq   |
-{: align="left" title="Summary of Media-Type Usages"}
+{: #tbl-mt-uses align="left" title="Summary of Media-Type Usages"}
 
 ## Unified datastore {#unified-datastore}
 
@@ -377,7 +377,7 @@ Characteristics of the unified datastore are summarized in the table below:
 | How applied   | changes applied in place immediately or with a minimal delay  |
 | Protocols     | CORECONF                                              |
 | Defined in    | "ietf-coreconf"                                       |
-{: align="left" title="Characteristics of the Unified Datastore"}
+{: #tbl-ud align="left" title="Characteristics of the Unified Datastore"}
 
 # CoAP Interface {#coap-interface}
 
@@ -425,7 +425,7 @@ There are two additional query parameters for the FETCH method:
 | query parameters | Description                                                                         |
 | c                | Control selection of configuration and non-configuration data nodes (GET and FETCH) |
 | d                | Control retrieval of default values.                                                |
-{: #tbl-query-fetch align="left"}
+{: #tbl-query-fetch align="left" title="Query Parameters for FETCH"}
 
 ### Using the 'c' query parameter {#content}
 
@@ -1082,7 +1082,8 @@ REQ: GET </.well-known/core?rt=core.c.ds>
 RES: 2.05 Content (Content-Format: application/link-format)
 </c>; rt="core.c.ds";ds=1029
 ~~~~
-{: #discovery-ex-ds artwork-align="left"}
+{: #discovery-ex-ds artwork-align="left"
+title="Discovery Example: Data Store"}
 
 ### Data node Resource Discovery
 
@@ -1107,6 +1108,8 @@ RES: 2.05 Content (Content-Format: application/link-format)
 </c/a6>;rt="core.c.dn",
 </c/a7>;rt="core.c.dn"
 ~~~~
+{: #discovery-ex-dn artwork-align="left"
+title="Discovery Example: Data Node"}
 
 Without additional filtering, the list of data nodes may become prohibitively
 long. If this is the case implementations SHOULD support a way to obtain all
@@ -1130,7 +1133,8 @@ REQ: GET </.well-known/core?rt=core.c.es>
 RES: 2.05 Content (Content-Format: application/link-format)
 </s>;rt="core.c.es"
 ~~~~
-{: #discovery-ex-es artwork-align="left"}
+{: #discovery-ex-es artwork-align="left"
+title="Discovery Example: Event Stream"}
 
 
 # Error Handling {#error-handling}
@@ -1264,7 +1268,7 @@ This document adds the following resource type to the "Resource Type (rt=) Link 
 | core.c.dn   | YANG data node      | RFC XXXX  |
 | core.c.yl   | YANG module library | RFC XXXX  |
 | core.c.es   | YANG event stream   | RFC XXXX  |
-{: align="left"}
+{: #tbl-rt align="left" title="Resource Types"}
 
 // RFC Ed.: replace RFC XXXX with this RFC number and remove this note.
 
@@ -1276,7 +1280,7 @@ Review range (0-255) to the "CoAP Content-Formats", within the "Constrained REST
 | Media Type                            | Content Coding | ID   | Reference |
 | application/yang-identifiers+cbor-seq |                | TBD2 | RFC XXXX  |
 | application/yang-instances+cbor-seq   |                | TBD3 | RFC XXXX  |
-{: align="left"}
+{: #tbl-ct align="left" title="Content Formats"}
 
 // RFC Ed.: replace TBD2 (suggested: 141) and TBD3 (suggested: 142) with assigned IDs and remove this note.  (There is no TBD1, that was already defined in RFC 9254.)
 // RFC Ed.: replace RFC XXXX with this RFC number and remove this note.
@@ -1288,7 +1292,7 @@ This document adds the following media types to the "Media Types" registry.
 | Name                     | Template                             | Reference |
 | yang-identifiers+cbor-seq | application/yang-identifiers+cbor-seq | RFC XXXX  |
 | yang-instances+cbor-seq   | application/yang-instances+cbor-seq   | RFC XXXX  |
-{: align="left"}
+{: #tbl-mt align="left" title="Media Types"}
 
 Each of these media types share the following information:
 
@@ -1830,6 +1834,8 @@ This appendix is normative.
 ~~~~
 {: #yang-ietf-coreconf-sid sourcecode-name="ietf-coreconf@2024-03-04.sid"
 sourcecode-markers="true" title="ietf-coreconf SID file"}
+
+{::include-all lists.md}
 
 
 # Acknowledgments
