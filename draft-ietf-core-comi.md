@@ -81,7 +81,7 @@ normative:
   RFC8132: etch
   RFC8040: restconf
   RFC9254: yang-cbor
-  I-D.ietf-core-sid:
+  RFC9595: core-sid
   I-D.ietf-core-yang-library:
   RFC8342: nmda
 informative:
@@ -131,7 +131,7 @@ They use a single round-trip to complete a single editing transaction, where
 NETCONF needs multiple round trips.
 
 To promote small messages, CORECONF uses a YANG to CBOR mapping
-{{-yang-cbor}} and numeric identifiers {{I-D.ietf-core-sid}}
+{{-yang-cbor}} and numeric identifiers {{-core-sid}}
 to minimize CBOR payloads and URI length.
 
 ## Terminology {#terminology}
@@ -140,7 +140,7 @@ The following terms are defined in the YANG data modeling language {{RFC7950}}: 
 
 The following terms are defined in {{RFC6241}}: configuration data, datastore, state data.
 
-The following term is defined in {{I-D.ietf-core-sid}}: YANG schema item identifier (YANG SID, often shortened to simply SID).
+The following term is defined in {{-core-sid}}: YANG schema item identifier (YANG SID, often shortened to simply SID).
 
 The following terms are defined in the CoAP protocol {{RFC7252}}: Confirmable Message, Content-Format, Endpoint.
 
