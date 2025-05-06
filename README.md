@@ -1,6 +1,8 @@
+<!-- regenerate: on (set to off if you edit this file) -->
+
 # CoAP Management Interface (CORECONF)
 
-This is the working area for the IETF [CORE Working Group](https://datatracker.ietf.org/wg/core/documents/) Internet-Draft, "CoAP Management Interface (CORECONF)".
+This is the working area for the IETF [CORE Working Group](https://datatracker.ietf.org/group/core/documents/) Internet-Draft, "CoAP Management Interface (CORECONF)".
 
 * [Editor's Copy](https://core-wg.github.io/comi/#go.draft-ietf-core-comi.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-ietf-core-comi)
