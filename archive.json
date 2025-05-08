@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-03-19T01:39:04.876354+00:00",
+  "timestamp": "2025-05-08T00:59:49.870974+00:00",
   "repo": "core-wg/comi",
   "labels": [
     {
@@ -37,6 +37,11 @@
       "name": "wontfix",
       "description": null,
       "color": "ffffff"
+    },
+    {
+      "name": "editorial-nice-to-have",
+      "description": "",
+      "color": "fef2c0"
     }
   ],
   "issues": [
@@ -63,6 +68,78 @@
           "updatedAt": "2021-12-11T23:20:29Z"
         }
       ]
+    },
+    {
+      "number": 12,
+      "id": "I_kwDOBM6Qn85-SnB5",
+      "title": "Response code for RPC/Action needs to be 2.04 (Changed)",
+      "url": "https://github.com/core-wg/comi/issues/12",
+      "state": "CLOSED",
+      "author": "cabo",
+      "authorAssociation": "MEMBER",
+      "assignees": [
+        "cabo"
+      ],
+      "labels": [],
+      "body": "Section 3.5 says that the response code for RPC/Action is 2.05.\r\nThat doesn't mesh with RFC 7252, which has 2.04 for this specific case.\r\nThe examples in 3.5, 3.5.1, and 3.5.2 are correct (say 2.04), only the text says 2.05.\r\n\r\n(reported by Michel Veillette)\r\n\r\n(The title of 3.5 could also be updated to \"RPC and Action Statements\".)",
+      "createdAt": "2024-02-05T15:17:27Z",
+      "updatedAt": "2024-03-03T22:12:41Z",
+      "closedAt": "2024-03-03T22:12:41Z",
+      "comments": []
+    },
+    {
+      "number": 14,
+      "id": "I_kwDOBM6Qn86BMMMb",
+      "title": "Section 2.3: Examples of each media type would be helpful here",
+      "url": "https://github.com/core-wg/comi/issues/14",
+      "state": "OPEN",
+      "author": "cabo",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [
+        "editorial-nice-to-have"
+      ],
+      "body": "(Andy Bierman, <https://mailarchive.ietf.org/arch/msg/core/XLv4ZusZubBrJPC5aW7UqqeHrxw>)\r\n",
+      "createdAt": "2024-03-04T18:19:01Z",
+      "updatedAt": "2024-03-04T18:19:01Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 15,
+      "id": "I_kwDOBM6Qn86BMT4Z",
+      "title": "Do we need RESTCONF depth/fields filters?",
+      "url": "https://github.com/core-wg/comi/issues/15",
+      "state": "OPEN",
+      "author": "cabo",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [
+        "enhancement"
+      ],
+      "body": "(Andy Bierman, <https://mailarchive.ietf.org/arch/msg/core/XLv4ZusZubBrJPC5aW7UqqeHrxw>)\r\n\r\nThe client must know all of the key values in advance\r\nbefore being able to use the SID of a data node\r\nin a FETCH request.  It is difficult and expensive\r\nto retrieve the entire datastore contents at once,\r\njust to discover the key values in use for the YANG list\r\nentries within the datastore.\r\n\r\nRESTCONF has the 'depth' and 'fields' filter parameters\r\nto address this issue. NETCONF has subtree and XPath filtering.\r\nNETCONF servers can generally support selection of 1 value or all\r\nvalues, for each key.\r\n\r\nPerhaps CORECONF will need the 'depth' filter parameter.\r\n",
+      "createdAt": "2024-03-04T18:37:54Z",
+      "updatedAt": "2024-03-04T18:37:54Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 16,
+      "id": "I_kwDOBM6Qn86BMoFx",
+      "title": "Add examples for RPC/action without input parameters",
+      "url": "https://github.com/core-wg/comi/issues/16",
+      "state": "OPEN",
+      "author": "cabo",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [
+        "editorial-nice-to-have"
+      ],
+      "body": "(Andy Bierman, <https://mailarchive.ietf.org/arch/msg/core/XLv4ZusZubBrJPC5aW7UqqeHrxw>)\r\n",
+      "createdAt": "2024-03-04T19:18:55Z",
+      "updatedAt": "2024-03-04T19:18:55Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
@@ -191,6 +268,216 @@
       },
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 6,
+      "id": "PR_kwDOBM6Qn85Ti3tE",
+      "title": "Simplify (as per IETF 116 and followup discussions)",
+      "url": "https://github.com/core-wg/comi/pull/6",
+      "state": "MERGED",
+      "author": "cabo",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-06-21T12:55:08Z",
+      "updatedAt": "2023-06-21T12:55:30Z",
+      "baseRepository": "core-wg/comi",
+      "baseRefName": "main",
+      "baseRefOid": "5cad00e26a1f71b5e69c847c82868f898c811bf5",
+      "headRepository": "core-wg/comi",
+      "headRefName": "simplify",
+      "headRefOid": "de901ac7c12d2891ef4fd5d134760d996990216e",
+      "closedAt": "2023-06-21T12:55:29Z",
+      "mergedAt": "2023-06-21T12:55:29Z",
+      "mergedBy": "cabo",
+      "mergeCommit": {
+        "oid": "5985e05dfa7b5949d82f868400ea868bc5c89dba"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDOBM6Qn85UjNGL",
+      "title": "Correctly use cborseq, fix action example",
+      "url": "https://github.com/core-wg/comi/pull/7",
+      "state": "MERGED",
+      "author": "cabo",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-07-03T18:25:52Z",
+      "updatedAt": "2023-07-10T20:25:36Z",
+      "baseRepository": "core-wg/comi",
+      "baseRefName": "main",
+      "baseRefOid": "3dd3702794f0c66ce459e8a1f94a3352bc157736",
+      "headRepository": "core-wg/comi",
+      "headRefName": "cborseq",
+      "headRefOid": "0d4212b97ed4a665cefd9cc60354d8b1595f0b48",
+      "closedAt": "2023-07-10T20:25:36Z",
+      "mergedAt": "2023-07-10T20:25:36Z",
+      "mergedBy": "cabo",
+      "mergeCommit": {
+        "oid": "eb10513cd06de4d08112a226a9e2d47772fba777"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 8,
+      "id": "PR_kwDOBM6Qn85WJbCf",
+      "title": "Changes as per IANA early review (IETF 117)",
+      "url": "https://github.com/core-wg/comi/pull/8",
+      "state": "MERGED",
+      "author": "cabo",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-07-22T12:53:30Z",
+      "updatedAt": "2023-07-23T22:47:51Z",
+      "baseRepository": "core-wg/comi",
+      "baseRefName": "main",
+      "baseRefOid": "c2892b2feadd304e13320b8e3397716102a49830",
+      "headRepository": "core-wg/comi",
+      "headRefName": "iana-early-review-117",
+      "headRefOid": "1b9565ed901abac1a4d0410ab3d08f079099d581",
+      "closedAt": "2023-07-23T22:47:51Z",
+      "mergedAt": "2023-07-23T22:47:51Z",
+      "mergedBy": "cabo",
+      "mergeCommit": {
+        "oid": "d5d1090b80c8e8f9977e794d5f4ca85d5d3a503f"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 9,
+      "id": "PR_kwDOBM6Qn85ZaM5Q",
+      "title": "Update sid file",
+      "url": "https://github.com/core-wg/comi/pull/9",
+      "state": "MERGED",
+      "author": "cabo",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "Use sid-csv tool to make sid file compatible with core-sid",
+      "createdAt": "2023-09-02T18:10:43Z",
+      "updatedAt": "2023-09-04T19:14:20Z",
+      "baseRepository": "core-wg/comi",
+      "baseRefName": "main",
+      "baseRefOid": "d5d1090b80c8e8f9977e794d5f4ca85d5d3a503f",
+      "headRepository": "core-wg/comi",
+      "headRefName": "sid-file",
+      "headRefOid": "10535b94681d432e8a7a7149376d5f07274de696",
+      "closedAt": "2023-09-04T19:14:20Z",
+      "mergedAt": "2023-09-04T19:14:20Z",
+      "mergedBy": "cabo",
+      "mergeCommit": {
+        "oid": "81cf33bc85bf6af208a10379be883f5ec2d11cd3"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 10,
+      "id": "PR_kwDOBM6Qn85ZaPDG",
+      "title": "Process yellow notes",
+      "url": "https://github.com/core-wg/comi/pull/10",
+      "state": "MERGED",
+      "author": "cabo",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "* nits\r\n* remove yellow notes no longer needed\r\n* resolve last yellow note: Use FETCH for notification filters, too",
+      "createdAt": "2023-09-02T18:46:01Z",
+      "updatedAt": "2023-09-04T19:18:55Z",
+      "baseRepository": "core-wg/comi",
+      "baseRefName": "main",
+      "baseRefOid": "d5d1090b80c8e8f9977e794d5f4ca85d5d3a503f",
+      "headRepository": "core-wg/comi",
+      "headRefName": "yellow-notes",
+      "headRefOid": "f8e36dd2462c29e95cd64bfa2cfbc5dfb8755a9b",
+      "closedAt": "2023-09-04T19:18:55Z",
+      "mergedAt": "2023-09-04T19:18:55Z",
+      "mergedBy": "cabo",
+      "mergeCommit": {
+        "oid": "da727f9e99d74487e48454bce6f43f2d40678f01"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 11,
+      "id": "PR_kwDOBM6Qn85ZgxBv",
+      "title": "Small oversight in table 4",
+      "url": "https://github.com/core-wg/comi/pull/11",
+      "state": "MERGED",
+      "author": "cabo",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-09-04T19:35:12Z",
+      "updatedAt": "2024-04-17T07:56:58Z",
+      "baseRepository": "core-wg/comi",
+      "baseRefName": "main",
+      "baseRefOid": "da727f9e99d74487e48454bce6f43f2d40678f01",
+      "headRepository": "core-wg/comi",
+      "headRefName": "oversight",
+      "headRefOid": "a91b0381f885229be1bada0a0f7c9a13281ad60b",
+      "closedAt": "2024-02-28T13:42:52Z",
+      "mergedAt": "2024-02-28T13:42:52Z",
+      "mergedBy": "cabo",
+      "mergeCommit": {
+        "oid": "3d83a576817adc7bcc34c41741a9bfabff40cac0"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 13,
+      "id": "PR_kwDOBM6Qn85oLREE",
+      "title": "Close #12 RPC/Action response code wrong in text, right in examples",
+      "url": "https://github.com/core-wg/comi/pull/13",
+      "state": "MERGED",
+      "author": "cabo",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-02-28T14:00:09Z",
+      "updatedAt": "2024-03-03T22:12:40Z",
+      "baseRepository": "core-wg/comi",
+      "baseRefName": "main",
+      "baseRefOid": "3d83a576817adc7bcc34c41741a9bfabff40cac0",
+      "headRepository": "core-wg/comi",
+      "headRefName": "rpc-action-response-code",
+      "headRefOid": "73926fd84f058492e00f1186ca4e4ee45e0e98dd",
+      "closedAt": "2024-03-03T22:12:40Z",
+      "mergedAt": "2024-03-03T22:12:39Z",
+      "mergedBy": "cabo",
+      "mergeCommit": {
+        "oid": "ab554fbe7262ef664f16fd6db51697963d953d37"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOBM6Qn85xpS6c",
+          "commit": {
+            "abbreviatedOid": "e97e816"
+          },
+          "author": "petervanderstok",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "all those details are killing.",
+          "createdAt": "2024-02-28T16:00:54Z",
+          "updatedAt": "2024-02-28T16:00:54Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
