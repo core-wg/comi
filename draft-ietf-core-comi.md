@@ -1385,12 +1385,13 @@ module ietf-coreconf {
       "RFC 8342: Network Management Datastore Architecture (NMDA)";
   }
 
-  import ietf-restconf {
-    prefix rc;
+  import ietf-yang-structure {
+    prefix sx;
     description
-      "This import statement is required to access
-       the yang-data extension defined in RFC 8040.";
-    reference "RFC 8040: RESTCONF Protocol";
+      "This import statement provides structure
+       extension statement of the
+       YANG Data Structure Extension.";
+    reference "RFC 8791: YANG Data Structure Extension";
   }
 
   organization
@@ -1620,40 +1621,38 @@ module ietf-coreconf {
        mandatory choice.";
   }
 
-  rc:yang-data coreconf-error {
-    container error {
+  sx:structure error {
+    description
+      "Optional payload of a 4.00 Bad Request CoAP error.";
+
+    leaf error-tag {
+      type identityref {
+        base error-tag;
+      }
+      mandatory true;
       description
-        "Optional payload of a 4.00 Bad Request CoAP error.";
+        "The enumerated error-tag.";
+    }
 
-      leaf error-tag {
-        type identityref {
-          base error-tag;
-        }
-        mandatory true;
-        description
-          "The enumerated error-tag.";
+    leaf error-app-tag {
+      type identityref {
+        base error-app-tag;
       }
+      description
+        "The application-specific error-tag.";
+    }
 
-      leaf error-app-tag {
-        type identityref {
-          base error-app-tag;
-        }
-        description
-          "The application-specific error-tag.";
-      }
+    leaf error-data-node {
+      type instance-identifier;
+      description
+        "When the error reported is caused by a specific data node,
+         this leaf identifies the data node in error.";
+    }
 
-      leaf error-data-node {
-        type instance-identifier;
-        description
-          "When the error reported is caused by a specific data node,
-           this leaf identifies the data node in error.";
-      }
-
-      leaf error-message {
-        type string;
-        description
-          "A message describing the error.";
-      }
+    leaf error-message {
+      type string;
+      description
+        "A message describing the error.";
     }
   }
 }
