@@ -85,7 +85,10 @@ normative:
   I-D.ietf-core-yang-library:
   RFC8342: nmda
 informative:
-  RFC6347: dtls12
+  RFC6347:
+    -: dtls12
+    ann: >
+      &#x2028;This specification is obsoleted by [RFC9147].
   RFC6690:
   RFC8343:
   RFC7317:
@@ -1385,12 +1388,11 @@ module ietf-coreconf {
       "RFC 8342: Network Management Datastore Architecture (NMDA)";
   }
 
-  import ietf-yang-structure {
+  import ietf-yang-structure-ext {
     prefix sx;
     description
-      "This import statement provides structure
-       extension statement of the
-       YANG Data Structure Extension.";
+      "This import statement provides the structure extension
+       statement of the YANG Data Structure Extension.";
     reference "RFC 8791: YANG Data Structure Extension";
   }
 
@@ -1417,7 +1419,7 @@ module ietf-coreconf {
     "This module contains the different definitions required
      by the CORECONF protocol.
 
-     Copyright (c) 2024 IETF Trust and the persons identified as
+     Copyright (c) 2026 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
 
      Redistribution and use in source and binary forms, with or
@@ -1430,9 +1432,9 @@ module ietf-coreconf {
      This version of this YANG module is part of RFC XXXX;
      see the RFC itself for full legal notices.";
 
-  revision 2024-03-04 {
+  revision 2026-03-02 {
      description
-      "Initial revision.";
+      "Use sx:, not rc:.";
     reference
       "[I-D.ietf-core-comi] CoAP Management Interface";
   }
@@ -1657,7 +1659,7 @@ module ietf-coreconf {
   }
 }
 ~~~~
-{: #yang-ietf-coreconf sourcecode-name="ietf-coreconf@2024-03-04.yang"
+{: #yang-ietf-coreconf sourcecode-name="ietf-coreconf@2026-03-02.yang"
 sourcecode-markers="true" title="ietf-coreconf YANG module"}
 
 
@@ -1669,7 +1671,7 @@ This appendix is normative.
 {
   "ietf-sid-file:sid-file": {
     "module-name": "ietf-coreconf",
-    "module-revision": "2024-03-04",
+    "module-revision": "2026-03-02",
     "assignment-range": [
       {
         "entry-point": "1000",
@@ -1831,7 +1833,7 @@ This appendix is normative.
   }
 }
 ~~~~
-{: #yang-ietf-coreconf-sid sourcecode-name="ietf-coreconf@2024-03-04.sid"
+{: #yang-ietf-coreconf-sid sourcecode-name="ietf-coreconf@2026-03-02.sid"
 sourcecode-markers="true" title="ietf-coreconf SID file"}
 
 {::include-all lists.md}
@@ -1860,5 +1862,6 @@ The specification has further benefited from comments (alphabetical order) by
 {{{Zach Shelby}}},
 {{{Hannes Tschofenig}}},
 {{{Michael Verschoor}}},
+{{{Vojtech Vilimek}}},
 and
 {{{Thomas Watteyne}}}.
