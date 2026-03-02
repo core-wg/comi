@@ -2028,6 +2028,7 @@ Internet-Draft                  CORECONF                      March 2026
    [RFC6347]  Rescorla, E. and N. Modadugu, "Datagram Transport Layer
               Security Version 1.2", RFC 6347, DOI 10.17487/RFC6347,
               January 2012, <https://www.rfc-editor.org/rfc/rfc6347>.
+              This specification is obsoleted by [RFC9147].
 
    [RFC6690]  Shelby, Z., "Constrained RESTful Environments (CoRE) Link
               Format", RFC 6690, DOI 10.17487/RFC6690, August 2012,
@@ -2068,13 +2069,12 @@ Appendix A.  ietf-coreconf YANG module
 
 
 
-
 Veillette, et al.       Expires 3 September 2026               [Page 37]
 
 Internet-Draft                  CORECONF                      March 2026
 
 
-   <CODE BEGINS> file "ietf-coreconf@2024-03-04.yang"
+   <CODE BEGINS> file "ietf-coreconf@2026-03-02.yang"
    module ietf-coreconf {
      yang-version 1.1;
 
@@ -2087,12 +2087,11 @@ Internet-Draft                  CORECONF                      March 2026
          "RFC 8342: Network Management Datastore Architecture (NMDA)";
      }
 
-     import ietf-yang-structure {
+     import ietf-yang-structure-ext {
        prefix sx;
        description
-         "This import statement provides structure
-          extension statement of the
-          YANG Data Structure Extension.";
+         "This import statement provides the structure extension
+          statement of the YANG Data Structure Extension.";
        reference "RFC 8791: YANG Data Structure Extension";
      }
 
@@ -2119,9 +2118,10 @@ Internet-Draft                  CORECONF                      March 2026
        "This module contains the different definitions required
         by the CORECONF protocol.
 
-        Copyright (c) 2024 IETF Trust and the persons identified as
+        Copyright (c) 2026 IETF Trust and the persons identified as
         authors of the code.  All rights reserved.
 
+        Redistribution and use in source and binary forms, with or
 
 
 
@@ -2130,7 +2130,6 @@ Veillette, et al.       Expires 3 September 2026               [Page 38]
 Internet-Draft                  CORECONF                      March 2026
 
 
-        Redistribution and use in source and binary forms, with or
         without modification, is permitted pursuant to, and subject
         to the license terms contained in, the Revised BSD License
         set forth in Section 4.c of the IETF Trust's Legal Provisions
@@ -2140,9 +2139,9 @@ Internet-Draft                  CORECONF                      March 2026
         This version of this YANG module is part of RFC XXXX;
         see the RFC itself for full legal notices.";
 
-     revision 2024-03-04 {
+     revision 2026-03-02 {
         description
-         "Initial revision.";
+         "Use sx:, not rc:.";
        reference
          "[I-D.ietf-core-comi] CoAP Management Interface";
      }
@@ -2178,6 +2177,7 @@ Internet-Draft                  CORECONF                      March 2026
 
      identity missing-element {
        base error-tag;
+       description
 
 
 
@@ -2186,7 +2186,6 @@ Veillette, et al.       Expires 3 September 2026               [Page 39]
 Internet-Draft                  CORECONF                      March 2026
 
 
-       description
          "Returned by the CORECONF server when the operation requested
           by a CORECONF client fails to comply with the 'mandatory'
           constraint defined. The 'mandatory' constraint is
@@ -2234,6 +2233,7 @@ Internet-Draft                  CORECONF                      March 2026
      identity malformed-message {
        base error-app-tag;
        description
+         "Returned by the CORECONF server when the payload received
 
 
 
@@ -2242,7 +2242,6 @@ Veillette, et al.       Expires 3 September 2026               [Page 40]
 Internet-Draft                  CORECONF                      March 2026
 
 
-         "Returned by the CORECONF server when the payload received
           from the CORECONF client don't contain a well-formed CBOR
           content as defined in [RFC8949] or don't
           comply with the CBOR structure defined within this
@@ -2290,6 +2289,7 @@ Internet-Draft                  CORECONF                      March 2026
          "Returned by the CORECONF server when CBOR encoding is
           incorect or when the value encoded is incompatible with
           the YANG Built-In type. (e.g., value greater than 127
+          for an int8, undefined enumeration).";
 
 
 
@@ -2298,7 +2298,6 @@ Veillette, et al.       Expires 3 September 2026               [Page 41]
 Internet-Draft                  CORECONF                      March 2026
 
 
-          for an int8, undefined enumeration).";
      }
 
      identity not-in-range {
@@ -2346,6 +2345,7 @@ Internet-Draft                  CORECONF                      March 2026
           'instance-identifier' or 'leafref' marked with
           require-instance set to 'true' refers to an instance
           that does not exist.";
+     }
 
 
 
@@ -2353,8 +2353,6 @@ Veillette, et al.       Expires 3 September 2026               [Page 42]
 
 Internet-Draft                  CORECONF                      March 2026
 
-
-     }
 
      identity missing-choice {
        base error-app-tag;
@@ -2405,6 +2403,8 @@ Internet-Draft                  CORECONF                      March 2026
 
 
 
+
+
 Veillette, et al.       Expires 3 September 2026               [Page 43]
 
 Internet-Draft                  CORECONF                      March 2026
@@ -2414,11 +2414,11 @@ Appendix B.  ietf-coreconf .sid file
 
    This appendix is normative.
 
-   <CODE BEGINS> file "ietf-coreconf@2024-03-04.sid"
+   <CODE BEGINS> file "ietf-coreconf@2026-03-02.sid"
    {
      "ietf-sid-file:sid-file": {
        "module-name": "ietf-coreconf",
-       "module-revision": "2024-03-04",
+       "module-revision": "2026-03-02",
        "assignment-range": [
          {
            "entry-point": "1000",
@@ -2650,8 +2650,8 @@ Acknowledgments
    The specification has further benefited from comments (alphabetical
    order) by Rodney Cummings, Dee Denteneer, Esko Dijk, Klaus Hartke,
    Michael van Hartskamp, Tanguy Ropitault, Jürgen Schönwälder, Anuj
-   Sehgal, Zach Shelby, Hannes Tschofenig, Michael Verschoor, and Thomas
-   Watteyne.
+   Sehgal, Zach Shelby, Hannes Tschofenig, Michael Verschoor, Vojtech
+   Vilimek, and Thomas Watteyne.
 
 Contributors
 

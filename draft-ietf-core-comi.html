@@ -3282,7 +3282,8 @@ Registry", following the format defined in <span>[<a href="#RFC3688" class="cite
 <dl class="references">
 <dt id="RFC6347">[RFC6347]</dt>
         <dd>
-<span class="refAuthor">Rescorla, E.</span> and <span class="refAuthor">N. Modadugu</span>, <span class="refTitle">"Datagram Transport Layer Security Version 1.2"</span>, <span class="seriesInfo">RFC 6347</span>, <span class="seriesInfo">DOI 10.17487/RFC6347</span>, <time datetime="2012-01" class="refDate">January 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6347">https://www.rfc-editor.org/rfc/rfc6347</a>&gt;</span>. </dd>
+<span class="refAuthor">Rescorla, E.</span> and <span class="refAuthor">N. Modadugu</span>, <span class="refTitle">"Datagram Transport Layer Security Version 1.2"</span>, <span class="seriesInfo">RFC 6347</span>, <span class="seriesInfo">DOI 10.17487/RFC6347</span>, <time datetime="2012-01" class="refDate">January 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6347">https://www.rfc-editor.org/rfc/rfc6347</a>&gt;</span>. <span class="annotation"><br>This specification is obsoleted by <span>[<a href="#RFC9147" class="cite xref">RFC9147</a>]</span>.</span>
+        </dd>
 <dd class="break"></dd>
 <dt id="RFC6690">[RFC6690]</dt>
         <dd>
@@ -3322,7 +3323,7 @@ Registry", following the format defined in <span>[<a href="#RFC3688" class="cite
 <span id="name-ietf-coreconf-yang-module-2"></span><div id="yang-ietf-coreconf">
 <figure id="figure-5">
         <div class="breakable lang-yang sourcecode" id="appendix-A-2.1">
-<pre>&lt;CODE BEGINS&gt; file "ietf-coreconf@2024-03-04.yang"
+<pre>&lt;CODE BEGINS&gt; file "ietf-coreconf@2026-03-02.yang"
 
 module ietf-coreconf {
   yang-version 1.1;
@@ -3336,12 +3337,11 @@ module ietf-coreconf {
       "RFC 8342: Network Management Datastore Architecture (NMDA)";
   }
 
-  import ietf-yang-structure {
+  import ietf-yang-structure-ext {
     prefix sx;
     description
-      "This import statement provides structure
-       extension statement of the
-       YANG Data Structure Extension.";
+      "This import statement provides the structure extension
+       statement of the YANG Data Structure Extension.";
     reference "RFC 8791: YANG Data Structure Extension";
   }
 
@@ -3368,7 +3368,7 @@ module ietf-coreconf {
     "This module contains the different definitions required
      by the CORECONF protocol.
 
-     Copyright (c) 2024 IETF Trust and the persons identified as
+     Copyright (c) 2026 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
 
      Redistribution and use in source and binary forms, with or
@@ -3381,9 +3381,9 @@ module ietf-coreconf {
      This version of this YANG module is part of RFC XXXX;
      see the RFC itself for full legal notices.";
 
-  revision 2024-03-04 {
+  revision 2026-03-02 {
      description
-      "Initial revision.";
+      "Use sx:, not rc:.";
     reference
       "[I-D.ietf-core-comi] CoAP Management Interface";
   }
@@ -3625,12 +3625,12 @@ module ietf-coreconf {
 <span id="name-ietf-coreconf-sid-file-2"></span><div id="yang-ietf-coreconf-sid">
 <figure id="figure-6">
         <div class="breakable lang-yang sourcecode" id="appendix-B-2.1">
-<pre>&lt;CODE BEGINS&gt; file "ietf-coreconf@2024-03-04.sid"
+<pre>&lt;CODE BEGINS&gt; file "ietf-coreconf@2026-03-02.sid"
 
 {
   "ietf-sid-file:sid-file": {
     "module-name": "ietf-coreconf",
-    "module-revision": "2024-03-04",
+    "module-revision": "2026-03-02",
     "assignment-range": [
       {
         "entry-point": "1000",
@@ -3937,6 +3937,7 @@ under SNMP.
 <span class="contact-name">Zach Shelby</span>,
 <span class="contact-name">Hannes Tschofenig</span>,
 <span class="contact-name">Michael Verschoor</span>,
+<span class="contact-name">Vojtech Vilimek</span>,
 and
 <span class="contact-name">Thomas Watteyne</span>.<a href="#appendix-E-3" class="pilcrow">¶</a></p>
 </section>
