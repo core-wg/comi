@@ -348,7 +348,7 @@ application/yang-instances+cbor-seq:
   SID in the instance-identifier.
 
 : When present in an iPATCH request payload, this Media-Type carry a list of data node instances to be replaced, created, or deleted.
-  For each data node instance D, for which the instance-identifier is the same as a data node instance I, in the targeted datastore resource: the value of D replaces the value of I.  When the value of D is null, the data node instance I is removed.  When the targeted datastore resource does not contain a data node instance with the same instance-identifier as D, a new instance is created with the same instance-identifier and value as D (unless the value of D is null).
+  For each data node instance D, for which the instance-identifier is the same as a data node instance I, in the targeted datastore resource: the value of D replaces the value of I.  When the value of D is the CBOR simple value »`undefined`« (simple value 23, encoded 0xF7), the data node instance I is removed.  When the targeted datastore resource does not contain a data node instance with the same instance-identifier as D, a new instance is created with the same instance-identifier and value as D (unless the value of D is »`undefined`«).
 
 
 The different Media-Type usages are summarized in the table below:
@@ -484,7 +484,7 @@ The FETCH method is used to retrieve one or more instance-values.
 The FETCH request payload contains the list of instance-identifiers of the data node instances requested.
 
 The return response payload contains a list of data node instance-values in the same order as requested.
-A CBOR null is returned for each data node requested by the client, not supported by the server or not currently instantiated.
+A CBOR simple value »`undefined`« is returned for each data node requested by the client, not supported by the server or not currently instantiated.
 
 For compactness, indexes of the list instance identifiers returned by the FETCH response SHOULD be elided, only the SID is provided.
 That means that the client is responsible for remembering the full
@@ -567,7 +567,7 @@ The processing of the iPATCH command is specified by Media-Type application/yang
 In summary, if the CBOR patch payload contains a data node instance that is not present
 in the target, this instance is added. If the target contains the specified instance,
 the content of this instance is replaced with the value of the payload.
-A null value indicates the removal of an existing data node instance.
+A CBOR simple value of »`undefined`« indicates the removal of an existing data node instance.
 
 
 ~~~~
@@ -596,7 +596,7 @@ REQ: iPATCH </c>
   1755 : true                   / enabled (SID 1755) /
 },
 {
-  [1756, "tac.nrc.ca"] : null   / server (SID 1756) /
+  [1756, "tac.nrc.ca"] : undefined / server (SID 1756) /
 },
 {
   1756 : {                      / server (SID 1756) /
@@ -612,7 +612,7 @@ RES: 2.04 Changed
 ~~~~
 
 
-A data node resource is deleted using an iPATCH with a null value, as seen in this example.
+A data node resource is deleted using an iPATCH with a CBOR simple value »`undefined`«, as seen in this example.
 
 
 
