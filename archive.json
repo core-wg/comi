@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-05-08T00:59:49.870974+00:00",
+  "timestamp": "2026-05-03T02:47:47.541284+00:00",
   "repo": "core-wg/comi",
   "labels": [
     {
@@ -119,9 +119,24 @@
       ],
       "body": "(Andy Bierman, <https://mailarchive.ietf.org/arch/msg/core/XLv4ZusZubBrJPC5aW7UqqeHrxw>)\r\n\r\nThe client must know all of the key values in advance\r\nbefore being able to use the SID of a data node\r\nin a FETCH request.  It is difficult and expensive\r\nto retrieve the entire datastore contents at once,\r\njust to discover the key values in use for the YANG list\r\nentries within the datastore.\r\n\r\nRESTCONF has the 'depth' and 'fields' filter parameters\r\nto address this issue. NETCONF has subtree and XPath filtering.\r\nNETCONF servers can generally support selection of 1 value or all\r\nvalues, for each key.\r\n\r\nPerhaps CORECONF will need the 'depth' filter parameter.\r\n",
       "createdAt": "2024-03-04T18:37:54Z",
-      "updatedAt": "2024-03-04T18:37:54Z",
+      "updatedAt": "2025-07-25T14:47:20Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "abierman",
+          "authorAssociation": "NONE",
+          "body": "Follow up: OK to defer to future\n\n- The client does not need to know all the keys in advance to get all the list entries, by getting an ancestor of the list\n-  The amount of data retrieved depends on the YANG modules used. It is possible to design containers with limited\n   child nodes and depth. It is possible to limit the maximum number of list instances, or expect a small number of entries by design,\n-  The 'depth' parameter is not likely to help in CoMI because the data trees will not be as complex or deep as NETCONF\n-  These filtering query parameters are optional in RESTCONF\n\nThe likely problem is that the list is too wide, not too deep.\nEven a simple list with 4 leafs in it is a lot of data if there are 10000 entries in the list.\nIf needed, a list pagination mechanism could be added in the future.\nNETCONF WG has work-in-progress: https://datatracker.ietf.org/doc/draft-ietf-netconf-list-pagination/\n",
+          "createdAt": "2025-07-24T19:48:05Z",
+          "updatedAt": "2025-07-24T19:48:05Z"
+        },
+        {
+          "author": "lemikev",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "For now, getting indexes, pagination, and other approaches can be implemented using RPCs.\nThis can be sufficient even for the long term.\n\nMichel\n\nFrom: Andy Bierman ***@***.***>\nSent: July 24, 2025 3:48 PM\nTo: core-wg/comi ***@***.***>\nCc: Subscribed ***@***.***>\nSubject: Re: [core-wg/comi] Do we need RESTCONF depth/fields filters? (Issue #15)\n\n\nExternal Email: Please use caution when opening links and attachments / Courriel externe: Soyez prudent avec les liens et documents joints\n[https://avatars.githubusercontent.com/u/1810575?s=20&v=4]abierman left a comment (core-wg/comi#15)<https://github.com/core-wg/comi/issues/15#issuecomment-3114726772>\n\nFollow up: OK to defer to future\n\n  *   The client does not need to know all the keys in advance to get all the list entries, by getting an ancestor of the list\n  *   The amount of data retrieved depends on the YANG modules used. It is possible to design containers with limited\nchild nodes and depth. It is possible to limit the maximum number of list instances, or expect a small number of entries by design,\n  *   The 'depth' parameter is not likely to help in CoMI because the data trees will not be as complex or deep as NETCONF\n  *   These filtering query parameters are optional in RESTCONF\n\nThe likely problem is that the list is too wide, not too deep.\nEven a simple list with 4 leafs in it is a lot of data if there are 10000 entries in the list.\nIf needed, a list pagination mechanism could be added in the future.\nNETCONF WG has work-in-progress: https://datatracker.ietf.org/doc/draft-ietf-netconf-list-pagination/\n\n-\nReply to this email directly, view it on GitHub<https://github.com/core-wg/comi/issues/15#issuecomment-3114726772>, or unsubscribe<https://github.com/notifications/unsubscribe-auth/ADZVLN7KPCBIBQZ5EI3IYCL3KE2AZAVCNFSM6AAAAACCJZH3A2VHI2DSMVQWIX3LMV43OSLTON2WKQ3PNVWWK3TUHMZTCMJUG4ZDMNZXGI>.\nYou are receiving this because you are subscribed to this thread.Message ID: ***@***.******@***.***>>\n",
+          "createdAt": "2025-07-25T14:47:20Z",
+          "updatedAt": "2025-07-25T14:47:20Z"
+        }
+      ]
     },
     {
       "number": 16,
@@ -138,6 +153,40 @@
       "body": "(Andy Bierman, <https://mailarchive.ietf.org/arch/msg/core/XLv4ZusZubBrJPC5aW7UqqeHrxw>)\r\n",
       "createdAt": "2024-03-04T19:18:55Z",
       "updatedAt": "2024-03-04T19:18:55Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 19,
+      "id": "I_kwDOBM6Qn88AAAABAuI2Qg",
+      "title": "Consistent Usage of SID number in Examples",
+      "url": "https://github.com/core-wg/comi/issues/19",
+      "state": "OPEN",
+      "author": "vvilimek",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "From [ML email sent by PABLO HERNANDEZ GALINDO](https://mailarchive.ietf.org/arch/msg/core/l7JezHjsKZaEsT0qt2LZIldBw-E/)\n\n> Consistency in SID Examples While studying the draft, I found it somewhat difficult to follow the examples because the SIDs and data models change between different sections without a clear continuity. As an implementer, it would greatly improve readability if the document followed a cohesive sequence, using the same SIDs (e.g., from a single, consistent YANG module) to demonstrate GET, FETCH, iPATCH, etc., throughout the text.",
+      "createdAt": "2026-04-28T13:02:24Z",
+      "updatedAt": "2026-04-28T13:02:24Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 20,
+      "id": "I_kwDOBM6Qn88AAAABA3aFGw",
+      "title": "\u00bbnull\u00ab is a valid data item in YANG/CBOR; need to do indicate absent/removed nodes differently",
+      "url": "https://github.com/core-wg/comi/issues/20",
+      "state": "OPEN",
+      "author": "cabo",
+      "authorAssociation": "MEMBER",
+      "assignees": [
+        "cabo"
+      ],
+      "labels": [],
+      "body": "null is used in an iPATCH to remove a data node or in a FETCH to indicate the absence of a data node.\n\nHowever, in RFC 9254 (Encoding of Data Modeled with YANG in CBOR), null is a valid data node value.\nhttps://datatracker.ietf.org/doc/html/rfc9254#section-6.11\n\nThis issue has been raised last year and not yet resolved.\nThe fix consists of replacing all instances of null in draft-ietf-core-comi by undefined.\n\nundefined is CBOR value F7, null is CBOR value F6\nhttps://datatracker.ietf.org/doc/html/rfc8949#section-5.7\n\n(Via Michel Veillette)\n ",
+      "createdAt": "2026-04-29T19:13:05Z",
+      "updatedAt": "2026-04-29T19:13:15Z",
       "closedAt": null,
       "comments": []
     }
@@ -478,6 +527,109 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 17,
+      "id": "PR_kwDOBM6Qn86wVdA5",
+      "title": "YANG Data Structure Extension",
+      "url": "https://github.com/core-wg/comi/pull/17",
+      "state": "MERGED",
+      "author": "vvilimek",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Is there a reason for using the `rc:yang-data` of RESTCONF [[RFC 8040]](https://www.rfc-editor.org/rfc/rfc8040.html) YANG `ietf-restconf` module? I think usage of `sx:structure` statement of YANG Data Structure Extension [[RFC 8791]](https://www.rfc-editor.org/rfc/rfc8791.html) (from YANG `ietf-yang-structure-ext` module) would be beneficial for future extensibility of the draft.\r\n\r\nOn the other hand the legacy `rc:yang-data` is the same construct used by RESTCONF.",
+      "createdAt": "2025-10-29T10:29:40Z",
+      "updatedAt": "2026-03-02T15:28:35Z",
+      "baseRepository": "core-wg/comi",
+      "baseRefName": "main",
+      "baseRefOid": "46b21dd1216800787d093a7a431a8fb4bb65478b",
+      "headRepository": "vvilimek/core-comi",
+      "headRefName": "main",
+      "headRefOid": "3c66d9e10faf9e78a712286c9cf1a69da45de222",
+      "closedAt": "2026-03-02T15:26:57Z",
+      "mergedAt": "2026-03-02T15:26:57Z",
+      "mergedBy": "cabo",
+      "mergeCommit": {
+        "oid": "d15ff4cb4d49b4a54e55c49564b82dea6bc0a401"
+      },
+      "comments": [
+        {
+          "author": "abierman",
+          "authorAssociation": "NONE",
+          "body": "The CoMI draft was first published in 2017, 3 years before RFC 8791.\r\nUsage of rc:yang-data is now considered deprecated, and sx:structure is used instead.\r\nNo objections to this change since YANG doctors will flag this issue anyway.\r\n",
+          "createdAt": "2025-10-29T16:22:30Z",
+          "updatedAt": "2025-10-29T16:22:30Z"
+        },
+        {
+          "author": "cabo",
+          "authorAssociation": "MEMBER",
+          "body": "Thank you.\r\nOf course, by now we also have RFC 9290, so it is not quite clear to me which of these we should actually use.\r\nI merged this base on Andy's comment on YANG doctors, but I'm not sure what the level of disturbance is that this creates.",
+          "createdAt": "2026-03-02T15:28:35Z",
+          "updatedAt": "2026-03-02T15:28:35Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 18,
+      "id": "PR_kwDOBM6Qn87WVIvC",
+      "title": "Event stream: Allow empty messages",
+      "url": "https://github.com/core-wg/comi/pull/18",
+      "state": "OPEN",
+      "author": "vvilimek",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Based on [ML](https://mailarchive.ietf.org/arch/msg/core/LtQqOfyKArItebz6TgI45_bJY0s/) and [interim](https://notes.ietf.org/notes-ietf-interim-2026-core-05-core#) discussion.\r\n",
+      "createdAt": "2026-04-28T12:27:10Z",
+      "updatedAt": "2026-04-29T17:54:53Z",
+      "baseRepository": "core-wg/comi",
+      "baseRefName": "main",
+      "baseRefOid": "efada822cf3cdffd9d50d05cd85004721531a4e0",
+      "headRepository": "vvilimek/core-comi",
+      "headRefName": "notif-sub",
+      "headRefOid": "7175fbd6f0b807b79a938ae1e2cb8a4cf7642ab8",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "cabo",
+          "authorAssociation": "MEMBER",
+          "body": "I'll need to fix the CI because there have been some changes in Martin Thomson's template.",
+          "createdAt": "2026-04-29T17:54:53Z",
+          "updatedAt": "2026-04-29T17:54:53Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 21,
+      "id": "PR_kwDOBM6Qn87Xeq4g",
+      "title": "Use \u00bbundefined\u00ab for not present, as \u00bbnull\u00ab is already YANG empty",
+      "url": "https://github.com/core-wg/comi/pull/21",
+      "state": "OPEN",
+      "author": "cabo",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "Close #20",
+      "createdAt": "2026-05-01T16:58:22Z",
+      "updatedAt": "2026-05-01T16:58:23Z",
+      "baseRepository": "core-wg/comi",
+      "baseRefName": "main",
+      "baseRefOid": "f9f19d9c19285fdc3d1ba30af628773033531ba7",
+      "headRepository": "core-wg/comi",
+      "headRefName": "use-undefined",
+      "headRefOid": "e6abaf6a21f2a333eb294281b68b8cf7cfda2279",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
