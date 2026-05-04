@@ -705,8 +705,11 @@ Reception of notification instances is enabled with the CoAP Observe
 {{RFC7641}} function. Clients subscribe to the notifications by sending a
 GET request with an "Observe" option to the stream resource.
 
-Each response payload carries one or multiple notifications. The number of
-notifications reported, and the conditions used to remove notifications
+Each response payload carries zero or more notifications. Sending event
+stream messages without any notifications may be useful as a reponse to
+subscribing request (GET with Observe(0) Option) or as a periodic heartbeat.
+However it is not recommended to send messages without any notification if there is not reason to.
+The number of notifications reported, and the conditions used to remove notifications
 from the reported list are left to implementers.
 When multiple notifications are reported, they MUST be ordered starting from
 the newest notification at index zero. Note that this could lead to
