@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-05-03T02:47:47.541284+00:00",
+  "timestamp": "2026-05-05T02:38:16.172588+00:00",
   "repo": "core-wg/comi",
   "labels": [
     {
@@ -610,25 +610,33 @@
       "id": "PR_kwDOBM6Qn87Xeq4g",
       "title": "Use \u00bbundefined\u00ab for not present, as \u00bbnull\u00ab is already YANG empty",
       "url": "https://github.com/core-wg/comi/pull/21",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "cabo",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "Close #20",
       "createdAt": "2026-05-01T16:58:22Z",
-      "updatedAt": "2026-05-01T16:58:23Z",
+      "updatedAt": "2026-05-04T13:12:25Z",
       "baseRepository": "core-wg/comi",
       "baseRefName": "main",
       "baseRefOid": "f9f19d9c19285fdc3d1ba30af628773033531ba7",
       "headRepository": "core-wg/comi",
       "headRefName": "use-undefined",
       "headRefOid": "e6abaf6a21f2a333eb294281b68b8cf7cfda2279",
-      "closedAt": null,
+      "closedAt": "2026-05-04T13:12:24Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "petervanderstok",
+          "authorAssociation": "NONE",
+          "body": "looks reasonable to me carsten",
+          "createdAt": "2026-05-04T13:12:24Z",
+          "updatedAt": "2026-05-04T13:12:24Z"
+        }
+      ],
       "reviews": []
     }
   ]
