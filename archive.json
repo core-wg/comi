@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-05-05T02:38:16.172588+00:00",
+  "timestamp": "2026-05-10T02:50:09.225619+00:00",
   "repo": "core-wg/comi",
   "labels": [
     {
@@ -187,6 +187,22 @@
       "body": "null is used in an iPATCH to remove a data node or in a FETCH to indicate the absence of a data node.\n\nHowever, in RFC 9254 (Encoding of Data Modeled with YANG in CBOR), null is a valid data node value.\nhttps://datatracker.ietf.org/doc/html/rfc9254#section-6.11\n\nThis issue has been raised last year and not yet resolved.\nThe fix consists of replacing all instances of null in draft-ietf-core-comi by undefined.\n\nundefined is CBOR value F7, null is CBOR value F6\nhttps://datatracker.ietf.org/doc/html/rfc8949#section-5.7\n\n(Via Michel Veillette)\n ",
       "createdAt": "2026-04-29T19:13:05Z",
       "updatedAt": "2026-04-29T19:13:15Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 22,
+      "id": "I_kwDOBM6Qn88AAAABBkjLBA",
+      "title": "CORECONF Streaming Error Handling",
+      "url": "https://github.com/core-wg/comi/issues/22",
+      "state": "OPEN",
+      "author": "vvilimek",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Describe of expected behavior for situation when error occurs during streaming processing. Should it be prohibited?",
+      "createdAt": "2026-05-07T16:38:33Z",
+      "updatedAt": "2026-05-07T16:38:33Z",
       "closedAt": null,
       "comments": []
     }
