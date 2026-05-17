@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-05-10T02:50:09.225619+00:00",
+  "timestamp": "2026-05-17T02:56:32.744024+00:00",
   "repo": "core-wg/comi",
   "labels": [
     {
@@ -633,7 +633,7 @@
       "labels": [],
       "body": "Close #20",
       "createdAt": "2026-05-01T16:58:22Z",
-      "updatedAt": "2026-05-04T13:12:25Z",
+      "updatedAt": "2026-05-16T20:30:13Z",
       "baseRepository": "core-wg/comi",
       "baseRefName": "main",
       "baseRefOid": "f9f19d9c19285fdc3d1ba30af628773033531ba7",
@@ -651,6 +651,13 @@
           "body": "looks reasonable to me carsten",
           "createdAt": "2026-05-04T13:12:24Z",
           "updatedAt": "2026-05-04T13:12:24Z"
+        },
+        {
+          "author": "vvilimek",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Is it reasonable, or you @petervanderstok found something against this? I don't understand why is the PR closed...",
+          "createdAt": "2026-05-16T20:30:13Z",
+          "updatedAt": "2026-05-16T20:30:13Z"
         }
       ],
       "reviews": []
