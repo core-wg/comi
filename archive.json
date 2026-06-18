@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-05-17T02:56:32.744024+00:00",
+  "timestamp": "2026-06-18T03:50:44.118354+00:00",
   "repo": "core-wg/comi",
   "labels": [
     {
@@ -203,6 +203,22 @@
       "body": "Describe of expected behavior for situation when error occurs during streaming processing. Should it be prohibited?",
       "createdAt": "2026-05-07T16:38:33Z",
       "updatedAt": "2026-05-07T16:38:33Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 23,
+      "id": "I_kwDOBM6Qn88AAAABFrBKTA",
+      "title": "Event stream resource type name",
+      "url": "https://github.com/core-wg/comi/issues/23",
+      "state": "OPEN",
+      "author": "vvilimek",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "### One part of the document defines the event stream resource as a resource with name `core.c.ev`:\n\n[Link to Editor's copy HTML Render](https://core-wg.github.io/comi/draft-ietf-core-comi.html#section-3-3)\n\nSource md:\nhttps://github.com/core-wg/comi/blob/f9f19d9c19285fdc3d1ba30af628773033531ba7/draft-ietf-core-comi.md?plain=1#L396-L404\n\n### While other parts uses for same resource type name `core.c.es`:\n[Link to Editor's copy HTML Render](https://core-wg.github.io/comi/draft-ietf-core-comi.html#name-event-stream-resource-disco)\n\nSource md:\nhttps://github.com/core-wg/comi/blob/f9f19d9c19285fdc3d1ba30af628773033531ba7/draft-ietf-core-comi.md?plain=1#L1122-L1140\nhttps://github.com/core-wg/comi/blob/f9f19d9c19285fdc3d1ba30af628773033531ba7/draft-ietf-core-comi.md?plain=1#L1122-L1140",
+      "createdAt": "2026-06-16T15:28:29Z",
+      "updatedAt": "2026-06-16T15:28:46Z",
       "closedAt": null,
       "comments": []
     }
