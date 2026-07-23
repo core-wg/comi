@@ -558,6 +558,28 @@ It is the responsibility of the client to construct requests that do not create
 an inconsistent datastore state, and to detect and repair any partial
 application, for example by re-reading the affected resources.
 
+### Future processing extensions {#processing-extensions}
+
+Requests as defined in this document have the best-effort, non-atomic
+processing semantics specified in {{request-processing}}. Future extensions to
+CORECONF MAY define stricter processing semantics, such as the atomic
+(all-or-nothing) application of a multi-item request.
+
+Any such stricter semantics MUST be explicitly signalled in the request, for
+example by means of a CoAP option or a media-type (Content-Format) parameter
+defined by the extension. It is the presence of this signal, rather than the
+method or media type alone, that selects the stricter semantics. An extension
+MUST NOT change the semantics of requests that do not carry its signal; such
+requests retain the best-effort semantics defined here.
+
+The signalling mechanism MUST be defined so that a server that does not
+recognize the signal fails the request rather than silently applying
+best-effort semantics. For example, an extension that uses a CoAP option is
+expected to define it as a critical option (see {{Section 5.4.1 of RFC7252}}),
+so that a server that does not understand the option rejects the request. This
+document reserves this extension point but does not define or register any such
+option or parameter.
+
 ### Data Ordering {#DataOrdering}
 
 A CORECONF server MUST preserve the relative order of all user-ordered list
