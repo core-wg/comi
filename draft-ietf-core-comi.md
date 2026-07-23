@@ -105,7 +105,10 @@ in YANG, or SMIv2 converted to YANG. CORECONF uses the YANG to CBOR mapping and 
 YANG identifier strings to numeric identifiers for payload size reduction.
 CORECONF extends the set of YANG based
 protocols, NETCONF and RESTCONF, with the capability to manage constrained devices
-and networks.
+and networks. Atomic (transaction) semantics for requests carrying multiple
+data items, and the selection among Network Management Datastore Architecture
+(NMDA) datastores, are out of scope of this document and may be provided by
+future extensions.
 
 --- middle
 
@@ -132,6 +135,11 @@ different manufacturers.
 CORECONF and RESTCONF are intended to work in a stateless client-server fashion.
 They use a single round-trip to complete a single editing operation, where
 NETCONF needs multiple round trips.
+
+Atomic (transaction) semantics for requests that carry multiple data items, and
+the selection among the datastores of the Network Management Datastore
+Architecture (NMDA) {{RFC8342}}, are outside the scope of this document; these
+may be addressed by future extensions.
 
 To promote small messages, CORECONF uses a YANG to CBOR mapping
 {{-yang-cbor}} and numeric identifiers {{-core-sid}}
