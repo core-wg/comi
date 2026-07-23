@@ -1301,6 +1301,15 @@ As {{-yang-cbor}} and {{RFC4648}} are used for payload and SID
 encoding, the security considerations of those documents also need to be
 well-understood.
 
+Because a request body may contain multiple data node instances that are
+applied on a best-effort, non-atomic basis ({{request-processing}}), a request
+that fails part-way can leave the datastore in a state that the client did not
+intend. Clients SHOULD construct internally consistent requests and SHOULD
+verify the state of the affected resources after an error response, for example
+by re-reading them. Deployments that require atomic application of multi-item
+requests need to wait for, and use, a future extension providing such semantics
+(see {{processing-extensions}}).
+
 # IANA Considerations
 
 ## Resource Type (rt=) Link Target Attribute Values Registry
