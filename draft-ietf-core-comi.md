@@ -130,7 +130,7 @@ as YANG, promotes interoperability between devices and applications from
 different manufacturers.
 
 CORECONF and RESTCONF are intended to work in a stateless client-server fashion.
-They use a single round-trip to complete a single editing transaction, where
+They use a single round-trip to complete a single editing operation, where
 NETCONF needs multiple round trips.
 
 To promote small messages, CORECONF uses a YANG to CBOR mapping
@@ -542,6 +542,22 @@ RES: 2.05 Content
 CORECONF allows datastore contents to be created, modified and deleted using
 CoAP methods.
 
+### Request Processing {#request-processing}
+
+A request body MAY contain multiple data node instances, for example an iPATCH
+request as defined in {{ipatch-operation}}. The items in a request body are
+processed in the order in which they appear.
+
+The server applies each item on a best-effort basis. Partial failure is
+permitted: when the processing of an item fails, the server is not required to
+revert items that were already applied. On failure, the server returns an error
+response as described in {{error-handling}}; processing of the remaining items
+MAY stop at the first failure.
+
+It is the responsibility of the client to construct requests that do not create
+an inconsistent datastore state, and to detect and repair any partial
+application, for example by re-reading the affected resources.
+
 ### Data Ordering {#DataOrdering}
 
 A CORECONF server MUST preserve the relative order of all user-ordered list
@@ -568,6 +584,7 @@ In summary, if the CBOR patch payload contains a data node instance that is not 
 in the target, this instance is added. If the target contains the specified instance,
 the content of this instance is replaced with the value of the payload.
 A null value indicates the removal of an existing data node instance.
+When the payload contains multiple data node instances, they are processed as described in {{request-processing}}.
 
 
 ~~~~
@@ -1143,8 +1160,7 @@ title="Discovery Example: Event Stream"}
 # Error Handling {#error-handling}
 
 In case a request is received which cannot be processed properly, the CORECONF server MUST return an error response. This error response MUST contain a CoAP 4.xx or 5.xx response code.
-Requests that result in an error response MUST NOT have an effect on
-the datastore.
+A request body MAY contain multiple data node instances; such requests are processed on a best-effort, non-atomic basis as described in {{request-processing}}. Consequently, a request that results in an error response MAY already have applied some of the items it contained before the failure occurred.
 
 Errors returned by a CORECONF server can be broken into two categories, those associated with the CoAP protocol itself and those generated during the validation of the YANG data model constraints as described in {{Section 8 of RFC7950}}.
 
