@@ -201,7 +201,7 @@ can be automatically converted to CBOR.
 # CORECONF Architecture {#comi-architecture}
 
 This section describes the CORECONF architecture to use CoAP for reading and
-modifying the content of datastore(s) used for the management of the instrumented
+modifying the content of the datastore used for the management of the instrumented
 node.
 
 
@@ -366,9 +366,13 @@ The different Media-Type usages are summarized in the table below:
 
 CORECONF supports a simple datastore model consisting of a single unified datastore. This datastore provides access to both configuration and operational data. Configuration updates performed on this datastore are reflected immediately or with a minimal delay as operational data.
 
-More complex datastore models such as the Network Management Datastore
-Architecture (NMDA) as defined by {{RFC8342}} are out of scope of the
-present specification.
+CORECONF operates on this single conceptual datastore, which represents the
+server's view of its applied configuration and operational state. More complex
+datastore models, such as the Network Management Datastore Architecture (NMDA)
+as defined by {{RFC8342}}, and the selection among multiple NMDA datastores,
+are out of scope of the present specification. A future extension may define
+datastore selection (for example, by means of a query parameter or a URI
+structure) without changing the semantics defined here.
 
 Characteristics of the unified datastore are summarized in the table below:
 
@@ -1106,7 +1110,6 @@ Each datastore returned is further qualified using the "ds" Link-Format attribut
 This attribute is set to the SID assigned to the datastore identity.
 When a unified datastore is implemented, the ds attribute is set to 1029 as
 specified in {{ietf-coreconf-sid}}.
-For other examples of datastores, see the Network Management Datastore Architecture (NMDA) {{RFC7950}}.
 
 ~~~~ abnf
 link-extension    = ( "ds" "=" sid )
