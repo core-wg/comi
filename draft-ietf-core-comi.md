@@ -306,6 +306,25 @@ In the YANG specification, items are identified with a name string. In order
 to significantly reduce the size of identifiers used in CORECONF, numeric
  identifiers called YANG Schema Item iDentifier (YANG SID or simply SID) are used instead.
 
+### SIDs in URIs {#sid-uri}
+
+Where a SID appears in a URI path segment, it is represented as a base-64
+numeral: the SID is written in binary and divided into digits of 6 bits, most
+significant digit first, using the minimum number of digits; each digit is
+then represented by the corresponding character of the base 64url alphabet of
+{{Section 5 of RFC4648}}, in which "-" and "_" represent the digit values 62
+and 63. No padding is used. Leading zero digits MUST NOT be emitted; the SID 0
+is represented as "A".
+
+For example, SID 2351 is 100100101111 in binary, which gives the digits
+100100 and 101111, i.e. the values 36 and 47, and hence the representation
+"kv".
+
+Note that this is a representation of the numeric value of the SID. It is not
+the base 64 encoding of an octet string as specified in {{Section 4 of
+RFC4648}}, and in particular it is not the base 64 encoding of the CBOR
+representation of the SID.
+
 ### Instance-identifiers {#instance-identifier}
 
 Instance-identifiers are used to uniquely identify data node instances within a datastore. This YANG built-in type is defined in {{Section 9.13 of RFC7950}}. An instance-identifier is composed of the data node identifier (i.e., a SID) and, for data nodes within list(s), the keys used to index within these list(s).
