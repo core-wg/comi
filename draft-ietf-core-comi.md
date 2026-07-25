@@ -105,7 +105,10 @@ in YANG, or SMIv2 converted to YANG. CORECONF uses the YANG to CBOR mapping and 
 YANG identifier strings to numeric identifiers for payload size reduction.
 CORECONF extends the set of YANG based
 protocols, NETCONF and RESTCONF, with the capability to manage constrained devices
-and networks.
+and networks. Atomic (transaction) semantics for requests carrying multiple
+data items, and the selection among Network Management Datastore Architecture
+(NMDA) datastores, are out of scope of this document and may be provided by
+future extensions.
 
 --- middle
 
@@ -130,8 +133,13 @@ as YANG, promotes interoperability between devices and applications from
 different manufacturers.
 
 CORECONF and RESTCONF are intended to work in a stateless client-server fashion.
-They use a single round-trip to complete a single editing transaction, where
+They use a single round-trip to complete a single editing operation, where
 NETCONF needs multiple round trips.
+
+Atomic (transaction) semantics for requests that carry multiple data items, and
+the selection among the datastores of the Network Management Datastore
+Architecture (NMDA) {{RFC8342}}, are outside the scope of this document; these
+may be addressed by future extensions.
 
 To promote small messages, CORECONF uses a YANG to CBOR mapping
 {{-yang-cbor}} and numeric identifiers {{-core-sid}}
@@ -201,7 +209,7 @@ can be automatically converted to CBOR.
 # CORECONF Architecture {#comi-architecture}
 
 This section describes the CORECONF architecture to use CoAP for reading and
-modifying the content of datastore(s) used for the management of the instrumented
+modifying the content of the datastore used for the management of the instrumented
 node.
 
 
@@ -366,9 +374,13 @@ The different Media-Type usages are summarized in the table below:
 
 CORECONF supports a simple datastore model consisting of a single unified datastore. This datastore provides access to both configuration and operational data. Configuration updates performed on this datastore are reflected immediately or with a minimal delay as operational data.
 
-More complex datastore models such as the Network Management Datastore
-Architecture (NMDA) as defined by {{RFC8342}} are out of scope of the
-present specification.
+CORECONF operates on this single conceptual datastore, which represents the
+server's view of its applied configuration and operational state. More complex
+datastore models, such as the Network Management Datastore Architecture (NMDA)
+as defined by {{RFC8342}}, and the selection among multiple NMDA datastores,
+are out of scope of the present specification. A future extension may define
+datastore selection (for example, by means of a query parameter or a URI
+structure) without changing the semantics defined here.
 
 Characteristics of the unified datastore are summarized in the table below:
 
@@ -542,6 +554,44 @@ RES: 2.05 Content
 CORECONF allows datastore contents to be created, modified and deleted using
 CoAP methods.
 
+### Request Processing {#request-processing}
+
+A request body MAY contain multiple data node instances, for example an iPATCH
+request as defined in {{ipatch-operation}}. The items in a request body are
+processed in the order in which they appear.
+
+The server applies each item on a best-effort basis. Partial failure is
+permitted: when the processing of an item fails, the server is not required to
+revert items that were already applied. On failure, the server returns an error
+response as described in {{error-handling}}; processing of the remaining items
+MAY stop at the first failure.
+
+It is the responsibility of the client to construct requests that do not create
+an inconsistent datastore state, and to detect and repair any partial
+application, for example by re-reading the affected resources.
+
+### Future processing extensions {#processing-extensions}
+
+Requests as defined in this document have the best-effort, non-atomic
+processing semantics specified in {{request-processing}}. Future extensions to
+CORECONF MAY define stricter processing semantics, such as the atomic
+(all-or-nothing) application of a multi-item request.
+
+Any such stricter semantics MUST be explicitly signalled in the request, for
+example by means of a CoAP option or a media-type (Content-Format) parameter
+defined by the extension. It is the presence of this signal, rather than the
+method or media type alone, that selects the stricter semantics. An extension
+MUST NOT change the semantics of requests that do not carry its signal; such
+requests retain the best-effort semantics defined here.
+
+The signalling mechanism MUST be defined so that a server that does not
+recognize the signal fails the request rather than silently applying
+best-effort semantics. For example, an extension that uses a CoAP option is
+expected to define it as a critical option (see {{Section 5.4.1 of RFC7252}}),
+so that a server that does not understand the option rejects the request. This
+document reserves this extension point but does not define or register any such
+option or parameter.
+
 ### Data Ordering {#DataOrdering}
 
 A CORECONF server MUST preserve the relative order of all user-ordered list
@@ -568,6 +618,7 @@ In summary, if the CBOR patch payload contains a data node instance that is not 
 in the target, this instance is added. If the target contains the specified instance,
 the content of this instance is replaced with the value of the payload.
 A null value indicates the removal of an existing data node instance.
+When the payload contains multiple data node instances, they are processed as described in {{request-processing}}.
 
 
 ~~~~
@@ -1067,7 +1118,6 @@ Each datastore returned is further qualified using the "ds" Link-Format attribut
 This attribute is set to the SID assigned to the datastore identity.
 When a unified datastore is implemented, the ds attribute is set to 1029 as
 specified in {{ietf-coreconf-sid}}.
-For other examples of datastores, see the Network Management Datastore Architecture (NMDA) {{RFC7950}}.
 
 ~~~~ abnf
 link-extension    = ( "ds" "=" sid )
@@ -1143,8 +1193,7 @@ title="Discovery Example: Event Stream"}
 # Error Handling {#error-handling}
 
 In case a request is received which cannot be processed properly, the CORECONF server MUST return an error response. This error response MUST contain a CoAP 4.xx or 5.xx response code.
-Requests that result in an error response MUST NOT have an effect on
-the datastore.
+A request body MAY contain multiple data node instances; such requests are processed on a best-effort, non-atomic basis as described in {{request-processing}}. Consequently, a request that results in an error response MAY already have applied some of the items it contained before the failure occurred.
 
 Errors returned by a CORECONF server can be broken into two categories, those associated with the CoAP protocol itself and those generated during the validation of the YANG data model constraints as described in {{Section 8 of RFC7950}}.
 
@@ -1259,6 +1308,15 @@ selected if not provided with the CoAP security mode.
 As {{-yang-cbor}} and {{RFC4648}} are used for payload and SID
 encoding, the security considerations of those documents also need to be
 well-understood.
+
+Because a request body may contain multiple data node instances that are
+applied on a best-effort, non-atomic basis ({{request-processing}}), a request
+that fails part-way can leave the datastore in a state that the client did not
+intend. Clients SHOULD construct internally consistent requests and SHOULD
+verify the state of the affected resources after an error response, for example
+by re-reading them. Deployments that require atomic application of multi-item
+requests need to wait for, and use, a future extension providing such semantics
+(see {{processing-extensions}}).
 
 # IANA Considerations
 
