@@ -492,15 +492,18 @@ instance-identifiers in its request since no key values will be in the
 response.
 This approach may also help reduce implementation complexity since the format of each entry within the CBOR sequence of the FETCH response is identical to the format of the corresponding GET response.
 
-~~~~
-FORMAT:
-  FETCH <datastore resource>
-        (Content-Format: application/yang-identifiers+cbor-seq)
-  CBOR sequence of instance-identifiers
+~~~ coap
+FETCH <datastore resource>  / Request /
+Content-Format: TBD2 (application/yang-identifiers+cbor-seq)
 
-  2.05 Content (Content-Format: application/yang-instances+cbor-seq)
-  CBOR sequence of CBOR maps of SID, instance-value
-~~~~
+/ CBOR sequence of instance-identifiers /
+
+2.05 Content  / Response /
+Content-Format: TBD3 (application/yang-instances+cbor-seq)
+
+/ CBOR sequence of CBOR maps of SID, instance-value /
+~~~
+
 
 
 #### FETCH examples {#fetch-example}
@@ -511,14 +514,15 @@ In this example the value of current-datetime (SID 1723) and the interface
 list (SID 1533) instance identified with name="eth0" are queried.
 
 
-~~~~
-REQ: FETCH </c>
-     (Content-Format: application/yang-identifiers+cbor-seq)
+~~~~ coap
+FETCH /c
+Content-Format: TBD2 (application/yang-identifiers+cbor-seq)
+
 1723,            / current-datetime (SID 1723) /
 [1533, "eth0"]   / interface (SID 1533) with name = "eth0" /
 
-RES: 2.05 Content
-     (Content-Format: application/yang-instances+cbor-seq)
+2.05 Content
+Content-Format: TBD3 (application/yang-instances+cbor-seq)
 
 {
   1723 : "2014-10-26T12:16:31Z" / current-datetime (SID 1723) /
@@ -533,7 +537,6 @@ RES: 2.05 Content
     11 : 3             / oper-status (SID 1544), value is testing /
   }
 }
-
 ~~~~
 
 
@@ -570,13 +573,13 @@ the content of this instance is replaced with the value of the payload.
 A null value indicates the removal of an existing data node instance.
 
 
-~~~~
-FORMAT:
-  iPATCH <datastore resource>
-         (Content-Format: application/yang-instances+cbor-seq)
-  CBOR sequence of CBOR maps of instance-identifier, instance-value
+~~~~ coap
+iPATCH <datastore resource>  / Request /
+Content-Format: TBD3 (application/yang-instances+cbor-seq)
 
-  2.04 Changed
+/  CBOR sequence of CBOR maps of instance-identifier, instance-value /
+
+2.04 Changed  / Response /
 ~~~~
 
 #### iPATCH example {#ipatch-example}
@@ -589,9 +592,10 @@ In this example, a CORECONF client requests the following operations:
 
   * Add/set the server "NTP Pool server 2" to the list "/ietf-system:system/ntp/server" (SID 1756).
 
-~~~~
-REQ: iPATCH </c>
-     (Content-Format: application/yang-instances+cbor-seq)
+~~~~ coap
+iPATCH /c
+Content-Format: TBD3  (application/yang-instances+cbor-seq)
+
 {
   1755 : true                   / enabled (SID 1755) /
 },
@@ -608,7 +612,7 @@ REQ: iPATCH </c>
   }
 }
 
-RES: 2.04 Changed
+2.04 Changed
 ~~~~
 
 
@@ -622,38 +626,42 @@ The methods GET, PUT, POST, and DELETE can be used to request, replace, create,
 and delete a whole datastore respectively.
 
 
-~~~~
-FORMAT:
-  GET <datastore resource>
+~~~~ coap
+GET <datastore resource>
 
-  2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
-  CBOR map of SID, instance-value
-~~~~
+2.05 Content
+Content-Format: 140 (application/yang-data+cbor; id=sid)
 
+/ CBOR map of SID, instance-value /
 ~~~~
-FORMAT:
-  PUT <datastore resource>
-      (Content-Format: application/yang-data+cbor; id=sid)
-  CBOR map of SID, instance-value
+{: title="Example of full datastore GET"}
 
-  2.04 Changed
-~~~~
+~~~~ coap
+PUT <datastore resource>
+Content-Format: 140 (application/yang-data+cbor; id=sid)
 
-~~~~
-FORMAT:
-  POST <datastore resource>
-       (Content-Format: application/yang-data+cbor; id=sid)
-  CBOR map of SID, instance-value
+/ CBOR map of SID, instance-value /
 
-  2.01 Created
+2.04 Changed
 ~~~~
+{: title="Example of full datastore PUT"}
 
-~~~~
-FORMAT:
-  DELETE <datastore resource>
+~~~~ coap
+POST <datastore resource>
+Content-Format: 140 (application/yang-data+cbor; id=sid)
 
-  2.02 Deleted
+/  CBOR map of SID, instance-value /
+
+2.01 Created
 ~~~~
+{: title="Example of full datastore POST"}
+
+~~~~ coap
+DELETE <datastore resource>
+
+2.02 Deleted
+~~~~
+{: title="Example of full datastore DELETE"}
 
 The content of the CBOR map represents the complete datastore of the server
 at the GET indication of after a successful processing of a PUT or POST request.
@@ -669,11 +677,12 @@ one instance and the 'clock' container (SID 1721). After invocation of GET, a
 CBOR map with data nodes from these two modules is returned:
 
 
-~~~~
-REQ:  GET </c>
+~~~~ coap
+GET /c
 
-RES: 2.05 Content
-     (Content-Format: application/yang-data+cbor; id=sid)
+2.05 Content
+Content-Format: 140 (application/yang-data+cbor; id=sid)
+
 {
   1721 : {                      / Clock (SID 1721) /
     2: "2016-10-26T12:16:31Z",  / current-datetime (SID 1723) /
@@ -722,12 +731,14 @@ of -yang-cbor}}.
 (Accordingly, a notification without any content is an empty CBOR
 sequence, i.e., zero bytes.)
 
-~~~~
-FORMAT:
-  GET <stream-resource> Observe(0)
+~~~~ coap
+GET <stream-resource>
+Observe: 0
 
-  2.05 Content (Content-Format: application/yang-instances+cbor-seq)
-  CBOR sequence of CBOR maps of instance-identifier, instance-value
+2.05 Content
+Content-Format: TBD3 (application/yang-instances+cbor-seq)
+
+/ CBOR sequence of CBOR maps of instance-identifier, instance-value /
 ~~~~
 
 The sequence of data node instances may contain identical items which have
@@ -746,14 +757,17 @@ If only a subset of all possible notifications is of interest, a FETCH
 operation can be performed with a request payload of type
 application/yang-identifiers+cbor-seq that indicates which subset.
 
-~~~~
-FORMAT:
-  FETCH <stream-resource> Observe(0)
-        (Content-Format: application/yang-identifiers+cbor-seq)
-  CBOR sequence of instance-identifiers
+~~~~ coap
+FETCH <stream-resource>
+Observe: 0
+Content-Format: TBD2 application/yang-identifiers+cbor-seq
 
-  2.05 Content (Content-Format: application/yang-instances+cbor-seq)
-  CBOR sequence of CBOR maps of instance-identifier, instance-value
+/ CBOR sequence of instance-identifiers /
+
+2.05 Content
+Content-Format: TBD3 (application/yang-instances+cbor-seq)
+
+/  CBOR sequence of CBOR maps of instance-identifier, instance-value /
 ~~~~
 
 When filtering is not supported by a CORECONF server, the request
@@ -789,12 +803,13 @@ location discovered with a request similar to {{discovery-ex-es}}. By executing 
 GET with Observe 0 on the default event stream resource the client receives the
 following response:
 
-~~~~
-REQ:  GET </s> Observe(0)
+~~~~ coap
+GET /s
+Observe: 0
 
-RES:  2.05 Content
-      (Content-Format: application/yang-instances+cbor-seq)
-      Observe(12)
+2.05 Content
+Observe: 12
+Content-Format: TBD3 (application/yang-instances+cbor-seq)
 
 {
   60010 : {             / example-port-fault (SID 60010) /
@@ -817,15 +832,16 @@ notify the client when a new event is generated.
 
 A client that wants to filter notifications can use a FETCH payload:
 
-~~~~
-REQ:  FETCH </s> Observe(0)
-      (Content-Format: application/yang-identifiers+cbor-seq)
+~~~~ coap
+FETCH /s
+Observe: 0
+Content-Format: TBD2 (application/yang-identifiers+cbor-seq)
 
-60010, 60020 /CBOR sequence with two notification identifiers/
+60010, 60020 / CBOR sequence with two notification identifiers /
 
-RES:  2.05 Content
-      (Content-Format: application/yang-instances+cbor-seq)
-      Observe(12)
+2.05 Content
+Observe: 12
+Content-Format: TBD3 (application/yang-instances+cbor-seq)
 
 {
   60010 : {             / example-port-fault (SID 60010) /
@@ -839,7 +855,6 @@ RES:  2.05 Content
     2 : "Open pin 5"    / port-fault (SID 60012) /
   }
 }
-
 ~~~~
 
 Note that the notifications in this example are identical to the
@@ -861,14 +876,16 @@ Both the input and output containers are encoded in CBOR using the rules defined
 The returned success response code is 2.04 Changed.
 
 
-~~~~
-FORMAT:
-  POST <datastore resource>
-         (Content-Format: application/yang-instances+cbor-seq)
-  CBOR sequence of CBOR maps of instance-identifier, instance-value
+~~~~ coap
+POST <datastore resource>
+Content-Format: TBD3 (application/yang-instances+cbor-seq)
 
-  2.04 (Content-Format: application/yang-instances+cbor-seq)
-  CBOR sequence of CBOR maps of instance-identifier, instance-value
+/ CBOR sequence of CBOR maps of instance-identifier, instance-value /
+
+2.04 Changed
+Content-Format: 140 (application/yang-instances+cbor-seq)
+
+/ CBOR sequence of CBOR maps of instance-identifier, instance-value /
 ~~~~
 
 
@@ -903,17 +920,18 @@ module example-ops {
 This example invokes the 'reboot' RPC  (SID 61000).
 
 
-~~~~
-REQ:  POST </c>
-      (Content-Format: application/yang-instances+cbor-seq)
+~~~~ coap
+POST /c
+Content-Format: TBD3 (application/yang-instances+cbor-seq)
 
 { 61000:
   {
     1 : 77
   }
 }
-RES:  2.04 Changed
-      (Content-Format: application/yang-instances+cbor-seq)
+
+2.04 Changed
+Content-Format: TBD3 (application/yang-instances+cbor-seq)
 
 { 61000:
   null
@@ -968,17 +986,18 @@ This example invokes the 'reset' action  (SID 60002),
 of the server instance with name equal to "myserver".
 
 
-~~~~
-REQ:  POST </c>
-      (Content-Format: application/yang-instances+cbor-seq)
+~~~~ coap
+POST /c
+Content-Format: TBD3 (application/yang-instances+cbor-seq)
 
 { [60002, "myserver"]:
   {
     1 : "2016-02-08T14:10:08Z" / reset-at (SID 60003) /
   }
 }
-RES:  2.04 Changed
-         (Content-Format: application/yang-instances+cbor-seq)
+
+2.04 Changed
+Content-Format: TBD3 (application/yang-instances+cbor-seq)
 
 { [60002, "myserver"]:
   {
@@ -1041,10 +1060,11 @@ The following example assumes that the SID of the YANG library is 2351 (`kv` aft
 encoding as specified in {{id-compression}}) and that the server uses /c as
 datastore resource path.
 
-~~~~
-REQ: GET </.well-known/core?rt=core.c.yl>
+~~~~ coap
+GET /.well-known/core?rt=core.c.yl
 
-RES: 2.05 Content (Content-Format: application/link-format)
+RES: 2.05 Content
+Content-Format: 40 (application/link-format)
 </c/kv>;rt="core.c.yl"
 ~~~~
 
@@ -1079,10 +1099,12 @@ sid               = 1*DIGIT
 The following example assumes that the server uses /c as datastore resource
 path.
 
-~~~~
-REQ: GET </.well-known/core?rt=core.c.ds>
+~~~~ coap
+GET /.well-known/core?rt=core.c.ds
 
-RES: 2.05 Content (Content-Format: application/link-format)
+2.05 Content
+Content-Format: 40 (application/link-format)
+
 </c>; rt="core.c.ds";ds=1029
 ~~~~
 {: #discovery-ex-ds artwork-align="left"
@@ -1104,10 +1126,12 @@ and '/ietf-system:system-state/clock/current-datetime' (SID 1723) are returned.
 The example assumes that the server uses /c as datastore resource path.
 
 
-~~~~
-REQ: GET </.well-known/core?rt=core.c.dn>
+~~~~ coap
+GET /.well-known/core?rt=core.c.dn
 
-RES: 2.05 Content (Content-Format: application/link-format)
+2.05 Content
+Content-Format: 40 (application/link-format)
+
 </c/a6>;rt="core.c.dn",
 </c/a7>;rt="core.c.dn"
 ~~~~
@@ -1130,10 +1154,11 @@ Upon success, the return payload contains the list of event stream resources.
 The following example assumes that the server uses /s as the default event stream
 resource.
 
-~~~~
-REQ: GET </.well-known/core?rt=core.c.es>
+~~~~ coap
+GET /.well-known/core?rt=core.c.es
 
-RES: 2.05 Content (Content-Format: application/link-format)
+2.05 Content
+Content-Format:  40 (application/link-format)
 </s>;rt="core.c.es"
 ~~~~
 {: #discovery-ex-es artwork-align="left"
@@ -1221,9 +1246,10 @@ The following 'error-tag' and 'error-app-tag' are defined by the ietf-coreconf Y
 
 For example, the CORECONF server might return the following error.
 
-~~~~
-RES:  4.00 Bad Request
-     (Content-Format: application/yang-data+cbor; id=sid)
+~~~~ coap
+4.00 Bad Request
+Content-Format: 140 (application/yang-data+cbor; id=sid)
+
 {
   1024 : {
     4 : 1011,        / error-tag (SID 1028) /
