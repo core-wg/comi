@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-07-26T02:37:23.746368+00:00",
+  "timestamp": "2026-07-28T02:24:45.226507+00:00",
   "repo": "core-wg/comi",
   "labels": [
     {
@@ -615,7 +615,7 @@
       "labels": [],
       "body": "Based on [ML](https://mailarchive.ietf.org/arch/msg/core/LtQqOfyKArItebz6TgI45_bJY0s/) and [interim](https://notes.ietf.org/notes-ietf-interim-2026-core-05-core#) discussion.\r\n",
       "createdAt": "2026-04-28T12:27:10Z",
-      "updatedAt": "2026-04-29T17:54:53Z",
+      "updatedAt": "2026-07-27T19:58:04Z",
       "baseRepository": "core-wg/comi",
       "baseRefName": "main",
       "baseRefOid": "efada822cf3cdffd9d50d05cd85004721531a4e0",
@@ -633,6 +633,20 @@
           "body": "I'll need to fix the CI because there have been some changes in Martin Thomson's template.",
           "createdAt": "2026-04-29T17:54:53Z",
           "updatedAt": "2026-04-29T17:54:53Z"
+        },
+        {
+          "author": "petervanderstok",
+          "authorAssociation": "NONE",
+          "body": "Hi, carsten,\r\nafter a wakeup on comi, I see this request pending. I assume it is outdated?\r\nPeter",
+          "createdAt": "2026-07-27T09:02:00Z",
+          "updatedAt": "2026-07-27T09:02:00Z"
+        },
+        {
+          "author": "vvilimek",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Hi Peter,\r\nThe request is _not_ outdated. I discovered this issue. I think the fix is simple and straight forward.\r\n\r\nBR, Vojtech",
+          "createdAt": "2026-07-27T19:58:04Z",
+          "updatedAt": "2026-07-27T19:58:04Z"
         }
       ],
       "reviews": []
@@ -690,7 +704,7 @@
       "labels": [],
       "body": "Minimal-change revision aimed at getting the draft to WGLC: remove transaction /\natomicity semantics, reserve an atomicity extension point, explicitly scope out\nNMDA datastore selection, and add the corresponding security note.\n\nAtomicity, NMDA datastore selection, and rich per-item failure reporting are\n**deferred to a separate future extension document** (not written here). The\nguiding constraint throughout was a minimal diff: 67 insertions, 9 deletions, one\nfile, confined to the sections listed below plus ToC/section-number mechanics.\n\nOne commit per work item, so individual items can be dropped or discussed\nseparately.\n\n## WI-1 \u2014 Remove transaction/atomicity semantics\n\nSections: \u00a76 Error Handling; \u00a73.2 Data Editing (new \u00a73.2.1 \"Request Processing\");\n\u00a73.2.5 iPATCH; \u00a71 Introduction.\n\n- Removed the all-or-nothing requirement in \u00a76: *\"Requests that result in an\n  error response MUST NOT have an effect on the datastore.\"*\n- Added the replacement processing model once, in a new \"Request Processing\"\n  subsection: items processed in order; each applied best-effort; partial failure\n  permitted with no required revert; error response on failure with remaining\n  items MAY stop at first failure; client responsible for constructing consistent\n  requests and for detecting/repairing partial application. \u00a76 and iPATCH now\n  reference it. First-error reporting only \u2014 no per-item result structure.\n- Intro: \"single editing transaction\" \u2192 \"single editing operation\". The sentence\n  is about round-trips, not atomicity, so this only removes the\n  atomicity-flavoured wording.\n\n## WI-2 \u2014 Reserve the atomicity extension point\n\nSection: \u00a73.2 Data Editing (new \u00a73.2.2 \"Future processing extensions\").\n\nStates that requests defined here are best-effort/non-atomic; that future\nextensions MAY define stricter (e.g. atomic) semantics; that such semantics MUST\nbe explicitly signalled in the request (e.g. a CoAP option or a Content-Format\nparameter); and that an extension MUST NOT change the semantics of unsignalled\nrequests. The signal must be defined so that a server which does not recognise it\nrejects the request rather than silently falling back to best-effort \u2014 e.g. a\ncritical CoAP option (RFC 7252 \u00a75.4.1).\n\nThis reserves the architectural slot only. **No option or parameter is defined or\nregistered, and there are no new IANA registrations in this revision.**\n\n## WI-3 \u2014 NMDA scoping\n\nSections: \u00a72.4 Unified datastore; \u00a72 architecture intro; \u00a75.2.1.\n\nChose to expand the existing \u00a72.4 rather than add a new section \u2014 smaller diff,\nand that section already carried the single-datastore statement.\n\n- \u00a72.4: CORECONF operates on a single conceptual datastore (the server's applied\n  configuration and operational state); selection among NMDA datastores is out of\n  scope; a future extension may define datastore selection (e.g. a query\n  parameter or URI structure) without changing the semantics defined here.\n- \u00a72 architecture intro: \"content of datastore(s)\" \u2192 \"content of the datastore\".\n- \u00a75.2.1: removed the sentence pointing at NMDA for \"other examples of\n  datastores\", which cited [RFC7950] and implied multiple datastores.\n\n**Deviation from plan worth reviewing:** RFC 8342 is kept as a **normative**\nreference, not downgraded to informative, because the YANG module imports\n`ietf-datastores`. Flagging it explicitly since the opposite was expected.\n\n## WI-4 \u2014 Security Considerations\n\nSection: \u00a77. Added a paragraph on the risk introduced by partial application:\na multi-item request that fails midway can leave the datastore in a state the\nclient did not intend, and clients need to detect and repair that. No new\ntop-level Operational Considerations section was created.\n\n## WI-5 \u2014 Editorial fallout\n\nAbstract and \u00a71: one sentence each noting that atomic/transaction semantics for\nmulti-item requests and NMDA datastore selection are out of scope and deferred.\nNo citations in the Abstract, per RFC abstract rules.\n\n## Flagged, deliberately not changed\n\n- \u00a72 architecture figure label \"Datastore(s) (5)\" (aasvg ASCII art) \u2014 left as-is\n  to avoid disturbing figure alignment for a cosmetic \"(s)\".\n- \u00a75.1 YANG library: \"This module also contains the list of datastores\n  implemented.\" Left as-is \u2014 it describes the generic YANG-library discovery\n  mechanism, which returns a one-element list under the single-datastore model.\n  Not a hard contradiction; edit deferred to avoid scope creep.\n\n## Notes\n\n- Branched from `main` (`f9f19d9`) and independent of #25 \u2014 either can\n  merge first.\n- Whichever of the two merges second will hit a one-line conflict in the iPATCH\n  paragraph, where this PR's \"processed as described in Section 3.2.1\" sentence\n  sits next to the other PR's absence-marker sentence. Both sentences survive;\n  keep them adjacent.\n- Builds clean with `kdrfc draft-ietf-core-comi.md` (aasvg on PATH), no new\n  xml2rfc warnings, all cross-references resolve.\n",
       "createdAt": "2026-07-25T10:42:29Z",
-      "updatedAt": "2026-07-25T15:44:53Z",
+      "updatedAt": "2026-07-27T16:31:32Z",
       "baseRepository": "core-wg/comi",
       "baseRefName": "main",
       "baseRefOid": "f9f19d9c19285fdc3d1ba30af628773033531ba7",
@@ -708,6 +722,20 @@
           "body": "Hi  \r\n \r\n Will review coming week. \r\n \r\n Cheerio, \r\n \r\n Peter \r\n \r\n \r\n \r\n \r\n \r\n \r\n \r\n \r\n @apelov  requested your review on:  core-wg/comi#24  Minimal-change revision for WGLC: drop atomicity, scope out NMDA as a code owner. \r\n \r\n\r\n \u2014 \r\n Reply to this email directly,  view it on GitHub , or  unsubscribe . \r\n Triage notifications, keep track of coding agent tasks and review pull requests on the go with GitHub Mobile for  iOS  and  Android . Download it today!\r\n \r\n You are receiving this because your review was requested. Message ID:  <core-wg/comi/pull/24/issue_event/28473393045 @ github . com>",
           "createdAt": "2026-07-25T11:11:22Z",
           "updatedAt": "2026-07-25T11:11:22Z"
+        },
+        {
+          "author": "petervanderstok",
+          "authorAssociation": "NONE",
+          "body": "Hi,\r\nSorry, but this is difficult to follow.\r\nI can understand that  each iPtach is atomic on its own.\r\nI don't see how a sequence of operations can be atomic without rollback.\r\nDoes ComI support atomicity over a series of operations. I hope not.",
+          "createdAt": "2026-07-27T09:00:42Z",
+          "updatedAt": "2026-07-27T09:00:42Z"
+        },
+        {
+          "author": "abierman",
+          "authorAssociation": "NONE",
+          "body": "Agree with Peter that not clear what 'best-effort' actually changes.\r\n\r\nThe PATCH or iPATCH is treated as one request.\r\nThis draft seems to treat each map entry as a separate request\r\n\r\n```\r\n3.2.3.1. iPATCH example\r\nIn this example, a CORECONF client requests the following operations:\r\n\r\nSet \"/ietf-system:system/ntp/enabled\" (SID 1755) to true.\r\n\r\nRemove the server \"tac.nrc.ca\" from the \"/ietf-system:system/ntp/server\" (SID 1756) list.\r\n\r\nAdd/set the server \"NTP Pool server 2\" to the list \"/ietf-system:system/ntp/server\" (SID 1756).\r\n```\r\n\r\nThe error handling text \r\nhttps://datatracker.ietf.org/doc/html/rfc8132#section-3.4\r\n\r\ndoes not seem to support treating this patch as 3 edits.\r\n\r\n1) what happens if 1 of the 3 fails?  what error is returned to indicate partial success?\r\n\r\n2) if there are create and modify in the same patch, then is 2.01 returned or 2.04?\r\nwhat is the success code if multiple operations are done.\r\n",
+          "createdAt": "2026-07-27T16:31:32Z",
+          "updatedAt": "2026-07-27T16:31:32Z"
         }
       ],
       "reviews": [
@@ -781,7 +809,7 @@
       "labels": [],
       "body": "## Problem\n\nThe draft uses CBOR `null` (0xf6) as the absence/removal marker in the\ninstance-value position. But `null` is exactly how a leaf of type `empty` is\nencoded \u2014 see [RFC 9254, Section 6.11](https://datatracker.ietf.org/doc/html/rfc9254#name-the-empty-type).\nThe marker is therefore indistinguishable from a legitimate value, which breaks\ntwo operations:\n\n- **iPATCH**: an `empty` leaf can never be created or set. `{SID: null}` must be\n  interpreted as a deletion of that leaf.\n- **FETCH**: an instantiated `empty` leaf cannot be distinguished from a data\n  node that is absent or not supported by the server \u2014 both come back as `null`.\n\n## Fix\n\nUse CBOR `undefined` (0xf7) as the absence marker. RFC 9254 assigns no meaning\nto 0xf7 anywhere, so there is no collision with any YANG type encoding.\n\nThe rule and its rationale are now stated **once**, in the\n`application/yang-instances+cbor-seq` media-type definition:\n\n> In the position of an instance-value, the CBOR undefined value (0xf7) does not\n> carry a value of the data node; it indicates the absence of a value. Its\n> precise meaning depends on the method, as specified in Section 3.1.3 and\n> Section 3.2.5. The CBOR null value (0xf6) is not used for this purpose: null is\n> a valid instance-value for a leaf of type 'empty' (see Section 6.11 of\n> [RFC9254]) and can therefore not be distinguished from an absence marker.\n\nThe method-specific sections then say only what absence means for that method.\nSix sites in total: the media-type definition (iPATCH clause), FETCH, the iPATCH\nprose, the iPATCH example, and the empty RPC output example.\n\nPrecedent: RFC 7951 \u00a76.9 encodes `empty` as `[null]` in YANG-JSON for exactly\nthis reason.\n\n## \u26a0\ufe0f This is a breaking wire change\n\nAgainst -21, and it fails silently in one direction:\n\n- An old server receiving `undefined` rejects the request as malformed.\n- An old client mis-parses a new FETCH response.\n\nAcceptable pre-RFC, but it should be called out to the WG explicitly rather than\nleft to be discovered in the diff.\n\n## One editorial judgement call\n\nThe empty-RPC-output example (\u00a73.5.1, `{ 61000: null }` \u2192 `{ 61000: undefined }`)\ndoes **not** collide \u2014 an RPC output is always a map, never a bare `null`. It was\nchanged for consistency, so that there is a single uniform rule (\"0xf7 = no value\nhere\") rather than two sentinels whose meaning depends on context. This hunk can\nbe reverted independently if the WG prefers.\n\n## Noted but deliberately not added to the draft\n\nGeneric CBOR\u2192JSON transcoding (RFC 8949 \u00a76.1) maps `undefined` to JSON `null`,\nwhich reintroduces the ambiguity across a transcoding proxy. Left out to keep the\ndiff minimal \u2014 raising it here in case a reviewer asks.\n\n## Notes\n\n- Branched from `main` (`f9f19d9`) and independent of #24 \u2014 either can\n  merge first.\n- Whichever of the two merges second will hit a one-line conflict in the iPATCH\n  paragraph, where this PR's `undefined` sentence sits next to the other PR's\n  \"processed as described in Section 3.2.1\" sentence. Both sentences survive;\n  keep them adjacent.\n- Builds clean with `kdrfc draft-ietf-core-comi.md` (aasvg on PATH), no new\n  xml2rfc warnings, all cross-references resolve.\n",
       "createdAt": "2026-07-25T10:42:31Z",
-      "updatedAt": "2026-07-25T10:46:40Z",
+      "updatedAt": "2026-07-27T08:55:52Z",
       "baseRepository": "core-wg/comi",
       "baseRefName": "main",
       "baseRefOid": "f9f19d9c19285fdc3d1ba30af628773033531ba7",
@@ -792,7 +820,15 @@
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "petervanderstok",
+          "authorAssociation": "NONE",
+          "body": "HI,\r\nI don't see all the implications of your suggestion.\r\nHowever, may I suggest a short version of your motivation section\r\n\r\n In the position of an instance-value, the CBOR undefined value (0xf7) indicates the absence of a value.\r\n  Its precise meaning depends on the method, as specified in\r\n  {{fetch}} and {{ipatch-operation}}.\r\n  The CBOR null value (0xf6) is a valid\r\n  instance-value for a leaf of type 'empty' (see {{Section 6.11 of -yang-cbor}}).",
+          "createdAt": "2026-07-27T08:55:52Z",
+          "updatedAt": "2026-07-27T08:55:52Z"
+        }
+      ],
       "reviews": []
     },
     {
@@ -807,7 +843,7 @@
       "labels": [],
       "body": "## Problem\n\nThe draft uses a SID-to-URI-path encoding that it never specifies.\n\nDiscovery examples return `</c/kv>` (\u00a75.1), `</c/a6>` and `</c/a7>` (\u00a75.2.2). \u00a75.1 says the\nYANG library SID 2351 becomes `kv` \"after encoding as specified in Section 2.2\" \u2014 but \u00a72.2\nonly says that SIDs are numeric identifiers. Grepping the source for `base64`,\n`percent-encod` or `path segment` returns nothing.\n\nThis is load-bearing for interop, not cosmetic: a `core.c.dn` discovery response carries no\nSID attribute, so a client has to decode `a6` back to 1722 to learn which data node a link\nrefers to.\n\n## Why this misleads rather than merely slowing an implementer down\n\nThe scheme is a **positional base-64 numeral** \u2014 the SID's binary value cut into 6-bit digits\n\u2014 *not* base 64 applied to an octet string. Both natural readings of \"base64 the SID\" give a\ndifferent, wrong answer:\n\n| Reading | SID 2351 gives | |\n|---|---|---|\n| Positional base-64 numeral (what the draft's examples use) | `kv` | \u2705 |\n| base64url of the raw bytes `0x092f` | `CS8` | \u274c |\n| base64url of the CBOR encoding `0x19092f` | `GQkv` | \u274c |\n\nThe positional reading reproduces all three examples in the draft and round-trips:\n`kv`\u21922351, `a6`\u21921722, `a7`\u21921723.\n\nNote that `GQkv` ends in `kv`, so a reader who tries the CBOR variant gets something that\nlooks tantalisingly close and is still wrong.\n\n## Second gap: the alphabet is not pinned down by any example\n\nThe digit values appearing across all the draft's examples are 26, 36, 47, 58 and 59 \u2014 all\nbelow 62. Since base 64 and base 64url differ only at digits 62 and 63 (`+`/`/` versus\n`-`/`_`), **no example in the document distinguishes them.**\n\nThe new text states base 64url explicitly. `/` inside a path segment would be fatal, and\n`k.rb` in the repo root already uses `Base64.urlsafe_encode64(..., padding: false)`, so this\nmatches the evidenced intent.\n\n## The change\n\nOne new subsection, `2.2.1 SIDs in URIs`. 19 lines added, nothing removed, no example\ntouched.\n\nIt is deliberately added as a *child* of \u00a72.2, so \u00a75.1's existing \"as specified in\nSection 2.2\" cross-reference starts resolving to text that actually specifies the encoding \u2014\nwith zero change to \u00a75.1.\n\nSide effect: RFC 4648 becomes an actually-used normative reference. Today it is normative but\ncited exactly once, in Security Considerations, and never where an encoding is defined.\n\n## Open question for review\n\nThe text says leading zero digits `MUST NOT` be emitted, but deliberately says nothing about\nwhether a receiver has to reject them. Leaving receiver behaviour unstated is the smaller\nchange; if the WG prefers strictness, add \"a client MAY reject a representation containing\nleading zero digits.\"\n\n## Notes\n\n- Branched from `main` (`f9f19d9`), independent of #24 and #25. \u00a72.2 is untouched by both, so\n  this should not conflict with either in any merge order.\n- Builds clean with `kdrfc draft-ietf-core-comi.md` (aasvg on PATH), no new xml2rfc warnings,\n  both new `Section N of [RFC4648]` cross-references resolve.\n- `Instance-identifiers` renumbers 2.2.1 \u2192 2.2.2. It is not cross-referenced anywhere, so the\n  renumbering is inert.\n- This is one finding out of a broader review of the current text. The rest is being taken to\n  the co-authors separately rather than filed here.\n",
       "createdAt": "2026-07-25T11:26:58Z",
-      "updatedAt": "2026-07-25T11:26:59Z",
+      "updatedAt": "2026-07-27T08:47:18Z",
       "baseRepository": "core-wg/comi",
       "baseRefName": "main",
       "baseRefOid": "f9f19d9c19285fdc3d1ba30af628773033531ba7",
@@ -818,7 +854,15 @@
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "petervanderstok",
+          "authorAssociation": "NONE",
+          "body": "Hi,\r\nI understand that clarification is needed.\r\nInstead of explaining can you not just cite the paragraph from the RFC?",
+          "createdAt": "2026-07-27T08:47:18Z",
+          "updatedAt": "2026-07-27T08:47:18Z"
+        }
+      ],
       "reviews": []
     }
   ]
