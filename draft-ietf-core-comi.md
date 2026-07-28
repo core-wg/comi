@@ -503,6 +503,7 @@ Content-Format: TBD3 (application/yang-instances+cbor-seq)
 
 / CBOR sequence of CBOR maps of SID, instance-value /
 ~~~
+{: title="Generic format of FETCH interchange"}
 
 
 
@@ -581,6 +582,7 @@ Content-Format: TBD3 (application/yang-instances+cbor-seq)
 
 2.04 Changed  / Response /
 ~~~~
+{: title="Generic format of iPATCH interchange"}
 
 #### iPATCH example {#ipatch-example}
 
@@ -634,7 +636,7 @@ Content-Format: 140 (application/yang-data+cbor; id=sid)
 
 / CBOR map of SID, instance-value /
 ~~~~
-{: title="Example of full datastore GET"}
+{: title="Generic format of full datastore GET interchange"}
 
 ~~~~ coap
 PUT <datastore resource>
@@ -644,7 +646,7 @@ Content-Format: 140 (application/yang-data+cbor; id=sid)
 
 2.04 Changed
 ~~~~
-{: title="Example of full datastore PUT"}
+{: title="Generic format of full datastore PUT interchange"}
 
 ~~~~ coap
 POST <datastore resource>
@@ -654,14 +656,14 @@ Content-Format: 140 (application/yang-data+cbor; id=sid)
 
 2.01 Created
 ~~~~
-{: title="Example of full datastore POST"}
+{: title="Generic format of full datastore POST interchange"}
 
 ~~~~ coap
 DELETE <datastore resource>
 
 2.02 Deleted
 ~~~~
-{: title="Example of full datastore DELETE"}
+{: title="Generic format of full datastore DELETE interchange"}
 
 The content of the CBOR map represents the complete datastore of the server
 at the GET indication of after a successful processing of a PUT or POST request.
@@ -740,6 +742,7 @@ Content-Format: TBD3 (application/yang-instances+cbor-seq)
 
 / CBOR sequence of CBOR maps of instance-identifier, instance-value /
 ~~~~
+{: title="Generic format of event-stream GET interchange"}
 
 The sequence of data node instances may contain identical items which have
 been generated at different times.
@@ -769,6 +772,7 @@ Content-Format: TBD3 (application/yang-instances+cbor-seq)
 
 /  CBOR sequence of CBOR maps of instance-identifier, instance-value /
 ~~~~
+{: title="Generic format of event-stream FETCH interchange"}
 
 When filtering is not supported by a CORECONF server, the request
 payload can be ignored: all event notifications are then reported
@@ -887,6 +891,7 @@ Content-Format: 140 (application/yang-instances+cbor-seq)
 
 / CBOR sequence of CBOR maps of instance-identifier, instance-value /
 ~~~~
+{: title="Generic format of RPC and action POST interchange"}
 
 
 ### RPC Example {#rpc-example}
