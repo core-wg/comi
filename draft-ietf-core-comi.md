@@ -357,10 +357,25 @@ The different Media-Type usages are summarized in the table below:
 | FETCH request  | datastore    | application/yang-identifiers+cbor-seq |
 | FETCH response | datastore    | application/yang-instances+cbor-seq   |
 | iPATCH request | datastore    | application/yang-instances+cbor-seq   |
+| iPATCH response | datastore    | N/A                                   |
+| GET request     | datastore    | N/A                                   |
+| GET response    | datastore    | application/yang-data+cbor; id=sid    |
+| PUT request     | datastore    | application/yang-data+cbor; id=sid    |
+| PUT response    | datastore    | N/A                                   |
+| POST request    | datastore    | applicaiton/yang-data+cbor; id=sid    |
+| POST response   | datastore    | N/A                                   |
+| DELETE request  | datastore    | N/A                                   |
+| DELETE response | datastore    | N/A                                   |
+| GET request     | event stream | N/A                                   |
 | GET response   | event stream | application/yang-instances+cbor-seq   |
+| FETCH request   | event stream | applicaiton/yang-identifiers+cbor-seq |
+| FETCH response  | event stream | application/yang-instances+cbor-seq   |
 | POST request   | rpc, action  | application/yang-instances+cbor-seq   |
 | POST response  | rpc, action  | application/yang-instances+cbor-seq   |
 {: #tbl-mt-uses align="left" title="Summary of Media-Type Usages"}
+
+No Media-Type (N/A) should be used if the method request or response does not
+carry a payload.
 
 ## Unified datastore {#unified-datastore}
 
