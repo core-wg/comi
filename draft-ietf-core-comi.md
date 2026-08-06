@@ -372,6 +372,7 @@ The different Media-Type usages are summarized in the table below:
 | FETCH response  | event stream | application/yang-instances+cbor-seq   |
 | POST request    | rpc, action  | application/yang-instances+cbor-seq   |
 | POST response   | rpc, action  | application/yang-instances+cbor-seq   |
+| any error <br>response | any   | application/yang-data+cbor; id=sid    |
 {: #tbl-mt-uses align="left" title="Summary of Media-Type Usages"}
 
 No Media-Type (N/A) should be used if the method request or response does not
