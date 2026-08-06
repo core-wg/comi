@@ -353,10 +353,10 @@ application/yang-instances+cbor-seq:
 
 The different Media-Type usages are summarized in the table below:
 
-| Method         | Resource     | Media-Type                           |
-| FETCH request  | datastore    | application/yang-identifiers+cbor-seq |
-| FETCH response | datastore    | application/yang-instances+cbor-seq   |
-| iPATCH request | datastore    | application/yang-instances+cbor-seq   |
+| Method          | Resource     | Media-Type                            |
+| FETCH request   | datastore    | application/yang-identifiers+cbor-seq |
+| FETCH response  | datastore    | application/yang-instances+cbor-seq   |
+| iPATCH request  | datastore    | application/yang-instances+cbor-seq   |
 | iPATCH response | datastore    | N/A                                   |
 | GET request     | datastore    | N/A                                   |
 | GET response    | datastore    | application/yang-data+cbor; id=sid    |
@@ -367,11 +367,11 @@ The different Media-Type usages are summarized in the table below:
 | DELETE request  | datastore    | N/A                                   |
 | DELETE response | datastore    | N/A                                   |
 | GET request     | event stream | N/A                                   |
-| GET response   | event stream | application/yang-instances+cbor-seq   |
+| GET response    | event stream | application/yang-instances+cbor-seq   |
 | FETCH request   | event stream | applicaiton/yang-identifiers+cbor-seq |
 | FETCH response  | event stream | application/yang-instances+cbor-seq   |
-| POST request   | rpc, action  | application/yang-instances+cbor-seq   |
-| POST response  | rpc, action  | application/yang-instances+cbor-seq   |
+| POST request    | rpc, action  | application/yang-instances+cbor-seq   |
+| POST response   | rpc, action  | application/yang-instances+cbor-seq   |
 {: #tbl-mt-uses align="left" title="Summary of Media-Type Usages"}
 
 No Media-Type (N/A) should be used if the method request or response does not
