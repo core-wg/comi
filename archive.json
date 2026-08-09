@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-08-06T02:25:20.259639+00:00",
+  "timestamp": "2026-08-09T01:36:22.249417+00:00",
   "repo": "core-wg/comi",
   "labels": [
     {
@@ -219,6 +219,22 @@
       "body": "### One part of the document defines the event stream resource as a resource with name `core.c.ev`:\n\n[Link to Editor's copy HTML Render](https://core-wg.github.io/comi/draft-ietf-core-comi.html#section-3-3)\n\nSource md:\nhttps://github.com/core-wg/comi/blob/f9f19d9c19285fdc3d1ba30af628773033531ba7/draft-ietf-core-comi.md?plain=1#L396-L404\n\n### While other parts uses for same resource type name `core.c.es`:\n[Link to Editor's copy HTML Render](https://core-wg.github.io/comi/draft-ietf-core-comi.html#name-event-stream-resource-disco)\n\nSource md:\nhttps://github.com/core-wg/comi/blob/f9f19d9c19285fdc3d1ba30af628773033531ba7/draft-ietf-core-comi.md?plain=1#L1122-L1140\nhttps://github.com/core-wg/comi/blob/f9f19d9c19285fdc3d1ba30af628773033531ba7/draft-ietf-core-comi.md?plain=1#L1122-L1140",
       "createdAt": "2026-06-16T15:28:29Z",
       "updatedAt": "2026-06-16T15:28:46Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 29,
+      "id": "I_kwDOBM6Qn88AAAABLvtctw",
+      "title": "Hard to implement processing of POST method",
+      "url": "https://github.com/core-wg/comi/issues/29",
+      "state": "OPEN",
+      "author": "vvilimek",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The `POST` method is used by both datastore and rpc/action. The datastore use POST method for full datastore creation. The rpc/action use it for simple RPC invocation.\n\nBoth of these option use datastore resource URI (`</c>` example in the draft's text). This means that the implementation must either depend\non `Content-Format` option or guess the action from the payload content. (If I understand it correctly, usage of `Content-Format` is optional,\nyet highly recommended).\n\n### Possible solution:\nCreate a new resource type for all rpc/actions:\n| Value | Description | Reference |\n| :--- | :--- | :--- |\n| core.c.r | YANG rpcs and YANG actions | RFC XXXX |\n\nExample URI:\n| CoAP resource | Example path | rt |\n| :--- | :--- | :--- |\n| YANG RPC resource | /r | core.c.r |\n\nThe YANG RPC resource applies for all YANG `rpc`s and `action`s.\n\n\n### Data editing\nBased on Andy Bierman's finding the CoAP iPATCH requires atomic processing, it may happen the we shall use POST also in places where\nthe iPATCH is now used. (Only if we proceed to relax the atomicity semantics of the CORECONF operations.)\n\n### Notes:\n\nSee also #28",
+      "createdAt": "2026-08-06T16:30:17Z",
+      "updatedAt": "2026-08-06T16:30:17Z",
       "closedAt": null,
       "comments": []
     }
@@ -704,7 +720,7 @@
       "labels": [],
       "body": "Minimal-change revision aimed at getting the draft to WGLC: remove transaction /\natomicity semantics, reserve an atomicity extension point, explicitly scope out\nNMDA datastore selection, and add the corresponding security note.\n\nAtomicity, NMDA datastore selection, and rich per-item failure reporting are\n**deferred to a separate future extension document** (not written here). The\nguiding constraint throughout was a minimal diff: 67 insertions, 9 deletions, one\nfile, confined to the sections listed below plus ToC/section-number mechanics.\n\nOne commit per work item, so individual items can be dropped or discussed\nseparately.\n\n## WI-1 \u2014 Remove transaction/atomicity semantics\n\nSections: \u00a76 Error Handling; \u00a73.2 Data Editing (new \u00a73.2.1 \"Request Processing\");\n\u00a73.2.5 iPATCH; \u00a71 Introduction.\n\n- Removed the all-or-nothing requirement in \u00a76: *\"Requests that result in an\n  error response MUST NOT have an effect on the datastore.\"*\n- Added the replacement processing model once, in a new \"Request Processing\"\n  subsection: items processed in order; each applied best-effort; partial failure\n  permitted with no required revert; error response on failure with remaining\n  items MAY stop at first failure; client responsible for constructing consistent\n  requests and for detecting/repairing partial application. \u00a76 and iPATCH now\n  reference it. First-error reporting only \u2014 no per-item result structure.\n- Intro: \"single editing transaction\" \u2192 \"single editing operation\". The sentence\n  is about round-trips, not atomicity, so this only removes the\n  atomicity-flavoured wording.\n\n## WI-2 \u2014 Reserve the atomicity extension point\n\nSection: \u00a73.2 Data Editing (new \u00a73.2.2 \"Future processing extensions\").\n\nStates that requests defined here are best-effort/non-atomic; that future\nextensions MAY define stricter (e.g. atomic) semantics; that such semantics MUST\nbe explicitly signalled in the request (e.g. a CoAP option or a Content-Format\nparameter); and that an extension MUST NOT change the semantics of unsignalled\nrequests. The signal must be defined so that a server which does not recognise it\nrejects the request rather than silently falling back to best-effort \u2014 e.g. a\ncritical CoAP option (RFC 7252 \u00a75.4.1).\n\nThis reserves the architectural slot only. **No option or parameter is defined or\nregistered, and there are no new IANA registrations in this revision.**\n\n## WI-3 \u2014 NMDA scoping\n\nSections: \u00a72.4 Unified datastore; \u00a72 architecture intro; \u00a75.2.1.\n\nChose to expand the existing \u00a72.4 rather than add a new section \u2014 smaller diff,\nand that section already carried the single-datastore statement.\n\n- \u00a72.4: CORECONF operates on a single conceptual datastore (the server's applied\n  configuration and operational state); selection among NMDA datastores is out of\n  scope; a future extension may define datastore selection (e.g. a query\n  parameter or URI structure) without changing the semantics defined here.\n- \u00a72 architecture intro: \"content of datastore(s)\" \u2192 \"content of the datastore\".\n- \u00a75.2.1: removed the sentence pointing at NMDA for \"other examples of\n  datastores\", which cited [RFC7950] and implied multiple datastores.\n\n**Deviation from plan worth reviewing:** RFC 8342 is kept as a **normative**\nreference, not downgraded to informative, because the YANG module imports\n`ietf-datastores`. Flagging it explicitly since the opposite was expected.\n\n## WI-4 \u2014 Security Considerations\n\nSection: \u00a77. Added a paragraph on the risk introduced by partial application:\na multi-item request that fails midway can leave the datastore in a state the\nclient did not intend, and clients need to detect and repair that. No new\ntop-level Operational Considerations section was created.\n\n## WI-5 \u2014 Editorial fallout\n\nAbstract and \u00a71: one sentence each noting that atomic/transaction semantics for\nmulti-item requests and NMDA datastore selection are out of scope and deferred.\nNo citations in the Abstract, per RFC abstract rules.\n\n## Flagged, deliberately not changed\n\n- \u00a72 architecture figure label \"Datastore(s) (5)\" (aasvg ASCII art) \u2014 left as-is\n  to avoid disturbing figure alignment for a cosmetic \"(s)\".\n- \u00a75.1 YANG library: \"This module also contains the list of datastores\n  implemented.\" Left as-is \u2014 it describes the generic YANG-library discovery\n  mechanism, which returns a one-element list under the single-datastore model.\n  Not a hard contradiction; edit deferred to avoid scope creep.\n\n## Notes\n\n- Branched from `main` (`f9f19d9`) and independent of #25 \u2014 either can\n  merge first.\n- Whichever of the two merges second will hit a one-line conflict in the iPATCH\n  paragraph, where this PR's \"processed as described in Section 3.2.1\" sentence\n  sits next to the other PR's absence-marker sentence. Both sentences survive;\n  keep them adjacent.\n- Builds clean with `kdrfc draft-ietf-core-comi.md` (aasvg on PATH), no new\n  xml2rfc warnings, all cross-references resolve.\n",
       "createdAt": "2026-07-25T10:42:29Z",
-      "updatedAt": "2026-08-04T17:53:10Z",
+      "updatedAt": "2026-08-06T17:26:47Z",
       "baseRepository": "core-wg/comi",
       "baseRefName": "main",
       "baseRefOid": "f9f19d9c19285fdc3d1ba30af628773033531ba7",
@@ -785,6 +801,20 @@
           "body": "```Are there actually any users who want to use it?```\r\n\r\nYumaWorks is interested, but it is not a high priority.\r\nThe landscape is changing. Some standards work in progress:\r\n\r\n-  UDP-Notif telemetry\r\n-  NETCONF over QUIC\r\n-  RESTCONF over QUIC\r\n-  YANG/CBOR encoding for RESTCONF\r\n-  YANG/CBOR encoding for UDP-Notif\r\n\r\nWe already support YANG Push in XML, JSON, and CBOR.\r\nYANG/CBOR is a high priority for many organizations.\r\n\r\nIMO CORECONF is a great SNMP replacement, supporting\r\nvarbind-focused applications needing simple config and monitoring.\r\n",
           "createdAt": "2026-08-04T17:53:10Z",
           "updatedAt": "2026-08-04T17:53:10Z"
+        },
+        {
+          "author": "vvilimek",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "https://github.com/core-wg/comi/pull/24#issuecomment-5182503747\r\n\r\n\r\n> `Why is it fuzzy intentionally? To make life of the programmers easier?`\r\n> \r\n> I guess so. A server can be a distributed system (e.g. main server + subsystems).\r\n\r\nIt is a fact that implementation of a 'Proxy server' hiding several services/subsystems is in the YANG ecosystem very hard. Clear semantics should make things easier and more predictable.\r\n\r\nFor NETCONF you just crate lock everywhere and then start performing the writes. The RESTCONF is not that simple.\r\nI am right?\r\n\r\n> \r\n> Consider a simple 'backup' command. \r\n> - Does return OK mean the backup request has been accepted and queued? \r\n> - Does it mean the backup has been started? \r\n> - Does it mean the backup has finished?\r\n\r\nThe model should explain the semantics clearly. At least for RESTCONF, I think the most RESTful approach is to report success when backup is finished. Some clever extension might introduce tasks with notifications.\r\n\r\n> Usually, the data model does not say, so the implementation can do whatever it wants.\r\n\r\nBut it _should_.\r\n\r\n> \r\n> The error handling details for iPATCH are clear enough. CORECONF cannot ignore selected parts of this RFC.\r\n\r\nI agree. I think that we should use CoAP POST.\r\n",
+          "createdAt": "2026-08-06T17:06:26Z",
+          "updatedAt": "2026-08-06T17:06:26Z"
+        },
+        {
+          "author": "abierman",
+          "authorAssociation": "NONE",
+          "body": "I am not in favor of this PR.\r\n\r\nOur server does not use locking but rather a complex 3-phase transaction model\r\nhttps://docs.yumaworks.com/en/latest/ypserver/software-overview.html#edit-the-database\r\n\r\nIf CORECONF is expected to apply every part of the edit request to the system before\r\nreturning success, then the draft should say that.  However, this is often not achievable\r\nso rollback is used.\r\n\r\nProxy servers are a whole new problem space.",
+          "createdAt": "2026-08-06T17:26:47Z",
+          "updatedAt": "2026-08-06T17:26:47Z"
         }
       ],
       "reviews": [
@@ -989,6 +1019,32 @@
       "headRepository": "vvilimek/core-comi",
       "headRefName": "coap-diag",
       "headRefOid": "4f260dae0d538054f53ad964cd3c53a8d89ebd60",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 28,
+      "id": "PR_kwDOBM6Qn877rs4z",
+      "title": "Add missing Media-Types to overview table",
+      "url": "https://github.com/core-wg/comi/pull/28",
+      "state": "OPEN",
+      "author": "vvilimek",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2026-08-06T16:17:00Z",
+      "updatedAt": "2026-08-06T16:17:01Z",
+      "baseRepository": "core-wg/comi",
+      "baseRefName": "main",
+      "baseRefOid": "f9f19d9c19285fdc3d1ba30af628773033531ba7",
+      "headRepository": "vvilimek/core-comi",
+      "headRefName": "methods",
+      "headRefOid": "e655682dd33fc90aabb13d9f40d952243ffe80d0",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
