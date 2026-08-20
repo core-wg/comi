@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-08-09T01:36:22.249417+00:00",
+  "timestamp": "2026-08-20T01:06:49.472214+00:00",
   "repo": "core-wg/comi",
   "labels": [
     {
@@ -235,6 +235,22 @@
       "body": "The `POST` method is used by both datastore and rpc/action. The datastore use POST method for full datastore creation. The rpc/action use it for simple RPC invocation.\n\nBoth of these option use datastore resource URI (`</c>` example in the draft's text). This means that the implementation must either depend\non `Content-Format` option or guess the action from the payload content. (If I understand it correctly, usage of `Content-Format` is optional,\nyet highly recommended).\n\n### Possible solution:\nCreate a new resource type for all rpc/actions:\n| Value | Description | Reference |\n| :--- | :--- | :--- |\n| core.c.r | YANG rpcs and YANG actions | RFC XXXX |\n\nExample URI:\n| CoAP resource | Example path | rt |\n| :--- | :--- | :--- |\n| YANG RPC resource | /r | core.c.r |\n\nThe YANG RPC resource applies for all YANG `rpc`s and `action`s.\n\n\n### Data editing\nBased on Andy Bierman's finding the CoAP iPATCH requires atomic processing, it may happen the we shall use POST also in places where\nthe iPATCH is now used. (Only if we proceed to relax the atomicity semantics of the CORECONF operations.)\n\n### Notes:\n\nSee also #28",
       "createdAt": "2026-08-06T16:30:17Z",
       "updatedAt": "2026-08-06T16:30:17Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 30,
+      "id": "I_kwDOBM6Qn88AAAABNM5zpQ",
+      "title": "edditorial: Erroneous RPC example",
+      "url": "https://github.com/core-wg/comi/issues/30",
+      "state": "OPEN",
+      "author": "vvilimek",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Section 3.5.1 RPC Example (`{#rpc-exampe}`)\nhttps://github.com/core-wg/comi/blob/f9f19d9c19285fdc3d1ba30af628773033531ba7/draft-ietf-core-comi.md?plain=1#L915-L920\n\nThe RFC 9254 requires that the RPC input (and almost all other internal nodes) are encoded using CBOR map, not NULL.\nFor more details see [The 'container' and Other Nodes from the Data Tree](https://www.rfc-editor.org/rfc/rfc9254.html#name-the-container-and-other-nod).",
+      "createdAt": "2026-08-18T10:46:03Z",
+      "updatedAt": "2026-08-18T10:46:03Z",
       "closedAt": null,
       "comments": []
     }
