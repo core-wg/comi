@@ -78,6 +78,7 @@ normative:
   RFC7959: blockwise
   RFC7641: observe
   RFC8132: etch
+  RFC8791: yang-structure-ext
   RFC9254: yang-cbor
   RFC9595: core-sid
   I-D.ietf-core-yang-library:
@@ -1052,7 +1053,7 @@ interface and still be interested to discover resources that are available,
 implementations MAY choose to support discovery of all available
 resources using "/.well-known/core" as defined by {{RFC6690}}.
 
-### Datastore Resource Discovery
+### Datastore Resource Discovery {#datastore-discovery}
 
 The presence and location of (path to) each datastore implemented by the CORECONF server
 can be discovered by sending a GET request to "/.well-known/core" including a
@@ -1259,7 +1260,26 @@ As {{-yang-cbor}} and {{RFC4648}} are used for payload and SID
 encoding, the security considerations of those documents also need to be
 well-understood.
 
-# IANA Considerations
+The YANG module specified in this document defines a schema for data that is
+designed to be accessed via CORECONF itself. The lowest CoAP layer is the
+secure transport layer, and the mandatory-to-implement secure transports are
+listed above.
+
+The module does not define any configuration or state data nodes. It defines
+identities used as error tags, and a structure {{RFC8791}} used as the payload
+of an error response. Because the module defines no writable or readable data
+nodes, the usual analysis of which subtrees and data nodes are sensitive or
+vulnerable to write or read operations does not apply to it.
+
+What does deserve attention is the content a server places in that structure.
+The 'error-data-node' leaf carries an instance-identifier, and 'error-message'
+carries free text. A server that returns either to a client that is not
+authorized to see the corresponding part of the datastore discloses the shape
+of its data model, and possibly the existence of specific instances, through
+the error path. A server SHOULD limit the detail it reports in an error
+response to what the requesting client is authorized to read.
+
+# IANA Considerations {#iana}
 
 ## Resource Type (rt=) Link Target Attribute Values Registry
 
@@ -1367,6 +1387,28 @@ Reference: RFC XXXX
 
 The YANG module and SID file are in {{ietf-coreconf-yang}} and
 {{ietf-coreconf-sid}}, respectively.
+
+## YANG SID Range Assignment
+
+IANA is requested to assign a SID range to the "ietf-coreconf" YANG module in
+the "IETF YANG SID Range Registry", following the procedure of {{Section 6.3.1
+of -core-sid}}:
+
+Entry Point: 1000
+
+Size: 100
+
+Module Name: ietf-coreconf
+
+Reference: RFC XXXX
+
+The SID file in {{ietf-coreconf-sid}} assigns SIDs from this range, and this
+document depends on those values: {{datastore-discovery}} uses the SID of the
+"unified" datastore identity.
+
+// RFC Ed.: if IANA assigns an entry point other than 1000, the SID file in
+// {{ietf-coreconf-sid}} and every SID derived from it in the body of this
+// document have to be regenerated.
 
 --- back
 
