@@ -7,7 +7,7 @@ consensus: yes
 stream: IETF
 title: CoAP Management Interface (CORECONF)
 abbrev: CORECONF
-area: Applications
+area: "Web and Internet Transport"
 wg: CoRE
 venue:
   mail: core@ietf.org
