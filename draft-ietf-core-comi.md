@@ -68,7 +68,6 @@ normative:
   RFC3688: xmlreg
   RFC6020: yang10
   RFC4648: base
-  RFC5277: nc-notif
   RFC6241: netconf
   RFC6243: nc-wd
   RFC8949: cbor
@@ -696,7 +695,8 @@ RES: 2.05 Content
 ## Event stream {#event-stream}
 
 Event notification is an essential function for the management of servers.
-CORECONF allows notifications specified in YANG {{RFC5277}} to be reported to a list
+CORECONF allows notifications specified in YANG {{Section 7.16 of RFC7950}} to be
+reported to a list
 of clients. The path for the default event stream can be discovered as
 described in {{coap-interface}}. The server MAY support additional event
 stream resources to address different notification needs.
