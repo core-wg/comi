@@ -652,7 +652,7 @@ FORMAT:
 ~~~~
 
 The content of the CBOR map represents the complete datastore of the server
-at the GET indication of after a successful processing of a PUT or POST request.
+at the GET indication or after a successful processing of a PUT or POST request.
 
 
 ### Full datastore examples {#datastore-example}
@@ -883,7 +883,7 @@ module example-ops {
 
   rpc reboot {                          // SID 61000
     description "Reboot operation.";
-    input {                             // SID 61009
+    input {
       leaf delay {                      // SID 61001
         type uint32;
         units "seconds";
@@ -1188,7 +1188,7 @@ The following 'error-tag' and 'error-app-tag' are defined by the ietf-coreconf Y
 
   * error-app-tag 'duplicate' is returned by the CORECONF server when a client tries to create a duplicate list or leaf-list entry.
 
-* error-tag 'invalid-value' is returned by the CORECONF server when the CORECONF client tries to update or create a leaf with a value encoded using an invalid CBOR datatype or if the 'range', 'length', 'pattern' or 'require-instance' constrain is not fulfilled.
+* error-tag 'invalid-value' is returned by the CORECONF server when the CORECONF client tries to update or create a leaf with a value encoded using an invalid CBOR datatype or if the 'range', 'length', 'pattern' or 'require-instance' constraint is not fulfilled.
 
   * error-app-tag 'invalid-datatype' is returned by the CORECONF server when CBOR encoding does not follow the rules set by the YANG Build-In type or when the value is incompatible with it (e.g., a value greater than 127 for an int8, undefined enumeration).
 
@@ -1461,7 +1461,7 @@ module ietf-coreconf {
       "Returned by the CORECONF server when the CORECONF client tries
        to update or create a leaf with a value encoded using an
        invalid CBOR datatype or if the 'range', 'length',
-       'pattern' or 'require-instance' constrain is not
+       'pattern' or 'require-instance' constraint is not
        fulfilled.";
   }
 
@@ -1561,7 +1561,7 @@ module ietf-coreconf {
     base error-app-tag;
     description
       "Returned by the CORECONF server when CBOR encoding is
-       incorect or when the value encoded is incompatible with
+       incorrect or when the value encoded is incompatible with
        the YANG Built-In type. (e.g., value greater than 127
        for an int8, undefined enumeration).";
   }
