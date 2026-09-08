@@ -1394,14 +1394,14 @@ module ietf-coreconf {
   }
 
   organization
-    "IETF Core Working Group";
+    "IETF CoRE Working Group";
 
   contact
     "WG Web:   <https://datatracker.ietf.org/wg/core/>
      WG List:  <mailto:core@ietf.org>
 
      Michel Veillette
-     <mailto:michel.veillette@trilliantinc.com>
+     <mailto:michel.veillette@trilliant.com>
 
      Alexander Pelov
      <mailto:alexander.pelov@imt-atlantique.fr>
@@ -1410,7 +1410,10 @@ module ietf-coreconf {
      <mailto:stokcons@kpnmail.nl>
 
      Andy Bierman
-     <mailto:andy@yumaworks.com>";
+     <mailto:andy@yumaworks.com>
+
+     Carsten Bormann
+     <mailto:cabo@tzi.org>";
 
   description
     "This module contains the different definitions required
@@ -1430,10 +1433,10 @@ module ietf-coreconf {
      see the RFC itself for full legal notices.";
 
   revision 2026-03-02 {
-     description
-      "Use sx:, not rc:.";
+    description
+      "Initial revision.";
     reference
-      "[I-D.ietf-core-comi] CoAP Management Interface";
+      "RFC XXXX: CoAP Management Interface (CORECONF)";
   }
 
   identity unified {
