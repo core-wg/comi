@@ -78,12 +78,12 @@ normative:
   RFC7959: blockwise
   RFC7641: observe
   RFC8132: etch
-  RFC8040: restconf
   RFC9254: yang-cbor
   RFC9595: core-sid
   I-D.ietf-core-yang-library:
   RFC8342: nmda
 informative:
+  RFC8040: restconf
   RFC6347:
     -: dtls12
     ann: >
