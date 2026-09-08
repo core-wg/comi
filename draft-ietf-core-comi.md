@@ -466,13 +466,10 @@ If the target of a GET or FETCH method is a data node that represents a leaf
 that has a default value, and the leaf has not been given a value by any
 client yet, the server MUST return the default value of the leaf.
 
-If the target of a GET method is a data node that represents a
+If the target of a GET or FETCH method is a data node that represents a
 container or list that has child resources with default values,
-and these have not been given a value yet,
-
-> The server MUST NOT return the child resource if `d`=`t`.
-
-> The server MUST return the child resource if `d`=`a`.
+and these have not been given a value yet, the server MUST NOT return the
+child resource if `d`=`t`, and MUST return the child resource if `d`=`a`.
 
 If this query parameter is not present, the default value is "t" (the quotes are
 added for readability, but they are not part of the payload).
@@ -1245,7 +1242,7 @@ use application/yang-instances+cbor-seq here, as we don't have an instance.
 
 For secure network management, it is important to restrict access to configuration variables
 only to authorized parties. CORECONF re-uses the security mechanisms already available to CoAP,
-this includes DTLS {{RFC6347}}{{-dtls13}} and OSCORE {{RFC8613}} for protected access to
+this includes DTLS {{-dtls13}}{{RFC6347}} and OSCORE {{RFC8613}} for protected access to
 resources, as well as suitable authentication and authorization mechanisms, for
 example those defined in ACE OAuth {{RFC9200}}.
 
