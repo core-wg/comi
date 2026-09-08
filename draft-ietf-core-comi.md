@@ -1165,11 +1165,13 @@ The following list of common CoAP errors should be implemented by CORECONF serve
 The CORECONF server MUST also enforce the different constraints associated with the YANG data models implemented. These constraints are described in {{Section 8 of RFC7950}}. These errors are reported using the CoAP error code 4.00 (Bad Request) and may have the following error container as payload. The YANG definition and associated .sid file are available in {{ietf-coreconf-yang}} and {{ietf-coreconf-sid}}. The error container is encoded using the encoding rules of a YANG data template as defined in {{Section 5 of -yang-cbor}}.
 
 ~~~~
-+--rw error!
-   +--rw error-tag             identityref
-   +--rw error-app-tag?        identityref
-   +--rw error-data-node?      instance-identifier
-   +--rw error-message?        string
+module: ietf-coreconf
+
+  structure error:
+    +-- error-tag          identityref
+    +-- error-app-tag?     identityref
+    +-- error-data-node?   instance-identifier
+    +-- error-message?     string
 ~~~~
 
 The following 'error-tag' and 'error-app-tag' are defined by the ietf-coreconf YANG module, these tags are implemented as YANG identity and can be extended as needed.
