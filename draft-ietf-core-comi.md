@@ -67,6 +67,7 @@ contributor:
 normative:
   RFC3688: xmlreg
   RFC6020: yang10
+  RFC3986: uri
   RFC4648: base
   RFC5277: nc-notif
   RFC6241: netconf
@@ -324,6 +325,10 @@ Note that this is a representation of the numeric value of the SID. It is not
 the base 64 encoding of an octet string as specified in {{Section 4 of
 RFC4648}}, and in particular it is not the base 64 encoding of the CBOR
 representation of the SID.
+
+The base 64url alphabet is used because every one of its characters is an
+unreserved character of the "pchar" production of {{Section 3.3 of RFC3986}};
+a SID in a path segment therefore never needs percent-encoding.
 
 ### Instance-identifiers {#instance-identifier}
 
