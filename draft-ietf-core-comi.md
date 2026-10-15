@@ -394,13 +394,13 @@ YANG data node instances are accessible by performing FETCH and iPATCH
 operations on the datastore resource.
 
 CORECONF also supports event stream resources used to observe notification instances.
-Event stream resources can be discovered using resource type (rt): core.c.ev.
+Event stream resources can be discovered using resource type (rt): core.c.es.
 
 The description of the CORECONF management interface is shown in the table below:
 
 | CoAP resource                | Example path  | rt          |
 | Datastore resource           | /c            | core.c.ds   |
-| Default event stream resource | /s            | core.c.ev   |
+| Default event stream resource | /s            | core.c.es   |
 {: #tbl-resources align="left" title="Resources, example paths, and resource types (rt)"}
 
 The path values in the table are example ones. On discovery, the server makes
