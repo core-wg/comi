@@ -743,6 +743,14 @@ FORMAT:
 The sequence of data node instances may contain identical items which have
 been generated at different times.
 
+A CORECONF server that encounters an error while processing a notification
+returns a CoAP 5.xx response to the request that established the observation and
+terminates the observation of that stream resource, as specified for Observe in
+{{RFC7641}}. An error that affects a single notification instance does not by
+itself terminate the stream. A client that observes the termination reports the
+failure to its user agent; whether it re-observes the stream is outside the scope
+of this document.
+
 An example implementation is:
 
 > Every time an event is generated, the generated notification instance is
