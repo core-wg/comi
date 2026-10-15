@@ -347,13 +347,12 @@ application/yang-instances+cbor-seq:
   The reference SID applying to the instance-value is provided by the
   SID in the instance-identifier.
 
-: In the position of an instance-value, the CBOR undefined value (0xf7) does
-  not carry a value of the data node; it indicates the absence of a value.
+: In the position of an instance-value, the CBOR undefined value (0xf7)
+  indicates the absence of a value.
   Its precise meaning depends on the method, as specified in
   {{fetch}} and {{ipatch-operation}}.
-  The CBOR null value (0xf6) is not used for this purpose: null is a valid
-  instance-value for a leaf of type 'empty' (see {{Section 6.11 of -yang-cbor}})
-  and can therefore not be distinguished from an absence marker.
+  The CBOR null value (0xf6) is a valid
+  instance-value for a leaf of type 'empty' (see {{Section 6.11 of -yang-cbor}}).
 
 : When present in an iPATCH request payload, this Media-Type carry a list of data node instances to be replaced, created, or deleted.
   For each data node instance D, for which the instance-identifier is the same as a data node instance I, in the targeted datastore resource: the value of D replaces the value of I.  When the value of D is undefined, the data node instance I is removed.  When the targeted datastore resource does not contain a data node instance with the same instance-identifier as D, a new instance is created with the same instance-identifier and value as D (unless the value of D is undefined).
@@ -924,15 +923,16 @@ RES:  2.04 Changed
       (Content-Format: application/yang-instances+cbor-seq)
 
 { 61000:
-  undefined
+  {}
 }
 ~~~~
 
-<!--
-We now believe this is the correct empty return for an RPC without output.
-    Note that we always have to send a yang-instances (or at least a
-    yang-identifiers) for the input side to find the right RPC.
- -->
+The 'reboot' RPC has no output, so the instance-value is an empty CBOR map.
+The output of an RPC or action is an internal node and is always encoded as a
+CBOR map ({{Section 4.2 of -yang-cbor}}); the absence marker of
+{{media-type}} is not used here. A yang-instances payload is still returned,
+because the instance-identifier is what identifies which RPC the response
+belongs to.
 
 ### Action Example {#action-example}
 
