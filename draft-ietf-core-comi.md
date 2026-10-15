@@ -986,6 +986,63 @@ RES:  2.04 Changed
 }
 ~~~~
 
+### Invocation without input {#no-input-example}
+
+An RPC or an action is invoked without input in two cases: its input has no
+mandatory data node and the client leaves the input out, or its YANG definition
+has no input at all. In both cases the request is still a payload of
+application/yang-instances+cbor-seq: the instance-identifier identifies the RPC
+or the action, and the instance-value is an empty map. The input of an RPC or
+an action is encoded as a CBOR map ({{Section 4.2 of -yang-cbor}}), and an
+empty one has no data nodes in it.
+
+The 'reboot' RPC of {{rpc-example}} can be invoked without input, because its
+'delay' leaf has a default value:
+
+~~~~
+REQ:  POST </c>
+      (Content-Format: application/yang-instances+cbor-seq)
+
+{ 61000:
+  {}
+}
+RES:  2.04 Changed
+      (Content-Format: application/yang-instances+cbor-seq)
+
+{ 61000:
+  {}
+}
+~~~~
+
+In the module of {{action-example}}, a second action 'restart' is added to the
+'server' list. It has neither input nor output:
+
+~~~~
+  list server {                        // SID 60000
+    ...
+    action restart {                   // SID 60005
+      description "Restart the server.";
+    }
+  }
+~~~~
+
+It is invoked on the server instance with name equal to "myserver":
+
+~~~~
+REQ:  POST </c>
+      (Content-Format: application/yang-instances+cbor-seq)
+
+{ [60005, "myserver"]:
+  {}
+}
+RES:  2.04 Changed
+      (Content-Format: application/yang-instances+cbor-seq)
+
+{ [60005, "myserver"]:
+  {}
+}
+~~~~
+
 # Use of Block-wise Transfers {#block}
 
 The CoAP protocol provides reliability by acknowledging the UDP datagrams.
