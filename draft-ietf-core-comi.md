@@ -563,6 +563,34 @@ CoAP iPATCH method {{RFC8132}}.
 
 There are no query parameters for the iPATCH method.
 
+The processing of one iPATCH request is atomic, as required by
+{{Section 3 of RFC8132}}: the server applies the whole set of operations
+carried in the request, or none of them.
+If the request cannot be applied in full, the datastore is left unmodified
+and an error response is returned, as specified in {{error-handling}}.
+The server is free to choose how it achieves atomicity; one way is to
+validate the datastore that would result from the edit and to apply the
+change only if that validation succeeds, as described in
+{{Section 8 of RFC7950}}.
+This needs only a transient buffer holding the datastore that would result
+from the edit.
+
+Atomicity is a property of a single request.
+A client that needs the operations of an edit to be independent of each
+other sends them as separate iPATCH requests; a client that needs them to
+succeed or fail together sends them in one request.
+
+The result of an iPATCH request is the same as if its operations were applied
+one after another, in the order in which they appear in the payload.
+For example, an operation can refer to a data node instance that an earlier
+operation of the same request has created.
+The server is free to apply the operations internally in any other way, as
+long as that result is obtained.
+
+A successful iPATCH request is answered with 2.04 (Changed), including when
+the request creates or deletes data node instances: the target of the request
+is the datastore resource, which already exists.
+
 The processing of the iPATCH command is specified by Media-Type application/yang-instances+cbor-seq.
 In summary, if the CBOR patch payload contains a data node instance that is not present
 in the target, this instance is added. If the target contains the specified instance,
