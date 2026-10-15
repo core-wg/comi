@@ -580,6 +580,13 @@ A client that needs the operations of an edit to be independent of each
 other sends them as separate iPATCH requests; a client that needs them to
 succeed or fail together sends them in one request.
 
+The result of an iPATCH request is the same as if its operations were applied
+one after another, in the order in which they appear in the payload.
+For example, an operation can refer to a data node instance that an earlier
+operation of the same request has created.
+The server is free to apply the operations internally in any other way, as
+long as that result is obtained.
+
 The processing of the iPATCH command is specified by Media-Type application/yang-instances+cbor-seq.
 In summary, if the CBOR patch payload contains a data node instance that is not present
 in the target, this instance is added. If the target contains the specified instance,
