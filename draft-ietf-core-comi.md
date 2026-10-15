@@ -821,7 +821,7 @@ A client that wants to filter notifications can use a FETCH payload:
 REQ:  FETCH </s> Observe(0)
       (Content-Format: application/yang-identifiers+cbor-seq)
 
-60010, 60020 /CBOR sequence with two notification identifiers/
+60010 /CBOR sequence with one notification identifier/
 
 RES:  2.05 Content
       (Content-Format: application/yang-instances+cbor-seq)
@@ -1914,10 +1914,6 @@ The module example-port, used for notifications:
 | example-port-fault     | 60010 | {{event-stream-example}}              |
 | port-name              | 60011 | {{event-stream-example}}              |
 | port-fault             | 60012 | {{event-stream-example}}              |
-
-The SID 60020 appears only in the filter of the FETCH example of
-{{event-stream-example}}, as a second notification. No module in this document
-defines it.
 
 {::include-all lists.md}
 
