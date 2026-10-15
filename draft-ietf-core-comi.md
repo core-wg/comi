@@ -294,6 +294,10 @@ but differs more significantly from RESTCONF.
 * CORECONF does not support the "start-time" and "stop-time" query parameters
   to retrieve past notifications.
 
+CORECONF is specified over CoAP over UDP {{RFC7252}}. CoAP over TCP and
+WebSockets {{?RFC8323}} are not specified by this document; support for them is
+left to a future extension.
+
 ### Differences due to the use of CBOR {#major-differences-cbor}
 
 * CORECONF encodes YANG identifier strings as numbers, where RESTCONF does not.
