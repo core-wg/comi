@@ -351,6 +351,40 @@ application/yang-instances+cbor-seq:
   For each data node instance D, for which the instance-identifier is the same as a data node instance I, in the targeted datastore resource: the value of D replaces the value of I.  When the value of D is null, the data node instance I is removed.  When the targeted datastore resource does not contain a data node instance with the same instance-identifier as D, a new instance is created with the same instance-identifier and value as D (unless the value of D is null).
 
 
+The following examples show the payload of each of the three Media-Types in
+diagnostic notation, using data from the examples in {{datastore-example}}.
+
+A part of a datastore, in application/yang-data+cbor; id=sid, which is defined
+in {{-yang-cbor}} and is used for the datastore as a whole ({{datastore-access}}):
+
+~~~~
+{
+  1721 : {                      / Clock (SID 1721) /
+    2: "2016-10-26T12:16:31Z"   / current-datetime (SID 1723) /
+  }
+}
+~~~~
+
+A leaf and a list entry identified in application/yang-identifiers+cbor-seq.
+The two items of the CBOR sequence are separated by a comma:
+
+~~~~
+1723,            / current-datetime (SID 1723) /
+[1533, "eth0"]   / interface (SID 1533) with name = "eth0" /
+~~~~
+
+Two data node instances in application/yang-instances+cbor-seq. Each item of
+the CBOR sequence is a map of one instance-identifier and its instance-value:
+
+~~~~
+{
+  1723 : "2016-10-26T12:16:31Z"   / current-datetime (SID 1723) /
+},
+{
+  1755 : true                     / enabled (SID 1755) /
+}
+~~~~
+
 The different Media-Type usages are summarized in the table below:
 
 | Method         | Resource     | Media-Type                           |
