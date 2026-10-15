@@ -81,9 +81,9 @@ normative:
   RFC8791: yang-structure-ext
   RFC9254: yang-cbor
   RFC9595: core-sid
-  I-D.ietf-core-yang-library:
   RFC8342: nmda
 informative:
+  I-D.ietf-core-yang-library:
   RFC8040: restconf
   RFC6347:
     -: dtls12
