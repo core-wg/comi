@@ -5,14 +5,14 @@
 CoRE                                                   M. Veillette, Ed.
 Internet-Draft                                   Trilliant Networks Inc.
 Intended status: Standards Track                    P. van der Stok, Ed.
-Expires: 26 January 2027                                      consultant
+Expires: 18 April 2027                                        consultant
                                                            A. Pelov, Ed.
                                                           IMT Atlantique
                                                               A. Bierman
                                                                YumaWorks
                                                          C. Bormann, Ed.
                                                   Universität Bremen TZI
-                                                            25 July 2026
+                                                         15 October 2026
 
 
                   CoAP Management Interface (CORECONF)
@@ -53,9 +53,9 @@ About This Document
 
 
 
-Veillette, et al.        Expires 26 January 2027                [Page 1]
+Veillette, et al.         Expires 18 April 2027                 [Page 1]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
 Status of This Memo
@@ -73,7 +73,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 26 January 2027.
+   This Internet-Draft will expire on 18 April 2027.
 
 Copyright Notice
 
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Veillette, et al.        Expires 26 January 2027                [Page 2]
+Veillette, et al.         Expires 18 April 2027                 [Page 2]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
        3.1.3.  FETCH . . . . . . . . . . . . . . . . . . . . . . . .  14
@@ -126,7 +126,7 @@ Internet-Draft                  CORECONF                       July 2026
        3.4.2.  Notify Examples . . . . . . . . . . . . . . . . . . .  19
      3.5.  RPC and Action statements . . . . . . . . . . . . . . . .  21
        3.5.1.  RPC Example . . . . . . . . . . . . . . . . . . . . .  22
-       3.5.2.  Action Example  . . . . . . . . . . . . . . . . . . .  22
+       3.5.2.  Action Example  . . . . . . . . . . . . . . . . . . .  23
    4.  Use of Block-wise Transfers . . . . . . . . . . . . . . . . .  24
    5.  Application Discovery . . . . . . . . . . . . . . . . . . . .  25
      5.1.  YANG library  . . . . . . . . . . . . . . . . . . . . . .  25
@@ -165,9 +165,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027                [Page 3]
+Veillette, et al.         Expires 18 April 2027                 [Page 3]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
    This specification describes the CoAP Management Interface (CORECONF)
@@ -221,9 +221,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027                [Page 4]
+Veillette, et al.         Expires 18 April 2027                 [Page 4]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
    list instance identifier:  Handle used to identify a YANG data node
@@ -277,9 +277,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027                [Page 5]
+Veillette, et al.         Expires 18 April 2027                 [Page 5]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
    +----------------------------------------------------------------+
@@ -333,9 +333,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027                [Page 6]
+Veillette, et al.         Expires 18 April 2027                 [Page 6]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
       data, RPCs, and actions.  A CORECONF server supports a single
@@ -389,9 +389,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027                [Page 7]
+Veillette, et al.         Expires 18 April 2027                 [Page 7]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
    *  CORECONF also differs in the handling of default values, only
@@ -445,9 +445,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027                [Page 8]
+Veillette, et al.         Expires 18 April 2027                 [Page 8]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
       The message payload of Media-Type 'application/yang-
@@ -460,12 +460,10 @@ Internet-Draft                  CORECONF                       July 2026
       instance-value is provided by the SID in the instance-identifier.
 
       In the position of an instance-value, the CBOR undefined value
-      (0xf7) does not carry a value of the data node; it indicates the
-      absence of a value.  Its precise meaning depends on the method, as
-      specified in Section 3.1.3 and Section 3.2.3.  The CBOR null value
-      (0xf6) is not used for this purpose: null is a valid instance-
-      value for a leaf of type 'empty' (see Section 6.11 of [RFC9254])
-      and can therefore not be distinguished from an absence marker.
+      (0xf7) indicates the absence of a value.  Its precise meaning
+      depends on the method, as specified in Section 3.1.3 and
+      Section 3.2.3.  The CBOR null value (0xf6) is a valid instance-
+      value for a leaf of type 'empty' (see Section 6.11 of [RFC9254]).
 
       When present in an iPATCH request payload, this Media-Type carry a
       list of data node instances to be replaced, created, or deleted.
@@ -501,9 +499,11 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027                [Page 9]
+
+
+Veillette, et al.         Expires 18 April 2027                 [Page 9]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
    +===============+===========+=======================================+
@@ -557,9 +557,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 10]
+Veillette, et al.         Expires 18 April 2027                [Page 10]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
    +==============+===================================================+
@@ -613,9 +613,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 11]
+Veillette, et al.         Expires 18 April 2027                [Page 11]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
    The path values in the table are example ones.  On discovery, the
@@ -669,9 +669,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 12]
+Veillette, et al.         Expires 18 April 2027                [Page 12]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
    The allowed values are:
@@ -725,9 +725,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 13]
+Veillette, et al.         Expires 18 April 2027                [Page 13]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
    If the target of a GET method is a data node that represents a
@@ -781,9 +781,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 14]
+Veillette, et al.         Expires 18 April 2027                [Page 14]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
    REQ: FETCH </c>
@@ -837,9 +837,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 15]
+Veillette, et al.         Expires 18 April 2027                [Page 15]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
    The processing of the iPATCH command is specified by Media-Type
@@ -893,9 +893,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 16]
+Veillette, et al.         Expires 18 April 2027                [Page 16]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
    A data node resource is deleted using an iPATCH with an undefined
@@ -949,9 +949,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 17]
+Veillette, et al.         Expires 18 April 2027                [Page 17]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
    REQ:  GET </c>
@@ -1005,9 +1005,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 18]
+Veillette, et al.         Expires 18 April 2027                [Page 18]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
    The format of notifications is a CBOR sequence, where each item in
@@ -1061,9 +1061,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 19]
+Veillette, et al.         Expires 18 April 2027                [Page 19]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
    module example-port {
@@ -1117,9 +1117,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 20]
+Veillette, et al.         Expires 18 April 2027                [Page 20]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
    REQ:  FETCH </s> Observe(0)
@@ -1173,9 +1173,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 21]
+Veillette, et al.         Expires 18 April 2027                [Page 21]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
 3.5.1.  RPC Example
@@ -1217,22 +1217,27 @@ Internet-Draft                  CORECONF                       July 2026
          (Content-Format: application/yang-instances+cbor-seq)
 
    { 61000:
-     undefined
+     {}
    }
+
+   The 'reboot' RPC has no output, so the instance-value is an empty
+   CBOR map.  The output of an RPC or action is an internal node and is
+   always encoded as a CBOR map (Section 4.2 of [RFC9254]); the absence
+   marker of Section 2.3 is not used here.  A yang-instances payload is
+   still returned, because the instance-identifier is what identifies
+   which RPC the response belongs to.
+
+
+
+Veillette, et al.         Expires 18 April 2027                [Page 22]
+
+Internet-Draft                  CORECONF                    October 2026
+
 
 3.5.2.  Action Example
 
    The example is based on the YANG action "reset" as defined in
    Section 7.15.3 of [RFC7950] and annotated below with SIDs.
-
-
-
-
-
-Veillette, et al.        Expires 26 January 2027               [Page 22]
-
-Internet-Draft                  CORECONF                       July 2026
-
 
    module example-server-farm {
      yang-version 1.1;
@@ -1280,14 +1285,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-
-
-
-
-
-Veillette, et al.        Expires 26 January 2027               [Page 23]
+Veillette, et al.         Expires 18 April 2027                [Page 23]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
    REQ:  POST </c>
@@ -1341,9 +1341,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 24]
+Veillette, et al.         Expires 18 April 2027                [Page 24]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
 5.  Application Discovery
@@ -1397,9 +1397,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 25]
+Veillette, et al.         Expires 18 April 2027                [Page 25]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
    Upon success, the return payload contains the list of datastore
@@ -1453,9 +1453,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 26]
+Veillette, et al.         Expires 18 April 2027                [Page 26]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
    Without additional filtering, the list of data nodes may become
@@ -1509,9 +1509,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 27]
+Veillette, et al.         Expires 18 April 2027                [Page 27]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
    *  Error 4.04 (Not Found) is returned by the CORECONF server when the
@@ -1565,9 +1565,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 28]
+Veillette, et al.         Expires 18 April 2027                [Page 28]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
       -  error-app-tag 'data-not-unique' is returned by the CORECONF
@@ -1621,9 +1621,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 29]
+Veillette, et al.         Expires 18 April 2027                [Page 29]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
       -  error-app-tag 'missing-key' is returned by the CORECONF server
@@ -1677,9 +1677,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 30]
+Veillette, et al.         Expires 18 April 2027                [Page 30]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
    RES:  4.00 Bad Request
@@ -1733,9 +1733,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 31]
+Veillette, et al.         Expires 18 April 2027                [Page 31]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
    +===========+=====================+===========+
@@ -1789,9 +1789,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 32]
+Veillette, et al.         Expires 18 April 2027                [Page 32]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
    +===========================+===========================+=========+
@@ -1845,9 +1845,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 33]
+Veillette, et al.         Expires 18 April 2027                [Page 33]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
    *  Restrictions on usage: N/A
@@ -1901,9 +1901,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 34]
+Veillette, et al.         Expires 18 April 2027                [Page 34]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
    [I-D.ietf-core-yang-library]
@@ -1957,9 +1957,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 35]
+Veillette, et al.         Expires 18 April 2027                [Page 35]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
    [RFC7950]  Bjorklund, M., Ed., "The YANG 1.1 Data Modeling Language",
@@ -2013,9 +2013,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 36]
+Veillette, et al.         Expires 18 April 2027                [Page 36]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
    [RFC9595]  Veillette, M., Ed., Pelov, A., Ed., Petrov, I., Ed.,
@@ -2069,9 +2069,9 @@ Appendix A.  ietf-coreconf YANG module
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 37]
+Veillette, et al.         Expires 18 April 2027                [Page 37]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
    <CODE BEGINS> file "ietf-coreconf@2026-03-02.yang"
@@ -2125,9 +2125,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 38]
+Veillette, et al.         Expires 18 April 2027                [Page 38]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
         without modification, is permitted pursuant to, and subject
@@ -2181,9 +2181,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 39]
+Veillette, et al.         Expires 18 April 2027                [Page 39]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
          "Returned by the CORECONF server when the operation requested
@@ -2237,9 +2237,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 40]
+Veillette, et al.         Expires 18 April 2027                [Page 40]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
           from the CORECONF client don't contain a well-formed CBOR
@@ -2293,9 +2293,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 41]
+Veillette, et al.         Expires 18 April 2027                [Page 41]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
      }
@@ -2349,9 +2349,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 42]
+Veillette, et al.         Expires 18 April 2027                [Page 42]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
      identity missing-choice {
@@ -2405,9 +2405,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 43]
+Veillette, et al.         Expires 18 April 2027                [Page 43]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
 Appendix B.  ietf-coreconf .sid file
@@ -2461,9 +2461,9 @@ Appendix B.  ietf-coreconf .sid file
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 44]
+Veillette, et al.         Expires 18 April 2027                [Page 44]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
            "identifier": "error-app-tag",
@@ -2517,9 +2517,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 45]
+Veillette, et al.         Expires 18 April 2027                [Page 45]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
          {
@@ -2573,9 +2573,9 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 46]
+Veillette, et al.         Expires 18 April 2027                [Page 46]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
            "sid": "1024"
@@ -2629,9 +2629,9 @@ List of Tables
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 47]
+Veillette, et al.         Expires 18 April 2027                [Page 47]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
    Table 9:   Content Formats
@@ -2685,9 +2685,9 @@ Authors' Addresses
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 48]
+Veillette, et al.         Expires 18 April 2027                [Page 48]
 
-Internet-Draft                  CORECONF                       July 2026
+Internet-Draft                  CORECONF                    October 2026
 
 
    Email: alexander.pelov@imt-atlantique.fr
@@ -2741,4 +2741,4 @@ Internet-Draft                  CORECONF                       July 2026
 
 
 
-Veillette, et al.        Expires 26 January 2027               [Page 49]
+Veillette, et al.         Expires 18 April 2027                [Page 49]
