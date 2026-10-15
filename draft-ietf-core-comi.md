@@ -821,7 +821,7 @@ A client that wants to filter notifications can use a FETCH payload:
 REQ:  FETCH </s> Observe(0)
       (Content-Format: application/yang-identifiers+cbor-seq)
 
-60010, 60020 /CBOR sequence with two notification identifiers/
+60010 /CBOR sequence with one notification identifier/
 
 RES:  2.05 Content
       (Content-Format: application/yang-instances+cbor-seq)
@@ -1023,7 +1023,7 @@ data model as defined by {{I-D.ietf-core-yang-library}} and
 the CORE resource discovery {{RFC6690}}.
 Implementers may choose to implement one or the other or both.
 
-## YANG library
+## YANG library {#yang-library}
 
 The YANG library data model {{I-D.ietf-core-yang-library}} provides a high-level description of the resources available. The YANG library contains the
 list of modules, features, and deviations supported by the CORECONF server.
@@ -1088,7 +1088,7 @@ RES: 2.05 Content (Content-Format: application/link-format)
 {: #discovery-ex-ds artwork-align="left"
 title="Discovery Example: Data Store"}
 
-### Data node Resource Discovery
+### Data node Resource Discovery {#datanode-discovery}
 
 If implemented, the presence and location of (path to) each data node
 implemented by the CORECONF server are discovered by sending a GET request to
@@ -1835,6 +1835,85 @@ This appendix is normative.
 ~~~~
 {: #yang-ietf-coreconf-sid sourcecode-name="ietf-coreconf@2026-03-02.sid"
 sourcecode-markers="true" title="ietf-coreconf SID file"}
+
+# SIDs used in the examples {#example-sids}
+
+The SIDs in the examples of this document are illustrative. This annex lists
+them by module, so that an example can be followed from one section to the
+next. A node has the same SID in every example in which it appears.
+
+The data examples use the modules ietf-interfaces {{RFC8343}} and ietf-system
+{{RFC7317}}. The examples of an RPC, an action and notifications use three
+small modules written for this document, because the two standard modules
+define no action and no notification.
+
+ietf-interfaces, and the identity ethernetCsmacd of iana-if-type:
+
+| Node                   | SID  | Used in                                |
+| module ietf-interfaces | 1500 | {{datastore-example}}                  |
+| interface (list)       | 1533 | {{fetch-example}}, {{datastore-example}} |
+| description            | 1534 | {{fetch-example}}, {{datastore-example}} |
+| enabled                | 1535 | {{fetch-example}}, {{datastore-example}} |
+| name                   | 1537 | {{fetch-example}}, {{datastore-example}} |
+| type                   | 1538 | {{fetch-example}}, {{datastore-example}} |
+| oper-status            | 1544 | {{fetch-example}}, {{datastore-example}} |
+| ethernetCsmacd         | 1880 | {{fetch-example}}, {{datastore-example}} |
+
+ietf-system:
+
+| Node                   | SID  | Used in                                |
+| module ietf-system     | 1700 | {{datastore-example}}                  |
+| timezone-utc-offset    | 1740 | {{error-handling}}                     |
+| clock (container)      | 1721 | {{datastore-example}}                  |
+| boot-datetime          | 1722 | {{datastore-example}}, {{datanode-discovery}} |
+| current-datetime       | 1723 | {{fetch-example}}, {{datastore-example}}, {{datanode-discovery}} |
+| ntp/enabled            | 1755 | {{ipatch-example}}                     |
+| ntp/server (list)      | 1756 | {{ipatch-example}}                     |
+| name (of a server)     | 1759 | {{ipatch-example}}                     |
+| prefer (of a server)   | 1760 | {{ipatch-example}}                     |
+| udp (of a server)      | 1761 | {{ipatch-example}}                     |
+| address (of udp)       | 1762 | {{ipatch-example}}                     |
+
+The YANG library, as assumed in {{yang-library}}:
+
+| Node                   | SID  | Used in                                |
+| YANG library           | 2351 | {{yang-library}}                       |
+
+ietf-coreconf, defined in {{ietf-coreconf-sid}}:
+
+| Node                   | SID  | Used in                                |
+| error                  | 1024 | {{error-handling}}                     |
+| error-app-tag          | 1025 | {{error-handling}}                     |
+| error-data-node        | 1026 | {{error-handling}}                     |
+| error-message          | 1027 | {{error-handling}}                     |
+| error-tag              | 1028 | {{error-handling}}                     |
+| invalid-value          | 1011 | {{error-handling}}                     |
+| not-in-range           | 1018 | {{error-handling}}                     |
+
+The module example-ops, used for the RPC:
+
+| Node                   | SID   | Used in                               |
+| reboot (RPC)           | 61000 | {{rpc-example}}                       |
+| delay                  | 61001 | {{rpc-example}}                       |
+| input                  | 61009 | {{rpc-example}}                       |
+
+The module example-server-farm, used for the action:
+
+| Node                   | SID   | Used in                               |
+| server (list)          | 60000 | {{action-example}}                    |
+| name                   | 60001 | {{action-example}}                    |
+| reset (action)         | 60002 | {{action-example}}                    |
+| reset-at               | 60003 | {{action-example}}                    |
+| reset-finished-at      | 60004 | {{action-example}}                    |
+| input                  | 60008 | {{action-example}}                    |
+| output                 | 60009 | {{action-example}}                    |
+
+The module example-port, used for notifications:
+
+| Node                   | SID   | Used in                               |
+| example-port-fault     | 60010 | {{event-stream-example}}              |
+| port-name              | 60011 | {{event-stream-example}}              |
+| port-fault             | 60012 | {{event-stream-example}}              |
 
 {::include-all lists.md}
 
