@@ -914,15 +914,16 @@ RES:  2.04 Changed
       (Content-Format: application/yang-instances+cbor-seq)
 
 { 61000:
-  null
+  {}
 }
 ~~~~
 
-<!--
-We now believe this is the correct empty return for an RPC without output.
-    Note that we always have to send a yang-instances (or at least a
-    yang-identifiers) for the input side to find the right RPC.
- -->
+The 'reboot' RPC has no output, so the instance-value is an empty CBOR map.
+The output of an RPC or action is an internal node and is always encoded as a
+CBOR map ({{Section 4.2 of -yang-cbor}}); the absence marker of
+{{media-type}} is not used here. A yang-instances payload is still returned,
+because the instance-identifier is what identifies which RPC the response
+belongs to.
 
 ### Action Example {#action-example}
 
