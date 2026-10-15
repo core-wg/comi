@@ -413,13 +413,13 @@ The different Media-Type usages are summarized in the table below:
 | GET response    | datastore    | application/yang-data+cbor; id=sid    |
 | PUT request     | datastore    | application/yang-data+cbor; id=sid    |
 | PUT response    | datastore    | N/A                                   |
-| POST request    | datastore    | applicaiton/yang-data+cbor; id=sid    |
+| POST request    | datastore    | application/yang-data+cbor; id=sid    |
 | POST response   | datastore    | N/A                                   |
 | DELETE request  | datastore    | N/A                                   |
 | DELETE response | datastore    | N/A                                   |
 | GET request     | event stream | N/A                                   |
 | GET response    | event stream | application/yang-instances+cbor-seq   |
-| FETCH request   | event stream | applicaiton/yang-identifiers+cbor-seq |
+| FETCH request   | event stream | application/yang-identifiers+cbor-seq |
 | FETCH response  | event stream | application/yang-instances+cbor-seq   |
 | POST request    | rpc, action  | application/yang-instances+cbor-seq   |
 | POST response   | rpc, action  | application/yang-instances+cbor-seq   |
@@ -670,7 +670,7 @@ A CBOR undefined value (0xf7) indicates the removal of an existing data node ins
 iPATCH <datastore resource>  / Request /
 Content-Format: TBD3 (application/yang-instances+cbor-seq)
 
-/  CBOR sequence of CBOR maps of instance-identifier, instance-value /
+/ CBOR sequence of CBOR maps of instance-identifier, instance-value /
 
 2.04 Changed  / Response /
 ~~~~
@@ -688,7 +688,7 @@ In this example, a CORECONF client requests the following operations:
 
 ~~~~ coap
 iPATCH /c
-Content-Format: TBD3  (application/yang-instances+cbor-seq)
+Content-Format: TBD3 (application/yang-instances+cbor-seq)
 
 {
   1755 : true                   / enabled (SID 1755) /
@@ -710,7 +710,7 @@ Content-Format: TBD3  (application/yang-instances+cbor-seq)
 ~~~~
 
 
-A data node resource is deleted using an iPATCH with an undefined value, as seen in this example.
+A data node instance is deleted using an iPATCH with an undefined value, as seen in this example.
 
 
 
@@ -865,14 +865,14 @@ application/yang-identifiers+cbor-seq that indicates which subset.
 ~~~~ coap
 FETCH <stream-resource>
 Observe: 0
-Content-Format: TBD2 application/yang-identifiers+cbor-seq
+Content-Format: TBD2 (application/yang-identifiers+cbor-seq)
 
 / CBOR sequence of instance-identifiers /
 
 2.05 Content
 Content-Format: TBD3 (application/yang-instances+cbor-seq)
 
-/  CBOR sequence of CBOR maps of instance-identifier, instance-value /
+/ CBOR sequence of CBOR maps of instance-identifier, instance-value /
 ~~~~
 {: title="Generic format of event-stream FETCH interchange"}
 
@@ -989,7 +989,7 @@ Content-Format: TBD3 (application/yang-instances+cbor-seq)
 / CBOR sequence of CBOR maps of instance-identifier, instance-value /
 
 2.04 Changed
-Content-Format: 140 (application/yang-instances+cbor-seq)
+Content-Format: TBD3 (application/yang-instances+cbor-seq)
 
 / CBOR sequence of CBOR maps of instance-identifier, instance-value /
 ~~~~
