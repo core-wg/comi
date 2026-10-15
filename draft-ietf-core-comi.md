@@ -587,6 +587,10 @@ operation of the same request has created.
 The server is free to apply the operations internally in any other way, as
 long as that result is obtained.
 
+A successful iPATCH request is answered with 2.04 (Changed), including when
+the request creates or deletes data node instances: the target of the request
+is the datastore resource, which already exists.
+
 The processing of the iPATCH command is specified by Media-Type application/yang-instances+cbor-seq.
 In summary, if the CBOR patch payload contains a data node instance that is not present
 in the target, this instance is added. If the target contains the specified instance,
