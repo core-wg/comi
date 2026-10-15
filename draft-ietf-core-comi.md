@@ -7,7 +7,7 @@ consensus: yes
 stream: IETF
 title: CoAP Management Interface (CORECONF)
 abbrev: CORECONF
-area: Applications
+area: "Web and Internet Transport"
 wg: CoRE
 venue:
   mail: core@ietf.org
@@ -68,7 +68,6 @@ normative:
   RFC3688: xmlreg
   RFC6020: yang10
   RFC4648: base
-  RFC5277: nc-notif
   RFC6241: netconf
   RFC6243: nc-wd
   RFC8949: cbor
@@ -79,12 +78,13 @@ normative:
   RFC7959: blockwise
   RFC7641: observe
   RFC8132: etch
-  RFC8040: restconf
+  RFC8791: yang-structure-ext
   RFC9254: yang-cbor
   RFC9595: core-sid
-  I-D.ietf-core-yang-library:
   RFC8342: nmda
 informative:
+  I-D.ietf-core-yang-library:
+  RFC8040: restconf
   RFC6347:
     -: dtls12
     ann: >
@@ -394,13 +394,13 @@ YANG data node instances are accessible by performing FETCH and iPATCH
 operations on the datastore resource.
 
 CORECONF also supports event stream resources used to observe notification instances.
-Event stream resources can be discovered using resource type (rt): core.c.ev.
+Event stream resources can be discovered using resource type (rt): core.c.es.
 
 The description of the CORECONF management interface is shown in the table below:
 
 | CoAP resource                | Example path  | rt          |
 | Datastore resource           | /c            | core.c.ds   |
-| Default event stream resource | /s            | core.c.ev   |
+| Default event stream resource | /s            | core.c.es   |
 {: #tbl-resources align="left" title="Resources, example paths, and resource types (rt)"}
 
 The path values in the table are example ones. On discovery, the server makes
@@ -467,13 +467,10 @@ If the target of a GET or FETCH method is a data node that represents a leaf
 that has a default value, and the leaf has not been given a value by any
 client yet, the server MUST return the default value of the leaf.
 
-If the target of a GET method is a data node that represents a
+If the target of a GET or FETCH method is a data node that represents a
 container or list that has child resources with default values,
-and these have not been given a value yet,
-
-> The server MUST NOT return the child resource if `d`=`t`.
-
-> The server MUST return the child resource if `d`=`a`.
+and these have not been given a value yet, the server MUST NOT return the
+child resource if `d`=`t`, and MUST return the child resource if `d`=`a`.
 
 If this query parameter is not present, the default value is "t" (the quotes are
 added for readability, but they are not part of the payload).
@@ -656,7 +653,7 @@ FORMAT:
 ~~~~
 
 The content of the CBOR map represents the complete datastore of the server
-at the GET indication of after a successful processing of a PUT or POST request.
+at the GET indication or after a successful processing of a PUT or POST request.
 
 
 ### Full datastore examples {#datastore-example}
@@ -696,7 +693,8 @@ RES: 2.05 Content
 ## Event stream {#event-stream}
 
 Event notification is an essential function for the management of servers.
-CORECONF allows notifications specified in YANG {{RFC5277}} to be reported to a list
+CORECONF allows notifications specified in YANG {{Section 7.16 of RFC7950}} to be
+reported to a list
 of clients. The path for the default event stream can be discovered as
 described in {{coap-interface}}. The server MAY support additional event
 stream resources to address different notification needs.
@@ -886,7 +884,7 @@ module example-ops {
 
   rpc reboot {                          // SID 61000
     description "Reboot operation.";
-    input {                             // SID 61009
+    input {
       leaf delay {                      // SID 61001
         type uint32;
         units "seconds";
@@ -916,15 +914,16 @@ RES:  2.04 Changed
       (Content-Format: application/yang-instances+cbor-seq)
 
 { 61000:
-  null
+  {}
 }
 ~~~~
 
-<!--
-We now believe this is the correct empty return for an RPC without output.
-    Note that we always have to send a yang-instances (or at least a
-    yang-identifiers) for the input side to find the right RPC.
- -->
+The 'reboot' RPC has no output, so the instance-value is an empty CBOR map.
+The output of an RPC or action is an internal node and is always encoded as a
+CBOR map ({{Section 4.2 of -yang-cbor}}); the absence marker of
+{{media-type}} is not used here. A yang-instances payload is still returned,
+because the instance-identifier is what identifies which RPC the response
+belongs to.
 
 ### Action Example {#action-example}
 
@@ -1055,7 +1054,7 @@ interface and still be interested to discover resources that are available,
 implementations MAY choose to support discovery of all available
 resources using "/.well-known/core" as defined by {{RFC6690}}.
 
-### Datastore Resource Discovery
+### Datastore Resource Discovery {#datastore-discovery}
 
 The presence and location of (path to) each datastore implemented by the CORECONF server
 can be discovered by sending a GET request to "/.well-known/core" including a
@@ -1168,11 +1167,13 @@ The following list of common CoAP errors should be implemented by CORECONF serve
 The CORECONF server MUST also enforce the different constraints associated with the YANG data models implemented. These constraints are described in {{Section 8 of RFC7950}}. These errors are reported using the CoAP error code 4.00 (Bad Request) and may have the following error container as payload. The YANG definition and associated .sid file are available in {{ietf-coreconf-yang}} and {{ietf-coreconf-sid}}. The error container is encoded using the encoding rules of a YANG data template as defined in {{Section 5 of -yang-cbor}}.
 
 ~~~~
-+--rw error!
-   +--rw error-tag             identityref
-   +--rw error-app-tag?        identityref
-   +--rw error-data-node?      instance-identifier
-   +--rw error-message?        string
+module: ietf-coreconf
+
+  structure error:
+    +-- error-tag          identityref
+    +-- error-app-tag?     identityref
+    +-- error-data-node?   instance-identifier
+    +-- error-message?     string
 ~~~~
 
 The following 'error-tag' and 'error-app-tag' are defined by the ietf-coreconf YANG module, these tags are implemented as YANG identity and can be extended as needed.
@@ -1191,7 +1192,7 @@ The following 'error-tag' and 'error-app-tag' are defined by the ietf-coreconf Y
 
   * error-app-tag 'duplicate' is returned by the CORECONF server when a client tries to create a duplicate list or leaf-list entry.
 
-* error-tag 'invalid-value' is returned by the CORECONF server when the CORECONF client tries to update or create a leaf with a value encoded using an invalid CBOR datatype or if the 'range', 'length', 'pattern' or 'require-instance' constrain is not fulfilled.
+* error-tag 'invalid-value' is returned by the CORECONF server when the CORECONF client tries to update or create a leaf with a value encoded using an invalid CBOR datatype or if the 'range', 'length', 'pattern' or 'require-instance' constraint is not fulfilled.
 
   * error-app-tag 'invalid-datatype' is returned by the CORECONF server when CBOR encoding does not follow the rules set by the YANG Build-In type or when the value is incompatible with it (e.g., a value greater than 127 for an int8, undefined enumeration).
 
@@ -1245,7 +1246,7 @@ use application/yang-instances+cbor-seq here, as we don't have an instance.
 
 For secure network management, it is important to restrict access to configuration variables
 only to authorized parties. CORECONF re-uses the security mechanisms already available to CoAP,
-this includes DTLS {{RFC6347}}{{-dtls13}} and OSCORE {{RFC8613}} for protected access to
+this includes DTLS {{-dtls13}}{{RFC6347}} and OSCORE {{RFC8613}} for protected access to
 resources, as well as suitable authentication and authorization mechanisms, for
 example those defined in ACE OAuth {{RFC9200}}.
 
@@ -1260,7 +1261,26 @@ As {{-yang-cbor}} and {{RFC4648}} are used for payload and SID
 encoding, the security considerations of those documents also need to be
 well-understood.
 
-# IANA Considerations
+The YANG module specified in this document defines a schema for data that is
+designed to be accessed via CORECONF itself. The lowest CoAP layer is the
+secure transport layer, and the mandatory-to-implement secure transports are
+listed above.
+
+The module does not define any configuration or state data nodes. It defines
+identities used as error tags, and a structure {{RFC8791}} used as the payload
+of an error response. Because the module defines no writable or readable data
+nodes, the usual analysis of which subtrees and data nodes are sensitive or
+vulnerable to write or read operations does not apply to it.
+
+What does deserve attention is the content a server places in that structure.
+The 'error-data-node' leaf carries an instance-identifier, and 'error-message'
+carries free text. A server that returns either to a client that is not
+authorized to see the corresponding part of the datastore discloses the shape
+of its data model, and possibly the existence of specific instances, through
+the error path. A server SHOULD limit the detail it reports in an error
+response to what the requesting client is authorized to read.
+
+# IANA Considerations {#iana}
 
 ## Resource Type (rt=) Link Target Attribute Values Registry
 
@@ -1369,6 +1389,28 @@ Reference: RFC XXXX
 The YANG module and SID file are in {{ietf-coreconf-yang}} and
 {{ietf-coreconf-sid}}, respectively.
 
+## YANG SID Range Assignment
+
+IANA is requested to assign a SID range to the "ietf-coreconf" YANG module in
+the "IETF YANG SID Range Registry", following the procedure of {{Section 6.3.1
+of -core-sid}}:
+
+Entry Point: 1000
+
+Size: 100
+
+Module Name: ietf-coreconf
+
+Reference: RFC XXXX
+
+The SID file in {{ietf-coreconf-sid}} assigns SIDs from this range, and this
+document depends on those values: {{datastore-discovery}} uses the SID of the
+"unified" datastore identity.
+
+// RFC Ed.: if IANA assigns an entry point other than 1000, the SID file in
+// {{ietf-coreconf-sid}} and every SID derived from it in the body of this
+// document have to be regenerated.
+
 --- back
 
 # ietf-coreconf YANG module {#ietf-coreconf-yang}
@@ -1397,14 +1439,14 @@ module ietf-coreconf {
   }
 
   organization
-    "IETF Core Working Group";
+    "IETF CoRE Working Group";
 
   contact
     "WG Web:   <https://datatracker.ietf.org/wg/core/>
      WG List:  <mailto:core@ietf.org>
 
      Michel Veillette
-     <mailto:michel.veillette@trilliantinc.com>
+     <mailto:michel.veillette@trilliant.com>
 
      Alexander Pelov
      <mailto:alexander.pelov@imt-atlantique.fr>
@@ -1413,7 +1455,10 @@ module ietf-coreconf {
      <mailto:stokcons@kpnmail.nl>
 
      Andy Bierman
-     <mailto:andy@yumaworks.com>";
+     <mailto:andy@yumaworks.com>
+
+     Carsten Bormann
+     <mailto:cabo@tzi.org>";
 
   description
     "This module contains the different definitions required
@@ -1433,10 +1478,10 @@ module ietf-coreconf {
      see the RFC itself for full legal notices.";
 
   revision 2026-03-02 {
-     description
-      "Use sx:, not rc:.";
+    description
+      "Initial revision.";
     reference
-      "[I-D.ietf-core-comi] CoAP Management Interface";
+      "RFC XXXX: CoAP Management Interface (CORECONF)";
   }
 
   identity unified {
@@ -1464,7 +1509,7 @@ module ietf-coreconf {
       "Returned by the CORECONF server when the CORECONF client tries
        to update or create a leaf with a value encoded using an
        invalid CBOR datatype or if the 'range', 'length',
-       'pattern' or 'require-instance' constrain is not
+       'pattern' or 'require-instance' constraint is not
        fulfilled.";
   }
 
@@ -1564,7 +1609,7 @@ module ietf-coreconf {
     base error-app-tag;
     description
       "Returned by the CORECONF server when CBOR encoding is
-       incorect or when the value encoded is incompatible with
+       incorrect or when the value encoded is incompatible with
        the YANG Built-In type. (e.g., value greater than 127
        for an int8, undefined enumeration).";
   }
