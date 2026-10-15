@@ -67,6 +67,7 @@ contributor:
 normative:
   RFC3688: xmlreg
   RFC6020: yang10
+  RFC3986: uri
   RFC4648: base
   RFC5277: nc-notif
   RFC6241: netconf
@@ -305,6 +306,36 @@ but differs more significantly from RESTCONF.
 In the YANG specification, items are identified with a name string. In order
 to significantly reduce the size of identifiers used in CORECONF, numeric
  identifiers called YANG Schema Item iDentifier (YANG SID or simply SID) are used instead.
+
+### SIDs in URIs {#sid-uri}
+
+Where a SID appears in a URI path segment, it is represented as a base-64
+numeral: the SID is written in binary and divided into digits of 6 bits, most
+significant digit first, using the minimum number of digits; each digit is
+then represented by the corresponding character of the base 64url alphabet of
+{{Section 5 of RFC4648}}, in which "-" and "_" represent the digit values 62
+and 63. No padding is used. Leading zero digits MUST NOT be emitted; the SID 0
+is represented as "A".
+
+Each SID therefore has exactly one representation. A string of more than one
+character that begins with "A" (the digit value 0) has a leading zero digit and
+is not the representation of any SID; a receiver MUST NOT interpret it as one.
+A server treats a URI path segment of that form like any other segment that
+names no resource. Accepting such strings would give one resource several URIs,
+which could be used to bypass access control that is based on the URI.
+
+For example, SID 2351 is 100100101111 in binary, which gives the digits
+100100 and 101111, i.e. the values 36 and 47, and hence the representation
+"kv".
+
+Note that this is a representation of the numeric value of the SID. It is not
+the base 64 encoding of an octet string as specified in {{Section 4 of
+RFC4648}}, and in particular it is not the base 64 encoding of the CBOR
+representation of the SID.
+
+The base 64url alphabet is used because every one of its characters is an
+unreserved character of the "pchar" production of {{Section 3.3 of RFC3986}};
+a SID in a path segment therefore never needs percent-encoding.
 
 ### Instance-identifiers {#instance-identifier}
 
