@@ -317,6 +317,13 @@ then represented by the corresponding character of the base 64url alphabet of
 and 63. No padding is used. Leading zero digits MUST NOT be emitted; the SID 0
 is represented as "A".
 
+Each SID therefore has exactly one representation. A string of more than one
+character that begins with "A" (the digit value 0) has a leading zero digit and
+is not the representation of any SID; a receiver MUST NOT interpret it as one.
+A server treats a URI path segment of that form like any other segment that
+names no resource. Accepting such strings would give one resource several URIs,
+which could be used to bypass access control that is based on the URI.
+
 For example, SID 2351 is 100100101111 in binary, which gives the digits
 100100 and 101111, i.e. the values 36 and 47, and hence the representation
 "kv".
