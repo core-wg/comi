@@ -196,6 +196,12 @@ notated in Diagnostic notation (defined in {{Section 8 of RFC8949}} and
 {{Appendix G of RFC8610}}), which
 can be automatically converted to CBOR.
 
+Each example uses the YANG module that best illustrates the construct it
+demonstrates: {{RFC7317}} and {{RFC8343}} where they contain the required nodes,
+and a purpose-written module where they do not. The SIDs appearing in the examples
+are illustrative; the SIDs assigned to the module defined by this document are
+given in {{ietf-coreconf-sid}}.
+
 
 
 # CORECONF Architecture {#comi-architecture}
