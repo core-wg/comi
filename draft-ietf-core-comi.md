@@ -705,9 +705,10 @@ Reception of notification instances is enabled with the CoAP Observe
 {{RFC7641}} function. Clients subscribe to the notifications by sending a
 GET request with an "Observe" option to the stream resource.
 
-Each response payload carries one or multiple notifications. The number of
-notifications reported, and the conditions used to remove notifications
-from the reported list are left to implementers.
+Each response payload carries zero or more notifications. A message without
+any notification is useful as the response that establishes a subscription
+(a GET with an Observe option of 0), for example when the server has nothing
+to report yet. Sending such a message otherwise is discouraged.
 When multiple notifications are reported, they MUST be ordered starting from
 the newest notification at index zero. Note that this could lead to
 notifications being sent multiple times, which increases the probability for
@@ -719,8 +720,8 @@ described in {{block}}.
 The format of notifications is a CBOR sequence, where each item in
 the sequence is a single notification as described in {{Section 4.2.1
 of -yang-cbor}}.
-(Accordingly, a notification without any content is an empty CBOR
-sequence, i.e., zero bytes.)
+(Accordingly, a message without any notification is an empty CBOR sequence,
+ i.e., zero bytes.)
 
 ~~~~
 FORMAT:
