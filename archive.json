@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-10-18T03:05:05.042349+00:00",
+  "timestamp": "2026-10-22T03:20:42.125327+00:00",
   "repo": "core-wg/comi",
   "labels": [
     {
@@ -249,7 +249,7 @@
       "labels": [],
       "body": "The `POST` method is used by both datastore and rpc/action. The datastore use POST method for full datastore creation. The rpc/action use it for simple RPC invocation.\n\nBoth of these option use datastore resource URI (`</c>` example in the draft's text). This means that the implementation must either depend\non `Content-Format` option or guess the action from the payload content. (If I understand it correctly, usage of `Content-Format` is optional,\nyet highly recommended).\n\n### Possible solution:\nCreate a new resource type for all rpc/actions:\n| Value | Description | Reference |\n| :--- | :--- | :--- |\n| core.c.r | YANG rpcs and YANG actions | RFC XXXX |\n\nExample URI:\n| CoAP resource | Example path | rt |\n| :--- | :--- | :--- |\n| YANG RPC resource | /r | core.c.r |\n\nThe YANG RPC resource applies for all YANG `rpc`s and `action`s.\n\n\n### Data editing\nBased on Andy Bierman's finding the CoAP iPATCH requires atomic processing, it may happen the we shall use POST also in places where\nthe iPATCH is now used. (Only if we proceed to relax the atomicity semantics of the CORECONF operations.)\n\n### Notes:\n\nSee also #28",
       "createdAt": "2026-08-06T16:30:17Z",
-      "updatedAt": "2026-10-15T21:05:22Z",
+      "updatedAt": "2026-10-21T21:53:36Z",
       "closedAt": null,
       "comments": [
         {
@@ -258,6 +258,13 @@
           "body": "Hi Vojt\u011bch, thanks for the deep insight on this one!\n\nI'd prefer not to add a resource for RPCs. \n\nThe two uses of POST on the datastore resource carry different payloads: a datastore creation uses application/yang-data+cbor; id=sid, an RPC or action invocation uses application/yang-instances+cbor-seq, and a client that sends a payload is expected to send the Content-Format (RFC 7252 section 5.5.1). \n\nIf the Content-Format is missing, RFC 7252 allows the format to be inferred from the application context, and here the context is the SID: the first key of an invocation is the SID of an RPC (or an array, for an action), which a server knows because it has to find the handler anyway. \n\nThe two payloads can be byte-identical when they hold one item, so structure alone is not enough, but the SID is. So no new resource type is needed; what the draft could do is say this explicitly.\n\nI hope that clears it.",
           "createdAt": "2026-10-15T21:05:22Z",
           "updatedAt": "2026-10-15T21:05:22Z"
+        },
+        {
+          "author": "vvilimek",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I have some questions to this:\n\n- Aren't the CoAP Content-Format options optional?\n- So the CORECONF protocol considers the CoAP Content-Format option required to be added (at least for the POST requests)?\n\nThe Content-Format inference from the message body is a bad design (IMO).\n",
+          "createdAt": "2026-10-21T21:53:36Z",
+          "updatedAt": "2026-10-21T21:53:36Z"
         }
       ]
     },
@@ -670,13 +677,13 @@
       "labels": [],
       "body": "Based on [ML](https://mailarchive.ietf.org/arch/msg/core/LtQqOfyKArItebz6TgI45_bJY0s/) and [interim](https://notes.ietf.org/notes-ietf-interim-2026-core-05-core#) discussion.\r\n",
       "createdAt": "2026-04-28T12:27:10Z",
-      "updatedAt": "2026-10-15T13:27:19Z",
+      "updatedAt": "2026-10-21T15:53:46Z",
       "baseRepository": "core-wg/comi",
       "baseRefName": "main",
       "baseRefOid": "efada822cf3cdffd9d50d05cd85004721531a4e0",
       "headRepository": "vvilimek/core-comi",
       "headRefName": "notif-sub",
-      "headRefOid": "7175fbd6f0b807b79a938ae1e2cb8a4cf7642ab8",
+      "headRefOid": "23afe4cf6192f8918be468d710ea6c318de46932",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -709,6 +716,13 @@
           "body": "Hi all,\r\nI'm going through the opened issues.\r\nOn this one:\r\n\r\nThis matches what was agreed at the interim, and it also fixes a contradiction: the parenthetical a couple of paragraphs below already says an empty message is zero bytes. Could you (1) drop \"periodic heartbeat\", since the interim said timing is the CoAP layer's business, (2) fix \"reponse\" and \"if there is not reason to\", (3) reword the parenthetical to \"a message without any notification\", and (4) rebase on current main so CI runs? I've suggested wording for the main paragraph below.\r\n\r\n**Suggested replacement text:**\r\n\"Each response payload carries zero or more notifications. A message without any notification is useful as the response that establishes a subscription (a GET with an Observe option of 0), for example when the server has nothing to report yet. Sending such a message otherwise is discouraged.\"\r\n\r\n**and, two paragraphs down:** \"(Accordingly, a message without any notification is an empty CBOR sequence, i.e., zero bytes.)\"",
           "createdAt": "2026-10-15T13:27:19Z",
           "updatedAt": "2026-10-15T13:27:19Z"
+        },
+        {
+          "author": "vvilimek",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Alexander thanks for your suggestions.",
+          "createdAt": "2026-10-21T15:53:46Z",
+          "updatedAt": "2026-10-21T15:53:46Z"
         }
       ],
       "reviews": []
@@ -948,7 +962,7 @@
       "labels": [],
       "body": "## Problem\n\nThe draft uses CBOR `null` (0xf6) as the absence/removal marker in the\ninstance-value position. But `null` is exactly how a leaf of type `empty` is\nencoded \u2014 see [RFC 9254, Section 6.11](https://datatracker.ietf.org/doc/html/rfc9254#name-the-empty-type).\nThe marker is therefore indistinguishable from a legitimate value, which breaks\ntwo operations:\n\n- **iPATCH**: an `empty` leaf can never be created or set. `{SID: null}` must be\n  interpreted as a deletion of that leaf.\n- **FETCH**: an instantiated `empty` leaf cannot be distinguished from a data\n  node that is absent or not supported by the server \u2014 both come back as `null`.\n\n## Fix\n\nUse CBOR `undefined` (0xf7) as the absence marker. RFC 9254 assigns no meaning\nto 0xf7 anywhere, so there is no collision with any YANG type encoding.\n\nThe rule and its rationale are now stated **once**, in the\n`application/yang-instances+cbor-seq` media-type definition:\n\n> In the position of an instance-value, the CBOR undefined value (0xf7) does not\n> carry a value of the data node; it indicates the absence of a value. Its\n> precise meaning depends on the method, as specified in Section 3.1.3 and\n> Section 3.2.5. The CBOR null value (0xf6) is not used for this purpose: null is\n> a valid instance-value for a leaf of type 'empty' (see Section 6.11 of\n> [RFC9254]) and can therefore not be distinguished from an absence marker.\n\nThe method-specific sections then say only what absence means for that method.\nSix sites in total: the media-type definition (iPATCH clause), FETCH, the iPATCH\nprose, the iPATCH example, and the empty RPC output example.\n\nPrecedent: RFC 7951 \u00a76.9 encodes `empty` as `[null]` in YANG-JSON for exactly\nthis reason.\n\n## \u26a0\ufe0f This is a breaking wire change\n\nAgainst -21, and it fails silently in one direction:\n\n- An old server receiving `undefined` rejects the request as malformed.\n- An old client mis-parses a new FETCH response.\n\nAcceptable pre-RFC, but it should be called out to the WG explicitly rather than\nleft to be discovered in the diff.\n\n## One editorial judgement call\n\nThe empty-RPC-output example (\u00a73.5.1, `{ 61000: null }` \u2192 `{ 61000: undefined }`)\ndoes **not** collide \u2014 an RPC output is always a map, never a bare `null`. It was\nchanged for consistency, so that there is a single uniform rule (\"0xf7 = no value\nhere\") rather than two sentinels whose meaning depends on context. This hunk can\nbe reverted independently if the WG prefers.\n\n## Noted but deliberately not added to the draft\n\nGeneric CBOR\u2192JSON transcoding (RFC 8949 \u00a76.1) maps `undefined` to JSON `null`,\nwhich reintroduces the ambiguity across a transcoding proxy. Left out to keep the\ndiff minimal \u2014 raising it here in case a reviewer asks.\n\n## Notes\n\n- Branched from `main` (`f9f19d9`) and independent of #24 \u2014 either can\n  merge first.\n- Whichever of the two merges second will hit a one-line conflict in the iPATCH\n  paragraph, where this PR's `undefined` sentence sits next to the other PR's\n  \"processed as described in Section 3.2.1\" sentence. Both sentences survive;\n  keep them adjacent.\n- Builds clean with `kdrfc draft-ietf-core-comi.md` (aasvg on PATH), no new\n  xml2rfc warnings, all cross-references resolve.\n",
       "createdAt": "2026-07-25T10:42:31Z",
-      "updatedAt": "2026-10-15T13:02:25Z",
+      "updatedAt": "2026-10-21T21:46:01Z",
       "baseRepository": "core-wg/comi",
       "baseRefName": "main",
       "baseRefOid": "f9f19d9c19285fdc3d1ba30af628773033531ba7",
@@ -994,6 +1008,13 @@
           "body": "Thanks both. I've shortened the rule as Peter suggested and changed the RPC example to an empty map, as Vojt\u011bch proposed. On FETCH: section 3.1.3 says the response lists values \"in the same order as requested\", with list indexes elided, so the client matches answers to questions by position. A server that omits the pair for an uninstantiated leaf would shift every later answer. A placeholder is therefore needed, and it has to differ from the null of an empty leaf. If the WG prefers the omit-the-pair model, that is a bigger change to the FETCH response and should be its own issue.",
           "createdAt": "2026-10-15T12:50:40Z",
           "updatedAt": "2026-10-15T13:02:25Z"
+        },
+        {
+          "author": "vvilimek",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Replying to [last comment](https://github.com/core-wg/comi/pull/25#issuecomment-6192473120)\r\n\r\n2nd paragraph of section 3.1.3 Fetch of the draft\r\n>The return response payload contains a list of data node instance-values in the same order as requested. A CBOR null is returned for each data node requested by the client, not supported by the server or not currently instantiated.\r\n\r\nThe document clearly specify that if the requested instance is not instantiated, CBOR `null` should be used as the value in the mapping. We might consider using the CBOR `undefined` but outside of this if think this is a non-issue.\r\n\r\nOmit-the-pair approach IMO brings only downsides and is not worth the effort and/or saved bytes.",
+          "createdAt": "2026-10-21T21:46:01Z",
+          "updatedAt": "2026-10-21T21:46:01Z"
         }
       ],
       "reviews": [
@@ -1031,7 +1052,7 @@
       "labels": [],
       "body": "## Problem\n\nThe draft uses a SID-to-URI-path encoding that it never specifies.\n\nDiscovery examples return `</c/kv>` (\u00a75.1), `</c/a6>` and `</c/a7>` (\u00a75.2.2). \u00a75.1 says the\nYANG library SID 2351 becomes `kv` \"after encoding as specified in Section 2.2\" \u2014 but \u00a72.2\nonly says that SIDs are numeric identifiers. Grepping the source for `base64`,\n`percent-encod` or `path segment` returns nothing.\n\nThis is load-bearing for interop, not cosmetic: a `core.c.dn` discovery response carries no\nSID attribute, so a client has to decode `a6` back to 1722 to learn which data node a link\nrefers to.\n\n## Why this misleads rather than merely slowing an implementer down\n\nThe scheme is a **positional base-64 numeral** \u2014 the SID's binary value cut into 6-bit digits\n\u2014 *not* base 64 applied to an octet string. Both natural readings of \"base64 the SID\" give a\ndifferent, wrong answer:\n\n| Reading | SID 2351 gives | |\n|---|---|---|\n| Positional base-64 numeral (what the draft's examples use) | `kv` | \u2705 |\n| base64url of the raw bytes `0x092f` | `CS8` | \u274c |\n| base64url of the CBOR encoding `0x19092f` | `GQkv` | \u274c |\n\nThe positional reading reproduces all three examples in the draft and round-trips:\n`kv`\u21922351, `a6`\u21921722, `a7`\u21921723.\n\nNote that `GQkv` ends in `kv`, so a reader who tries the CBOR variant gets something that\nlooks tantalisingly close and is still wrong.\n\n## Second gap: the alphabet is not pinned down by any example\n\nThe digit values appearing across all the draft's examples are 26, 36, 47, 58 and 59 \u2014 all\nbelow 62. Since base 64 and base 64url differ only at digits 62 and 63 (`+`/`/` versus\n`-`/`_`), **no example in the document distinguishes them.**\n\nThe new text states base 64url explicitly. `/` inside a path segment would be fatal, and\n`k.rb` in the repo root already uses `Base64.urlsafe_encode64(..., padding: false)`, so this\nmatches the evidenced intent.\n\n## The change\n\nOne new subsection, `2.2.1 SIDs in URIs`. 19 lines added, nothing removed, no example\ntouched.\n\nIt is deliberately added as a *child* of \u00a72.2, so \u00a75.1's existing \"as specified in\nSection 2.2\" cross-reference starts resolving to text that actually specifies the encoding \u2014\nwith zero change to \u00a75.1.\n\nSide effect: RFC 4648 becomes an actually-used normative reference. Today it is normative but\ncited exactly once, in Security Considerations, and never where an encoding is defined.\n\n## Open question for review\n\nThe text says leading zero digits `MUST NOT` be emitted, but deliberately says nothing about\nwhether a receiver has to reject them. Leaving receiver behaviour unstated is the smaller\nchange; if the WG prefers strictness, add \"a client MAY reject a representation containing\nleading zero digits.\"\n\n## Notes\n\n- Branched from `main` (`f9f19d9`), independent of #24 and #25. \u00a72.2 is untouched by both, so\n  this should not conflict with either in any merge order.\n- Builds clean with `kdrfc draft-ietf-core-comi.md` (aasvg on PATH), no new xml2rfc warnings,\n  both new `Section N of [RFC4648]` cross-references resolve.\n- `Instance-identifiers` renumbers 2.2.1 \u2192 2.2.2. It is not cross-referenced anywhere, so the\n  renumbering is inert.\n- This is one finding out of a broader review of the current text. The rest is being taken to\n  the co-authors separately rather than filed here.\n",
       "createdAt": "2026-07-25T11:26:58Z",
-      "updatedAt": "2026-10-15T13:01:27Z",
+      "updatedAt": "2026-10-21T22:11:00Z",
       "baseRepository": "core-wg/comi",
       "baseRefName": "main",
       "baseRefOid": "f9f19d9c19285fdc3d1ba30af628773033531ba7",
@@ -1070,6 +1091,27 @@
           "body": "Peter - thanks for the comments! on the question about \"cite instead of explain\". I tried, but the numeral isn't defined in any RFC: RFC 4648 gives the base64url alphabet, but its base 64 is for octet strings, so a plain citation would point readers at the wrong reading. The tempting readings give CS8 (raw bytes) and GQkv (CBOR bytes) for SID 2351 instead of the kv that all three of the draft's examples use. So the definition stays in the draft, and I've now added a sentence citing RFC 3986 (sec 3.3) for why that alphabet is used: every character is an unreserved pchar, so a SID in a path segment never needs percent-encoding. RFC 3986 is added to the normative references.\r\n\r\nVojt\u011bch - thanks for the comments! section 2.2 is underspecified. Agreed, that is what this PR fixes. sections 5.1 and 5.2.2 already say \"as specified in Section 2.2\", so the new 2.2.1 sits under it and those references now resolve without further changes.\r\n\r\nLeading zeros (the open question in the description). I've made the receiver side explicit: each SID has exactly one representation, and a string with a leading zero digit (more than one character, beginning with \"A\") is not the representation of any SID, so a receiver MUST NOT interpret it as one. The reason is that two spellings of one SID would give one resource two URIs, which could bypass access control based on the URI. This matches what I've implemented (it rejects AA, AB, and accepts A and BA). If the WG prefers a different receiver behaviour, for example MAY reject, it is a one-sentence change and I'm happy to revisit.",
           "createdAt": "2026-10-15T13:00:42Z",
           "updatedAt": "2026-10-15T13:00:42Z"
+        },
+        {
+          "author": "cabo",
+          "authorAssociation": "MEMBER",
+          "body": "This was defined in previous revisions of the document; we took it out as we didn't want to use SIDs in URIs any more at all.  Why is that needed now?\r\n",
+          "createdAt": "2026-10-21T13:07:50Z",
+          "updatedAt": "2026-10-21T13:07:50Z"
+        },
+        {
+          "author": "vvilimek",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Carsten wrote:\r\n> This was defined in previous revisions of the document; we took it out as we didn't want to use SIDs in URIs any more at all. Why is that needed now?\r\n\r\n\r\nThis is used to query supported data nodes (schema thing) on live server. It is for node discoverability.\r\n\r\nThis cannot be used to query available instances.",
+          "createdAt": "2026-10-21T13:45:03Z",
+          "updatedAt": "2026-10-21T13:45:03Z"
+        },
+        {
+          "author": "vvilimek",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "We maybe need to clear our intents before continuing the drafting work. The discoverability is important to get right.",
+          "createdAt": "2026-10-21T22:11:00Z",
+          "updatedAt": "2026-10-21T22:11:00Z"
         }
       ],
       "reviews": []
@@ -1154,7 +1196,7 @@
       "labels": [],
       "body": "Following Andy's review on PR#24. iPATCH is atomic by RFC 8132 section 3, so this replaces the best-effort approach of PR#24 and states the existing requirement where readers will look for it. Three commits; each can be dropped on its own.\n\n1. Atomicity. The draft previously said only, in the error-handling section, that an error response MUST NOT have an effect on the datastore. It never said \"atomic\" and never cited RFC\u00a08132. This states it in the iPATCH section, says atomicity is per request (a client sends separate requests for independent edits), and leaves the mechanism to the server.\n2. Order. The draft's own example (section 3.2.5.1) has one operation create an entry that a later one replaces, so the result depends on order. The sentence defines the result as if applied in order, without constraining how a server does it internally. Andy suggested \"MUST be followed\"; this keeps the observable behaviour and leaves the implementation free.\n3. Success code. Answers Andy's question about 2.01 vs 2.04 for mixed create/modify: always 2.04, because the target is the datastore resource, which exists.\n",
       "createdAt": "2026-10-15T13:51:41Z",
-      "updatedAt": "2026-10-15T13:51:48Z",
+      "updatedAt": "2026-10-21T21:35:33Z",
       "baseRepository": "core-wg/comi",
       "baseRefName": "main",
       "baseRefOid": "f9f19d9c19285fdc3d1ba30af628773033531ba7",
@@ -1165,7 +1207,15 @@
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "vvilimek",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> The processing of one iPATCH request is atomic, as required by\r\n{{Section 3 of RFC8132}}: the server applies the whole set of operations\r\ncarried in the request, or none of them.\r\n> ...\r\n\r\n> Atomicity is a property of a single request.\r\nA client that needs the operations of an edit to be independent of each\r\nother sends them as separate iPATCH requests; a client that needs them to\r\nsucceed or fail together sends them in one request.\r\n\r\n> The result of an iPATCH request is the same as if its operations were applied\r\none after another, in the order in which they appear in the payload.\r\n\r\nI find this really confusing. The paragraph one and two states that the one request should be processed atomically, the third states that the sub-operations of the request should be applied one-by-one in request order. This does not make sense to me. I don't see any 'processing order'. If the request is atomic the transition cannot be divided into the items of the request, the intermediate states must not be observable. I think the text could say something like: 'The implementation should prefer not to use forward references' but I think it is not necessary.\r\n\r\nIn principle the forward references are possible. If I understand the YANG correctly, cycles are impossible to be created in YANG ecosystem. This fact can simplify some things, chain dependencies are still possible.",
+          "createdAt": "2026-10-21T21:35:33Z",
+          "updatedAt": "2026-10-21T21:35:33Z"
+        }
+      ],
       "reviews": []
     },
     {
@@ -1180,7 +1230,7 @@
       "labels": [],
       "body": "- **Correct the IETF area on the title page**\n- **Cite RFC 7950 for YANG notifications, not RFC 5277**\n- **Demote RFC 8040 to an informative reference**\n- **Lead the DTLS citation with RFC 9147, and unquote two normative MUSTs**\n- **Editorial: 'of after', 'constrain', 'incorect', unused SID annotation**\n- **YANG module metadata: organization, contacts, revision statement**\n- **Replace the hand-written error tree with pyang output**\n- **Add the RFC 8791 normative reference, the IANA SID range request, and the YANG module security considerations**\n- **Use one resource type name for the event stream: core.c.es (#23)**\n- **The output of an RPC without output is an empty map, not null (#30)**\n- **Make draft-ietf-core-yang-library an informative reference: its use is optional**\n\n\nCorrections that I believe are non-controversial. \nI preferred a single one, instead of eleven independent commits - but each can be dropped on its own. \n\nNothing here changes protocol behaviour except the RPC example, which fixes an encoding error (#30).\nCitation and reference fixes: IETF area on the title page; RFC 7950 (not RFC 5277) for YANG notifications; RFC 8040 and draft-ietf-core-yang-library are informative; RFC 9147 leads the DTLS citation; RFC 8791 is added as a normative reference because the module imports ietf-yang-structure-ext.\nModule: metadata fixes, the tree diagram regenerated with pyang, security considerations in the style of RFC 8407, and the IANA request for the SID range.\nEditorial: three typos, one stray annotation, two MUSTs that rendered as quotations.\nFixes #23 (one resource type name, core.c.es) and #30 (an RPC without output returns {}).\nPlease check commit 6: it adds Carsten as a module contact and changes Michel's address. Michel, Carsten, please confirm or tell me to drop it.\nMerges cleanly with Pull Requests #25, #26, #27, #28 and #31.\n\n",
       "createdAt": "2026-10-15T14:02:19Z",
-      "updatedAt": "2026-10-15T14:02:20Z",
+      "updatedAt": "2026-10-21T16:25:00Z",
       "baseRepository": "core-wg/comi",
       "baseRefName": "main",
       "baseRefOid": "f9f19d9c19285fdc3d1ba30af628773033531ba7",
@@ -1191,8 +1241,137 @@
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
-      "reviews": []
+      "comments": [
+        {
+          "author": "vvilimek",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I think we agree on that discoverability should be a part of the CORECONF protocol. Making the Constrained YANG Library reference informational does not help.\r\n\r\nThere are ongoing talks about the format and structure of `core.c.ds` in the Link Format. The link format on the path `.well-known/core` is the only other option for discoverability. And it looks like we will remove it (at least the `core.c.dn` resource type). Note that discoverability using the yang-library and sid files is resource heavy. Moreover the resource at path `.well-known/core` does not include the YANG module revisions.",
+          "createdAt": "2026-10-21T16:25:00Z",
+          "updatedAt": "2026-10-21T16:25:00Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOBM6Qn88AAAABTfBNrw",
+          "commit": {
+            "abbreviatedOid": "c0420ca"
+          },
+          "author": "vvilimek",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-10-21T16:03:11Z",
+          "updatedAt": "2026-10-21T16:03:12Z",
+          "comments": [
+            {
+              "originalPosition": 13,
+              "body": "This is unrelated to the DTLS citation but works well. +1",
+              "createdAt": "2026-10-21T16:03:11Z",
+              "updatedAt": "2026-10-21T16:03:12Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOBM6Qn88AAAABTfCv_A",
+          "commit": {
+            "abbreviatedOid": "a8ca329"
+          },
+          "author": "vvilimek",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-10-21T16:05:17Z",
+          "updatedAt": "2026-10-21T16:05:17Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "Removal of the SID should not be merged. Both 'input' and 'output' nodes MUST have a SID number, even if the input/output has no children.",
+              "createdAt": "2026-10-21T16:05:17Z",
+              "updatedAt": "2026-10-21T16:05:17Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOBM6Qn88AAAABTfExLA",
+          "commit": {
+            "abbreviatedOid": "fb0b366"
+          },
+          "author": "vvilimek",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-10-21T16:07:45Z",
+          "updatedAt": "2026-10-21T16:07:46Z",
+          "comments": [
+            {
+              "originalPosition": 16,
+              "body": "Wouldn't it be easier to include a file generated in make build?\n\nAlso I am not sure if this is a helpful change. The module annotation is pointless in this part of the document.",
+              "createdAt": "2026-10-21T16:07:46Z",
+              "updatedAt": "2026-10-21T16:07:46Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOBM6Qn88AAAABTfGXvg",
+          "commit": {
+            "abbreviatedOid": "163423f"
+          },
+          "author": "vvilimek",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-10-21T16:09:49Z",
+          "updatedAt": "2026-10-21T16:09:50Z",
+          "comments": [
+            {
+              "originalPosition": 69,
+              "body": "The SID range staring at 1000 was already assigned by IANA.",
+              "createdAt": "2026-10-21T16:09:50Z",
+              "updatedAt": "2026-10-21T16:09:50Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOBM6Qn88AAAABTfKy5A",
+          "commit": {
+            "abbreviatedOid": "9ba1f63"
+          },
+          "author": "vvilimek",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-10-21T16:15:25Z",
+          "updatedAt": "2026-10-21T16:15:26Z",
+          "comments": [
+            {
+              "originalPosition": 19,
+              "body": "An instance-identifier is used only for actions. We may use this distinction in the text.\n\nAlso I would like to see text like: 'The absence marker is only used with semantics of instance removal. Therefore it is not used here because notifications do not carry a removal operation semantics.'",
+              "createdAt": "2026-10-21T16:15:26Z",
+              "updatedAt": "2026-10-21T16:15:26Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOBM6Qn88AAAABTfMKRA",
+          "commit": {
+            "abbreviatedOid": "f04dca7"
+          },
+          "author": "vvilimek",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-10-21T16:17:28Z",
+          "updatedAt": "2026-10-21T16:17:28Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "This is certainly **NOT** a non-controversial change. See whole RP discussion for more details. (#32)",
+              "createdAt": "2026-10-21T16:17:28Z",
+              "updatedAt": "2026-10-21T16:17:28Z"
+            }
+          ]
+        }
+      ]
     },
     {
       "number": 33,
@@ -1258,7 +1437,7 @@
       "labels": [],
       "body": "Addresses #19 (it does not close it: the reporter should say whether this is enough).\n\n#19 asks for consistent SIDs across the examples. I counted them: the examples label 30 SIDs, and no SID is given two different names, so the examples agree with each other. What makes them hard to follow is that they move between several modules (ietf-interfaces and ietf-system for the data examples, three small purpose-written modules for the RPC, the action and the notifications) with nothing that tells the reader so. A single module is not possible with the standard ones, because RFC 8343 defines no RPC, action or notification and RFC 7317 defines no action or notification; writing a new module and redoing every example would be a large late change.\n\nSo this PR adds a map instead, in two commits:\n\n1. Annex \"SIDs used in the examples\" (new Appendix C): the 40 SIDs of the examples, grouped by module, each with the sections that use it. It also adds two anchors to existing headings (`YANG library` and `Data node Resource Discovery`) so that the table can point at them. Nothing else in the existing text changes.\n2. Event stream FETCH example: the filter named two notification identifiers, `60010, 60020`, but no module defines 60020. The filter now names only `60010`. The sentence after the example (\"the notifications ... all using identifier SID 60010 and this is included in the filter\") is still true. This commit can be dropped without affecting the annex; if it is dropped, the annex needs a note that 60020 is not defined.\n\nHow I checked the annex: a script reads the draft and compares the table with every SID the rest of the text labels, in both directions, and checks that each SID has one name. The SIDs of ietf-coreconf in the table match the `.sid` file in Appendix B. A SID that is used without a label (1024 in the error example) is the only kind the script cannot confirm from a label.\n\nKnown conflict: #27 rewrites the same filter line in the new diagnostic style, so whichever of the two merges second has a one-line conflict. I will resolve it.\n\nIf #34 (examples without input) merges, its new action `restart` (SID 60005) needs one more row in the example-server-farm table.\n\nMerges cleanly with #25, #26, #28, #31, #32, #33 and #34.\n",
       "createdAt": "2026-10-15T20:55:49Z",
-      "updatedAt": "2026-10-15T20:55:50Z",
+      "updatedAt": "2026-10-20T16:53:57Z",
       "baseRepository": "core-wg/comi",
       "baseRefName": "main",
       "baseRefOid": "f9f19d9c19285fdc3d1ba30af628773033531ba7",
@@ -1270,7 +1449,28 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOBM6Qn88AAAABTRosZw",
+          "commit": {
+            "abbreviatedOid": "4cf4569"
+          },
+          "author": "cabo",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-10-20T16:52:17Z",
+          "updatedAt": "2026-10-20T16:53:56Z",
+          "comments": [
+            {
+              "originalPosition": 85,
+              "body": "Shouldn't all of the SIDs here be the actual final SIDs, except for the actual example module?",
+              "createdAt": "2026-10-20T16:52:17Z",
+              "updatedAt": "2026-10-20T16:53:57Z"
+            }
+          ]
+        }
+      ]
     },
     {
       "number": 36,
@@ -1284,7 +1484,7 @@
       "labels": [],
       "body": "**Three short answers to things that are already open in the tracker or were agreed at interim-05.** One commit each; each can be dropped on its own. No change to protocol behaviour.\n\n1. **CoAP over TCP and WebSockets** (RFC 8323) are not specified here and are left to a future extension. At interim-05 the suggestion was to say something about transport options instead of \"CORECONF uses UDP\" alone.\n2. **Which YANG modules the examples use, and that their SIDs are illustrative** (addresses #19). This states the principle; it does not make all examples use one module, so I have not marked #19 as closed.\n3. **Errors while processing a notification** (addresses #22). A 5.xx response ends the observation, as RFC 7641 already specifies for Observe; an error affecting a single notification instance does not by itself end the stream. This last sentence is the one small addition beyond RFC 7641, so please look at it.\n\nMerges cleanly with #25, #26, #27, #28, #31 and #32.\n",
       "createdAt": "2026-10-15T21:09:48Z",
-      "updatedAt": "2026-10-15T21:09:49Z",
+      "updatedAt": "2026-10-20T16:48:45Z",
       "baseRepository": "core-wg/comi",
       "baseRefName": "main",
       "baseRefOid": "f9f19d9c19285fdc3d1ba30af628773033531ba7",
@@ -1296,7 +1496,46 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOBM6Qn88AAAABTO4OSg",
+          "commit": {
+            "abbreviatedOid": "a66ed2b"
+          },
+          "author": "cabo",
+          "authorAssociation": "MEMBER",
+          "state": "CHANGES_REQUESTED",
+          "body": "Could have been Approved with a few minor editorial comments.\nNot sure about the 5.xx text though; let's check that.\n",
+          "createdAt": "2026-10-20T13:24:28Z",
+          "updatedAt": "2026-10-20T16:48:45Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "s/best//",
+              "createdAt": "2026-10-20T13:24:28Z",
+              "updatedAt": "2026-10-20T16:48:45Z"
+            },
+            {
+              "originalPosition": 7,
+              "body": "s/assigned/actually assigned/",
+              "createdAt": "2026-10-20T13:25:05Z",
+              "updatedAt": "2026-10-20T16:48:45Z"
+            },
+            {
+              "originalPosition": 17,
+              "body": "Maybe:\n\nOther CoAP transports (such as CoAP over TCP or WebSockets) are out of scope for this document.",
+              "createdAt": "2026-10-20T13:26:09Z",
+              "updatedAt": "2026-10-20T16:48:45Z"
+            },
+            {
+              "originalPosition": 31,
+              "body": "Add section reference:\n\n{{Section 3.2 of RFC7641}}\n\nAre all these cases 5.xx cases?\n(RFC 7641 mentions 4.04 as a specific case.)",
+              "createdAt": "2026-10-20T16:47:42Z",
+              "updatedAt": "2026-10-20T16:48:45Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
