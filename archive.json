@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-10-22T03:20:42.125327+00:00",
+  "timestamp": "2026-10-27T03:45:54.372149+00:00",
   "repo": "core-wg/comi",
   "labels": [
     {
@@ -1484,7 +1484,7 @@
       "labels": [],
       "body": "**Three short answers to things that are already open in the tracker or were agreed at interim-05.** One commit each; each can be dropped on its own. No change to protocol behaviour.\n\n1. **CoAP over TCP and WebSockets** (RFC 8323) are not specified here and are left to a future extension. At interim-05 the suggestion was to say something about transport options instead of \"CORECONF uses UDP\" alone.\n2. **Which YANG modules the examples use, and that their SIDs are illustrative** (addresses #19). This states the principle; it does not make all examples use one module, so I have not marked #19 as closed.\n3. **Errors while processing a notification** (addresses #22). A 5.xx response ends the observation, as RFC 7641 already specifies for Observe; an error affecting a single notification instance does not by itself end the stream. This last sentence is the one small addition beyond RFC 7641, so please look at it.\n\nMerges cleanly with #25, #26, #27, #28, #31 and #32.\n",
       "createdAt": "2026-10-15T21:09:48Z",
-      "updatedAt": "2026-10-20T16:48:45Z",
+      "updatedAt": "2026-10-26T10:56:16Z",
       "baseRepository": "core-wg/comi",
       "baseRefName": "main",
       "baseRefOid": "f9f19d9c19285fdc3d1ba30af628773033531ba7",
@@ -1532,6 +1532,46 @@
               "body": "Add section reference:\n\n{{Section 3.2 of RFC7641}}\n\nAre all these cases 5.xx cases?\n(RFC 7641 mentions 4.04 as a specific case.)",
               "createdAt": "2026-10-20T16:47:42Z",
               "updatedAt": "2026-10-20T16:48:45Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOBM6Qn88AAAABUNGBTA",
+          "commit": {
+            "abbreviatedOid": "1d34b8d"
+          },
+          "author": "petervanderstok",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-10-26T10:51:57Z",
+          "updatedAt": "2026-10-26T10:51:57Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "better",
+              "createdAt": "2026-10-26T10:51:57Z",
+              "updatedAt": "2026-10-26T10:51:58Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOBM6Qn88AAAABUNJBmw",
+          "commit": {
+            "abbreviatedOid": "86c425f"
+          },
+          "author": "petervanderstok",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-10-26T10:56:15Z",
+          "updatedAt": "2026-10-26T10:56:15Z",
+          "comments": [
+            {
+              "originalPosition": 9,
+              "body": "\"illustrates the construct it\" and following do not parse.",
+              "createdAt": "2026-10-26T10:56:15Z",
+              "updatedAt": "2026-10-26T10:56:15Z"
             }
           ]
         }
