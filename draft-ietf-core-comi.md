@@ -82,8 +82,8 @@ normative:
   RFC9254: yang-cbor
   RFC9595: core-sid
   RFC8342: nmda
-informative:
   I-D.ietf-core-yang-library:
+informative:
   RFC8040: restconf
   RFC6347:
     -: dtls12
@@ -196,11 +196,10 @@ notated in Diagnostic notation (defined in {{Section 8 of RFC8949}} and
 {{Appendix G of RFC8610}}), which
 can be automatically converted to CBOR.
 
-Each example uses the YANG module that best illustrates the construct it
-demonstrates: {{RFC7317}} and {{RFC8343}} where they contain the required nodes,
-and a purpose-written module where they do not. The SIDs appearing in the examples
-are illustrative; the SIDs assigned to the module defined by this document are
-given in {{ietf-coreconf-sid}}.
+The examples use the YANG modules of {{RFC7317}} and {{RFC8343}} where these
+contain the nodes needed, and purpose-written modules where they do not. The SIDs
+appearing in the examples are illustrative; the SIDs actually assigned to the
+module defined by this document are given in {{ietf-coreconf-sid}}.
 
 
 
@@ -300,9 +299,8 @@ but differs more significantly from RESTCONF.
 * CORECONF does not support the "start-time" and "stop-time" query parameters
   to retrieve past notifications.
 
-CORECONF is specified over CoAP over UDP {{RFC7252}}. CoAP over TCP and
-WebSockets {{?RFC8323}} are not specified by this document; support for them is
-left to a future extension.
+Other CoAP transports (such as CoAP over TCP or WebSockets {{?RFC8323}}) are out
+of scope for this document.
 
 ### Differences due to the use of CBOR {#major-differences-cbor}
 
@@ -426,7 +424,7 @@ The different Media-Type usages are summarized in the table below:
 | any error <br>response | any   | application/yang-data+cbor; id=sid    |
 {: #tbl-mt-uses align="left" title="Summary of Media-Type Usages"}
 
-No Media-Type (N/A) should be used if the method request or response does not
+No Media-Type (N/A) is used if the method request or response does not
 carry a payload.
 
 ## Unified datastore {#unified-datastore}
@@ -841,10 +839,10 @@ Content-Format: TBD3 (application/yang-instances+cbor-seq)
 The sequence of data node instances may contain identical items which have
 been generated at different times.
 
-A CORECONF server that encounters an error while processing a notification
-returns a CoAP 5.xx response to the request that established the observation and
-terminates the observation of that stream resource, as specified for Observe in
-{{RFC7641}}. An error that affects a single notification instance does not by
+A CORECONF server that can no longer provide the notifications of a stream
+resource sends a notification with an appropriate error response code (4.xx or
+5.xx) and removes the client from the list of observers, as specified in
+{{Section 3.2 of RFC7641}}. An error that affects a single notification instance does not by
 itself terminate the stream. A client that observes the termination reports the
 failure to its user agent; whether it re-observes the stream is outside the scope
 of this document.
@@ -1010,7 +1008,7 @@ module example-ops {
 
   rpc reboot {                          // SID 61000
     description "Reboot operation.";
-    input {
+    input {                             // SID 61009
       leaf delay {                      // SID 61001
         type uint32;
         units "seconds";
@@ -1047,9 +1045,11 @@ Content-Format: TBD3 (application/yang-instances+cbor-seq)
 
 The 'reboot' RPC has no output, so the instance-value is an empty CBOR map.
 The output of an RPC or action is an internal node and is always encoded as a
-CBOR map ({{Section 4.2 of -yang-cbor}}); the absence marker of
-{{media-type}} is not used here. A yang-instances payload is still returned,
-because the instance-identifier is what identifies which RPC the response
+CBOR map ({{Section 4.2 of -yang-cbor}}). The absence marker of
+{{media-type}} is not used here: it only marks the absence or removal of a data
+node instance, and an RPC or action output is neither. A yang-instances payload
+is still returned, because its key (the SID of the RPC, or the
+instance-identifier of the action) identifies which invocation the response
 belongs to.
 
 ### Action Example {#action-example}
@@ -1583,9 +1583,10 @@ The YANG module and SID file are in {{ietf-coreconf-yang}} and
 
 ## YANG SID Range Assignment
 
-IANA is requested to assign a SID range to the "ietf-coreconf" YANG module in
-the "IETF YANG SID Range Registry", following the procedure of {{Section 6.3.1
-of -core-sid}}:
+IANA has assigned the following SID range to the "ietf-coreconf" YANG module in
+the "IETF YANG-SID Ranges" registry, following the procedure of {{Section 6.3.1
+of -core-sid}}. IANA is requested to update the reference of this entry to this
+document:
 
 Entry Point: 1000
 
@@ -1598,10 +1599,6 @@ Reference: RFC XXXX
 The SID file in {{ietf-coreconf-sid}} assigns SIDs from this range, and this
 document depends on those values: {{datastore-discovery}} uses the SID of the
 "unified" datastore identity.
-
-// RFC Ed.: if IANA assigns an entry point other than 1000, the SID file in
-// {{ietf-coreconf-sid}} and every SID derived from it in the body of this
-// document have to be regenerated.
 
 --- back
 
@@ -2142,6 +2139,7 @@ The module example-server-farm, used for the action:
 | reset (action)         | 60002 | {{action-example}}                    |
 | reset-at               | 60003 | {{action-example}}                    |
 | reset-finished-at      | 60004 | {{action-example}}                    |
+| restart (action)       | 60005 | {{no-input-example}}                  |
 | input                  | 60008 | {{action-example}}                    |
 | output                 | 60009 | {{action-example}}                    |
 
@@ -2152,8 +2150,24 @@ The module example-port, used for notifications:
 | port-name              | 60011 | {{event-stream-example}}              |
 | port-fault             | 60012 | {{event-stream-example}}              |
 
-{::include-all lists.md}
+# Open Issues {#open-issues}
+{:removeInRFC="true"}
 
+The following issues are not resolved in this revision and are planned for
+discussion at IETF 127 (see <https://github.com/core-wg/comi/issues>):
+
+* How a SID is encoded in a URI path segment, and whether CORECONF supports
+  discovery of individual data nodes through such URIs, or only through FETCH
+  and the YANG library (issue #19, pull request #26).
+
+* Whether the Content-Format Option is required on a POST to the datastore
+  resource, where the same method is used both to create the datastore and to
+  invoke an RPC or action (issue #29).
+
+* Which security mechanisms a CORECONF implementation is required to support.
+
+
+{::include-all lists.md}
 
 # Acknowledgments
 {:unnumbered}
