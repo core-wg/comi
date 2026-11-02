@@ -648,8 +648,11 @@ succeed or fail together sends them in one request.
 
 The result of an iPATCH request is the same as if its operations were applied
 one after another, in the order in which they appear in the payload.
-For example, an operation can refer to a data node instance that an earlier
-operation of the same request has created.
+For example, an operation can set a leaf of a list entry that an earlier
+operation of the same request has created. Constraints between data nodes,
+such as a leafref, are validated on the datastore that results from the whole
+request, so they can also refer to a data node instance that a later operation
+creates.
 The server is free to apply the operations internally in any other way, as
 long as that result is obtained.
 
