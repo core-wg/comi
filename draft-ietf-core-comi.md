@@ -196,8 +196,8 @@ notated in Diagnostic notation (defined in {{Section 8 of RFC8949}} and
 {{Appendix G of RFC8610}}), which
 can be automatically converted to CBOR.
 
-The examples use the YANG modules of {{RFC7317}} and {{RFC8343}} where these
-contain the nodes needed, and purpose-written modules where they do not. The SIDs
+The examples in this document use the YANG modules defined in {{RFC7317}} and {{RFC8343}} where these
+contain the necessary nodes, and purpose-written modules where they do not. The SIDs
 appearing in the examples are illustrative; the SIDs actually assigned to the
 module defined by this document are given in {{ietf-coreconf-sid}}.
 
@@ -1457,23 +1457,11 @@ encoding, the security considerations of those documents also need to be
 well-understood.
 
 The YANG module specified in this document defines a schema for data that is
-designed to be accessed via CORECONF itself. The lowest CoAP layer is the
-secure transport layer; which secure transports are mandatory to implement is
+designed to be accessed via CORECONF itself. Which secure transports are mandatory to implement is
 an open issue (see {{open-issues}}).
 
-The module does not define any configuration or state data nodes. It defines
-identities used as error tags, and a structure {{RFC8791}} used as the payload
-of an error response. Because the module defines no writable or readable data
-nodes, the usual analysis of which subtrees and data nodes are sensitive or
+The module does not define any configuration or state data nodes and the usual analysis of which subtrees and data nodes are sensitive or
 vulnerable to write or read operations does not apply to it.
-
-What does deserve attention is the content a server places in that structure.
-The 'error-data-node' leaf carries an instance-identifier, and 'error-message'
-carries free text. A server that returns either to a client that is not
-authorized to see the corresponding part of the datastore discloses the shape
-of its data model, and possibly the existence of specific instances, through
-the error path. A server SHOULD limit the detail it reports in an error
-response to what the requesting client is authorized to read.
 
 # IANA Considerations {#iana}
 
