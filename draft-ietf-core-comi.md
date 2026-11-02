@@ -1358,7 +1358,7 @@ The following list of common CoAP errors should be implemented by CORECONF serve
 * Error 4.15 (Unsupported Content-Format) is returned by the CORECONF server when the Content-Format used in the request does not match those specified in {{media-type}}.
 
 
-The CORECONF server MUST also enforce the different constraints associated with the YANG data models implemented. These constraints are described in {{Section 8 of RFC7950}}. These errors are reported using the CoAP error code 4.00 (Bad Request) and may have the following error container as payload. The YANG definition and associated .sid file are available in {{ietf-coreconf-yang}} and {{ietf-coreconf-sid}}. The error container is encoded using the encoding rules of a YANG data template as defined in {{Section 5 of -yang-cbor}}.
+The CORECONF server MUST also enforce the different constraints associated with the YANG data models implemented. These constraints are described in {{Section 8 of RFC7950}}. These errors are reported using the CoAP error code 4.00 (Bad Request) and may have the following error container, defined as a YANG data structure {{RFC8791}}, as payload. The YANG definition and associated .sid file are available in {{ietf-coreconf-yang}} and {{ietf-coreconf-sid}}. The error container is encoded using the encoding rules of a YANG data template as defined in {{Section 5 of -yang-cbor}}.
 
 ~~~~
 module: ietf-coreconf
