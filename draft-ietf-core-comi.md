@@ -1463,6 +1463,15 @@ an open issue (see {{open-issues}}).
 The module does not define any configuration or state data nodes and the usual analysis of which subtrees and data nodes are sensitive or
 vulnerable to write or read operations does not apply to it.
 
+What does deserve attention is the content a server places in the error
+structure ({{error-handling}}).
+The 'error-data-node' leaf carries an instance-identifier, and 'error-message'
+carries free text. A server that returns either to a client that is not
+authorized to see the corresponding part of the datastore discloses the shape
+of its data model, and possibly the existence of specific instances, through
+the error path. A server SHOULD limit the detail it reports in an error
+response to what the requesting client is authorized to read.
+
 # IANA Considerations {#iana}
 
 ## Resource Type (rt=) Link Target Attribute Values Registry
