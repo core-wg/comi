@@ -685,7 +685,7 @@ In this example, a CORECONF client requests the following operations:
 
   * Remove the server "tac.nrc.ca" from the "/ietf-system:system/ntp/server" (SID 1756) list.
 
-  * Add/set the server "NTP Pool server 2" to the list "/ietf-system:system/ntp/server" (SID 1756).
+  * Add/set the server "tic.nrc.ca" in the list "/ietf-system:system/ntp/server" (SID 1756).
 
 ~~~~ coap
 iPATCH /c
@@ -698,7 +698,7 @@ Content-Format: TBD3 (application/yang-instances+cbor-seq)
   [1756, "tac.nrc.ca"] : undefined  / server (SID 1756) /
 },
 {
-  1756 : {                      / server (SID 1756) /
+  [1756, "tic.nrc.ca"] : {      / server (SID 1756) /
     3 : "tic.nrc.ca",           / name (SID 1759) /
     4 : true,                   / prefer (SID 1760) /
     5 : {                       / udp (SID 1761) /
@@ -1255,7 +1255,7 @@ Each datastore returned is further qualified using the "ds" Link-Format attribut
 This attribute is set to the SID assigned to the datastore identity.
 When a unified datastore is implemented, the ds attribute is set to 1029 as
 specified in {{ietf-coreconf-sid}}.
-For other examples of datastores, see the Network Management Datastore Architecture (NMDA) {{RFC7950}}.
+For other examples of datastores, see the Network Management Datastore Architecture (NMDA) {{RFC8342}}.
 
 ~~~~ abnf
 link-extension    = ( "ds" "=" sid )
@@ -1458,8 +1458,8 @@ well-understood.
 
 The YANG module specified in this document defines a schema for data that is
 designed to be accessed via CORECONF itself. The lowest CoAP layer is the
-secure transport layer, and the mandatory-to-implement secure transports are
-listed above.
+secure transport layer; which secure transports are mandatory to implement is
+an open issue (see {{open-issues}}).
 
 The module does not define any configuration or state data nodes. It defines
 identities used as error tags, and a structure {{RFC8791}} used as the payload
@@ -1587,7 +1587,7 @@ The YANG module and SID file are in {{ietf-coreconf-yang}} and
 ## YANG SID Range Assignment
 
 IANA has assigned the following SID range to the "ietf-coreconf" YANG module in
-the "IETF YANG-SID Ranges" registry, following the procedure of {{Section 6.3.1
+the "IETF YANG-SID Ranges" registry, following the procedure of {{Section 6.4.2
 of -core-sid}}. IANA is requested to update the reference of this entry to this
 document:
 
