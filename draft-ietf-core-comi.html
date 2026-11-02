@@ -20,21 +20,22 @@ CORECONF extends the set of YANG based
 protocols, NETCONF and RESTCONF, with the capability to manage constrained devices
 and networks. 
     " name="description">
-<meta content="xml2rfc 3.33.0" name="generator">
+<meta content="xml2rfc 3.34.1" name="generator">
 <meta content="draft-ietf-core-comi-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.33.0
-    Python 3.12.13
-    ConfigArgParse 1.7
+  xml2rfc 3.34.1
+    Python 3.14.8
+    ConfigArgParse 1.8.0
     google-i18n-address 3.1.1
     intervaltree 3.2.1
     Jinja2 3.1.6
-    lxml 6.0.2
-    platformdirs 4.9.6
+    lxml 6.1.1
+    natsort 8.4.0
+    platformdirs 4.13.4
     pycountry 24.6.1
     PyYAML 6.0.3
-    requests 2.32.5
-    wcwidth 0.6.0
+    requests 2.33.1
+    wcwidth 0.9.2
 -->
 <link href="draft-ietf-core-comi.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -70,7 +71,6 @@ and networks.
   src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-latin-ext.woff2') format('woff2');
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
-
 @font-face {
   font-family: 'Lora';
   font-style: italic;
@@ -119,7 +119,6 @@ and networks.
   src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-
 @font-face {
   font-family: 'Lora';
   font-style: normal;
@@ -184,7 +183,6 @@ and networks.
   font-display: swap;
   src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
 }
 
 @font-face {
@@ -301,16 +299,19 @@ h1, h2, h3, h4, h5, h6 {
   font-size-adjust: 0.5;
   color: var(--title-color);
 }
-h1#title {
-  font-size: 32px;
-  line-height: 40px;
-  clear: both;
-}
-h1#title, h1#rfcnum {
-  margin: 1.5em 0 0.2em;
-}
-h1#rfcnum + h1#title {
-  margin: 0.2em 0;
+h1 {
+  &#title {
+    font-size: 32px;
+    line-height: 40px;
+    clear: both;
+    margin: 1.5em 0 0.2em;
+  }
+  &#rfcnum {
+    margin: 1.5em 0 0.2em;
+    & + h1#title {
+      margin: 0.2em 0;
+    }
+  }
 }
 
 h1, h2, h3 {
@@ -330,10 +331,10 @@ h4, h5, h6 {
 #abstract+p {
   font-size: 18px;
   line-height: 24px;
-}
-#abstract+p code, #abstract+p samp, #abstract+p tt {
-  font-size: 16px;
-  line-height: 0;
+  & code, & samp, & tt {
+    font-size: 16px;
+    line-height: 0;
+  }
 }
 
 p {
@@ -344,59 +345,59 @@ p {
 div {
   margin: 0;
 }
-.alignRight.art-text {
-  background-color: var(--highlight-color);
-  border: 1px solid var(--line-color);
-  border-radius: 3px;
-  padding: 0.5em 1em 0;
-  margin-bottom: 0.5em;
-}
-.alignRight.art-text pre {
-  padding: 0;
-  width: auto;
-}
 .alignRight {
   margin: 1em 0;
-}
-.alignRight > *:first-child {
-  border: none;
-  margin: 0;
-  float: right;
-  clear: both;
-}
-.alignRight > *:nth-child(2) {
-  clear: both;
-  display: block;
-  border: none;
+  &.art-text {
+    background-color: var(--highlight-color);
+    border: 1px solid var(--line-color);
+    border-radius: 3px;
+    padding: 0.5em 1em 0;
+    margin-bottom: 0.5em;
+    & pre {
+      padding: 0;
+      width: auto;
+    }
+  }
+  & > *:first-child {
+    border: none;
+    margin: 0;
+    float: right;
+    clear: both;
+  }
+  & > *:nth-child(2) {
+    clear: both;
+    display: block;
+    border: none;
+  }
 }
 svg {
   display: block;
-}
-/* font-family isn't space-separated, but =~ will have to do */
-svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
-  font-family: var(--font-mono);
-}
-.alignCenter.art-text {
-  background-color: var(--highlight-color);
-  border: 1px solid var(--line-color);
-  border-radius: 3px;
-  padding: 0.5em 1em 0;
-  margin-bottom: 0.5em;
-}
-.alignCenter.art-text pre {
-  padding: 0;
-  width: auto;
+  /* font-family isn't space-separated, but =~ will have to do */
+  &[font-family~="monospace" i], & [font-family~="monospace" i] {
+    font-family: var(--font-mono);
+  }
 }
 .alignCenter {
   margin: 1em 0;
-}
-.alignCenter > *:first-child {
-  border: none;
-  /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
-     support flexbox yet.
-  */
-  display: table;
-  margin: 0 auto;
+  &.art-text {
+    background-color: var(--highlight-color);
+    border: 1px solid var(--line-color);
+    border-radius: 3px;
+    padding: 0.5em 1em 0;
+    margin-bottom: 0.5em;
+    & pre {
+      padding: 0;
+      width: auto;
+    }
+  }
+  & > *:first-child {
+    border: none;
+    /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
+       support flexbox yet.
+    */
+    display: table;
+    margin: 0 auto;
+  }
 }
 
 /* lists */
@@ -434,26 +435,25 @@ dl {
     --indent: 5ch;
     & > dt {
       min-width: calc(var(--indent) - 2ch);
+      float: none;
     }
-  }
-  &.olPercent > dt {
-    float: none;
   }
 
   dl > dd > & {
     margin-top: 0.5em;
     margin-bottom: 0;
   }
-}
-dl:not(.dlNewline) > dt {
-  float: left;
-  margin-right: 2ch;
-  min-width: 8ch;
-}
-dl > dd {
-  margin-bottom: .8em;
-  margin-left: var(--indent) !important; /* stupid element overrides */
-  min-height: 2ex;
+
+  &:not(.dlNewline) > dt {
+    float: left;
+    margin-right: 2ch;
+    min-width: 8ch;
+  }
+  & > dd {
+    margin-bottom: .8em;
+    margin-left: var(--indent) !important; /* stupid element overrides */
+    min-height: 2ex;
+  }
 }
 :is(dl.compact, .dlCompact) > dd {
   margin-bottom: 0;
@@ -469,20 +469,22 @@ dl > dd {
 }
 
 /* links */
-a, a[href].selfRef:hover {
+a {
   text-decoration: none;
+  &[href] {
+    color: var(--link-color);
+    &:hover { text-decoration: underline; }
+    &.selfRef {
+      color: var(--text-color);
+      &:hover {
+        text-decoration: none;
+        background-color: var(--highlight-color);
+      }
+    }
+  }
 }
-a[href] {
-  color: var(--link-color);
-}
-a[href].selfRef, .iref + a[href].internal {
+.iref + a[href].internal {
   color: var(--text-color);
-}
-a[href]:hover {
-  text-decoration: underline;
-}
-a[href].selfRef:hover {
-  background-color: var(--highlight-color);
 }
 a.xref:is(.cite, .auto), :is(#status-of-memo, #copyright) a {
   white-space: nowrap;
@@ -518,9 +520,9 @@ img {
 figure {
   margin: 0.5em 0;
   padding: 0;
-}
-figure blockquote {
-  margin: 0.8em 0.4em 0.4em;
+  & blockquote {
+    margin: 0.8em 0.4em 0.4em;
+  }
 }
 figcaption, caption {
   font-style: italic;
@@ -530,17 +532,19 @@ figcaption, caption {
 }
 @media screen {
   /* Auto-collapse boilerplate. */
-  :is(#status-of-memo, #copyright) p {
-    margin: -2px 0;
-    max-height: 0;
-    transition: max-height 2s ease, margin 0.5s ease 0.5s;
-    overflow: hidden;
-  }
-  :is(#status-of-memo, #copyright):hover p,
-  :is(#status-of-memo, #copyright) h2:target ~ p {
-    margin: 0.5em 0;
-    max-height: 500px;
-    overflow: auto;
+  :is(#status-of-memo, #copyright) {
+    & p {
+      margin: -2px 0;
+      max-height: 0;
+      transition: max-height 2s ease, margin 0.5s ease 0.5s;
+      overflow: hidden;
+    }
+    &:hover p,
+    & h2:target ~ p {
+      margin: 0.5em 0;
+      max-height: 500px;
+      overflow: auto;
+    }
   }
   pre, svg {
     display: inline-block;
@@ -590,25 +594,17 @@ table {
   max-width: 100%;
   margin: 0 0 1em;
   border-collapse: collapse;
-}
-table.right {
-  margin-left: auto;
-}
-table.center {
-  margin-left: auto;
-  margin-right: auto;
-}
-table.left {
-  margin-right: auto;
-}
-table .text-left {
-  text-align: left;
-}
-table .text-center {
-  text-align: center;
-}
-table .text-right {
-  text-align: right;
+  &.right { margin-left: auto; }
+  &.center { margin-left: auto; margin-right: auto; }
+  &.left { margin-right: auto; }
+  & .text-left { text-align: left; }
+  & .text-center { text-align: center; }
+  & .text-right { text-align: right; }
+  & caption {
+    margin: 0;
+    padding: 3px 0 3px 1em;
+  }
+  & p { margin: 0; }
 }
 
 thead, tbody {
@@ -628,13 +624,6 @@ th {
 :is(tr:nth-child(2n+1), thead+tbody > tr:nth-child(2n)) > td {
   background-color: var(--highlight-color);
 }
-table caption {
-  margin: 0;
-  padding: 3px 0 3px 1em;
-}
-table p {
-  margin: 0;
-}
 
 /* pilcrow */
 a.pilcrow {
@@ -645,18 +634,16 @@ a.pilcrow {
     color: var(--pilcrow-weak);
     &:hover { text-decoration: none; }
   }
-}
-@media not print {
-  :hover > a.pilcrow, a.pilcrow:focus {
-    opacity: 1;
+  @media not print {
+    :hover > &, &:focus {
+      opacity: 1;
+    }
+    &[href]:hover {
+      color: var(--pilcrow-strong);
+      background-color: transparent;
+    }
   }
-  a.pilcrow[href]:hover {
-    color: var(--pilcrow-strong);
-    background-color: transparent;
-  }
-}
-@media print {
-  a.pilcrow {
+  @media print {
     display: none;
   }
 }
@@ -715,9 +702,9 @@ sub, sup {
   font-size: 0.9em;
   font-style: italic;
   margin-top: 2em;
-}
-.docInfo .prepared {
-  float: right;
+  & .prepared {
+    float: right;
+  }
 }
 
 /* table of contents */
@@ -807,23 +794,27 @@ hr.addr {
   max-width: calc(100% - 16px);
 }
 @media (min-width: 500px) {
-  #authors-addresses > section {
-    column-count: 2;
-    column-gap: 20px;
-  }
-  #authors-addresses > section > h2 {
-    column-span: all;
-  }
-  /* hack for break-inside: avoid-column */
-  #authors-addresses address {
-    display: inline-block;
-    break-inside: avoid-column;
+  #authors-addresses {
+    & > section {
+      column-count: 2;
+      column-gap: 20px;
+    }
+    & > section > h2 {
+      column-span: all;
+    }
+    /* hack for break-inside: avoid-column */
+    & address {
+      display: inline-block;
+      break-inside: avoid-column;
+    }
   }
 }
 
 /* Comments */
-.rfcEditorRemove p:first-of-type {
-  font-style: italic;
+.rfcEditorRemove {
+  & p:first-of-type {
+    font-style: italic;
+  }
 }
 .cref {
   background-color: rgba(249, 232, 105, 0.3);
@@ -834,19 +825,21 @@ hr.addr {
 }
 
 @media screen {
-  #toc nav {
-    font-family: var(--font-title);
-    font-weight: 360;
-    & > ul { margin-bottom: 2em; }
-    & ul {
-      margin: 0 0 0 4px;
-      & :is(p, li) {
-        margin: 2px 0;
+  #toc {
+    & nav {
+      font-family: var(--font-title);
+      font-weight: 360;
+      & > ul { margin-bottom: 2em; }
+      & ul {
+        margin: 0 0 0 4px;
+        & :is(p, li) {
+          margin: 2px 0;
+        }
       }
     }
-  }
-  #toc a.toplink {
-    float: right;
+    & a.toplink {
+      float: right;
+    }
   }
 }
 @media not screen {
@@ -867,54 +860,54 @@ hr.addr {
     margin: 0;
     border-bottom: 1px solid #ccc;
     opacity: 0.6;
-  }
-  #toc h2 {
-    margin: 0;
-    padding: 2px 0 2px 6px;
-    padding-right: 1em;
-    font-size: 18px;
-    line-height: 24px;
-    min-width: 190px;
-    text-align: right;
-    background-color: #444;
-    color: white;
-    cursor: pointer;
-    &::before { /* css hamburger */
-      float: right;
-      position: relative;
-      width: 1em;
-      height: 1px;
-      left: -164px;
-      margin: 8px 0 0 0;
-      background: white none repeat scroll 0 0;
-      box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
-      content: "";
+    & h2 {
+      margin: 0;
+      padding: 2px 0 2px 6px;
+      padding-right: 1em;
+      font-size: 18px;
+      line-height: 24px;
+      min-width: 190px;
+      text-align: right;
+      background-color: #444;
+      color: white;
+      cursor: pointer;
+      &::before { /* css hamburger */
+        float: right;
+        position: relative;
+        width: 1em;
+        height: 1px;
+        left: -164px;
+        margin: 8px 0 0 0;
+        background: white none repeat scroll 0 0;
+        box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+        content: "";
+      }
     }
-  }
-  #toc nav {
-    display: none;
-    background-color: var(--background-color);
-    padding: 0.5em 1em 1em;
-    overflow: auto;
-    overscroll-behavior: contain;
-    height: calc(100vh - 48px);
-    border-left: 1px solid #ddd;
-  }
-  #toc.active {
-    opacity: 1;
-    & nav { display: block; }
-  }
-  /* Make the collapsed ToC header render white on gray also when it's a link */
-  #toc h2 a,
-  #toc h2 a:is(:link, :focus, :hover),
-  #toc a.toplink,
-  #toc a.toplink:hover {
-    color: white;
-    background-color: #444;
-    text-decoration: none;
-  }
-  #toc a.toplink {
-    margin: 2px 0.5em 0;
+    & nav {
+      display: none;
+      background-color: var(--background-color);
+      padding: 0.5em 1em 1em;
+      overflow: auto;
+      overscroll-behavior: contain;
+      height: calc(100vh - 48px);
+      border-left: 1px solid #ddd;
+    }
+    &.active {
+      opacity: 1;
+      & nav { display: block; }
+    }
+    /* Make the collapsed ToC header render white on gray also when it's a link */
+    & h2 a,
+    & h2 a:is(:link, :focus, :hover),
+    & a.toplink,
+    & a.toplink:hover {
+      color: white;
+      background-color: #444;
+      text-decoration: none;
+    }
+    & a.toplink {
+      margin: 2px 0.5em 0;
+    }
   }
 }
 
@@ -933,26 +926,26 @@ hr.addr {
     margin: 0;
     padding: 0;
     z-index: 1;
-  }
-  #toc h2 {
-    margin: 0;
-    padding: 0.25em 1em 1em 0;
-  }
-  #toc nav {
-    display: block;
-    height: calc(90vh - 84px);
-    bottom: 0;
-    padding: 0.5em 0 2em;
-    overflow: auto;
-    overscroll-behavior: contain;
-    scrollbar-width: thin;
+    & h2 {
+      margin: 0;
+      padding: 0.25em 1em 1em 0;
+    }
+    & nav {
+      display: block;
+      height: calc(90vh - 84px);
+      bottom: 0;
+      padding: 0.5em 0 2em;
+      overflow: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+    }
+    & a.toplink {
+      margin: 8px 0.5em 0;
+    }
   }
   img { /* future proofing */
     max-width: 100%;
     height: auto;
-  }
-  #toc a.toplink {
-    margin: 8px 0.5em 0;
   }
 }
 
@@ -968,12 +961,13 @@ hr.addr {
   #n-copyright-notice {
     border-bottom: none;
   }
-  #toc, #n-introduction {
-    page-break-before: always;
-  }
   #toc {
+    page-break-before: always;
     border-top: none;
     padding-top: 0;
+  }
+  #n-introduction {
+    page-break-before: always;
   }
   figure, pre, .vcard {
     page-break-inside: avoid;
@@ -1035,17 +1029,19 @@ hr.addr {
 }
 
 /* SVG Trick: a prefix match works because only black and white are allowed */
-svg :is([stroke="black"], [stroke^="#000"]) {
-  stroke: var(--text-color);
-}
-svg :is([stroke="white"], [stroke^="#fff"]) {
-  stroke: var(--background-color);
-}
-svg :is([fill="black"], [fill^="#000"], :not([fill])) {
-  fill: var(--text-color);
-}
-svg :is([fill="white"], [fill^="#fff"]) {
-  fill: var(--background-color);
+svg {
+  & :is([stroke="black"], [stroke^="#000"]) {
+    stroke: var(--text-color);
+  }
+  & :is([stroke="white"], [stroke^="#fff"]) {
+    stroke: var(--background-color);
+  }
+  & :is([fill="black"], [fill^="#000"], :not([fill])) {
+    fill: var(--text-color);
+  }
+  & :is([fill="white"], [fill^="#fff"]) {
+    fill: var(--background-color);
+  }
 }
 </style>
 
@@ -1055,11 +1051,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">CORECONF</td>
-<td class="right">April 2026</td>
+<td class="right">November 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Veillette, et al.</td>
-<td class="center">Expires 1 November 2026</td>
+<td class="center">Expires 6 May 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1072,12 +1068,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-core-comi-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-04-30" class="published">30 April 2026</time>
+<time datetime="2026-11-02" class="published">2 November 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-11-01">1 November 2026</time></dd>
+<dd class="expires"><time datetime="2027-05-06">6 May 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1154,7 +1150,7 @@ and networks.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 1 November 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 6 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1283,6 +1279,9 @@ and networks.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5.2.2">
                     <p id="section-toc.1-1.3.2.5.2.2.1"><a href="#section-3.5.2" class="auto internal xref">3.5.2</a>.  <a href="#name-action-example" class="internal xref">Action Example</a></p>
 </li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5.2.3">
+                    <p id="section-toc.1-1.3.2.5.2.3.1"><a href="#section-3.5.3" class="auto internal xref">3.5.3</a>.  <a href="#name-invocation-without-input" class="internal xref">Invocation without input</a></p>
+</li>
                 </ul>
 </li>
             </ul>
@@ -1333,6 +1332,9 @@ and networks.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.4">
                 <p id="section-toc.1-1.8.2.4.1"><a href="#section-8.4" class="auto internal xref">8.4</a>.  <a href="#name-yang-namespace-and-module-n" class="internal xref">YANG Namespace and Module Name Registration</a></p>
 </li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.5">
+                <p id="section-toc.1-1.8.2.5.1"><a href="#section-8.5" class="auto internal xref">8.5</a>.  <a href="#name-yang-sid-range-assignment" class="internal xref">YANG SID Range Assignment</a></p>
+</li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
@@ -1353,19 +1355,25 @@ and networks.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
             <p id="section-toc.1-1.11.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-ietf-coreconf-sid-file" class="internal xref">ietf-coreconf .sid file</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
-            <p id="section-toc.1-1.12.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-list-of-figures" class="internal xref">List of Figures</a></p>
+            <p id="section-toc.1-1.12.1"><a href="#appendix-C" class="auto internal xref">Appendix C</a>.  <a href="#name-sids-used-in-the-examples" class="internal xref">SIDs used in the examples</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
-            <p id="section-toc.1-1.13.1"><a href="#appendix-D" class="auto internal xref"></a><a href="#name-list-of-tables" class="internal xref">List of Tables</a></p>
+            <p id="section-toc.1-1.13.1"><a href="#appendix-D" class="auto internal xref">Appendix D</a>.  <a href="#name-open-issues" class="internal xref">Open Issues</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14">
-            <p id="section-toc.1-1.14.1"><a href="#appendix-E" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+            <p id="section-toc.1-1.14.1"><a href="#appendix-E" class="auto internal xref"></a><a href="#name-list-of-figures" class="internal xref">List of Figures</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15">
-            <p id="section-toc.1-1.15.1"><a href="#appendix-F" class="auto internal xref"></a><a href="#name-contributors" class="internal xref">Contributors</a></p>
+            <p id="section-toc.1-1.15.1"><a href="#appendix-F" class="auto internal xref"></a><a href="#name-list-of-tables" class="internal xref">List of Tables</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.16">
-            <p id="section-toc.1-1.16.1"><a href="#appendix-G" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.16.1"><a href="#appendix-G" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.17">
+            <p id="section-toc.1-1.17.1"><a href="#appendix-H" class="auto internal xref"></a><a href="#name-contributors" class="internal xref">Contributors</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.18">
+            <p id="section-toc.1-1.18.1"><a href="#appendix-I" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1476,6 +1484,10 @@ The payload examples are
 notated in Diagnostic notation (defined in <span><a href="https://rfc-editor.org/rfc/rfc8949#section-8" class="relref">Section 8</a> of [<a href="#RFC8949" class="cite xref">RFC8949</a>]</span> and
 <span><a href="https://rfc-editor.org/rfc/rfc8610#appendix-G" class="relref">Appendix G</a> of [<a href="#RFC8610" class="cite xref">RFC8610</a>]</span>), which
 can be automatically converted to CBOR.<a href="#section-1.2-1" class="pilcrow">¶</a></p>
+<p id="section-1.2-2">The examples in this document use the YANG modules defined in <span>[<a href="#RFC7317" class="cite xref">RFC7317</a>]</span> and <span>[<a href="#RFC8343" class="cite xref">RFC8343</a>]</span> where these
+contain the necessary nodes, and purpose-written modules where they do not. The SIDs
+appearing in the examples are illustrative; the SIDs actually assigned to the
+module defined by this document are given in <a href="#ietf-coreconf-sid" class="auto internal xref">Appendix B</a>.<a href="#section-1.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1654,6 +1666,8 @@ and the "point" query parameter which are supported by RESTCONF.<a href="#sectio
 to retrieve past notifications.<a href="#section-2.1.1-1.5.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
+<p id="section-2.1.1-2">Other CoAP transports (such as CoAP over TCP or WebSockets <span>[<a href="#RFC8323" class="cite xref">RFC8323</a>]</span>) are out
+of scope for this document.<a href="#section-2.1.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="major-differences-cbor">
@@ -1743,12 +1757,55 @@ SID in the instance-identifier.<a href="#section-2.3-3.12.1" class="pilcrow">¶<
           <dd class="break"></dd>
 <dt id="section-2.3-3.13"></dt>
           <dd style="margin-left: 1.5em" id="section-2.3-3.14">
-            <p id="section-2.3-3.14.1">When present in an iPATCH request payload, this Media-Type carry a list of data node instances to be replaced, created, or deleted.
-For each data node instance D, for which the instance-identifier is the same as a data node instance I, in the targeted datastore resource: the value of D replaces the value of I.  When the value of D is null, the data node instance I is removed.  When the targeted datastore resource does not contain a data node instance with the same instance-identifier as D, a new instance is created with the same instance-identifier and value as D (unless the value of D is null).<a href="#section-2.3-3.14.1" class="pilcrow">¶</a></p>
+            <p id="section-2.3-3.14.1">In the position of an instance-value, the CBOR undefined value (0xf7)
+indicates the absence of a value.
+Its precise meaning depends on the method, as specified in
+<a href="#fetch" class="auto internal xref">Section 3.1.3</a> and <a href="#ipatch-operation" class="auto internal xref">Section 3.2.3</a>.
+The CBOR null value (0xf6) is a valid
+instance-value for a leaf of type 'empty' (see <span><a href="https://rfc-editor.org/rfc/rfc9254#section-6.11" class="relref">Section 6.11</a> of [<a href="#RFC9254" class="cite xref">RFC9254</a>]</span>).<a href="#section-2.3-3.14.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-2.3-3.15"></dt>
+          <dd style="margin-left: 1.5em" id="section-2.3-3.16">
+            <p id="section-2.3-3.16.1">When present in an iPATCH request payload, this Media-Type carry a list of data node instances to be replaced, created, or deleted.
+For each data node instance D, for which the instance-identifier is the same as a data node instance I, in the targeted datastore resource: the value of D replaces the value of I.  When the value of D is undefined, the data node instance I is removed.  When the targeted datastore resource does not contain a data node instance with the same instance-identifier as D, a new instance is created with the same instance-identifier and value as D (unless the value of D is undefined).<a href="#section-2.3-3.16.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 </dl>
-<p id="section-2.3-4">The different Media-Type usages are summarized in the table below:<a href="#section-2.3-4" class="pilcrow">¶</a></p>
+<p id="section-2.3-4">The following examples show the payload of each of the three Media-Types in
+diagnostic notation, using data from the examples in <a href="#datastore-example" class="auto internal xref">Section 3.3.1</a>.<a href="#section-2.3-4" class="pilcrow">¶</a></p>
+<p id="section-2.3-5">A part of a datastore, in application/yang-data+cbor; id=sid, which is defined
+in <span>[<a href="#RFC9254" class="cite xref">RFC9254</a>]</span> and is used for the datastore as a whole (<a href="#datastore-access" class="auto internal xref">Section 3.3</a>):<a href="#section-2.3-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-2.3-6">
+<pre>
+{
+  1721 : {                      / Clock (SID 1721) /
+    2: "2016-10-26T12:16:31Z"   / current-datetime (SID 1723) /
+  }
+}
+</pre><a href="#section-2.3-6" class="pilcrow">¶</a>
+</div>
+<p id="section-2.3-7">A leaf and a list entry identified in application/yang-identifiers+cbor-seq.
+The two items of the CBOR sequence are separated by a comma:<a href="#section-2.3-7" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-2.3-8">
+<pre>
+1723,            / current-datetime (SID 1723) /
+[1533, "eth0"]   / interface (SID 1533) with name = "eth0" /
+</pre><a href="#section-2.3-8" class="pilcrow">¶</a>
+</div>
+<p id="section-2.3-9">Two data node instances in application/yang-instances+cbor-seq. Each item of
+the CBOR sequence is a map of one instance-identifier and its instance-value:<a href="#section-2.3-9" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-2.3-10">
+<pre>
+{
+  1723 : "2016-10-26T12:16:31Z"   / current-datetime (SID 1723) /
+},
+{
+  1755 : true                     / enabled (SID 1755) /
+}
+</pre><a href="#section-2.3-10" class="pilcrow">¶</a>
+</div>
+<p id="section-2.3-11">The different Media-Type usages are summarized in the table below:<a href="#section-2.3-11" class="pilcrow">¶</a></p>
 <span id="name-summary-of-media-type-usage"></span><div id="tbl-mt-uses">
 <table class="left" id="table-1">
           <caption>
@@ -1779,7 +1836,67 @@ For each data node instance D, for which the instance-identifier is the same as 
               <td class="text-left" rowspan="1" colspan="1">application/yang-instances+cbor-seq</td>
             </tr>
             <tr>
+              <td class="text-left" rowspan="1" colspan="1">iPATCH response</td>
+              <td class="text-left" rowspan="1" colspan="1">datastore</td>
+              <td class="text-left" rowspan="1" colspan="1">N/A</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">GET request</td>
+              <td class="text-left" rowspan="1" colspan="1">datastore</td>
+              <td class="text-left" rowspan="1" colspan="1">N/A</td>
+            </tr>
+            <tr>
               <td class="text-left" rowspan="1" colspan="1">GET response</td>
+              <td class="text-left" rowspan="1" colspan="1">datastore</td>
+              <td class="text-left" rowspan="1" colspan="1">application/yang-data+cbor; id=sid</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">PUT request</td>
+              <td class="text-left" rowspan="1" colspan="1">datastore</td>
+              <td class="text-left" rowspan="1" colspan="1">application/yang-data+cbor; id=sid</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">PUT response</td>
+              <td class="text-left" rowspan="1" colspan="1">datastore</td>
+              <td class="text-left" rowspan="1" colspan="1">N/A</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">POST request</td>
+              <td class="text-left" rowspan="1" colspan="1">datastore</td>
+              <td class="text-left" rowspan="1" colspan="1">application/yang-data+cbor; id=sid</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">POST response</td>
+              <td class="text-left" rowspan="1" colspan="1">datastore</td>
+              <td class="text-left" rowspan="1" colspan="1">N/A</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">DELETE request</td>
+              <td class="text-left" rowspan="1" colspan="1">datastore</td>
+              <td class="text-left" rowspan="1" colspan="1">N/A</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">DELETE response</td>
+              <td class="text-left" rowspan="1" colspan="1">datastore</td>
+              <td class="text-left" rowspan="1" colspan="1">N/A</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">GET request</td>
+              <td class="text-left" rowspan="1" colspan="1">event stream</td>
+              <td class="text-left" rowspan="1" colspan="1">N/A</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">GET response</td>
+              <td class="text-left" rowspan="1" colspan="1">event stream</td>
+              <td class="text-left" rowspan="1" colspan="1">application/yang-instances+cbor-seq</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">FETCH request</td>
+              <td class="text-left" rowspan="1" colspan="1">event stream</td>
+              <td class="text-left" rowspan="1" colspan="1">application/yang-identifiers+cbor-seq</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">FETCH response</td>
               <td class="text-left" rowspan="1" colspan="1">event stream</td>
               <td class="text-left" rowspan="1" colspan="1">application/yang-instances+cbor-seq</td>
             </tr>
@@ -1793,9 +1910,16 @@ For each data node instance D, for which the instance-identifier is the same as 
               <td class="text-left" rowspan="1" colspan="1">rpc, action</td>
               <td class="text-left" rowspan="1" colspan="1">application/yang-instances+cbor-seq</td>
             </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">any error <br>response</td>
+              <td class="text-left" rowspan="1" colspan="1">any</td>
+              <td class="text-left" rowspan="1" colspan="1">application/yang-data+cbor; id=sid</td>
+            </tr>
           </tbody>
         </table>
 </div>
+<p id="section-2.3-13">No Media-Type (N/A) is used if the method request or response does not
+carry a payload.<a href="#section-2.3-13" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="unified-datastore">
@@ -1869,7 +1993,7 @@ select (see <a href="#discovery" class="auto internal xref">Section 5</a>).<a hr
 <p id="section-3-2">YANG data node instances are accessible by performing FETCH and iPATCH
 operations on the datastore resource.<a href="#section-3-2" class="pilcrow">¶</a></p>
 <p id="section-3-3">CORECONF also supports event stream resources used to observe notification instances.
-Event stream resources can be discovered using resource type (rt): core.c.ev.<a href="#section-3-3" class="pilcrow">¶</a></p>
+Event stream resources can be discovered using resource type (rt): core.c.es.<a href="#section-3-3" class="pilcrow">¶</a></p>
 <p id="section-3-4">The description of the CORECONF management interface is shown in the table below:<a href="#section-3-4" class="pilcrow">¶</a></p>
 <span id="name-resources-example-paths-and"></span><div id="tbl-resources">
 <table class="left" id="table-3">
@@ -1893,7 +2017,7 @@ Event stream resources can be discovered using resource type (rt): core.c.ev.<a 
           <tr>
             <td class="text-left" rowspan="1" colspan="1">Default event stream resource</td>
             <td class="text-left" rowspan="1" colspan="1">/s</td>
-            <td class="text-left" rowspan="1" colspan="1">core.c.ev</td>
+            <td class="text-left" rowspan="1" colspan="1">core.c.es</td>
           </tr>
         </tbody>
       </table>
@@ -2051,21 +2175,12 @@ descendant nodes of the requested data nodes will be processed.<a href="#section
 <p id="section-3.1.2-4">If the target of a GET or FETCH method is a data node that represents a leaf
 that has a default value, and the leaf has not been given a value by any
 client yet, the server <span class="bcp14">MUST</span> return the default value of the leaf.<a href="#section-3.1.2-4" class="pilcrow">¶</a></p>
-<p id="section-3.1.2-5">If the target of a GET method is a data node that represents a
+<p id="section-3.1.2-5">If the target of a GET or FETCH method is a data node that represents a
 container or list that has child resources with default values,
-and these have not been given a value yet,<a href="#section-3.1.2-5" class="pilcrow">¶</a></p>
-<ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-3.1.2-6.1">
-              <p id="section-3.1.2-6.1.1">The server <span class="bcp14">MUST NOT</span> return the child resource if <code>d</code>=<code>t</code>.<a href="#section-3.1.2-6.1.1" class="pilcrow">¶</a></p>
-</li>
-          </ul>
-<ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-3.1.2-7.1">
-              <p id="section-3.1.2-7.1.1">The server <span class="bcp14">MUST</span> return the child resource if <code>d</code>=<code>a</code>.<a href="#section-3.1.2-7.1.1" class="pilcrow">¶</a></p>
-</li>
-          </ul>
-<p id="section-3.1.2-8">If this query parameter is not present, the default value is "t" (the quotes are
-added for readability, but they are not part of the payload).<a href="#section-3.1.2-8" class="pilcrow">¶</a></p>
+and these have not been given a value yet, the server <span class="bcp14">MUST NOT</span> return the
+child resource if <code>d</code>=<code>t</code>, and <span class="bcp14">MUST</span> return the child resource if <code>d</code>=<code>a</code>.<a href="#section-3.1.2-5" class="pilcrow">¶</a></p>
+<p id="section-3.1.2-6">If this query parameter is not present, the default value is "t" (the quotes are
+added for readability, but they are not part of the payload).<a href="#section-3.1.2-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="fetch">
@@ -2076,23 +2191,29 @@ added for readability, but they are not part of the payload).<a href="#section-3
 <p id="section-3.1.3-1">The FETCH method is used to retrieve one or more instance-values.
 The FETCH request payload contains the list of instance-identifiers of the data node instances requested.<a href="#section-3.1.3-1" class="pilcrow">¶</a></p>
 <p id="section-3.1.3-2">The return response payload contains a list of data node instance-values in the same order as requested.
-A CBOR null is returned for each data node requested by the client, not supported by the server or not currently instantiated.<a href="#section-3.1.3-2" class="pilcrow">¶</a></p>
+A CBOR undefined value (0xf7) is returned for each data node requested by the client, not supported by the server or not currently instantiated.<a href="#section-3.1.3-2" class="pilcrow">¶</a></p>
 <p id="section-3.1.3-3">For compactness, indexes of the list instance identifiers returned by the FETCH response <span class="bcp14">SHOULD</span> be elided, only the SID is provided.
 That means that the client is responsible for remembering the full
 instance-identifiers in its request since no key values will be in the
 response.
 This approach may also help reduce implementation complexity since the format of each entry within the CBOR sequence of the FETCH response is identical to the format of the corresponding GET response.<a href="#section-3.1.3-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.1.3-4">
+<span id="name-generic-format-of-fetch-int"></span><figure id="figure-2">
+            <div class="lang-coap sourcecode" id="section-3.1.3-4.1">
 <pre>
-FORMAT:
-  FETCH &lt;datastore resource&gt;
-        (Content-Format: application/yang-identifiers+cbor-seq)
-  CBOR sequence of instance-identifiers
+FETCH &lt;datastore resource&gt;  / Request /
+Content-Format: TBD2 (application/yang-identifiers+cbor-seq)
 
-  2.05 Content (Content-Format: application/yang-instances+cbor-seq)
-  CBOR sequence of CBOR maps of SID, instance-value
-</pre><a href="#section-3.1.3-4" class="pilcrow">¶</a>
+/ CBOR sequence of instance-identifiers /
+
+2.05 Content  / Response /
+Content-Format: TBD3 (application/yang-instances+cbor-seq)
+
+/ CBOR sequence of CBOR maps of SID, instance-value /
+</pre>
 </div>
+<figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
+<a href="#name-generic-format-of-fetch-int" class="selfRef">Generic format of FETCH interchange</a>
+            </figcaption></figure>
 <div id="fetch-example">
 <section id="section-3.1.3.1">
             <h5 id="name-fetch-examples">
@@ -2102,15 +2223,16 @@ FORMAT:
 and the interface list from module ietf-interfaces <span>[<a href="#RFC8343" class="cite xref">RFC8343</a>]</span>.
 In this example the value of current-datetime (SID 1723) and the interface
 list (SID 1533) instance identified with name="eth0" are queried.<a href="#section-3.1.3.1-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.1.3.1-2">
+<div class="lang-coap sourcecode" id="section-3.1.3.1-2">
 <pre>
-REQ: FETCH &lt;/c&gt;
-     (Content-Format: application/yang-identifiers+cbor-seq)
+FETCH /c
+Content-Format: TBD2 (application/yang-identifiers+cbor-seq)
+
 1723,            / current-datetime (SID 1723) /
 [1533, "eth0"]   / interface (SID 1533) with name = "eth0" /
 
-RES: 2.05 Content
-     (Content-Format: application/yang-instances+cbor-seq)
+2.05 Content
+Content-Format: TBD3 (application/yang-instances+cbor-seq)
 
 {
   1723 : "2014-10-26T12:16:31Z" / current-datetime (SID 1723) /
@@ -2125,7 +2247,6 @@ RES: 2.05 Content
     11 : 3             / oper-status (SID 1544), value is testing /
   }
 }
-
 </pre><a href="#section-3.1.3.1-2" class="pilcrow">¶</a>
 </div>
 </section>
@@ -2170,21 +2291,52 @@ Refer to <a href="#rpc" class="auto internal xref">Section 3.5</a> for details o
 <p id="section-3.2.3-1">One or multiple data node instances are replaced with the idempotent
 CoAP iPATCH method <span>[<a href="#RFC8132" class="cite xref">RFC8132</a>]</span>.<a href="#section-3.2.3-1" class="pilcrow">¶</a></p>
 <p id="section-3.2.3-2">There are no query parameters for the iPATCH method.<a href="#section-3.2.3-2" class="pilcrow">¶</a></p>
-<p id="section-3.2.3-3">The processing of the iPATCH command is specified by Media-Type application/yang-instances+cbor-seq.
+<p id="section-3.2.3-3">The processing of one iPATCH request is atomic, as required by
+<span><a href="https://rfc-editor.org/rfc/rfc8132#section-3" class="relref">Section 3</a> of [<a href="#RFC8132" class="cite xref">RFC8132</a>]</span>: the server applies the whole set of operations
+carried in the request, or none of them.
+If the request cannot be applied in full, the datastore is left unmodified
+and an error response is returned, as specified in <a href="#error-handling" class="auto internal xref">Section 6</a>.
+The server is free to choose how it achieves atomicity; one way is to
+validate the datastore that would result from the edit and to apply the
+change only if that validation succeeds, as described in
+<span><a href="https://rfc-editor.org/rfc/rfc7950#section-8" class="relref">Section 8</a> of [<a href="#RFC7950" class="cite xref">RFC7950</a>]</span>.
+This needs only a transient buffer holding the datastore that would result
+from the edit.<a href="#section-3.2.3-3" class="pilcrow">¶</a></p>
+<p id="section-3.2.3-4">Atomicity is a property of a single request.
+A client that needs the operations of an edit to be independent of each
+other sends them as separate iPATCH requests; a client that needs them to
+succeed or fail together sends them in one request.<a href="#section-3.2.3-4" class="pilcrow">¶</a></p>
+<p id="section-3.2.3-5">The result of an iPATCH request is the same as if its operations were applied
+one after another, in the order in which they appear in the payload.
+For example, an operation can set a leaf of a list entry that an earlier
+operation of the same request has created. Constraints between data nodes,
+such as a leafref, are validated on the datastore that results from the whole
+request, so they can also refer to a data node instance that a later operation
+creates.
+The server is free to apply the operations internally in any other way, as
+long as that result is obtained.<a href="#section-3.2.3-5" class="pilcrow">¶</a></p>
+<p id="section-3.2.3-6">A successful iPATCH request is answered with 2.04 (Changed), including when
+the request creates or deletes data node instances: the target of the request
+is the datastore resource, which already exists.<a href="#section-3.2.3-6" class="pilcrow">¶</a></p>
+<p id="section-3.2.3-7">The processing of the iPATCH command is specified by Media-Type application/yang-instances+cbor-seq.
 In summary, if the CBOR patch payload contains a data node instance that is not present
 in the target, this instance is added. If the target contains the specified instance,
 the content of this instance is replaced with the value of the payload.
-A null value indicates the removal of an existing data node instance.<a href="#section-3.2.3-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.2.3-4">
+A CBOR undefined value (0xf7) indicates the removal of an existing data node instance.<a href="#section-3.2.3-7" class="pilcrow">¶</a></p>
+<span id="name-generic-format-of-ipatch-in"></span><figure id="figure-3">
+            <div class="lang-coap sourcecode" id="section-3.2.3-8.1">
 <pre>
-FORMAT:
-  iPATCH &lt;datastore resource&gt;
-         (Content-Format: application/yang-instances+cbor-seq)
-  CBOR sequence of CBOR maps of instance-identifier, instance-value
+iPATCH &lt;datastore resource&gt;  / Request /
+Content-Format: TBD3 (application/yang-instances+cbor-seq)
 
-  2.04 Changed
-</pre><a href="#section-3.2.3-4" class="pilcrow">¶</a>
+/ CBOR sequence of CBOR maps of instance-identifier, instance-value /
+
+2.04 Changed  / Response /
+</pre>
 </div>
+<figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
+<a href="#name-generic-format-of-ipatch-in" class="selfRef">Generic format of iPATCH interchange</a>
+            </figcaption></figure>
 <div id="ipatch-example">
 <section id="section-3.2.3.1">
             <h5 id="name-ipatch-example">
@@ -2199,21 +2351,22 @@ FORMAT:
                 <p id="section-3.2.3.1-2.2.1">Remove the server "tac.nrc.ca" from the "/ietf-system:system/ntp/server" (SID 1756) list.<a href="#section-3.2.3.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-3.2.3.1-2.3">
-                <p id="section-3.2.3.1-2.3.1">Add/set the server "NTP Pool server 2" to the list "/ietf-system:system/ntp/server" (SID 1756).<a href="#section-3.2.3.1-2.3.1" class="pilcrow">¶</a></p>
+                <p id="section-3.2.3.1-2.3.1">Add/set the server "tic.nrc.ca" in the list "/ietf-system:system/ntp/server" (SID 1756).<a href="#section-3.2.3.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
-<div class="alignLeft art-text artwork" id="section-3.2.3.1-3">
+<div class="lang-coap sourcecode" id="section-3.2.3.1-3">
 <pre>
-REQ: iPATCH &lt;/c&gt;
-     (Content-Format: application/yang-instances+cbor-seq)
+iPATCH /c
+Content-Format: TBD3 (application/yang-instances+cbor-seq)
+
 {
   1755 : true                   / enabled (SID 1755) /
 },
 {
-  [1756, "tac.nrc.ca"] : null   / server (SID 1756) /
+  [1756, "tac.nrc.ca"] : undefined  / server (SID 1756) /
 },
 {
-  1756 : {                      / server (SID 1756) /
+  [1756, "tic.nrc.ca"] : {      / server (SID 1756) /
     3 : "tic.nrc.ca",           / name (SID 1759) /
     4 : true,                   / prefer (SID 1760) /
     5 : {                       / udp (SID 1761) /
@@ -2222,10 +2375,10 @@ REQ: iPATCH &lt;/c&gt;
   }
 }
 
-RES: 2.04 Changed
+2.04 Changed
 </pre><a href="#section-3.2.3.1-3" class="pilcrow">¶</a>
 </div>
-<p id="section-3.2.3.1-4">A data node resource is deleted using an iPATCH with a null value, as seen in this example.<a href="#section-3.2.3.1-4" class="pilcrow">¶</a></p>
+<p id="section-3.2.3.1-4">A data node instance is deleted using an iPATCH with an undefined value, as seen in this example.<a href="#section-3.2.3.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2239,45 +2392,61 @@ RES: 2.04 Changed
         </h3>
 <p id="section-3.3-1">The methods GET, PUT, POST, and DELETE can be used to request, replace, create,
 and delete a whole datastore respectively.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.3-2">
+<span id="name-generic-format-of-full-data"></span><figure id="figure-4">
+          <div class="lang-coap sourcecode" id="section-3.3-2.1">
 <pre>
-FORMAT:
-  GET &lt;datastore resource&gt;
+GET &lt;datastore resource&gt;
 
-  2.05 Content (Content-Format: application/yang-data+cbor; id=sid)
-  CBOR map of SID, instance-value
-</pre><a href="#section-3.3-2" class="pilcrow">¶</a>
+2.05 Content
+Content-Format: 140 (application/yang-data+cbor; id=sid)
+
+/ CBOR map of SID, instance-value /
+</pre>
 </div>
-<div class="alignLeft art-text artwork" id="section-3.3-3">
+<figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
+<a href="#name-generic-format-of-full-data" class="selfRef">Generic format of full datastore GET interchange</a>
+          </figcaption></figure>
+<span id="name-generic-format-of-full-datas"></span><figure id="figure-5">
+          <div class="lang-coap sourcecode" id="section-3.3-3.1">
 <pre>
-FORMAT:
-  PUT &lt;datastore resource&gt;
-      (Content-Format: application/yang-data+cbor; id=sid)
-  CBOR map of SID, instance-value
+PUT &lt;datastore resource&gt;
+Content-Format: 140 (application/yang-data+cbor; id=sid)
 
-  2.04 Changed
-</pre><a href="#section-3.3-3" class="pilcrow">¶</a>
+/ CBOR map of SID, instance-value /
+
+2.04 Changed
+</pre>
 </div>
-<div class="alignLeft art-text artwork" id="section-3.3-4">
+<figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
+<a href="#name-generic-format-of-full-datas" class="selfRef">Generic format of full datastore PUT interchange</a>
+          </figcaption></figure>
+<span id="name-generic-format-of-full-datast"></span><figure id="figure-6">
+          <div class="lang-coap sourcecode" id="section-3.3-4.1">
 <pre>
-FORMAT:
-  POST &lt;datastore resource&gt;
-       (Content-Format: application/yang-data+cbor; id=sid)
-  CBOR map of SID, instance-value
+POST &lt;datastore resource&gt;
+Content-Format: 140 (application/yang-data+cbor; id=sid)
 
-  2.01 Created
-</pre><a href="#section-3.3-4" class="pilcrow">¶</a>
+/  CBOR map of SID, instance-value /
+
+2.01 Created
+</pre>
 </div>
-<div class="alignLeft art-text artwork" id="section-3.3-5">
+<figcaption><a href="#figure-6" class="selfRef">Figure 6</a>:
+<a href="#name-generic-format-of-full-datast" class="selfRef">Generic format of full datastore POST interchange</a>
+          </figcaption></figure>
+<span id="name-generic-format-of-full-datasto"></span><figure id="figure-7">
+          <div class="lang-coap sourcecode" id="section-3.3-5.1">
 <pre>
-FORMAT:
-  DELETE &lt;datastore resource&gt;
+DELETE &lt;datastore resource&gt;
 
-  2.02 Deleted
-</pre><a href="#section-3.3-5" class="pilcrow">¶</a>
+2.02 Deleted
+</pre>
 </div>
+<figcaption><a href="#figure-7" class="selfRef">Figure 7</a>:
+<a href="#name-generic-format-of-full-datasto" class="selfRef">Generic format of full datastore DELETE interchange</a>
+          </figcaption></figure>
 <p id="section-3.3-6">The content of the CBOR map represents the complete datastore of the server
-at the GET indication of after a successful processing of a PUT or POST request.<a href="#section-3.3-6" class="pilcrow">¶</a></p>
+at the GET indication or after a successful processing of a PUT or POST request.<a href="#section-3.3-6" class="pilcrow">¶</a></p>
 <div id="datastore-example">
 <section id="section-3.3.1">
           <h4 id="name-full-datastore-examples">
@@ -2289,12 +2458,13 @@ We assume that the datastore contains two modules ietf-system (SID 1700) and
 ietf-interfaces (SID 1500); they contain the 'interface' list (SID 1533) with
 one instance and the 'clock' container (SID 1721). After invocation of GET, a
 CBOR map with data nodes from these two modules is returned:<a href="#section-3.3.1-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.3.1-2">
+<div class="lang-coap sourcecode" id="section-3.3.1-2">
 <pre>
-REQ:  GET &lt;/c&gt;
+GET /c
 
-RES: 2.05 Content
-     (Content-Format: application/yang-data+cbor; id=sid)
+2.05 Content
+Content-Format: 140 (application/yang-data+cbor; id=sid)
+
 {
   1721 : {                      / Clock (SID 1721) /
     2: "2016-10-26T12:16:31Z",  / current-datetime (SID 1723) /
@@ -2323,16 +2493,18 @@ RES: 2.05 Content
 <a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-event-stream" class="section-name selfRef">Event stream</a>
         </h3>
 <p id="section-3.4-1">Event notification is an essential function for the management of servers.
-CORECONF allows notifications specified in YANG <span>[<a href="#RFC5277" class="cite xref">RFC5277</a>]</span> to be reported to a list
+CORECONF allows notifications specified in YANG <span><a href="https://rfc-editor.org/rfc/rfc7950#section-7.16" class="relref">Section 7.16</a> of [<a href="#RFC7950" class="cite xref">RFC7950</a>]</span> to be
+reported to a list
 of clients. The path for the default event stream can be discovered as
 described in <a href="#coap-interface" class="auto internal xref">Section 3</a>. The server <span class="bcp14">MAY</span> support additional event
 stream resources to address different notification needs.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
 <p id="section-3.4-2">Reception of notification instances is enabled with the CoAP Observe
 <span>[<a href="#RFC7641" class="cite xref">RFC7641</a>]</span> function. Clients subscribe to the notifications by sending a
 GET request with an "Observe" option to the stream resource.<a href="#section-3.4-2" class="pilcrow">¶</a></p>
-<p id="section-3.4-3">Each response payload carries one or multiple notifications. The number of
-notifications reported, and the conditions used to remove notifications
-from the reported list are left to implementers.
+<p id="section-3.4-3">Each response payload carries zero or more notifications. A message without
+any notification is useful as the response that establishes a subscription
+(a GET with an Observe option of 0), for example when the server has nothing
+to report yet. Sending such a message otherwise is discouraged.
 When multiple notifications are reported, they <span class="bcp14">MUST</span> be ordered starting from
 the newest notification at index zero. Note that this could lead to
 notifications being sent multiple times, which increases the probability for
@@ -2342,26 +2514,39 @@ should make sure appropriate fragmentation is available - for example the one
 described in <a href="#block" class="auto internal xref">Section 4</a>.<a href="#section-3.4-3" class="pilcrow">¶</a></p>
 <p id="section-3.4-4">The format of notifications is a CBOR sequence, where each item in
 the sequence is a single notification as described in <span><a href="https://rfc-editor.org/rfc/rfc9254#section-4.2.1" class="relref">Section 4.2.1</a> of [<a href="#RFC9254" class="cite xref">RFC9254</a>]</span>.
-(Accordingly, a notification without any content is an empty CBOR
-sequence, i.e., zero bytes.)<a href="#section-3.4-4" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.4-5">
+(Accordingly, a message without any notification is an empty CBOR sequence,
+ i.e., zero bytes.)<a href="#section-3.4-4" class="pilcrow">¶</a></p>
+<span id="name-generic-format-of-event-str"></span><figure id="figure-8">
+          <div class="lang-coap sourcecode" id="section-3.4-5.1">
 <pre>
-FORMAT:
-  GET &lt;stream-resource&gt; Observe(0)
+GET &lt;stream-resource&gt;
+Observe: 0
 
-  2.05 Content (Content-Format: application/yang-instances+cbor-seq)
-  CBOR sequence of CBOR maps of instance-identifier, instance-value
-</pre><a href="#section-3.4-5" class="pilcrow">¶</a>
+2.05 Content
+Content-Format: TBD3 (application/yang-instances+cbor-seq)
+
+/ CBOR sequence of CBOR maps of instance-identifier, instance-value /
+</pre>
 </div>
+<figcaption><a href="#figure-8" class="selfRef">Figure 8</a>:
+<a href="#name-generic-format-of-event-str" class="selfRef">Generic format of event-stream GET interchange</a>
+          </figcaption></figure>
 <p id="section-3.4-6">The sequence of data node instances may contain identical items which have
 been generated at different times.<a href="#section-3.4-6" class="pilcrow">¶</a></p>
-<p id="section-3.4-7">An example implementation is:<a href="#section-3.4-7" class="pilcrow">¶</a></p>
+<p id="section-3.4-7">A CORECONF server that can no longer provide the notifications of a stream
+resource sends a notification with an appropriate error response code (4.xx or
+5.xx) and removes the client from the list of observers, as specified in
+<span><a href="https://rfc-editor.org/rfc/rfc7641#section-3.2" class="relref">Section 3.2</a> of [<a href="#RFC7641" class="cite xref">RFC7641</a>]</span>. An error that affects a single notification instance does not by
+itself terminate the stream. A client that observes the termination reports the
+failure to its user agent; whether it re-observes the stream is outside the scope
+of this document.<a href="#section-3.4-7" class="pilcrow">¶</a></p>
+<p id="section-3.4-8">An example implementation is:<a href="#section-3.4-8" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-3.4-8.1">
-            <p id="section-3.4-8.1.1">Every time an event is generated, the generated notification instance is
+<li class="normal ulEmpty" id="section-3.4-9.1">
+            <p id="section-3.4-9.1.1">Every time an event is generated, the generated notification instance is
 appended to the chosen stream(s). After an aggregation period, which may be
 limited by the maximum number of notifications supported,
-the content of the instance is sent to all clients observing the modified stream.<a href="#section-3.4-8.1.1" class="pilcrow">¶</a></p>
+the content of the instance is sent to all clients observing the modified stream.<a href="#section-3.4-9.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <div id="filtering-notifications">
@@ -2372,17 +2557,24 @@ the content of the instance is sent to all clients observing the modified stream
 <p id="section-3.4.1-1">If only a subset of all possible notifications is of interest, a FETCH
 operation can be performed with a request payload of type
 application/yang-identifiers+cbor-seq that indicates which subset.<a href="#section-3.4.1-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.4.1-2">
+<span id="name-generic-format-of-event-stre"></span><figure id="figure-9">
+            <div class="lang-coap sourcecode" id="section-3.4.1-2.1">
 <pre>
-FORMAT:
-  FETCH &lt;stream-resource&gt; Observe(0)
-        (Content-Format: application/yang-identifiers+cbor-seq)
-  CBOR sequence of instance-identifiers
+FETCH &lt;stream-resource&gt;
+Observe: 0
+Content-Format: TBD2 (application/yang-identifiers+cbor-seq)
 
-  2.05 Content (Content-Format: application/yang-instances+cbor-seq)
-  CBOR sequence of CBOR maps of instance-identifier, instance-value
-</pre><a href="#section-3.4.1-2" class="pilcrow">¶</a>
+/ CBOR sequence of instance-identifiers /
+
+2.05 Content
+Content-Format: TBD3 (application/yang-instances+cbor-seq)
+
+/ CBOR sequence of CBOR maps of instance-identifier, instance-value /
+</pre>
 </div>
+<figcaption><a href="#figure-9" class="selfRef">Figure 9</a>:
+<a href="#name-generic-format-of-event-stre" class="selfRef">Generic format of event-stream FETCH interchange</a>
+            </figcaption></figure>
 <p id="section-3.4.1-3">When filtering is not supported by a CORECONF server, the request
 payload can be ignored: all event notifications are then reported
 independently of the presence and content of the request payload.<a href="#section-3.4.1-3" class="pilcrow">¶</a></p>
@@ -2415,16 +2607,17 @@ module example-port {
 </pre><a href="#section-3.4.2-2" class="pilcrow">¶</a>
 </div>
 <p id="section-3.4.2-3">In this example the default event stream resource path /s is an example
-location discovered with a request similar to <a href="#discovery-ex-es" class="auto internal xref">Figure 4</a>. By executing a
+location discovered with a request similar to <a href="#discovery-ex-es" class="auto internal xref">Figure 13</a>. By executing a
 GET with Observe 0 on the default event stream resource the client receives the
 following response:<a href="#section-3.4.2-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.4.2-4">
+<div class="lang-coap sourcecode" id="section-3.4.2-4">
 <pre>
-REQ:  GET &lt;/s&gt; Observe(0)
+GET /s
+Observe: 0
 
-RES:  2.05 Content
-      (Content-Format: application/yang-instances+cbor-seq)
-      Observe(12)
+2.05 Content
+Observe: 12
+Content-Format: TBD3 (application/yang-instances+cbor-seq)
 
 {
   60010 : {             / example-port-fault (SID 60010) /
@@ -2445,16 +2638,17 @@ RES:  2.05 Content
 of the last two generated events. Consecutively the server will regularly
 notify the client when a new event is generated.<a href="#section-3.4.2-5" class="pilcrow">¶</a></p>
 <p id="section-3.4.2-6">A client that wants to filter notifications can use a FETCH payload:<a href="#section-3.4.2-6" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.4.2-7">
+<div class="lang-coap sourcecode" id="section-3.4.2-7">
 <pre>
-REQ:  FETCH &lt;/s&gt; Observe(0)
-      (Content-Format: application/yang-identifiers+cbor-seq)
+FETCH /s
+Observe: 0
+Content-Format: TBD2 (application/yang-identifiers+cbor-seq)
 
-60010, 60020 /CBOR sequence with two notification identifiers/
+60010 / CBOR sequence with one notification identifier /
 
-RES:  2.05 Content
-      (Content-Format: application/yang-instances+cbor-seq)
-      Observe(12)
+2.05 Content
+Observe: 12
+Content-Format: TBD3 (application/yang-instances+cbor-seq)
 
 {
   60010 : {             / example-port-fault (SID 60010) /
@@ -2468,7 +2662,6 @@ RES:  2.05 Content
     2 : "Open pin 5"    / port-fault (SID 60012) /
   }
 }
-
 </pre><a href="#section-3.4.2-7" class="pilcrow">¶</a>
 </div>
 <p id="section-3.4.2-8">Note that the notifications in this example are identical to the
@@ -2491,17 +2684,23 @@ The response payload contains the values of the output container when specified.
 Both the input and output containers are encoded in CBOR using the rules defined in
 <span><a href="https://rfc-editor.org/rfc/rfc9254#section-4.2.1" class="relref">Section 4.2.1</a> of [<a href="#RFC9254" class="cite xref">RFC9254</a>]</span>.<a href="#section-3.5-2" class="pilcrow">¶</a></p>
 <p id="section-3.5-3">The returned success response code is 2.04 Changed.<a href="#section-3.5-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.5-4">
+<span id="name-generic-format-of-rpc-and-a"></span><figure id="figure-10">
+          <div class="lang-coap sourcecode" id="section-3.5-4.1">
 <pre>
-FORMAT:
-  POST &lt;datastore resource&gt;
-         (Content-Format: application/yang-instances+cbor-seq)
-  CBOR sequence of CBOR maps of instance-identifier, instance-value
+POST &lt;datastore resource&gt;
+Content-Format: TBD3 (application/yang-instances+cbor-seq)
 
-  2.04 (Content-Format: application/yang-instances+cbor-seq)
-  CBOR sequence of CBOR maps of instance-identifier, instance-value
-</pre><a href="#section-3.5-4" class="pilcrow">¶</a>
+/ CBOR sequence of CBOR maps of instance-identifier, instance-value /
+
+2.04 Changed
+Content-Format: TBD3 (application/yang-instances+cbor-seq)
+
+/ CBOR sequence of CBOR maps of instance-identifier, instance-value /
+</pre>
 </div>
+<figcaption><a href="#figure-10" class="selfRef">Figure 10</a>:
+<a href="#name-generic-format-of-rpc-and-a" class="selfRef">Generic format of RPC and action POST interchange</a>
+          </figcaption></figure>
 <div id="rpc-example">
 <section id="section-3.5.1">
           <h4 id="name-rpc-example">
@@ -2533,24 +2732,33 @@ module example-ops {
 </pre><a href="#section-3.5.1-2" class="pilcrow">¶</a>
 </div>
 <p id="section-3.5.1-3">This example invokes the 'reboot' RPC  (SID 61000).<a href="#section-3.5.1-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.5.1-4">
+<div class="lang-coap sourcecode" id="section-3.5.1-4">
 <pre>
-REQ:  POST &lt;/c&gt;
-      (Content-Format: application/yang-instances+cbor-seq)
+POST /c
+Content-Format: TBD3 (application/yang-instances+cbor-seq)
 
 { 61000:
   {
     1 : 77
   }
 }
-RES:  2.04 Changed
-      (Content-Format: application/yang-instances+cbor-seq)
+
+2.04 Changed
+Content-Format: TBD3 (application/yang-instances+cbor-seq)
 
 { 61000:
-  null
+  {}
 }
 </pre><a href="#section-3.5.1-4" class="pilcrow">¶</a>
 </div>
+<p id="section-3.5.1-5">The 'reboot' RPC has no output, so the instance-value is an empty CBOR map.
+The output of an RPC or action is an internal node and is always encoded as a
+CBOR map (<span><a href="https://rfc-editor.org/rfc/rfc9254#section-4.2" class="relref">Section 4.2</a> of [<a href="#RFC9254" class="cite xref">RFC9254</a>]</span>). The absence marker of
+<a href="#media-type" class="auto internal xref">Section 2.3</a> is not used here: it only marks the absence or removal of a data
+node instance, and an RPC or action output is neither. A yang-instances payload
+is still returned, because its key (the SID of the RPC, or the
+instance-identifier of the action) identifies which invocation the response
+belongs to.<a href="#section-3.5.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="action-example">
@@ -2596,18 +2804,19 @@ module example-server-farm {
 </div>
 <p id="section-3.5.2-3">This example invokes the 'reset' action  (SID 60002),
 of the server instance with name equal to "myserver".<a href="#section-3.5.2-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.5.2-4">
+<div class="lang-coap sourcecode" id="section-3.5.2-4">
 <pre>
-REQ:  POST &lt;/c&gt;
-      (Content-Format: application/yang-instances+cbor-seq)
+POST /c
+Content-Format: TBD3 (application/yang-instances+cbor-seq)
 
 { [60002, "myserver"]:
   {
     1 : "2016-02-08T14:10:08Z" / reset-at (SID 60003) /
   }
 }
-RES:  2.04 Changed
-         (Content-Format: application/yang-instances+cbor-seq)
+
+2.04 Changed
+Content-Format: TBD3 (application/yang-instances+cbor-seq)
 
 { [60002, "myserver"]:
   {
@@ -2615,6 +2824,67 @@ RES:  2.04 Changed
   }
 }
 </pre><a href="#section-3.5.2-4" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="no-input-example">
+<section id="section-3.5.3">
+          <h4 id="name-invocation-without-input">
+<a href="#section-3.5.3" class="section-number selfRef">3.5.3. </a><a href="#name-invocation-without-input" class="section-name selfRef">Invocation without input</a>
+          </h4>
+<p id="section-3.5.3-1">An RPC or an action is invoked without input in two cases: its input has no
+mandatory data node and the client leaves the input out, or its YANG definition
+has no input at all. In both cases the request is still a payload of
+application/yang-instances+cbor-seq: the instance-identifier identifies the RPC
+or the action, and the instance-value is an empty map. The input of an RPC or
+an action is encoded as a CBOR map (<span><a href="https://rfc-editor.org/rfc/rfc9254#section-4.2" class="relref">Section 4.2</a> of [<a href="#RFC9254" class="cite xref">RFC9254</a>]</span>), and an
+empty one has no data nodes in it.<a href="#section-3.5.3-1" class="pilcrow">¶</a></p>
+<p id="section-3.5.3-2">The 'reboot' RPC of <a href="#rpc-example" class="auto internal xref">Section 3.5.1</a> can be invoked without input, because its
+'delay' leaf has a default value:<a href="#section-3.5.3-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.5.3-3">
+<pre>
+REQ:  POST &lt;/c&gt;
+      (Content-Format: application/yang-instances+cbor-seq)
+
+{ 61000:
+  {}
+}
+RES:  2.04 Changed
+      (Content-Format: application/yang-instances+cbor-seq)
+
+{ 61000:
+  {}
+}
+</pre><a href="#section-3.5.3-3" class="pilcrow">¶</a>
+</div>
+<p id="section-3.5.3-4">In the module of <a href="#action-example" class="auto internal xref">Section 3.5.2</a>, a second action 'restart' is added to the
+'server' list. It has neither input nor output:<a href="#section-3.5.3-4" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.5.3-5">
+<pre>
+  list server {                        // SID 60000
+    ...
+    action restart {                   // SID 60005
+      description "Restart the server.";
+    }
+  }
+</pre><a href="#section-3.5.3-5" class="pilcrow">¶</a>
+</div>
+<p id="section-3.5.3-6">It is invoked on the server instance with name equal to "myserver":<a href="#section-3.5.3-6" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.5.3-7">
+<pre>
+REQ:  POST &lt;/c&gt;
+      (Content-Format: application/yang-instances+cbor-seq)
+
+{ [60005, "myserver"]:
+  {}
+}
+RES:  2.04 Changed
+      (Content-Format: application/yang-instances+cbor-seq)
+
+{ [60005, "myserver"]:
+  {}
+}
+</pre><a href="#section-3.5.3-7" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
@@ -2679,11 +2949,12 @@ of the YANG library module.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
 <p id="section-5.1-3">The following example assumes that the SID of the YANG library is 2351 (<code>kv</code> after
 encoding as specified in <a href="#id-compression" class="auto internal xref">Section 2.2</a>) and that the server uses /c as
 datastore resource path.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.1-4">
+<div class="lang-coap sourcecode" id="section-5.1-4">
 <pre>
-REQ: GET &lt;/.well-known/core?rt=core.c.yl&gt;
+GET /.well-known/core?rt=core.c.yl
 
-RES: 2.05 Content (Content-Format: application/link-format)
+RES: 2.05 Content
+Content-Format: 40 (application/link-format)
 &lt;/c/kv&gt;;rt="core.c.yl"
 </pre><a href="#section-5.1-4" class="pilcrow">¶</a>
 </div>
@@ -2698,7 +2969,7 @@ RES: 2.05 Content (Content-Format: application/link-format)
 interface and still be interested to discover resources that are available,
 implementations <span class="bcp14">MAY</span> choose to support discovery of all available
 resources using "/.well-known/core" as defined by <span>[<a href="#RFC6690" class="cite xref">RFC6690</a>]</span>.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
-<div id="datastore-resource-discovery">
+<div id="datastore-discovery">
 <section id="section-5.2.1">
           <h4 id="name-datastore-resource-discover">
 <a href="#section-5.2.1" class="section-number selfRef">5.2.1. </a><a href="#name-datastore-resource-discover" class="section-name selfRef">Datastore Resource Discovery</a>
@@ -2711,7 +2982,7 @@ resource type (RT) parameter with the value "core.c.ds".<a href="#section-5.2.1-
 This attribute is set to the SID assigned to the datastore identity.
 When a unified datastore is implemented, the ds attribute is set to 1029 as
 specified in <a href="#ietf-coreconf-sid" class="auto internal xref">Appendix B</a>.
-For other examples of datastores, see the Network Management Datastore Architecture (NMDA) <span>[<a href="#RFC7950" class="cite xref">RFC7950</a>]</span>.<a href="#section-5.2.1-3" class="pilcrow">¶</a></p>
+For other examples of datastores, see the Network Management Datastore Architecture (NMDA) <span>[<a href="#RFC8342" class="cite xref">RFC8342</a>]</span>.<a href="#section-5.2.1-3" class="pilcrow">¶</a></p>
 <div class="lang-abnf sourcecode" id="section-5.2.1-4">
 <pre>
 link-extension    = ( "ds" "=" sid )
@@ -2722,22 +2993,24 @@ sid               = 1*DIGIT
 <p id="section-5.2.1-5">The following example assumes that the server uses /c as datastore resource
 path.<a href="#section-5.2.1-5" class="pilcrow">¶</a></p>
 <span id="name-discovery-example-data-stor"></span><div id="discovery-ex-ds">
-<figure id="figure-2">
-            <div class="alignLeft art-text artwork" id="section-5.2.1-6.1">
+<figure id="figure-11">
+            <div class="alignLeft art-coap art-text artwork" id="section-5.2.1-6.1">
 <pre>
-REQ: GET &lt;/.well-known/core?rt=core.c.ds&gt;
+GET /.well-known/core?rt=core.c.ds
 
-RES: 2.05 Content (Content-Format: application/link-format)
+2.05 Content
+Content-Format: 40 (application/link-format)
+
 &lt;/c&gt;; rt="core.c.ds";ds=1029
 </pre>
 </div>
-<figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
+<figcaption><a href="#figure-11" class="selfRef">Figure 11</a>:
 <a href="#name-discovery-example-data-stor" class="selfRef">Discovery Example: Data Store</a>
             </figcaption></figure>
 </div>
 </section>
 </div>
-<div id="data-node-resource-discovery">
+<div id="datanode-discovery">
 <section id="section-5.2.2">
           <h4 id="name-data-node-resource-discover">
 <a href="#section-5.2.2" class="section-number selfRef">5.2.2. </a><a href="#name-data-node-resource-discover" class="section-name selfRef">Data node Resource Discovery</a>
@@ -2753,17 +3026,19 @@ data nodes. Data nodes '/ietf-system:system-state/clock/boot-datetime' (SID 1722
 and '/ietf-system:system-state/clock/current-datetime' (SID 1723) are returned.
 The example assumes that the server uses /c as datastore resource path.<a href="#section-5.2.2-3" class="pilcrow">¶</a></p>
 <span id="name-discovery-example-data-node"></span><div id="discovery-ex-dn">
-<figure id="figure-3">
-            <div class="alignLeft art-text artwork" id="section-5.2.2-4.1">
+<figure id="figure-12">
+            <div class="alignLeft art-coap art-text artwork" id="section-5.2.2-4.1">
 <pre>
-REQ: GET &lt;/.well-known/core?rt=core.c.dn&gt;
+GET /.well-known/core?rt=core.c.dn
 
-RES: 2.05 Content (Content-Format: application/link-format)
+2.05 Content
+Content-Format: 40 (application/link-format)
+
 &lt;/c/a6&gt;;rt="core.c.dn",
 &lt;/c/a7&gt;;rt="core.c.dn"
 </pre>
 </div>
-<figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
+<figcaption><a href="#figure-12" class="selfRef">Figure 12</a>:
 <a href="#name-discovery-example-data-node" class="selfRef">Discovery Example: Data Node</a>
             </figcaption></figure>
 </div>
@@ -2785,16 +3060,17 @@ parameter with the value "core.c.es".<a href="#section-5.2.3-1" class="pilcrow">
 <p id="section-5.2.3-3">The following example assumes that the server uses /s as the default event stream
 resource.<a href="#section-5.2.3-3" class="pilcrow">¶</a></p>
 <span id="name-discovery-example-event-str"></span><div id="discovery-ex-es">
-<figure id="figure-4">
-            <div class="alignLeft art-text artwork" id="section-5.2.3-4.1">
+<figure id="figure-13">
+            <div class="alignLeft art-coap art-text artwork" id="section-5.2.3-4.1">
 <pre>
-REQ: GET &lt;/.well-known/core?rt=core.c.es&gt;
+GET /.well-known/core?rt=core.c.es
 
-RES: 2.05 Content (Content-Format: application/link-format)
+2.05 Content
+Content-Format:  40 (application/link-format)
 &lt;/s&gt;;rt="core.c.es"
 </pre>
 </div>
-<figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
+<figcaption><a href="#figure-13" class="selfRef">Figure 13</a>:
 <a href="#name-discovery-example-event-str" class="selfRef">Discovery Example: Event Stream</a>
             </figcaption></figure>
 </div>
@@ -2837,14 +3113,16 @@ the datastore.<a href="#section-6-1" class="pilcrow">¶</a></p>
           <p id="section-6-4.7.1">Error 4.15 (Unsupported Content-Format) is returned by the CORECONF server when the Content-Format used in the request does not match those specified in <a href="#media-type" class="auto internal xref">Section 2.3</a>.<a href="#section-6-4.7.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-6-5">The CORECONF server <span class="bcp14">MUST</span> also enforce the different constraints associated with the YANG data models implemented. These constraints are described in <span><a href="https://rfc-editor.org/rfc/rfc7950#section-8" class="relref">Section 8</a> of [<a href="#RFC7950" class="cite xref">RFC7950</a>]</span>. These errors are reported using the CoAP error code 4.00 (Bad Request) and may have the following error container as payload. The YANG definition and associated .sid file are available in <a href="#ietf-coreconf-yang" class="auto internal xref">Appendix A</a> and <a href="#ietf-coreconf-sid" class="auto internal xref">Appendix B</a>. The error container is encoded using the encoding rules of a YANG data template as defined in <span><a href="https://rfc-editor.org/rfc/rfc9254#section-5" class="relref">Section 5</a> of [<a href="#RFC9254" class="cite xref">RFC9254</a>]</span>.<a href="#section-6-5" class="pilcrow">¶</a></p>
+<p id="section-6-5">The CORECONF server <span class="bcp14">MUST</span> also enforce the different constraints associated with the YANG data models implemented. These constraints are described in <span><a href="https://rfc-editor.org/rfc/rfc7950#section-8" class="relref">Section 8</a> of [<a href="#RFC7950" class="cite xref">RFC7950</a>]</span>. These errors are reported using the CoAP error code 4.00 (Bad Request) and may have the following error container, defined as a YANG data structure <span>[<a href="#RFC8791" class="cite xref">RFC8791</a>]</span>, as payload. The YANG definition and associated .sid file are available in <a href="#ietf-coreconf-yang" class="auto internal xref">Appendix A</a> and <a href="#ietf-coreconf-sid" class="auto internal xref">Appendix B</a>. The error container is encoded using the encoding rules of a YANG data template as defined in <span><a href="https://rfc-editor.org/rfc/rfc9254#section-5" class="relref">Section 5</a> of [<a href="#RFC9254" class="cite xref">RFC9254</a>]</span>.<a href="#section-6-5" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-6-6">
 <pre>
-+--rw error!
-   +--rw error-tag             identityref
-   +--rw error-app-tag?        identityref
-   +--rw error-data-node?      instance-identifier
-   +--rw error-message?        string
+module: ietf-coreconf
+
+  structure error:
+    +-- error-tag          identityref
+    +-- error-app-tag?     identityref
+    +-- error-data-node?   instance-identifier
+    +-- error-message?     string
 </pre><a href="#section-6-6" class="pilcrow">¶</a>
 </div>
 <p id="section-6-7">The following 'error-tag' and 'error-app-tag' are defined by the ietf-coreconf YANG module, these tags are implemented as YANG identity and can be extended as needed.<a href="#section-6-7" class="pilcrow">¶</a></p>
@@ -2873,7 +3151,7 @@ the datastore.<a href="#section-6-1" class="pilcrow">¶</a></p>
           </ul>
 </li>
         <li class="normal" id="section-6-8.2">
-          <p id="section-6-8.2.1">error-tag 'invalid-value' is returned by the CORECONF server when the CORECONF client tries to update or create a leaf with a value encoded using an invalid CBOR datatype or if the 'range', 'length', 'pattern' or 'require-instance' constrain is not fulfilled.<a href="#section-6-8.2.1" class="pilcrow">¶</a></p>
+          <p id="section-6-8.2.1">error-tag 'invalid-value' is returned by the CORECONF server when the CORECONF client tries to update or create a leaf with a value encoded using an invalid CBOR datatype or if the 'range', 'length', 'pattern' or 'require-instance' constraint is not fulfilled.<a href="#section-6-8.2.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6-8.2.2.1">
               <p id="section-6-8.2.2.1.1">error-app-tag 'invalid-datatype' is returned by the CORECONF server when CBOR encoding does not follow the rules set by the YANG Build-In type or when the value is incompatible with it (e.g., a value greater than 127 for an int8, undefined enumeration).<a href="#section-6-8.2.2.1.1" class="pilcrow">¶</a></p>
@@ -2922,10 +3200,11 @@ the datastore.<a href="#section-6-1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="section-6-9">For example, the CORECONF server might return the following error.<a href="#section-6-9" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-6-10">
+<div class="lang-coap sourcecode" id="section-6-10">
 <pre>
-RES:  4.00 Bad Request
-     (Content-Format: application/yang-data+cbor; id=sid)
+4.00 Bad Request
+Content-Format: 140 (application/yang-data+cbor; id=sid)
+
 {
   1024 : {
     4 : 1011,        / error-tag (SID 1028) /
@@ -2948,7 +3227,7 @@ RES:  4.00 Bad Request
       </h2>
 <p id="section-7-1">For secure network management, it is important to restrict access to configuration variables
 only to authorized parties. CORECONF re-uses the security mechanisms already available to CoAP,
-this includes DTLS <span>[<a href="#RFC6347" class="cite xref">RFC6347</a>]</span><span>[<a href="#RFC9147" class="cite xref">RFC9147</a>]</span> and OSCORE <span>[<a href="#RFC8613" class="cite xref">RFC8613</a>]</span> for protected access to
+this includes DTLS <span>[<a href="#RFC9147" class="cite xref">RFC9147</a>]</span><span>[<a href="#RFC6347" class="cite xref">RFC6347</a>]</span> and OSCORE <span>[<a href="#RFC8613" class="cite xref">RFC8613</a>]</span> for protected access to
 resources, as well as suitable authentication and authorization mechanisms, for
 example those defined in ACE OAuth <span>[<a href="#RFC9200" class="cite xref">RFC9200</a>]</span>.<a href="#section-7-1" class="pilcrow">¶</a></p>
 <p id="section-7-2">All the security considerations of <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>, <span>[<a href="#RFC7959" class="cite xref">RFC7959</a>]</span>, <span>[<a href="#RFC8132" class="cite xref">RFC8132</a>]</span> and
@@ -2959,9 +3238,22 @@ selected if not provided with the CoAP security mode.<a href="#section-7-3" clas
 <p id="section-7-4">As <span>[<a href="#RFC9254" class="cite xref">RFC9254</a>]</span> and <span>[<a href="#RFC4648" class="cite xref">RFC4648</a>]</span> are used for payload and SID
 encoding, the security considerations of those documents also need to be
 well-understood.<a href="#section-7-4" class="pilcrow">¶</a></p>
+<p id="section-7-5">The YANG module specified in this document defines a schema for data that is
+designed to be accessed via CORECONF itself. Which secure transports are mandatory to implement is
+an open issue (see <a href="#open-issues" class="auto internal xref">Appendix D</a>).<a href="#section-7-5" class="pilcrow">¶</a></p>
+<p id="section-7-6">The module does not define any configuration or state data nodes and the usual analysis of which subtrees and data nodes are sensitive or
+vulnerable to write or read operations does not apply to it.<a href="#section-7-6" class="pilcrow">¶</a></p>
+<p id="section-7-7">What does deserve attention is the content a server places in the error
+structure (<a href="#error-handling" class="auto internal xref">Section 6</a>).
+The 'error-data-node' leaf carries an instance-identifier, and 'error-message'
+carries free text. A server that returns either to a client that is not
+authorized to see the corresponding part of the datastore discloses the shape
+of its data model, and possibly the existence of specific instances, through
+the error path. A server <span class="bcp14">SHOULD</span> limit the detail it reports in an error
+response to what the requesting client is authorized to read.<a href="#section-7-7" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="iana-considerations">
+<div id="iana">
 <section id="section-8">
       <h2 id="name-iana-considerations">
 <a href="#section-8" class="section-number selfRef">8. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
@@ -3174,6 +3466,23 @@ Registry", following the format defined in <span>[<a href="#RFC3688" class="cite
 <a href="#ietf-coreconf-sid" class="auto internal xref">Appendix B</a>, respectively.<a href="#section-8.4-12" class="pilcrow">¶</a></p>
 </section>
 </div>
+<div id="yang-sid-range-assignment">
+<section id="section-8.5">
+        <h3 id="name-yang-sid-range-assignment">
+<a href="#section-8.5" class="section-number selfRef">8.5. </a><a href="#name-yang-sid-range-assignment" class="section-name selfRef">YANG SID Range Assignment</a>
+        </h3>
+<p id="section-8.5-1">IANA has assigned the following SID range to the "ietf-coreconf" YANG module in
+the "IETF YANG-SID Ranges" registry, following the procedure of <span><a href="https://rfc-editor.org/rfc/rfc9595#section-6.4.2" class="relref">Section 6.4.2</a> of [<a href="#RFC9595" class="cite xref">RFC9595</a>]</span>. IANA is requested to update the reference of this entry to this
+document:<a href="#section-8.5-1" class="pilcrow">¶</a></p>
+<p id="section-8.5-2">Entry Point: 1000<a href="#section-8.5-2" class="pilcrow">¶</a></p>
+<p id="section-8.5-3">Size: 100<a href="#section-8.5-3" class="pilcrow">¶</a></p>
+<p id="section-8.5-4">Module Name: ietf-coreconf<a href="#section-8.5-4" class="pilcrow">¶</a></p>
+<p id="section-8.5-5">Reference: RFC XXXX<a href="#section-8.5-5" class="pilcrow">¶</a></p>
+<p id="section-8.5-6">The SID file in <a href="#ietf-coreconf-sid" class="auto internal xref">Appendix B</a> assigns SIDs from this range, and this
+document depends on those values: <a href="#datastore-discovery" class="auto internal xref">Section 5.2.1</a> uses the SID of the
+"unified" datastore identity.<a href="#section-8.5-6" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <div id="sec-combined-references">
@@ -3203,10 +3512,6 @@ Registry", following the format defined in <span>[<a href="#RFC3688" class="cite
         <dd>
 <span class="refAuthor">Josefsson, S.</span>, <span class="refTitle">"The Base16, Base32, and Base64 Data Encodings"</span>, <span class="seriesInfo">RFC 4648</span>, <span class="seriesInfo">DOI 10.17487/RFC4648</span>, <time datetime="2006-10" class="refDate">October 2006</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4648">https://www.rfc-editor.org/rfc/rfc4648</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC5277">[RFC5277]</dt>
-        <dd>
-<span class="refAuthor">Chisholm, S.</span> and <span class="refAuthor">H. Trevino</span>, <span class="refTitle">"NETCONF Event Notifications"</span>, <span class="seriesInfo">RFC 5277</span>, <span class="seriesInfo">DOI 10.17487/RFC5277</span>, <time datetime="2008-07" class="refDate">July 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5277">https://www.rfc-editor.org/rfc/rfc5277</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC6020">[RFC6020]</dt>
         <dd>
 <span class="refAuthor">Bjorklund, M., Ed.</span>, <span class="refTitle">"YANG - A Data Modeling Language for the Network Configuration Protocol (NETCONF)"</span>, <span class="seriesInfo">RFC 6020</span>, <span class="seriesInfo">DOI 10.17487/RFC6020</span>, <time datetime="2010-10" class="refDate">October 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6020">https://www.rfc-editor.org/rfc/rfc6020</a>&gt;</span>. </dd>
@@ -3235,10 +3540,6 @@ Registry", following the format defined in <span>[<a href="#RFC3688" class="cite
         <dd>
 <span class="refAuthor">Bormann, C.</span> and <span class="refAuthor">Z. Shelby, Ed.</span>, <span class="refTitle">"Block-Wise Transfers in the Constrained Application Protocol (CoAP)"</span>, <span class="seriesInfo">RFC 7959</span>, <span class="seriesInfo">DOI 10.17487/RFC7959</span>, <time datetime="2016-08" class="refDate">August 2016</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7959">https://www.rfc-editor.org/rfc/rfc7959</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC8040">[RFC8040]</dt>
-        <dd>
-<span class="refAuthor">Bierman, A.</span>, <span class="refAuthor">Bjorklund, M.</span>, and <span class="refAuthor">K. Watsen</span>, <span class="refTitle">"RESTCONF Protocol"</span>, <span class="seriesInfo">RFC 8040</span>, <span class="seriesInfo">DOI 10.17487/RFC8040</span>, <time datetime="2017-01" class="refDate">January 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8040">https://www.rfc-editor.org/rfc/rfc8040</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC8132">[RFC8132]</dt>
         <dd>
 <span class="refAuthor">van der Stok, P.</span>, <span class="refAuthor">Bormann, C.</span>, and <span class="refAuthor">A. Sehgal</span>, <span class="refTitle">"PATCH and FETCH Methods for the Constrained Application Protocol (CoAP)"</span>, <span class="seriesInfo">RFC 8132</span>, <span class="seriesInfo">DOI 10.17487/RFC8132</span>, <time datetime="2017-04" class="refDate">April 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8132">https://www.rfc-editor.org/rfc/rfc8132</a>&gt;</span>. </dd>
@@ -3258,6 +3559,10 @@ Registry", following the format defined in <span>[<a href="#RFC3688" class="cite
 <dt id="RFC8742">[RFC8742]</dt>
         <dd>
 <span class="refAuthor">Bormann, C.</span>, <span class="refTitle">"Concise Binary Object Representation (CBOR) Sequences"</span>, <span class="seriesInfo">RFC 8742</span>, <span class="seriesInfo">DOI 10.17487/RFC8742</span>, <time datetime="2020-02" class="refDate">February 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8742">https://www.rfc-editor.org/rfc/rfc8742</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8791">[RFC8791]</dt>
+        <dd>
+<span class="refAuthor">Bierman, A.</span>, <span class="refAuthor">Björklund, M.</span>, and <span class="refAuthor">K. Watsen</span>, <span class="refTitle">"YANG Data Structure Extensions"</span>, <span class="seriesInfo">RFC 8791</span>, <span class="seriesInfo">DOI 10.17487/RFC8791</span>, <time datetime="2020-06" class="refDate">June 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8791">https://www.rfc-editor.org/rfc/rfc8791</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8949">[RFC8949]</dt>
         <dd>
@@ -3293,6 +3598,14 @@ Registry", following the format defined in <span>[<a href="#RFC3688" class="cite
         <dd>
 <span class="refAuthor">Bierman, A.</span> and <span class="refAuthor">M. Bjorklund</span>, <span class="refTitle">"A YANG Data Model for System Management"</span>, <span class="seriesInfo">RFC 7317</span>, <span class="seriesInfo">DOI 10.17487/RFC7317</span>, <time datetime="2014-08" class="refDate">August 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7317">https://www.rfc-editor.org/rfc/rfc7317</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC8040">[RFC8040]</dt>
+        <dd>
+<span class="refAuthor">Bierman, A.</span>, <span class="refAuthor">Bjorklund, M.</span>, and <span class="refAuthor">K. Watsen</span>, <span class="refTitle">"RESTCONF Protocol"</span>, <span class="seriesInfo">RFC 8040</span>, <span class="seriesInfo">DOI 10.17487/RFC8040</span>, <time datetime="2017-01" class="refDate">January 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8040">https://www.rfc-editor.org/rfc/rfc8040</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8323">[RFC8323]</dt>
+        <dd>
+<span class="refAuthor">Bormann, C.</span>, <span class="refAuthor">Lemay, S.</span>, <span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Hartke, K.</span>, <span class="refAuthor">Silverajan, B.</span>, and <span class="refAuthor">B. Raymor, Ed.</span>, <span class="refTitle">"CoAP (Constrained Application Protocol) over TCP, TLS, and WebSockets"</span>, <span class="seriesInfo">RFC 8323</span>, <span class="seriesInfo">DOI 10.17487/RFC8323</span>, <time datetime="2018-02" class="refDate">February 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8323">https://www.rfc-editor.org/rfc/rfc8323</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8343">[RFC8343]</dt>
         <dd>
 <span class="refAuthor">Bjorklund, M.</span>, <span class="refTitle">"A YANG Data Model for Interface Management"</span>, <span class="seriesInfo">RFC 8343</span>, <span class="seriesInfo">DOI 10.17487/RFC8343</span>, <time datetime="2018-03" class="refDate">March 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8343">https://www.rfc-editor.org/rfc/rfc8343</a>&gt;</span>. </dd>
@@ -3321,7 +3634,7 @@ Registry", following the format defined in <span>[<a href="#RFC3688" class="cite
       </h2>
 <p id="appendix-A-1">This appendix is normative.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 <span id="name-ietf-coreconf-yang-module-2"></span><div id="yang-ietf-coreconf">
-<figure id="figure-5">
+<figure id="figure-14">
         <div class="breakable lang-yang sourcecode" id="appendix-A-2.1">
 <pre>&lt;CODE BEGINS&gt; file "ietf-coreconf@2026-03-02.yang"
 
@@ -3346,14 +3659,14 @@ module ietf-coreconf {
   }
 
   organization
-    "IETF Core Working Group";
+    "IETF CoRE Working Group";
 
   contact
     "WG Web:   &lt;https://datatracker.ietf.org/wg/core/&gt;
      WG List:  &lt;mailto:core@ietf.org&gt;
 
      Michel Veillette
-     &lt;mailto:michel.veillette@trilliantinc.com&gt;
+     &lt;mailto:michel.veillette@trilliant.com&gt;
 
      Alexander Pelov
      &lt;mailto:alexander.pelov@imt-atlantique.fr&gt;
@@ -3362,7 +3675,10 @@ module ietf-coreconf {
      &lt;mailto:stokcons@kpnmail.nl&gt;
 
      Andy Bierman
-     &lt;mailto:andy@yumaworks.com&gt;";
+     &lt;mailto:andy@yumaworks.com&gt;
+
+     Carsten Bormann
+     &lt;mailto:cabo@tzi.org&gt;";
 
   description
     "This module contains the different definitions required
@@ -3382,10 +3698,10 @@ module ietf-coreconf {
      see the RFC itself for full legal notices.";
 
   revision 2026-03-02 {
-     description
-      "Use sx:, not rc:.";
+    description
+      "Initial revision.";
     reference
-      "[I-D.ietf-core-comi] CoAP Management Interface";
+      "RFC XXXX: CoAP Management Interface (CORECONF)";
   }
 
   identity unified {
@@ -3413,7 +3729,7 @@ module ietf-coreconf {
       "Returned by the CORECONF server when the CORECONF client tries
        to update or create a leaf with a value encoded using an
        invalid CBOR datatype or if the 'range', 'length',
-       'pattern' or 'require-instance' constrain is not
+       'pattern' or 'require-instance' constraint is not
        fulfilled.";
   }
 
@@ -3513,7 +3829,7 @@ module ietf-coreconf {
     base error-app-tag;
     description
       "Returned by the CORECONF server when CBOR encoding is
-       incorect or when the value encoded is incompatible with
+       incorrect or when the value encoded is incompatible with
        the YANG Built-In type. (e.g., value greater than 127
        for an int8, undefined enumeration).";
   }
@@ -3610,7 +3926,7 @@ module ietf-coreconf {
 
 &lt;CODE ENDS&gt;</pre>
 </div>
-<figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
+<figcaption><a href="#figure-14" class="selfRef">Figure 14</a>:
 <a href="#name-ietf-coreconf-yang-module-2" class="selfRef">ietf-coreconf YANG module</a>
         </figcaption></figure>
 </div>
@@ -3623,7 +3939,7 @@ module ietf-coreconf {
       </h2>
 <p id="appendix-B-1">This appendix is normative.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
 <span id="name-ietf-coreconf-sid-file-2"></span><div id="yang-ietf-coreconf-sid">
-<figure id="figure-6">
+<figure id="figure-15">
         <div class="breakable lang-yang sourcecode" id="appendix-B-2.1">
 <pre>&lt;CODE BEGINS&gt; file "ietf-coreconf@2026-03-02.sid"
 
@@ -3794,138 +4110,555 @@ module ietf-coreconf {
 
 &lt;CODE ENDS&gt;</pre>
 </div>
-<figcaption><a href="#figure-6" class="selfRef">Figure 6</a>:
+<figcaption><a href="#figure-15" class="selfRef">Figure 15</a>:
 <a href="#name-ietf-coreconf-sid-file-2" class="selfRef">ietf-coreconf SID file</a>
         </figcaption></figure>
 </div>
 </section>
 </div>
-<div id="list-of-figures">
+<div id="example-sids">
 <section id="appendix-C">
+      <h2 id="name-sids-used-in-the-examples">
+<a href="#appendix-C" class="section-number selfRef">Appendix C. </a><a href="#name-sids-used-in-the-examples" class="section-name selfRef">SIDs used in the examples</a>
+      </h2>
+<p id="appendix-C-1">The SIDs in the examples of this document are illustrative. This annex lists
+them by module, so that an example can be followed from one section to the
+next. A node has the same SID in every example in which it appears.<a href="#appendix-C-1" class="pilcrow">¶</a></p>
+<p id="appendix-C-2">The data examples use the modules ietf-interfaces <span>[<a href="#RFC8343" class="cite xref">RFC8343</a>]</span> and ietf-system
+<span>[<a href="#RFC7317" class="cite xref">RFC7317</a>]</span>. The examples of an RPC, an action and notifications use three
+small modules written for this document, because the two standard modules
+define no action and no notification.<a href="#appendix-C-2" class="pilcrow">¶</a></p>
+<p id="appendix-C-3">ietf-interfaces, and the identity ethernetCsmacd of iana-if-type:<a href="#appendix-C-3" class="pilcrow">¶</a></p>
+<table class="center" id="table-11">
+        <caption><a href="#table-11" class="selfRef">Table 11</a></caption>
+<thead>
+          <tr>
+            <th class="text-left" rowspan="1" colspan="1">Node</th>
+            <th class="text-left" rowspan="1" colspan="1">SID</th>
+            <th class="text-left" rowspan="1" colspan="1">Used in</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">module ietf-interfaces</td>
+            <td class="text-left" rowspan="1" colspan="1">1500</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#datastore-example" class="auto internal xref">Section 3.3.1</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">interface (list)</td>
+            <td class="text-left" rowspan="1" colspan="1">1533</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#fetch-example" class="auto internal xref">Section 3.1.3.1</a>, <a href="#datastore-example" class="auto internal xref">Section 3.3.1</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">description</td>
+            <td class="text-left" rowspan="1" colspan="1">1534</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#fetch-example" class="auto internal xref">Section 3.1.3.1</a>, <a href="#datastore-example" class="auto internal xref">Section 3.3.1</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">enabled</td>
+            <td class="text-left" rowspan="1" colspan="1">1535</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#fetch-example" class="auto internal xref">Section 3.1.3.1</a>, <a href="#datastore-example" class="auto internal xref">Section 3.3.1</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">name</td>
+            <td class="text-left" rowspan="1" colspan="1">1537</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#fetch-example" class="auto internal xref">Section 3.1.3.1</a>, <a href="#datastore-example" class="auto internal xref">Section 3.3.1</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">type</td>
+            <td class="text-left" rowspan="1" colspan="1">1538</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#fetch-example" class="auto internal xref">Section 3.1.3.1</a>, <a href="#datastore-example" class="auto internal xref">Section 3.3.1</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">oper-status</td>
+            <td class="text-left" rowspan="1" colspan="1">1544</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#fetch-example" class="auto internal xref">Section 3.1.3.1</a>, <a href="#datastore-example" class="auto internal xref">Section 3.3.1</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">ethernetCsmacd</td>
+            <td class="text-left" rowspan="1" colspan="1">1880</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#fetch-example" class="auto internal xref">Section 3.1.3.1</a>, <a href="#datastore-example" class="auto internal xref">Section 3.3.1</a>
+</td>
+          </tr>
+        </tbody>
+      </table>
+<p id="appendix-C-5">ietf-system:<a href="#appendix-C-5" class="pilcrow">¶</a></p>
+<table class="center" id="table-12">
+        <caption><a href="#table-12" class="selfRef">Table 12</a></caption>
+<thead>
+          <tr>
+            <th class="text-left" rowspan="1" colspan="1">Node</th>
+            <th class="text-left" rowspan="1" colspan="1">SID</th>
+            <th class="text-left" rowspan="1" colspan="1">Used in</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">module ietf-system</td>
+            <td class="text-left" rowspan="1" colspan="1">1700</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#datastore-example" class="auto internal xref">Section 3.3.1</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">timezone-utc-offset</td>
+            <td class="text-left" rowspan="1" colspan="1">1740</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#error-handling" class="auto internal xref">Section 6</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">clock (container)</td>
+            <td class="text-left" rowspan="1" colspan="1">1721</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#datastore-example" class="auto internal xref">Section 3.3.1</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">boot-datetime</td>
+            <td class="text-left" rowspan="1" colspan="1">1722</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#datastore-example" class="auto internal xref">Section 3.3.1</a>, <a href="#datanode-discovery" class="auto internal xref">Section 5.2.2</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">current-datetime</td>
+            <td class="text-left" rowspan="1" colspan="1">1723</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#fetch-example" class="auto internal xref">Section 3.1.3.1</a>, <a href="#datastore-example" class="auto internal xref">Section 3.3.1</a>, <a href="#datanode-discovery" class="auto internal xref">Section 5.2.2</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">ntp/enabled</td>
+            <td class="text-left" rowspan="1" colspan="1">1755</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#ipatch-example" class="auto internal xref">Section 3.2.3.1</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">ntp/server (list)</td>
+            <td class="text-left" rowspan="1" colspan="1">1756</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#ipatch-example" class="auto internal xref">Section 3.2.3.1</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">name (of a server)</td>
+            <td class="text-left" rowspan="1" colspan="1">1759</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#ipatch-example" class="auto internal xref">Section 3.2.3.1</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">prefer (of a server)</td>
+            <td class="text-left" rowspan="1" colspan="1">1760</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#ipatch-example" class="auto internal xref">Section 3.2.3.1</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">udp (of a server)</td>
+            <td class="text-left" rowspan="1" colspan="1">1761</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#ipatch-example" class="auto internal xref">Section 3.2.3.1</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">address (of udp)</td>
+            <td class="text-left" rowspan="1" colspan="1">1762</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#ipatch-example" class="auto internal xref">Section 3.2.3.1</a>
+</td>
+          </tr>
+        </tbody>
+      </table>
+<p id="appendix-C-7">The YANG library, as assumed in <a href="#yang-library" class="auto internal xref">Section 5.1</a>:<a href="#appendix-C-7" class="pilcrow">¶</a></p>
+<table class="center" id="table-13">
+        <caption><a href="#table-13" class="selfRef">Table 13</a></caption>
+<thead>
+          <tr>
+            <th class="text-left" rowspan="1" colspan="1">Node</th>
+            <th class="text-left" rowspan="1" colspan="1">SID</th>
+            <th class="text-left" rowspan="1" colspan="1">Used in</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">YANG library</td>
+            <td class="text-left" rowspan="1" colspan="1">2351</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#yang-library" class="auto internal xref">Section 5.1</a>
+</td>
+          </tr>
+        </tbody>
+      </table>
+<p id="appendix-C-9">ietf-coreconf, defined in <a href="#ietf-coreconf-sid" class="auto internal xref">Appendix B</a>:<a href="#appendix-C-9" class="pilcrow">¶</a></p>
+<table class="center" id="table-14">
+        <caption><a href="#table-14" class="selfRef">Table 14</a></caption>
+<thead>
+          <tr>
+            <th class="text-left" rowspan="1" colspan="1">Node</th>
+            <th class="text-left" rowspan="1" colspan="1">SID</th>
+            <th class="text-left" rowspan="1" colspan="1">Used in</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">error</td>
+            <td class="text-left" rowspan="1" colspan="1">1024</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#error-handling" class="auto internal xref">Section 6</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">error-app-tag</td>
+            <td class="text-left" rowspan="1" colspan="1">1025</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#error-handling" class="auto internal xref">Section 6</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">error-data-node</td>
+            <td class="text-left" rowspan="1" colspan="1">1026</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#error-handling" class="auto internal xref">Section 6</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">error-message</td>
+            <td class="text-left" rowspan="1" colspan="1">1027</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#error-handling" class="auto internal xref">Section 6</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">error-tag</td>
+            <td class="text-left" rowspan="1" colspan="1">1028</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#error-handling" class="auto internal xref">Section 6</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">invalid-value</td>
+            <td class="text-left" rowspan="1" colspan="1">1011</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#error-handling" class="auto internal xref">Section 6</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">not-in-range</td>
+            <td class="text-left" rowspan="1" colspan="1">1018</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#error-handling" class="auto internal xref">Section 6</a>
+</td>
+          </tr>
+        </tbody>
+      </table>
+<p id="appendix-C-11">The module example-ops, used for the RPC:<a href="#appendix-C-11" class="pilcrow">¶</a></p>
+<table class="center" id="table-15">
+        <caption><a href="#table-15" class="selfRef">Table 15</a></caption>
+<thead>
+          <tr>
+            <th class="text-left" rowspan="1" colspan="1">Node</th>
+            <th class="text-left" rowspan="1" colspan="1">SID</th>
+            <th class="text-left" rowspan="1" colspan="1">Used in</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">reboot (RPC)</td>
+            <td class="text-left" rowspan="1" colspan="1">61000</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#rpc-example" class="auto internal xref">Section 3.5.1</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">delay</td>
+            <td class="text-left" rowspan="1" colspan="1">61001</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#rpc-example" class="auto internal xref">Section 3.5.1</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">input</td>
+            <td class="text-left" rowspan="1" colspan="1">61009</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#rpc-example" class="auto internal xref">Section 3.5.1</a>
+</td>
+          </tr>
+        </tbody>
+      </table>
+<p id="appendix-C-13">The module example-server-farm, used for the action:<a href="#appendix-C-13" class="pilcrow">¶</a></p>
+<table class="center" id="table-16">
+        <caption><a href="#table-16" class="selfRef">Table 16</a></caption>
+<thead>
+          <tr>
+            <th class="text-left" rowspan="1" colspan="1">Node</th>
+            <th class="text-left" rowspan="1" colspan="1">SID</th>
+            <th class="text-left" rowspan="1" colspan="1">Used in</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">server (list)</td>
+            <td class="text-left" rowspan="1" colspan="1">60000</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#action-example" class="auto internal xref">Section 3.5.2</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">name</td>
+            <td class="text-left" rowspan="1" colspan="1">60001</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#action-example" class="auto internal xref">Section 3.5.2</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">reset (action)</td>
+            <td class="text-left" rowspan="1" colspan="1">60002</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#action-example" class="auto internal xref">Section 3.5.2</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">reset-at</td>
+            <td class="text-left" rowspan="1" colspan="1">60003</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#action-example" class="auto internal xref">Section 3.5.2</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">reset-finished-at</td>
+            <td class="text-left" rowspan="1" colspan="1">60004</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#action-example" class="auto internal xref">Section 3.5.2</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">restart (action)</td>
+            <td class="text-left" rowspan="1" colspan="1">60005</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#no-input-example" class="auto internal xref">Section 3.5.3</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">input</td>
+            <td class="text-left" rowspan="1" colspan="1">60008</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#action-example" class="auto internal xref">Section 3.5.2</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">output</td>
+            <td class="text-left" rowspan="1" colspan="1">60009</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#action-example" class="auto internal xref">Section 3.5.2</a>
+</td>
+          </tr>
+        </tbody>
+      </table>
+<p id="appendix-C-15">The module example-port, used for notifications:<a href="#appendix-C-15" class="pilcrow">¶</a></p>
+<table class="center" id="table-17">
+        <caption><a href="#table-17" class="selfRef">Table 17</a></caption>
+<thead>
+          <tr>
+            <th class="text-left" rowspan="1" colspan="1">Node</th>
+            <th class="text-left" rowspan="1" colspan="1">SID</th>
+            <th class="text-left" rowspan="1" colspan="1">Used in</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">example-port-fault</td>
+            <td class="text-left" rowspan="1" colspan="1">60010</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#event-stream-example" class="auto internal xref">Section 3.4.2</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">port-name</td>
+            <td class="text-left" rowspan="1" colspan="1">60011</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#event-stream-example" class="auto internal xref">Section 3.4.2</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">port-fault</td>
+            <td class="text-left" rowspan="1" colspan="1">60012</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#event-stream-example" class="auto internal xref">Section 3.4.2</a>
+</td>
+          </tr>
+        </tbody>
+      </table>
+</section>
+</div>
+<div id="open-issues">
+<section id="appendix-D">
+      <h2 id="name-open-issues">
+<a href="#appendix-D" class="section-number selfRef">Appendix D. </a><a href="#name-open-issues" class="section-name selfRef">Open Issues</a>
+      </h2>
+<p id="appendix-D-1">This section is to be removed before publishing as an RFC.<a href="#appendix-D-1" class="pilcrow">¶</a></p>
+<p id="appendix-D-2">The following issues are not resolved in this revision and are planned for
+discussion at IETF 127 (see <a href="https://github.com/core-wg/comi/issues">https://github.com/core-wg/comi/issues</a>):<a href="#appendix-D-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-D-3.1">
+          <p id="appendix-D-3.1.1">How a SID is encoded in a URI path segment, and whether CORECONF supports
+discovery of individual data nodes through such URIs, or only through FETCH
+and the YANG library (issue #19, pull request #26).<a href="#appendix-D-3.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-D-3.2">
+          <p id="appendix-D-3.2.1">Whether the Content-Format Option is required on a POST to the datastore
+resource, where the same method is used both to create the datastore and to
+invoke an RPC or action (issue #29).<a href="#appendix-D-3.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-D-3.3">
+          <p id="appendix-D-3.3.1">Which security mechanisms a CORECONF implementation is required to support.<a href="#appendix-D-3.3.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+</section>
+</div>
+<div id="list-of-figures">
+<section id="appendix-E">
       <h2 id="name-list-of-figures">
 <a href="#name-list-of-figures" class="section-name selfRef">List of Figures</a>
       </h2>
-<span class="break"></span><dl class="dlCompact dlParallel" id="appendix-C-1">
-        <dt id="appendix-C-1.1">
+<span class="break"></span><dl class="dlCompact dlParallel" id="appendix-E-1">
+        <dt id="appendix-E-1.1">
 <a href="#archit" class="auto internal xref">Figure 1</a>:</dt>
-        <dd style="margin-left: 5.5em" id="appendix-C-1.2">
-          <p id="appendix-C-1.2.1"><a href="#archit" class="internal xref">Abstract CORECONF architecture</a><a href="#appendix-C-1.2.1" class="pilcrow">¶</a></p>
+        <dd style="margin-left: 5.5em" id="appendix-E-1.2">
+          <p id="appendix-E-1.2.1"><a href="#archit" class="internal xref">Abstract CORECONF architecture</a><a href="#appendix-E-1.2.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="appendix-C-1.3">
-<a href="#discovery-ex-ds" class="auto internal xref">Figure 2</a>:</dt>
-        <dd style="margin-left: 5.5em" id="appendix-C-1.4">
-          <p id="appendix-C-1.4.1"><a href="#discovery-ex-ds" class="internal xref">Discovery Example: Data Store</a><a href="#appendix-C-1.4.1" class="pilcrow">¶</a></p>
+<dt id="appendix-E-1.3">
+<a href="#discovery-ex-ds" class="auto internal xref">Figure 11</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-E-1.4">
+          <p id="appendix-E-1.4.1"><a href="#discovery-ex-ds" class="internal xref">Discovery Example: Data Store</a><a href="#appendix-E-1.4.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="appendix-C-1.5">
-<a href="#discovery-ex-dn" class="auto internal xref">Figure 3</a>:</dt>
-        <dd style="margin-left: 5.5em" id="appendix-C-1.6">
-          <p id="appendix-C-1.6.1"><a href="#discovery-ex-dn" class="internal xref">Discovery Example: Data Node</a><a href="#appendix-C-1.6.1" class="pilcrow">¶</a></p>
+<dt id="appendix-E-1.5">
+<a href="#discovery-ex-dn" class="auto internal xref">Figure 12</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-E-1.6">
+          <p id="appendix-E-1.6.1"><a href="#discovery-ex-dn" class="internal xref">Discovery Example: Data Node</a><a href="#appendix-E-1.6.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="appendix-C-1.7">
-<a href="#discovery-ex-es" class="auto internal xref">Figure 4</a>:</dt>
-        <dd style="margin-left: 5.5em" id="appendix-C-1.8">
-          <p id="appendix-C-1.8.1"><a href="#discovery-ex-es" class="internal xref">Discovery Example: Event Stream</a><a href="#appendix-C-1.8.1" class="pilcrow">¶</a></p>
+<dt id="appendix-E-1.7">
+<a href="#discovery-ex-es" class="auto internal xref">Figure 13</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-E-1.8">
+          <p id="appendix-E-1.8.1"><a href="#discovery-ex-es" class="internal xref">Discovery Example: Event Stream</a><a href="#appendix-E-1.8.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="appendix-C-1.9">
-<a href="#yang-ietf-coreconf" class="auto internal xref">Figure 5</a>:</dt>
-        <dd style="margin-left: 5.5em" id="appendix-C-1.10">
-          <p id="appendix-C-1.10.1"><a href="#yang-ietf-coreconf" class="internal xref">ietf-coreconf YANG module</a><a href="#appendix-C-1.10.1" class="pilcrow">¶</a></p>
+<dt id="appendix-E-1.9">
+<a href="#yang-ietf-coreconf" class="auto internal xref">Figure 14</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-E-1.10">
+          <p id="appendix-E-1.10.1"><a href="#yang-ietf-coreconf" class="internal xref">ietf-coreconf YANG module</a><a href="#appendix-E-1.10.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="appendix-C-1.11">
-<a href="#yang-ietf-coreconf-sid" class="auto internal xref">Figure 6</a>:</dt>
-        <dd style="margin-left: 5.5em" id="appendix-C-1.12">
-          <p id="appendix-C-1.12.1"><a href="#yang-ietf-coreconf-sid" class="internal xref">ietf-coreconf SID file</a><a href="#appendix-C-1.12.1" class="pilcrow">¶</a></p>
+<dt id="appendix-E-1.11">
+<a href="#yang-ietf-coreconf-sid" class="auto internal xref">Figure 15</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-E-1.12">
+          <p id="appendix-E-1.12.1"><a href="#yang-ietf-coreconf-sid" class="internal xref">ietf-coreconf SID file</a><a href="#appendix-E-1.12.1" class="pilcrow">¶</a></p>
 </dd>
       <dd class="break"></dd>
 </dl>
 </section>
 </div>
 <div id="list-of-tables">
-<section id="appendix-D">
+<section id="appendix-F">
       <h2 id="name-list-of-tables">
 <a href="#name-list-of-tables" class="section-name selfRef">List of Tables</a>
       </h2>
-<span class="break"></span><dl class="dlCompact dlParallel" id="appendix-D-1">
-        <dt id="appendix-D-1.1">
+<span class="break"></span><dl class="dlCompact dlParallel" id="appendix-F-1">
+        <dt id="appendix-F-1.1">
 <a href="#tbl-mt-uses" class="auto internal xref">Table 1</a>:</dt>
-        <dd style="margin-left: 5.5em" id="appendix-D-1.2">
-          <p id="appendix-D-1.2.1"><a href="#tbl-mt-uses" class="internal xref">Summary of Media-Type Usages</a><a href="#appendix-D-1.2.1" class="pilcrow">¶</a></p>
+        <dd style="margin-left: 5.5em" id="appendix-F-1.2">
+          <p id="appendix-F-1.2.1"><a href="#tbl-mt-uses" class="internal xref">Summary of Media-Type Usages</a><a href="#appendix-F-1.2.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="appendix-D-1.3">
+<dt id="appendix-F-1.3">
 <a href="#tbl-ud" class="auto internal xref">Table 2</a>:</dt>
-        <dd style="margin-left: 5.5em" id="appendix-D-1.4">
-          <p id="appendix-D-1.4.1"><a href="#tbl-ud" class="internal xref">Characteristics of the Unified Datastore</a><a href="#appendix-D-1.4.1" class="pilcrow">¶</a></p>
+        <dd style="margin-left: 5.5em" id="appendix-F-1.4">
+          <p id="appendix-F-1.4.1"><a href="#tbl-ud" class="internal xref">Characteristics of the Unified Datastore</a><a href="#appendix-F-1.4.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="appendix-D-1.5">
+<dt id="appendix-F-1.5">
 <a href="#tbl-resources" class="auto internal xref">Table 3</a>:</dt>
-        <dd style="margin-left: 5.5em" id="appendix-D-1.6">
-          <p id="appendix-D-1.6.1"><a href="#tbl-resources" class="internal xref">Resources, example paths, and resource types (rt)</a><a href="#appendix-D-1.6.1" class="pilcrow">¶</a></p>
+        <dd style="margin-left: 5.5em" id="appendix-F-1.6">
+          <p id="appendix-F-1.6.1"><a href="#tbl-resources" class="internal xref">Resources, example paths, and resource types (rt)</a><a href="#appendix-F-1.6.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="appendix-D-1.7">
+<dt id="appendix-F-1.7">
 <a href="#tbl-methods" class="auto internal xref">Table 4</a>:</dt>
-        <dd style="margin-left: 5.5em" id="appendix-D-1.8">
-          <p id="appendix-D-1.8.1"><a href="#tbl-methods" class="internal xref">CoAP Methods in CORECONF</a><a href="#appendix-D-1.8.1" class="pilcrow">¶</a></p>
+        <dd style="margin-left: 5.5em" id="appendix-F-1.8">
+          <p id="appendix-F-1.8.1"><a href="#tbl-methods" class="internal xref">CoAP Methods in CORECONF</a><a href="#appendix-F-1.8.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="appendix-D-1.9">
+<dt id="appendix-F-1.9">
 <a href="#tbl-query-fetch" class="auto internal xref">Table 5</a>:</dt>
-        <dd style="margin-left: 5.5em" id="appendix-D-1.10">
-          <p id="appendix-D-1.10.1"><a href="#tbl-query-fetch" class="internal xref">Query Parameters for FETCH</a><a href="#appendix-D-1.10.1" class="pilcrow">¶</a></p>
+        <dd style="margin-left: 5.5em" id="appendix-F-1.10">
+          <p id="appendix-F-1.10.1"><a href="#tbl-query-fetch" class="internal xref">Query Parameters for FETCH</a><a href="#appendix-F-1.10.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="appendix-D-1.11">
+<dt id="appendix-F-1.11">
 <a href="#tbl-c-values" class="auto internal xref">Table 6</a>:</dt>
-        <dd style="margin-left: 5.5em" id="appendix-D-1.12">
-          <p id="appendix-D-1.12.1"><a href="#tbl-c-values" class="internal xref">Values for the 'c' query parameter</a><a href="#appendix-D-1.12.1" class="pilcrow">¶</a></p>
+        <dd style="margin-left: 5.5em" id="appendix-F-1.12">
+          <p id="appendix-F-1.12.1"><a href="#tbl-c-values" class="internal xref">Values for the 'c' query parameter</a><a href="#appendix-F-1.12.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="appendix-D-1.13">
+<dt id="appendix-F-1.13">
 <a href="#tbl-d-values" class="auto internal xref">Table 7</a>:</dt>
-        <dd style="margin-left: 5.5em" id="appendix-D-1.14">
-          <p id="appendix-D-1.14.1"><a href="#tbl-d-values" class="internal xref">Values for the 'd' query parameter</a><a href="#appendix-D-1.14.1" class="pilcrow">¶</a></p>
+        <dd style="margin-left: 5.5em" id="appendix-F-1.14">
+          <p id="appendix-F-1.14.1"><a href="#tbl-d-values" class="internal xref">Values for the 'd' query parameter</a><a href="#appendix-F-1.14.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="appendix-D-1.15">
+<dt id="appendix-F-1.15">
 <a href="#tbl-rt" class="auto internal xref">Table 8</a>:</dt>
-        <dd style="margin-left: 5.5em" id="appendix-D-1.16">
-          <p id="appendix-D-1.16.1"><a href="#tbl-rt" class="internal xref">Resource Types</a><a href="#appendix-D-1.16.1" class="pilcrow">¶</a></p>
+        <dd style="margin-left: 5.5em" id="appendix-F-1.16">
+          <p id="appendix-F-1.16.1"><a href="#tbl-rt" class="internal xref">Resource Types</a><a href="#appendix-F-1.16.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="appendix-D-1.17">
+<dt id="appendix-F-1.17">
 <a href="#tbl-ct" class="auto internal xref">Table 9</a>:</dt>
-        <dd style="margin-left: 5.5em" id="appendix-D-1.18">
-          <p id="appendix-D-1.18.1"><a href="#tbl-ct" class="internal xref">Content Formats</a><a href="#appendix-D-1.18.1" class="pilcrow">¶</a></p>
+        <dd style="margin-left: 5.5em" id="appendix-F-1.18">
+          <p id="appendix-F-1.18.1"><a href="#tbl-ct" class="internal xref">Content Formats</a><a href="#appendix-F-1.18.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="appendix-D-1.19">
+<dt id="appendix-F-1.19">
 <a href="#tbl-mt" class="auto internal xref">Table 10</a>:</dt>
-        <dd style="margin-left: 5.5em" id="appendix-D-1.20">
-          <p id="appendix-D-1.20.1"><a href="#tbl-mt" class="internal xref">Media Types</a><a href="#appendix-D-1.20.1" class="pilcrow">¶</a></p>
+        <dd style="margin-left: 5.5em" id="appendix-F-1.20">
+          <p id="appendix-F-1.20.1"><a href="#tbl-mt" class="internal xref">Media Types</a><a href="#appendix-F-1.20.1" class="pilcrow">¶</a></p>
 </dd>
       <dd class="break"></dd>
 </dl>
 </section>
 </div>
 <div id="acknowledgments">
-<section id="appendix-E">
+<section id="appendix-G">
       <h2 id="name-acknowledgments">
 <a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
-<p id="appendix-E-1">We are very grateful to <span class="contact-name">Bert Greevenbosch</span> who was one of the original authors
-of the CORECONF specification.<a href="#appendix-E-1" class="pilcrow">¶</a></p>
-<p id="appendix-E-2"><span class="contact-name">Mehmet Ersue</span> and <span class="contact-name">Bert Wijnen</span> explained the encoding aspects of PDUs transported
+<p id="appendix-G-1">We are very grateful to <span class="contact-name">Bert Greevenbosch</span> who was one of the original authors
+of the CORECONF specification.<a href="#appendix-G-1" class="pilcrow">¶</a></p>
+<p id="appendix-G-2"><span class="contact-name">Mehmet Ersue</span> and <span class="contact-name">Bert Wijnen</span> explained the encoding aspects of PDUs transported
 under SNMP.
 <span class="contact-name">Koen Zandberg</span>'s implementation input motivated massively simplifying
-(and fixing) the URI construction for GET/PUT/POST requests.<a href="#appendix-E-2" class="pilcrow">¶</a></p>
-<p id="appendix-E-3">The specification has further benefited from comments (alphabetical order) by
+(and fixing) the URI construction for GET/PUT/POST requests.<a href="#appendix-G-2" class="pilcrow">¶</a></p>
+<p id="appendix-G-3">The specification has further benefited from comments (alphabetical order) by
 <span class="contact-name">Rodney Cummings</span>,
 <span class="contact-name">Dee Denteneer</span>,
 <span class="contact-name">Esko Dijk</span>,
@@ -3939,11 +4672,11 @@ under SNMP.
 <span class="contact-name">Michael Verschoor</span>,
 <span class="contact-name">Vojtech Vilimek</span>,
 and
-<span class="contact-name">Thomas Watteyne</span>.<a href="#appendix-E-3" class="pilcrow">¶</a></p>
+<span class="contact-name">Thomas Watteyne</span>.<a href="#appendix-G-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="contributors">
-<section id="appendix-F">
+<section id="appendix-H">
       <h2 id="name-contributors">
 <a href="#name-contributors" class="section-name selfRef">Contributors</a>
       </h2>
@@ -3958,7 +4691,7 @@ and
 </section>
 </div>
 <div id="authors-addresses">
-<section id="appendix-G">
+<section id="appendix-I">
       <h2 id="name-authors-addresses">
 <a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
       </h2>
