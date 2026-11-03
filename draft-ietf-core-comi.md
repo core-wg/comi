@@ -1275,7 +1275,7 @@ Content-Format: 40 (application/link-format)
 
 </c>; rt="core.c.ds";ds=1029
 ~~~~
-{: #discovery-ex-ds artwork-align="left"
+{: #discovery-ex-ds
 title="Discovery Example: Data Store"}
 
 ### Data node Resource Discovery {#datanode-discovery}
@@ -1303,7 +1303,7 @@ Content-Format: 40 (application/link-format)
 </c/a6>;rt="core.c.dn",
 </c/a7>;rt="core.c.dn"
 ~~~~
-{: #discovery-ex-dn artwork-align="left"
+{: #discovery-ex-dn
 title="Discovery Example: Data Node"}
 
 Without additional filtering, the list of data nodes may become prohibitively
@@ -1329,7 +1329,7 @@ GET /.well-known/core?rt=core.c.es
 Content-Format:  40 (application/link-format)
 </s>;rt="core.c.es"
 ~~~~
-{: #discovery-ex-es artwork-align="left"
+{: #discovery-ex-es
 title="Discovery Example: Event Stream"}
 
 
