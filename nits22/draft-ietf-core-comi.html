@@ -2197,7 +2197,8 @@ That means that the client is responsible for remembering the full
 instance-identifiers in its request since no key values will be in the
 response.
 This approach may also help reduce implementation complexity since the format of each entry within the CBOR sequence of the FETCH response is identical to the format of the corresponding GET response.<a href="#section-3.1.3-3" class="pilcrow">¶</a></p>
-<span id="name-generic-format-of-fetch-int"></span><figure id="figure-2">
+<span id="name-generic-format-of-fetch-int"></span><div id="fig-fetch">
+<figure id="figure-2">
             <div class="lang-coap sourcecode" id="section-3.1.3-4.1">
 <pre>
 FETCH &lt;datastore resource&gt;  / Request /
@@ -2214,6 +2215,7 @@ Content-Format: TBD3 (application/yang-instances+cbor-seq)
 <figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
 <a href="#name-generic-format-of-fetch-int" class="selfRef">Generic format of FETCH interchange</a>
             </figcaption></figure>
+</div>
 <div id="fetch-example">
 <section id="section-3.1.3.1">
             <h5 id="name-fetch-examples">
@@ -2323,7 +2325,8 @@ In summary, if the CBOR patch payload contains a data node instance that is not 
 in the target, this instance is added. If the target contains the specified instance,
 the content of this instance is replaced with the value of the payload.
 A CBOR undefined value (0xf7) indicates the removal of an existing data node instance.<a href="#section-3.2.3-7" class="pilcrow">¶</a></p>
-<span id="name-generic-format-of-ipatch-in"></span><figure id="figure-3">
+<span id="name-generic-format-of-ipatch-in"></span><div id="fig-ipatch">
+<figure id="figure-3">
             <div class="lang-coap sourcecode" id="section-3.2.3-8.1">
 <pre>
 iPATCH &lt;datastore resource&gt;  / Request /
@@ -2337,6 +2340,7 @@ Content-Format: TBD3 (application/yang-instances+cbor-seq)
 <figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
 <a href="#name-generic-format-of-ipatch-in" class="selfRef">Generic format of iPATCH interchange</a>
             </figcaption></figure>
+</div>
 <div id="ipatch-example">
 <section id="section-3.2.3.1">
             <h5 id="name-ipatch-example">
@@ -2392,7 +2396,8 @@ Content-Format: TBD3 (application/yang-instances+cbor-seq)
         </h3>
 <p id="section-3.3-1">The methods GET, PUT, POST, and DELETE can be used to request, replace, create,
 and delete a whole datastore respectively.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
-<span id="name-generic-format-of-full-data"></span><figure id="figure-4">
+<span id="name-generic-format-of-full-data"></span><div id="fig-full-get">
+<figure id="figure-4">
           <div class="lang-coap sourcecode" id="section-3.3-2.1">
 <pre>
 GET &lt;datastore resource&gt;
@@ -2406,7 +2411,9 @@ Content-Format: 140 (application/yang-data+cbor; id=sid)
 <figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
 <a href="#name-generic-format-of-full-data" class="selfRef">Generic format of full datastore GET interchange</a>
           </figcaption></figure>
-<span id="name-generic-format-of-full-datas"></span><figure id="figure-5">
+</div>
+<span id="name-generic-format-of-full-datas"></span><div id="fig-full-put">
+<figure id="figure-5">
           <div class="lang-coap sourcecode" id="section-3.3-3.1">
 <pre>
 PUT &lt;datastore resource&gt;
@@ -2420,7 +2427,9 @@ Content-Format: 140 (application/yang-data+cbor; id=sid)
 <figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
 <a href="#name-generic-format-of-full-datas" class="selfRef">Generic format of full datastore PUT interchange</a>
           </figcaption></figure>
-<span id="name-generic-format-of-full-datast"></span><figure id="figure-6">
+</div>
+<span id="name-generic-format-of-full-datast"></span><div id="fig-full-post">
+<figure id="figure-6">
           <div class="lang-coap sourcecode" id="section-3.3-4.1">
 <pre>
 POST &lt;datastore resource&gt;
@@ -2434,7 +2443,9 @@ Content-Format: 140 (application/yang-data+cbor; id=sid)
 <figcaption><a href="#figure-6" class="selfRef">Figure 6</a>:
 <a href="#name-generic-format-of-full-datast" class="selfRef">Generic format of full datastore POST interchange</a>
           </figcaption></figure>
-<span id="name-generic-format-of-full-datasto"></span><figure id="figure-7">
+</div>
+<span id="name-generic-format-of-full-datasto"></span><div id="fig-full-delete">
+<figure id="figure-7">
           <div class="lang-coap sourcecode" id="section-3.3-5.1">
 <pre>
 DELETE &lt;datastore resource&gt;
@@ -2445,6 +2456,7 @@ DELETE &lt;datastore resource&gt;
 <figcaption><a href="#figure-7" class="selfRef">Figure 7</a>:
 <a href="#name-generic-format-of-full-datasto" class="selfRef">Generic format of full datastore DELETE interchange</a>
           </figcaption></figure>
+</div>
 <p id="section-3.3-6">The content of the CBOR map represents the complete datastore of the server
 at the GET indication or after a successful processing of a PUT or POST request.<a href="#section-3.3-6" class="pilcrow">¶</a></p>
 <div id="datastore-example">
@@ -2493,7 +2505,7 @@ Content-Format: 140 (application/yang-data+cbor; id=sid)
 <a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-event-stream" class="section-name selfRef">Event stream</a>
         </h3>
 <p id="section-3.4-1">Event notification is an essential function for the management of servers.
-CORECONF allows notifications specified in YANG <span><a href="https://rfc-editor.org/rfc/rfc7950#section-7.16" class="relref">Section 7.16</a> of [<a href="#RFC7950" class="cite xref">RFC7950</a>]</span> to be
+CORECONF allows notifications specified in YANG (<span><a href="https://rfc-editor.org/rfc/rfc7950#section-7.16" class="relref">Section 7.16</a> of [<a href="#RFC7950" class="cite xref">RFC7950</a>]</span>) to be
 reported to a list
 of clients. The path for the default event stream can be discovered as
 described in <a href="#coap-interface" class="auto internal xref">Section 3</a>. The server <span class="bcp14">MAY</span> support additional event
@@ -2516,7 +2528,8 @@ described in <a href="#block" class="auto internal xref">Section 4</a>.<a href="
 the sequence is a single notification as described in <span><a href="https://rfc-editor.org/rfc/rfc9254#section-4.2.1" class="relref">Section 4.2.1</a> of [<a href="#RFC9254" class="cite xref">RFC9254</a>]</span>.
 (Accordingly, a message without any notification is an empty CBOR sequence,
  i.e., zero bytes.)<a href="#section-3.4-4" class="pilcrow">¶</a></p>
-<span id="name-generic-format-of-event-str"></span><figure id="figure-8">
+<span id="name-generic-format-of-event-str"></span><div id="fig-es-get">
+<figure id="figure-8">
           <div class="lang-coap sourcecode" id="section-3.4-5.1">
 <pre>
 GET &lt;stream-resource&gt;
@@ -2531,6 +2544,7 @@ Content-Format: TBD3 (application/yang-instances+cbor-seq)
 <figcaption><a href="#figure-8" class="selfRef">Figure 8</a>:
 <a href="#name-generic-format-of-event-str" class="selfRef">Generic format of event-stream GET interchange</a>
           </figcaption></figure>
+</div>
 <p id="section-3.4-6">The sequence of data node instances may contain identical items which have
 been generated at different times.<a href="#section-3.4-6" class="pilcrow">¶</a></p>
 <p id="section-3.4-7">A CORECONF server that can no longer provide the notifications of a stream
@@ -2557,7 +2571,8 @@ the content of the instance is sent to all clients observing the modified stream
 <p id="section-3.4.1-1">If only a subset of all possible notifications is of interest, a FETCH
 operation can be performed with a request payload of type
 application/yang-identifiers+cbor-seq that indicates which subset.<a href="#section-3.4.1-1" class="pilcrow">¶</a></p>
-<span id="name-generic-format-of-event-stre"></span><figure id="figure-9">
+<span id="name-generic-format-of-event-stre"></span><div id="fig-es-fetch">
+<figure id="figure-9">
             <div class="lang-coap sourcecode" id="section-3.4.1-2.1">
 <pre>
 FETCH &lt;stream-resource&gt;
@@ -2575,6 +2590,7 @@ Content-Format: TBD3 (application/yang-instances+cbor-seq)
 <figcaption><a href="#figure-9" class="selfRef">Figure 9</a>:
 <a href="#name-generic-format-of-event-stre" class="selfRef">Generic format of event-stream FETCH interchange</a>
             </figcaption></figure>
+</div>
 <p id="section-3.4.1-3">When filtering is not supported by a CORECONF server, the request
 payload can be ignored: all event notifications are then reported
 independently of the presence and content of the request payload.<a href="#section-3.4.1-3" class="pilcrow">¶</a></p>
@@ -2684,7 +2700,8 @@ The response payload contains the values of the output container when specified.
 Both the input and output containers are encoded in CBOR using the rules defined in
 <span><a href="https://rfc-editor.org/rfc/rfc9254#section-4.2.1" class="relref">Section 4.2.1</a> of [<a href="#RFC9254" class="cite xref">RFC9254</a>]</span>.<a href="#section-3.5-2" class="pilcrow">¶</a></p>
 <p id="section-3.5-3">The returned success response code is 2.04 Changed.<a href="#section-3.5-3" class="pilcrow">¶</a></p>
-<span id="name-generic-format-of-rpc-and-a"></span><figure id="figure-10">
+<span id="name-generic-format-of-rpc-and-a"></span><div id="fig-rpc-action-post">
+<figure id="figure-10">
           <div class="lang-coap sourcecode" id="section-3.5-4.1">
 <pre>
 POST &lt;datastore resource&gt;
@@ -2701,6 +2718,7 @@ Content-Format: TBD3 (application/yang-instances+cbor-seq)
 <figcaption><a href="#figure-10" class="selfRef">Figure 10</a>:
 <a href="#name-generic-format-of-rpc-and-a" class="selfRef">Generic format of RPC and action POST interchange</a>
           </figcaption></figure>
+</div>
 <div id="rpc-example">
 <section id="section-3.5.1">
           <h4 id="name-rpc-example">
@@ -4129,6 +4147,7 @@ next. A node has the same SID in every example in which it appears.<a href="#app
 small modules written for this document, because the two standard modules
 define no action and no notification.<a href="#appendix-C-2" class="pilcrow">¶</a></p>
 <p id="appendix-C-3">ietf-interfaces, and the identity ethernetCsmacd of iana-if-type:<a href="#appendix-C-3" class="pilcrow">¶</a></p>
+<div id="tbl-sid-interfaces">
 <table class="center" id="table-11">
         <caption><a href="#table-11" class="selfRef">Table 11</a></caption>
 <thead>
@@ -4197,7 +4216,9 @@ define no action and no notification.<a href="#appendix-C-2" class="pilcrow">¶<
           </tr>
         </tbody>
       </table>
+</div>
 <p id="appendix-C-5">ietf-system:<a href="#appendix-C-5" class="pilcrow">¶</a></p>
+<div id="tbl-sid-system">
 <table class="center" id="table-12">
         <caption><a href="#table-12" class="selfRef">Table 12</a></caption>
 <thead>
@@ -4287,7 +4308,9 @@ define no action and no notification.<a href="#appendix-C-2" class="pilcrow">¶<
           </tr>
         </tbody>
       </table>
+</div>
 <p id="appendix-C-7">The YANG library, as assumed in <a href="#yang-library" class="auto internal xref">Section 5.1</a>:<a href="#appendix-C-7" class="pilcrow">¶</a></p>
+<div id="tbl-sid-library">
 <table class="center" id="table-13">
         <caption><a href="#table-13" class="selfRef">Table 13</a></caption>
 <thead>
@@ -4307,7 +4330,9 @@ define no action and no notification.<a href="#appendix-C-2" class="pilcrow">¶<
           </tr>
         </tbody>
       </table>
+</div>
 <p id="appendix-C-9">ietf-coreconf, defined in <a href="#ietf-coreconf-sid" class="auto internal xref">Appendix B</a>:<a href="#appendix-C-9" class="pilcrow">¶</a></p>
+<div id="tbl-sid-coreconf">
 <table class="center" id="table-14">
         <caption><a href="#table-14" class="selfRef">Table 14</a></caption>
 <thead>
@@ -4369,7 +4394,9 @@ define no action and no notification.<a href="#appendix-C-2" class="pilcrow">¶<
           </tr>
         </tbody>
       </table>
+</div>
 <p id="appendix-C-11">The module example-ops, used for the RPC:<a href="#appendix-C-11" class="pilcrow">¶</a></p>
+<div id="tbl-sid-example-ops">
 <table class="center" id="table-15">
         <caption><a href="#table-15" class="selfRef">Table 15</a></caption>
 <thead>
@@ -4403,7 +4430,9 @@ define no action and no notification.<a href="#appendix-C-2" class="pilcrow">¶<
           </tr>
         </tbody>
       </table>
+</div>
 <p id="appendix-C-13">The module example-server-farm, used for the action:<a href="#appendix-C-13" class="pilcrow">¶</a></p>
+<div id="tbl-sid-example-server-farm">
 <table class="center" id="table-16">
         <caption><a href="#table-16" class="selfRef">Table 16</a></caption>
 <thead>
@@ -4472,7 +4501,9 @@ define no action and no notification.<a href="#appendix-C-2" class="pilcrow">¶<
           </tr>
         </tbody>
       </table>
+</div>
 <p id="appendix-C-15">The module example-port, used for notifications:<a href="#appendix-C-15" class="pilcrow">¶</a></p>
+<div id="tbl-sid-example-port">
 <table class="center" id="table-17">
         <caption><a href="#table-17" class="selfRef">Table 17</a></caption>
 <thead>
@@ -4506,6 +4537,7 @@ define no action and no notification.<a href="#appendix-C-2" class="pilcrow">¶<
           </tr>
         </tbody>
       </table>
+</div>
 </section>
 </div>
 <div id="open-issues">
@@ -4546,33 +4578,87 @@ invoke an RPC or action (issue #29).<a href="#appendix-D-3.2.1" class="pilcrow">
 </dd>
         <dd class="break"></dd>
 <dt id="appendix-E-1.3">
-<a href="#discovery-ex-ds" class="auto internal xref">Figure 11</a>:</dt>
+<a href="#fig-fetch" class="auto internal xref">Figure 2</a>:</dt>
         <dd style="margin-left: 5.5em" id="appendix-E-1.4">
-          <p id="appendix-E-1.4.1"><a href="#discovery-ex-ds" class="internal xref">Discovery Example: Data Store</a><a href="#appendix-E-1.4.1" class="pilcrow">¶</a></p>
+          <p id="appendix-E-1.4.1"><a href="#fig-fetch" class="internal xref">Generic format of FETCH interchange</a><a href="#appendix-E-1.4.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 <dt id="appendix-E-1.5">
-<a href="#discovery-ex-dn" class="auto internal xref">Figure 12</a>:</dt>
+<a href="#fig-ipatch" class="auto internal xref">Figure 3</a>:</dt>
         <dd style="margin-left: 5.5em" id="appendix-E-1.6">
-          <p id="appendix-E-1.6.1"><a href="#discovery-ex-dn" class="internal xref">Discovery Example: Data Node</a><a href="#appendix-E-1.6.1" class="pilcrow">¶</a></p>
+          <p id="appendix-E-1.6.1"><a href="#fig-ipatch" class="internal xref">Generic format of iPATCH interchange</a><a href="#appendix-E-1.6.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 <dt id="appendix-E-1.7">
-<a href="#discovery-ex-es" class="auto internal xref">Figure 13</a>:</dt>
+<a href="#fig-full-get" class="auto internal xref">Figure 4</a>:</dt>
         <dd style="margin-left: 5.5em" id="appendix-E-1.8">
-          <p id="appendix-E-1.8.1"><a href="#discovery-ex-es" class="internal xref">Discovery Example: Event Stream</a><a href="#appendix-E-1.8.1" class="pilcrow">¶</a></p>
+          <p id="appendix-E-1.8.1"><a href="#fig-full-get" class="internal xref">Generic format of full datastore GET interchange</a><a href="#appendix-E-1.8.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 <dt id="appendix-E-1.9">
-<a href="#yang-ietf-coreconf" class="auto internal xref">Figure 14</a>:</dt>
+<a href="#fig-full-put" class="auto internal xref">Figure 5</a>:</dt>
         <dd style="margin-left: 5.5em" id="appendix-E-1.10">
-          <p id="appendix-E-1.10.1"><a href="#yang-ietf-coreconf" class="internal xref">ietf-coreconf YANG module</a><a href="#appendix-E-1.10.1" class="pilcrow">¶</a></p>
+          <p id="appendix-E-1.10.1"><a href="#fig-full-put" class="internal xref">Generic format of full datastore PUT interchange</a><a href="#appendix-E-1.10.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 <dt id="appendix-E-1.11">
-<a href="#yang-ietf-coreconf-sid" class="auto internal xref">Figure 15</a>:</dt>
+<a href="#fig-full-post" class="auto internal xref">Figure 6</a>:</dt>
         <dd style="margin-left: 5.5em" id="appendix-E-1.12">
-          <p id="appendix-E-1.12.1"><a href="#yang-ietf-coreconf-sid" class="internal xref">ietf-coreconf SID file</a><a href="#appendix-E-1.12.1" class="pilcrow">¶</a></p>
+          <p id="appendix-E-1.12.1"><a href="#fig-full-post" class="internal xref">Generic format of full datastore POST interchange</a><a href="#appendix-E-1.12.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="appendix-E-1.13">
+<a href="#fig-full-delete" class="auto internal xref">Figure 7</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-E-1.14">
+          <p id="appendix-E-1.14.1"><a href="#fig-full-delete" class="internal xref">Generic format of full datastore DELETE interchange</a><a href="#appendix-E-1.14.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="appendix-E-1.15">
+<a href="#fig-es-get" class="auto internal xref">Figure 8</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-E-1.16">
+          <p id="appendix-E-1.16.1"><a href="#fig-es-get" class="internal xref">Generic format of event-stream GET interchange</a><a href="#appendix-E-1.16.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="appendix-E-1.17">
+<a href="#fig-es-fetch" class="auto internal xref">Figure 9</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-E-1.18">
+          <p id="appendix-E-1.18.1"><a href="#fig-es-fetch" class="internal xref">Generic format of event-stream FETCH interchange</a><a href="#appendix-E-1.18.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="appendix-E-1.19">
+<a href="#fig-rpc-action-post" class="auto internal xref">Figure 10</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-E-1.20">
+          <p id="appendix-E-1.20.1"><a href="#fig-rpc-action-post" class="internal xref">Generic format of RPC and action POST interchange</a><a href="#appendix-E-1.20.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="appendix-E-1.21">
+<a href="#discovery-ex-ds" class="auto internal xref">Figure 11</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-E-1.22">
+          <p id="appendix-E-1.22.1"><a href="#discovery-ex-ds" class="internal xref">Discovery Example: Data Store</a><a href="#appendix-E-1.22.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="appendix-E-1.23">
+<a href="#discovery-ex-dn" class="auto internal xref">Figure 12</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-E-1.24">
+          <p id="appendix-E-1.24.1"><a href="#discovery-ex-dn" class="internal xref">Discovery Example: Data Node</a><a href="#appendix-E-1.24.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="appendix-E-1.25">
+<a href="#discovery-ex-es" class="auto internal xref">Figure 13</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-E-1.26">
+          <p id="appendix-E-1.26.1"><a href="#discovery-ex-es" class="internal xref">Discovery Example: Event Stream</a><a href="#appendix-E-1.26.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="appendix-E-1.27">
+<a href="#yang-ietf-coreconf" class="auto internal xref">Figure 14</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-E-1.28">
+          <p id="appendix-E-1.28.1"><a href="#yang-ietf-coreconf" class="internal xref">ietf-coreconf YANG module</a><a href="#appendix-E-1.28.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="appendix-E-1.29">
+<a href="#yang-ietf-coreconf-sid" class="auto internal xref">Figure 15</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-E-1.30">
+          <p id="appendix-E-1.30.1"><a href="#yang-ietf-coreconf-sid" class="internal xref">ietf-coreconf SID file</a><a href="#appendix-E-1.30.1" class="pilcrow">¶</a></p>
 </dd>
       <dd class="break"></dd>
 </dl>
@@ -4642,6 +4728,48 @@ invoke an RPC or action (issue #29).<a href="#appendix-D-3.2.1" class="pilcrow">
 <a href="#tbl-mt" class="auto internal xref">Table 10</a>:</dt>
         <dd style="margin-left: 5.5em" id="appendix-F-1.20">
           <p id="appendix-F-1.20.1"><a href="#tbl-mt" class="internal xref">Media Types</a><a href="#appendix-F-1.20.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="appendix-F-1.21">
+<a href="#tbl-sid-interfaces" class="auto internal xref">Table 11</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-F-1.22">
+          <p id="appendix-F-1.22.1"><a href="#tbl-sid-interfaces" class="internal xref">tbl-sid-interfaces</a><a href="#appendix-F-1.22.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="appendix-F-1.23">
+<a href="#tbl-sid-system" class="auto internal xref">Table 12</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-F-1.24">
+          <p id="appendix-F-1.24.1"><a href="#tbl-sid-system" class="internal xref">tbl-sid-system</a><a href="#appendix-F-1.24.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="appendix-F-1.25">
+<a href="#tbl-sid-library" class="auto internal xref">Table 13</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-F-1.26">
+          <p id="appendix-F-1.26.1"><a href="#tbl-sid-library" class="internal xref">tbl-sid-library</a><a href="#appendix-F-1.26.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="appendix-F-1.27">
+<a href="#tbl-sid-coreconf" class="auto internal xref">Table 14</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-F-1.28">
+          <p id="appendix-F-1.28.1"><a href="#tbl-sid-coreconf" class="internal xref">tbl-sid-coreconf</a><a href="#appendix-F-1.28.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="appendix-F-1.29">
+<a href="#tbl-sid-example-ops" class="auto internal xref">Table 15</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-F-1.30">
+          <p id="appendix-F-1.30.1"><a href="#tbl-sid-example-ops" class="internal xref">tbl-sid-example-ops</a><a href="#appendix-F-1.30.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="appendix-F-1.31">
+<a href="#tbl-sid-example-server-farm" class="auto internal xref">Table 16</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-F-1.32">
+          <p id="appendix-F-1.32.1"><a href="#tbl-sid-example-server-farm" class="internal xref">tbl-sid-example-server-farm</a><a href="#appendix-F-1.32.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="appendix-F-1.33">
+<a href="#tbl-sid-example-port" class="auto internal xref">Table 17</a>:</dt>
+        <dd style="margin-left: 5.5em" id="appendix-F-1.34">
+          <p id="appendix-F-1.34.1"><a href="#tbl-sid-example-port" class="internal xref">tbl-sid-example-port</a><a href="#appendix-F-1.34.1" class="pilcrow">¶</a></p>
 </dd>
       <dd class="break"></dd>
 </dl>

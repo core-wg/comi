@@ -153,8 +153,8 @@ Internet-Draft                  CORECONF                   November 2026
    Appendix D.  Open Issues  . . . . . . . . . . . . . . . . . . . .  57
    List of Figures . . . . . . . . . . . . . . . . . . . . . . . . .  58
    List of Tables  . . . . . . . . . . . . . . . . . . . . . . . . .  58
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  58
-   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  58
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  59
+   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  59
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  59
 
 
@@ -1148,7 +1148,7 @@ Internet-Draft                  CORECONF                   November 2026
 
    Event notification is an essential function for the management of
    servers.  CORECONF allows notifications specified in YANG
-   Section 7.16 of [RFC7950] to be reported to a list of clients.  The
+   (Section 7.16 of [RFC7950]) to be reported to a list of clients.  The
    path for the default event stream can be discovered as described in
    Section 3.  The server MAY support additional event stream resources
    to address different notification needs.
@@ -3204,6 +3204,15 @@ Internet-Draft                  CORECONF                   November 2026
 List of Figures
 
    Figure 1:  Abstract CORECONF architecture
+   Figure 2:  Generic format of FETCH interchange
+   Figure 3:  Generic format of iPATCH interchange
+   Figure 4:  Generic format of full datastore GET interchange
+   Figure 5:  Generic format of full datastore PUT interchange
+   Figure 6:  Generic format of full datastore POST interchange
+   Figure 7:  Generic format of full datastore DELETE interchange
+   Figure 8:  Generic format of event-stream GET interchange
+   Figure 9:  Generic format of event-stream FETCH interchange
+   Figure 10:  Generic format of RPC and action POST interchange
    Figure 11:  Discovery Example: Data Store
    Figure 12:  Discovery Example: Data Node
    Figure 13:  Discovery Example: Event Stream
@@ -3222,6 +3231,24 @@ List of Tables
    Table 8:   Resource Types
    Table 9:   Content Formats
    Table 10:  Media Types
+   Table 11:  tbl-sid-interfaces
+   Table 12:  tbl-sid-system
+   Table 13:  tbl-sid-library
+   Table 14:  tbl-sid-coreconf
+   Table 15:  tbl-sid-example-ops
+   Table 16:  tbl-sid-example-server-farm
+   Table 17:  tbl-sid-example-port
+
+
+
+
+
+
+
+Veillette, et al.          Expires 7 May 2027                  [Page 58]
+
+Internet-Draft                  CORECONF                   November 2026
+
 
 Acknowledgments
 
@@ -3240,15 +3267,6 @@ Acknowledgments
    Vilimek, and Thomas Watteyne.
 
 Contributors
-
-
-
-
-
-Veillette, et al.          Expires 7 May 2027                  [Page 58]
-
-Internet-Draft                  CORECONF                   November 2026
-
 
    Ivaylo Petrov
    Google
@@ -3280,6 +3298,14 @@ Authors' Addresses
    Email: alexander.pelov@imt-atlantique.fr
 
 
+
+
+
+Veillette, et al.          Expires 7 May 2027                  [Page 59]
+
+Internet-Draft                  CORECONF                   November 2026
+
+
    Andy Bierman
    YumaWorks
    685 Cochran St.
@@ -3301,4 +3327,34 @@ Authors' Addresses
 
 
 
-Veillette, et al.          Expires 7 May 2027                  [Page 59]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Veillette, et al.          Expires 7 May 2027                  [Page 60]
