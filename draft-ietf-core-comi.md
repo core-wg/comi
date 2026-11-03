@@ -565,7 +565,7 @@ Content-Format: TBD3 (application/yang-instances+cbor-seq)
 
 / CBOR sequence of CBOR maps of SID, instance-value /
 ~~~
-{: title="Generic format of FETCH interchange"}
+{: #fig-fetch title="Generic format of FETCH interchange"}
 
 
 
@@ -675,7 +675,7 @@ Content-Format: TBD3 (application/yang-instances+cbor-seq)
 
 2.04 Changed  / Response /
 ~~~~
-{: title="Generic format of iPATCH interchange"}
+{: #fig-ipatch title="Generic format of iPATCH interchange"}
 
 #### iPATCH example {#ipatch-example}
 
@@ -729,7 +729,7 @@ Content-Format: 140 (application/yang-data+cbor; id=sid)
 
 / CBOR map of SID, instance-value /
 ~~~~
-{: title="Generic format of full datastore GET interchange"}
+{: #fig-full-get title="Generic format of full datastore GET interchange"}
 
 ~~~~ coap
 PUT <datastore resource>
@@ -739,7 +739,7 @@ Content-Format: 140 (application/yang-data+cbor; id=sid)
 
 2.04 Changed
 ~~~~
-{: title="Generic format of full datastore PUT interchange"}
+{: #fig-full-put title="Generic format of full datastore PUT interchange"}
 
 ~~~~ coap
 POST <datastore resource>
@@ -749,14 +749,14 @@ Content-Format: 140 (application/yang-data+cbor; id=sid)
 
 2.01 Created
 ~~~~
-{: title="Generic format of full datastore POST interchange"}
+{: #fig-full-post title="Generic format of full datastore POST interchange"}
 
 ~~~~ coap
 DELETE <datastore resource>
 
 2.02 Deleted
 ~~~~
-{: title="Generic format of full datastore DELETE interchange"}
+{: #fig-full-delete title="Generic format of full datastore DELETE interchange"}
 
 The content of the CBOR map represents the complete datastore of the server
 at the GET indication or after a successful processing of a PUT or POST request.
@@ -837,7 +837,7 @@ Content-Format: TBD3 (application/yang-instances+cbor-seq)
 
 / CBOR sequence of CBOR maps of instance-identifier, instance-value /
 ~~~~
-{: title="Generic format of event-stream GET interchange"}
+{: #fig-es-get title="Generic format of event-stream GET interchange"}
 
 The sequence of data node instances may contain identical items which have
 been generated at different times.
@@ -875,7 +875,7 @@ Content-Format: TBD3 (application/yang-instances+cbor-seq)
 
 / CBOR sequence of CBOR maps of instance-identifier, instance-value /
 ~~~~
-{: title="Generic format of event-stream FETCH interchange"}
+{: #fig-es-fetch title="Generic format of event-stream FETCH interchange"}
 
 When filtering is not supported by a CORECONF server, the request
 payload can be ignored: all event notifications are then reported
@@ -994,7 +994,7 @@ Content-Format: TBD3 (application/yang-instances+cbor-seq)
 
 / CBOR sequence of CBOR maps of instance-identifier, instance-value /
 ~~~~
-{: title="Generic format of RPC and action POST interchange"}
+{: #fig-rpc-action-post title="Generic format of RPC and action POST interchange"}
 
 
 ### RPC Example {#rpc-example}
@@ -2092,6 +2092,7 @@ ietf-interfaces, and the identity ethernetCsmacd of iana-if-type:
 | type                   | 1538 | {{fetch-example}}, {{datastore-example}} |
 | oper-status            | 1544 | {{fetch-example}}, {{datastore-example}} |
 | ethernetCsmacd         | 1880 | {{fetch-example}}, {{datastore-example}} |
+{: #tbl-sid-interfaces}
 
 ietf-system:
 
@@ -2107,11 +2108,13 @@ ietf-system:
 | prefer (of a server)   | 1760 | {{ipatch-example}}                     |
 | udp (of a server)      | 1761 | {{ipatch-example}}                     |
 | address (of udp)       | 1762 | {{ipatch-example}}                     |
+{: #tbl-sid-system}
 
 The YANG library, as assumed in {{yang-library}}:
 
 | Node                   | SID  | Used in                                |
 | YANG library           | 2351 | {{yang-library}}                       |
+{: #tbl-sid-library}
 
 ietf-coreconf, defined in {{ietf-coreconf-sid}}:
 
@@ -2123,6 +2126,7 @@ ietf-coreconf, defined in {{ietf-coreconf-sid}}:
 | error-tag              | 1028 | {{error-handling}}                     |
 | invalid-value          | 1011 | {{error-handling}}                     |
 | not-in-range           | 1018 | {{error-handling}}                     |
+{: #tbl-sid-coreconf}
 
 The module example-ops, used for the RPC:
 
@@ -2130,6 +2134,7 @@ The module example-ops, used for the RPC:
 | reboot (RPC)           | 61000 | {{rpc-example}}                       |
 | delay                  | 61001 | {{rpc-example}}                       |
 | input                  | 61009 | {{rpc-example}}                       |
+{: #tbl-sid-example-ops}
 
 The module example-server-farm, used for the action:
 
@@ -2142,6 +2147,7 @@ The module example-server-farm, used for the action:
 | restart (action)       | 60005 | {{no-input-example}}                  |
 | input                  | 60008 | {{action-example}}                    |
 | output                 | 60009 | {{action-example}}                    |
+{: #tbl-sid-example-server-farm}
 
 The module example-port, used for notifications:
 
@@ -2149,6 +2155,7 @@ The module example-port, used for notifications:
 | example-port-fault     | 60010 | {{event-stream-example}}              |
 | port-name              | 60011 | {{event-stream-example}}              |
 | port-fault             | 60012 | {{event-stream-example}}              |
+{: #tbl-sid-example-port}
 
 # Open Issues {#open-issues}
 {:removeInRFC="true"}

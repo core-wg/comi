@@ -6,6 +6,33 @@
 {{archit}}:
 : {{<<archit}}
 
+{{fig-fetch}}:
+: {{<<fig-fetch}}
+
+{{fig-ipatch}}:
+: {{<<fig-ipatch}}
+
+{{fig-full-get}}:
+: {{<<fig-full-get}}
+
+{{fig-full-put}}:
+: {{<<fig-full-put}}
+
+{{fig-full-post}}:
+: {{<<fig-full-post}}
+
+{{fig-full-delete}}:
+: {{<<fig-full-delete}}
+
+{{fig-es-get}}:
+: {{<<fig-es-get}}
+
+{{fig-es-fetch}}:
+: {{<<fig-es-fetch}}
+
+{{fig-rpc-action-post}}:
+: {{<<fig-rpc-action-post}}
+
 {{discovery-ex-ds}}:
 : {{<<discovery-ex-ds}}
 
@@ -55,4 +82,25 @@
 
 {{tbl-mt}}:
 : {{<<tbl-mt}}
+
+{{tbl-sid-interfaces}}:
+: {{<<tbl-sid-interfaces}}
+
+{{tbl-sid-system}}:
+: {{<<tbl-sid-system}}
+
+{{tbl-sid-library}}:
+: {{<<tbl-sid-library}}
+
+{{tbl-sid-coreconf}}:
+: {{<<tbl-sid-coreconf}}
+
+{{tbl-sid-example-ops}}:
+: {{<<tbl-sid-example-ops}}
+
+{{tbl-sid-example-server-farm}}:
+: {{<<tbl-sid-example-server-farm}}
+
+{{tbl-sid-example-port}}:
+: {{<<tbl-sid-example-port}}
 
