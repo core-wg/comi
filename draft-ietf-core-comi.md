@@ -800,7 +800,7 @@ Content-Format: 140 (application/yang-data+cbor; id=sid)
 ## Event stream {#event-stream}
 
 Event notification is an essential function for the management of servers.
-CORECONF allows notifications specified in YANG {{Section 7.16 of RFC7950}} to be
+CORECONF allows notifications specified in YANG ({{Section 7.16 of RFC7950}}) to be
 reported to a list
 of clients. The path for the default event stream can be discovered as
 described in {{coap-interface}}. The server MAY support additional event
