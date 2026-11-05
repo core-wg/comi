@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-11-03T05:24:31.614744+00:00",
+  "timestamp": "2026-11-05T05:10:31.522663+00:00",
   "repo": "core-wg/comi",
   "labels": [
     {
@@ -249,12 +249,12 @@
       "labels": [],
       "body": "The `POST` method is used by both datastore and rpc/action. The datastore use POST method for full datastore creation. The rpc/action use it for simple RPC invocation.\n\nBoth of these option use datastore resource URI (`</c>` example in the draft's text). This means that the implementation must either depend\non `Content-Format` option or guess the action from the payload content. (If I understand it correctly, usage of `Content-Format` is optional,\nyet highly recommended).\n\n### Possible solution:\nCreate a new resource type for all rpc/actions:\n| Value | Description | Reference |\n| :--- | :--- | :--- |\n| core.c.r | YANG rpcs and YANG actions | RFC XXXX |\n\nExample URI:\n| CoAP resource | Example path | rt |\n| :--- | :--- | :--- |\n| YANG RPC resource | /r | core.c.r |\n\nThe YANG RPC resource applies for all YANG `rpc`s and `action`s.\n\n\n### Data editing\nBased on Andy Bierman's finding the CoAP iPATCH requires atomic processing, it may happen the we shall use POST also in places where\nthe iPATCH is now used. (Only if we proceed to relax the atomicity semantics of the CORECONF operations.)\n\n### Notes:\n\nSee also #28",
       "createdAt": "2026-08-06T16:30:17Z",
-      "updatedAt": "2026-10-21T21:53:36Z",
+      "updatedAt": "2026-11-04T14:46:20Z",
       "closedAt": null,
       "comments": [
         {
           "author": "apelov",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "Hi Vojt\u011bch, thanks for the deep insight on this one!\n\nI'd prefer not to add a resource for RPCs. \n\nThe two uses of POST on the datastore resource carry different payloads: a datastore creation uses application/yang-data+cbor; id=sid, an RPC or action invocation uses application/yang-instances+cbor-seq, and a client that sends a payload is expected to send the Content-Format (RFC 7252 section 5.5.1). \n\nIf the Content-Format is missing, RFC 7252 allows the format to be inferred from the application context, and here the context is the SID: the first key of an invocation is the SID of an RPC (or an array, for an action), which a server knows because it has to find the handler anyway. \n\nThe two payloads can be byte-identical when they hold one item, so structure alone is not enough, but the SID is. So no new resource type is needed; what the draft could do is say this explicitly.\n\nI hope that clears it.",
           "createdAt": "2026-10-15T21:05:22Z",
           "updatedAt": "2026-10-15T21:05:22Z"
@@ -265,6 +265,27 @@
           "body": "I have some questions to this:\n\n- Aren't the CoAP Content-Format options optional?\n- So the CORECONF protocol considers the CoAP Content-Format option required to be added (at least for the POST requests)?\n\nThe Content-Format inference from the message body is a bad design (IMO).\n",
           "createdAt": "2026-10-21T21:53:36Z",
           "updatedAt": "2026-10-21T21:53:36Z"
+        },
+        {
+          "author": "cabo",
+          "authorAssociation": "MEMBER",
+          "body": "> * Aren't the CoAP Content-Format options optional?\n\nSyntactically, they are.\nIf you don't send them, you don't get the semantics!\nSo if you want to have specific semantics, you need to send the Content-Format option.\n(They are rather efficient to send.)",
+          "createdAt": "2026-11-04T14:39:10Z",
+          "updatedAt": "2026-11-04T14:39:10Z"
+        },
+        {
+          "author": "cabo",
+          "authorAssociation": "MEMBER",
+          "body": "RFC 7252:\n\n```\n5.5.1.  Representation\n\n   The payload of requests or of responses indicating success is\n   typically a representation of a resource (\"resource representation\")\n   or the result of the requested action (\"action result\").  Its format\n   is specified by the Internet media type and content coding given by\n   the Content-Format Option.  In the absence of this option, no default\n   value is assumed, and the format will need to be inferred by the\n   application (e.g., from the application context).  Payload \"sniffing\"\n   SHOULD only be attempted if no content type is given.\n```\n\nI don't think we want to encourage payload sniffing, so I think we can ignore that sentence.\nWe don't have an application context from which we could infer the Content-Format (media type).\nSo I think we need to send the Content-Format.",
+          "createdAt": "2026-11-04T14:43:45Z",
+          "updatedAt": "2026-11-04T14:43:45Z"
+        },
+        {
+          "author": "cabo",
+          "authorAssociation": "MEMBER",
+          "body": "We probably need to go for early allocation of the Content-Format values we need (TBD2, TBD3) and the media types needed for that.  Asking for 0..255 range.",
+          "createdAt": "2026-11-04T14:45:02Z",
+          "updatedAt": "2026-11-04T14:46:20Z"
         }
       ]
     },
@@ -1051,12 +1072,12 @@
       "url": "https://github.com/core-wg/comi/pull/26",
       "state": "OPEN",
       "author": "apelov",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "## Problem\n\nThe draft uses a SID-to-URI-path encoding that it never specifies.\n\nDiscovery examples return `</c/kv>` (\u00a75.1), `</c/a6>` and `</c/a7>` (\u00a75.2.2). \u00a75.1 says the\nYANG library SID 2351 becomes `kv` \"after encoding as specified in Section 2.2\" \u2014 but \u00a72.2\nonly says that SIDs are numeric identifiers. Grepping the source for `base64`,\n`percent-encod` or `path segment` returns nothing.\n\nThis is load-bearing for interop, not cosmetic: a `core.c.dn` discovery response carries no\nSID attribute, so a client has to decode `a6` back to 1722 to learn which data node a link\nrefers to.\n\n## Why this misleads rather than merely slowing an implementer down\n\nThe scheme is a **positional base-64 numeral** \u2014 the SID's binary value cut into 6-bit digits\n\u2014 *not* base 64 applied to an octet string. Both natural readings of \"base64 the SID\" give a\ndifferent, wrong answer:\n\n| Reading | SID 2351 gives | |\n|---|---|---|\n| Positional base-64 numeral (what the draft's examples use) | `kv` | \u2705 |\n| base64url of the raw bytes `0x092f` | `CS8` | \u274c |\n| base64url of the CBOR encoding `0x19092f` | `GQkv` | \u274c |\n\nThe positional reading reproduces all three examples in the draft and round-trips:\n`kv`\u21922351, `a6`\u21921722, `a7`\u21921723.\n\nNote that `GQkv` ends in `kv`, so a reader who tries the CBOR variant gets something that\nlooks tantalisingly close and is still wrong.\n\n## Second gap: the alphabet is not pinned down by any example\n\nThe digit values appearing across all the draft's examples are 26, 36, 47, 58 and 59 \u2014 all\nbelow 62. Since base 64 and base 64url differ only at digits 62 and 63 (`+`/`/` versus\n`-`/`_`), **no example in the document distinguishes them.**\n\nThe new text states base 64url explicitly. `/` inside a path segment would be fatal, and\n`k.rb` in the repo root already uses `Base64.urlsafe_encode64(..., padding: false)`, so this\nmatches the evidenced intent.\n\n## The change\n\nOne new subsection, `2.2.1 SIDs in URIs`. 19 lines added, nothing removed, no example\ntouched.\n\nIt is deliberately added as a *child* of \u00a72.2, so \u00a75.1's existing \"as specified in\nSection 2.2\" cross-reference starts resolving to text that actually specifies the encoding \u2014\nwith zero change to \u00a75.1.\n\nSide effect: RFC 4648 becomes an actually-used normative reference. Today it is normative but\ncited exactly once, in Security Considerations, and never where an encoding is defined.\n\n## Open question for review\n\nThe text says leading zero digits `MUST NOT` be emitted, but deliberately says nothing about\nwhether a receiver has to reject them. Leaving receiver behaviour unstated is the smaller\nchange; if the WG prefers strictness, add \"a client MAY reject a representation containing\nleading zero digits.\"\n\n## Notes\n\n- Branched from `main` (`f9f19d9`), independent of #24 and #25. \u00a72.2 is untouched by both, so\n  this should not conflict with either in any merge order.\n- Builds clean with `kdrfc draft-ietf-core-comi.md` (aasvg on PATH), no new xml2rfc warnings,\n  both new `Section N of [RFC4648]` cross-references resolve.\n- `Instance-identifiers` renumbers 2.2.1 \u2192 2.2.2. It is not cross-referenced anywhere, so the\n  renumbering is inert.\n- This is one finding out of a broader review of the current text. The rest is being taken to\n  the co-authors separately rather than filed here.\n",
       "createdAt": "2026-07-25T11:26:58Z",
-      "updatedAt": "2026-10-21T22:11:00Z",
+      "updatedAt": "2026-11-04T14:35:26Z",
       "baseRepository": "core-wg/comi",
       "baseRefName": "main",
       "baseRefOid": "f9f19d9c19285fdc3d1ba30af628773033531ba7",
@@ -1091,7 +1112,7 @@
         },
         {
           "author": "apelov",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "Peter - thanks for the comments! on the question about \"cite instead of explain\". I tried, but the numeral isn't defined in any RFC: RFC 4648 gives the base64url alphabet, but its base 64 is for octet strings, so a plain citation would point readers at the wrong reading. The tempting readings give CS8 (raw bytes) and GQkv (CBOR bytes) for SID 2351 instead of the kv that all three of the draft's examples use. So the definition stays in the draft, and I've now added a sentence citing RFC 3986 (sec 3.3) for why that alphabet is used: every character is an unreserved pchar, so a SID in a path segment never needs percent-encoding. RFC 3986 is added to the normative references.\r\n\r\nVojt\u011bch - thanks for the comments! section 2.2 is underspecified. Agreed, that is what this PR fixes. sections 5.1 and 5.2.2 already say \"as specified in Section 2.2\", so the new 2.2.1 sits under it and those references now resolve without further changes.\r\n\r\nLeading zeros (the open question in the description). I've made the receiver side explicit: each SID has exactly one representation, and a string with a leading zero digit (more than one character, beginning with \"A\") is not the representation of any SID, so a receiver MUST NOT interpret it as one. The reason is that two spellings of one SID would give one resource two URIs, which could bypass access control based on the URI. This matches what I've implemented (it rejects AA, AB, and accepts A and BA). If the WG prefers a different receiver behaviour, for example MAY reject, it is a one-sentence change and I'm happy to revisit.",
           "createdAt": "2026-10-15T13:00:42Z",
           "updatedAt": "2026-10-15T13:00:42Z"
@@ -1116,6 +1137,20 @@
           "body": "We maybe need to clear our intents before continuing the drafting work. The discoverability is important to get right.",
           "createdAt": "2026-10-21T22:11:00Z",
           "updatedAt": "2026-10-21T22:11:00Z"
+        },
+        {
+          "author": "cabo",
+          "authorAssociation": "MEMBER",
+          "body": "https://datatracker.ietf.org/doc/draft-ietf-core-comi/12/ has base64/URI text (March 2023)\r\n3a7067f (and drafts since -13) delete the text because we no longer believed we needed it.\r\nDo we?\r\n",
+          "createdAt": "2026-11-04T14:19:22Z",
+          "updatedAt": "2026-11-04T14:19:22Z"
+        },
+        {
+          "author": "vvilimek",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "In principle we do not need it at all. I will have a look on the older revision. For example this is interesting:\r\n```\r\n   +==============================+==============+===========+\r\n   | CoAP resource                | Example path | rt        |\r\n   +==============================+==============+===========+\r\n   | Datastore resource           | /c           | core.c.ds |\r\n   +------------------------------+--------------+-----------+\r\n   | Data node resource           | /c/YANGSID   | core.c.dn |\r\n   +------------------------------+--------------+-----------+\r\n   | Default event steam resource | /s           | core.c.ev |\r\n   +------------------------------+--------------+-----------+\r\n```\r\n\r\nThe `constrained-yang-library` is enough for the schema discovery. There is still problem with instance discovery but as Andy Bierman wrote it is basically a feature of YANG protocols.\r\n\r\nSo we can drop everything regarding resource type `core.c.dn` and the links from Link Format to this \"Data Node\" resource type.",
+          "createdAt": "2026-11-04T14:33:54Z",
+          "updatedAt": "2026-11-04T14:35:26Z"
         }
       ],
       "reviews": []
@@ -1602,6 +1637,32 @@
           ]
         }
       ]
+    },
+    {
+      "number": 37,
+      "id": "PR_kwDOBM6Qn88AAAABMqaa_Q",
+      "title": "Collected nits for -22",
+      "url": "https://github.com/core-wg/comi/pull/37",
+      "state": "OPEN",
+      "author": "cabo",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2026-11-03T21:25:24Z",
+      "updatedAt": "2026-11-03T21:25:24Z",
+      "baseRepository": "core-wg/comi",
+      "baseRefName": "main",
+      "baseRefOid": "36eb5812a92ce807173f9ca7b706e4fbc6276317",
+      "headRepository": "core-wg/comi",
+      "headRefName": "nits22",
+      "headRefOid": "884ee45a7165892efc775f255ce2b3e72e946c07",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
